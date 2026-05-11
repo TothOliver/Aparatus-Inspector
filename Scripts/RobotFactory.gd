@@ -213,7 +213,7 @@ static func create_robots() -> Array[RobotData]:
 	r9.sprite = load("res://Sprites/robot9.png")
 	r9.is_good = false
 	var robotChat9: Array[String] = [
-		"EYYY, my is Carl, and NOT Clanker. How are you doing today?",
+		"EYYY, my name is Carl, and NOT Clanker. How are you doing today?",
 		"What do you think when you call me Clanker in the system? OF COURSE IT IS NOT GOOD!",
 		"WELL I AM NOT A CLANKER. SO IF I SAY SO I HOPE YOU STUPID HUMANS CAN UNDERSTAND THAT!",
 		"Sorry, bad habit. Humans and their way of words just really pisses me of.",
