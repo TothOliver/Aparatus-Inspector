@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="AWTBG"
-run/main_scene="uid://lr6ecx4umycn"
+run/main_scene="uid://dvq7hwhliod3q"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
