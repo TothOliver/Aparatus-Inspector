@@ -191,3 +191,10 @@ func _on_chat_button1_pressed() -> void:
 
 func _on_chat_button2_pressed() -> void:
 	_on_button_2_button_up()
+
+func _process(_delta):
+	var crt = get_node_or_null("CRTOverlay")
+	if crt:
+		var last_idx = crt.get_parent().get_child_count() - 1
+		if crt.get_index() != last_idx:
+			crt.get_parent().move_child(crt, last_idx)

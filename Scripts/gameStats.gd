@@ -14,3 +14,9 @@ var door_locked: bool = false
 var hack_active: bool = false
 var hack_progress: float = 0.0
 var is_victory: bool = false
+
+# User System Settings
+var mouse_sensitivity: float = 0.15
+var crt_effect_enabled: bool = true
+var master_volume: float = 80.0
+

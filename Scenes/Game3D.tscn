@@ -7,6 +7,19 @@
 [ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
+[ext_resource type="Texture2D" uid="uid://win_base_uid" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
+[ext_resource type="Texture2D" uid="uid://win_header_uid" path="res://RetroWindowsGUI/Window_Header.png" id="Icon_WindowHeader"]
+[ext_resource type="FontFile" uid="uid://win_bold_font" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
+[ext_resource type="Texture2D" uid="uid://exit_btn_uid" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_InnerFrame"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_ButtonNormal"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_ButtonHover"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_ButtonPressed"]
+[ext_resource type="Texture2D" uid="uid://active_toggle_uid" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
+[ext_resource type="Texture2D" uid="uid://inactive_toggle_uid" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
+[ext_resource type="Texture2D" uid="uid://slider_bg_uid" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
+[ext_resource type="Texture2D" uid="uid://slider_handle_uid" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
+[ext_resource type="Script" uid="uid://settings_window_controller_script" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_door_light"]
 radius = 0.04
@@ -77,6 +90,15 @@ albedo_texture = SubResource("ViewportTexture_monitor")
 size = Vector3(0.5, 0.4, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_corridor"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
+texture = ExtResource("Icon_SliderBG")
+texture_margin_left = 2.0
+texture_margin_top = 1.0
+texture_margin_right = 2.0
+texture_margin_bottom = 1.0
+
 albedo_color = Color(0.18, 0.18, 0.2, 1)
 roughness = 0.95
 
@@ -382,3 +404,221 @@ offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.8)
+[node name="PauseMenu" type="ColorRect" parent="HUD"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4)
+
+[node name="PauseWindow" type="NinePatchRect" parent="HUD/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -200.0
+offset_right = 225.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("Icon_WindowBase")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TitleBar" type="NinePatchRect" parent="HUD/PauseMenu/PauseWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 444.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("Icon_WindowHeader")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="HUD/PauseMenu/PauseWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 14
+text = "Pause & Settings"
+
+[node name="CloseButton" type="Button" parent="HUD/PauseMenu/PauseWindow/TitleBar"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 6.0
+offset_right = 438.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_ButtonNormal")
+theme_override_styles/hover = ExtResource("StyleBox_ButtonHover")
+theme_override_styles/pressed = ExtResource("StyleBox_ButtonPressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_ExitBtn")
+icon_alignment = 1
+
+[node name="SettingsBody" type="Control" parent="HUD/PauseMenu/PauseWindow"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 438.0
+offset_bottom = 388.0
+script = ExtResource("Settings_Controller_Script")
+
+[node name="DisplayGroup" type="Panel" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 416.0
+offset_bottom = 90.0
+theme_override_styles/panel = ExtResource("StyleBox_InnerFrame")
+
+[node name="DisplayGroupLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 12
+text = "Display"
+
+[node name="CRTCheckbox" type="CheckBox" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 35.0
+offset_right = 350.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 12
+theme_override_icons/checked = ExtResource("Icon_ToggleActive")
+theme_override_icons/unchecked = ExtResource("Icon_ToggleInactive")
+text = " Enable CRT Screen Filter"
+
+[node name="AudioGroup" type="Panel" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 105.0
+offset_right = 416.0
+offset_bottom = 215.0
+theme_override_styles/panel = ExtResource("StyleBox_InnerFrame")
+
+[node name="AudioGroupLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 97.0
+offset_right = 120.0
+offset_bottom = 113.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 12
+text = "Audio"
+
+[node name="VolumeLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 125.0
+offset_right = 150.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 12
+text = "Master Volume:"
+
+[node name="VolumeValueLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 125.0
+offset_right = 220.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 12
+text = "80%"
+
+[node name="VolumeSlider" type="HSlider" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 155.0
+offset_right = 390.0
+offset_bottom = 190.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 80.0
+
+[node name="MouseGroup" type="Panel" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 230.0
+offset_right = 416.0
+offset_bottom = 340.0
+theme_override_styles/panel = ExtResource("StyleBox_InnerFrame")
+
+[node name="MouseGroupLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 222.0
+offset_right = 150.0
+offset_bottom = 238.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 12
+text = "Mouse Input"
+
+[node name="SensitivityLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 12
+text = "3D Look Sensitivity:"
+
+[node name="SensitivityValueLabel" type="Label" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 175.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 12
+text = "0.15"
+
+[node name="SensitivitySlider" type="HSlider" parent="HUD/PauseMenu/PauseWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 280.0
+offset_right = 390.0
+offset_bottom = 315.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 30.0
+
+[connection signal="pressed" from="HUD/PauseMenu/PauseWindow/TitleBar/CloseButton" to="Player" method="handle_settings_shortcut"]

@@ -65,6 +65,10 @@ func _input(event):
 	if viewport_container and viewport_container.visible:
 		if event is InputEventKey:
 			sub_viewport.push_input(event)
+			if event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER):
+				var desktop = sub_viewport.get_node_or_null("Control2/DesktopOS")
+				if desktop and "active_window" in desktop and desktop.active_window and desktop.active_window.name == "TerminalWindow":
+					_double_trigger_enter.call_deferred()
 
 func enter_computer_view():
 	if not is_monitor_on or is_blackout:
@@ -157,3 +161,21 @@ func _update_door_light_material(locked: bool):
 
 func _on_interact_prompt_changed(text: String):
 	$HUD/PromptLabel.text = text
+
+func _double_trigger_enter():
+	# Wait a tiny bit to let the first submission finish executing
+	await get_tree().create_timer(0.04).timeout
+	if viewport_container and viewport_container.visible:
+		# Create simulated Enter pressed event
+		var press_event = InputEventKey.new()
+		press_event.pressed = true
+		press_event.keycode = KEY_ENTER
+		press_event.physical_keycode = KEY_ENTER
+		sub_viewport.push_input(press_event)
+		
+		# Create simulated Enter released event
+		var release_event = InputEventKey.new()
+		release_event.pressed = false
+		release_event.keycode = KEY_ENTER
+		release_event.physical_keycode = KEY_ENTER
+		sub_viewport.push_input(release_event)

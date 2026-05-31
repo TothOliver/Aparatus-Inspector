@@ -8,6 +8,7 @@ class_name DesktopController
 @onready var snake_window = %SnakeWindow
 @onready var cctv_window = %CCTVWindow
 @onready var slot_machine_window = %SlotMachineWindow
+@onready var settings_window = %SettingsWindow
 
 @onready var inspector_tab = %InspectorTab
 @onready var notepad_tab = %NotepadTab
@@ -16,6 +17,7 @@ class_name DesktopController
 @onready var snake_tab = %SnakeTab
 @onready var cctv_tab = %CCTVTab
 @onready var slots_tab = %SlotsTab
+@onready var settings_tab = %SettingsTab
 
 @onready var cctv_texture = %CCTVTexture
 @onready var power_bar = %PowerBar
@@ -23,6 +25,10 @@ class_name DesktopController
 
 @onready var clock_label = %ClockLabel
 @onready var start_menu = %StartMenu
+
+var last_hack_active: bool = false
+var hacker_alert_dismissed: bool = false
+var active_window: Control = null
 
 func _ready():
 	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Slots; show Inspector
@@ -33,6 +39,7 @@ func _ready():
 	snake_window.visible = false
 	cctv_window.visible = false
 	slot_machine_window.visible = false
+	settings_window.visible = false
 	
 	# Bind CCTV feed from 3D viewport at runtime
 	var cctv_vp = get_node_or_null("/root/Game3D/CCTVViewport")
@@ -47,7 +54,8 @@ func _ready():
 		[minesweeper_window, minesweeper_tab],
 		[snake_window, snake_tab],
 		[cctv_window, cctv_tab],
-		[slot_machine_window, slots_tab]
+		[slot_machine_window, slots_tab],
+		[settings_window, settings_tab]
 	]:
 		var window = app[0]
 		var tab = app[1]
@@ -69,6 +77,9 @@ func _ready():
 	# Close start menu initially
 	if start_menu:
 		start_menu.visible = false
+		
+	# Automatically focus and raise window if a child control inside it gains focus
+	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 
 func _process(_delta):
 	# Update clock time
@@ -83,11 +94,20 @@ func _process(_delta):
 	# Manage hacker alert visibility
 	if hacker_alert:
 		if GameStats.hack_active:
-			if not hacker_alert.visible:
-				hacker_alert.visible = true
-				hacker_alert.move_to_front()
+			if not last_hack_active:
+				hacker_alert_dismissed = false
+			
+			if not hacker_alert_dismissed:
+				if not hacker_alert.visible:
+					hacker_alert.visible = true
+					hacker_alert.move_to_front()
+			else:
+				hacker_alert.visible = false
 		else:
 			hacker_alert.visible = false
+			hacker_alert_dismissed = false
+		
+		last_hack_active = GameStats.hack_active
 
 func _update_tab_state(tab: Button, active: bool):
 	if tab:
@@ -97,6 +117,13 @@ func _update_tab_state(tab: Button, active: bool):
 		
 		var app_name = tab.name.replace("Tab", "")
 		tab.text = app_name
+		
+		# Ensure font colors are black for legibility
+		tab.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		tab.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
+		tab.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+		tab.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
+
 		
 		if active:
 			tab.visible = true
@@ -126,6 +153,7 @@ func _get_window_by_name(name: String) -> Control:
 		"Snake": return snake_window
 		"CCTV": return cctv_window
 		"Slots": return slot_machine_window
+		"Settings": return settings_window
 	return null
 
 # Triggered by double-clicking or clicking desktop icons
@@ -155,6 +183,7 @@ func _get_tab_by_name(name: String) -> Button:
 		"Snake": return snake_tab
 		"CCTV": return cctv_tab
 		"Slots": return slots_tab
+		"Settings": return settings_tab
 	return null
 
 func _on_start_button_pressed():
@@ -171,18 +200,21 @@ func _on_start_menu_app_selected(app_name: String):
 func _update_top_window_focus():
 	var top_window_name = ""
 	var highest_index = -1
+	var top_window_node = null
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings"]:
 		var window = _get_window_by_name(app_name)
 		if window and window.visible:
 			var idx = window.get_index()
 			if idx > highest_index:
 				highest_index = idx
 				top_window_name = app_name
+				top_window_node = window
 				
+	active_window = top_window_node
 	_update_window_focus_visuals(top_window_name)
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings"]:
 		var tab = _get_tab_by_name(app_name)
 		_update_tab_state(tab, app_name == top_window_name)
 
@@ -190,7 +222,7 @@ func _update_window_focus_visuals(active_app_name: String):
 	var active_header = preload("res://RetroWindowsGUI/Window_Header.png")
 	var inactive_header = preload("res://RetroWindowsGUI/Window_Header_Inactive.png")
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings"]:
 		var window = _get_window_by_name(app_name)
 		if window:
 			var title_bar = window.get_node_or_null("TitleBar") as NinePatchRect
@@ -206,6 +238,19 @@ func _update_window_focus_visuals(active_app_name: String):
 						title_label.add_theme_color_override("font_color", Color(0.75, 0.75, 0.75, 1)) # Light Grey
 
 func _on_hacker_alert_terminal_pressed():
+	hacker_alert_dismissed = true
 	if hacker_alert:
 		hacker_alert.visible = false
 	open_app("Terminal")
+
+func _on_gui_focus_changed(control: Control):
+	if not control:
+		return
+	var p = control.get_parent()
+	while p and p != get_viewport():
+		if p.has_method("restore"):
+			if p.visible and active_window != p:
+				p.move_to_front()
+				p.focused.emit()
+			break
+		p = p.get_parent()

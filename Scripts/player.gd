@@ -54,6 +54,9 @@ func _physics_process(delta):
 func _process(delta):
 	# Check for interaction raycasts
 	check_interaction()
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		handle_settings_shortcut()
 
 func handle_walking_movement(delta):
 	# Apply gravity
@@ -131,25 +134,24 @@ func handle_computer_view(delta):
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
 		if current_state == State.WALKING:
 			# Modify player rotation (yaw) and camera rotation (pitch)
-			rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
-			camera.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+			rotate_y(deg_to_rad(-event.relative.x * active_sens))
+			camera.rotate_x(deg_to_rad(-event.relative.y * active_sens))
 			# Clamp camera pitch to look straight down / straight up
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 		elif current_state == State.SITTING:
 			# Accumulate sitting look angles
-			sit_yaw -= event.relative.x * mouse_sensitivity
-			sit_pitch -= event.relative.y * mouse_sensitivity
+			sit_yaw -= event.relative.x * active_sens
+			sit_pitch -= event.relative.y * active_sens
 			
 			sit_yaw = clamp(sit_yaw, -max_sit_yaw, max_sit_yaw)
 			sit_pitch = clamp(sit_pitch, -max_sit_pitch, max_sit_pitch)
 
 func check_interaction():
 	if current_state == State.COMPUTER_VIEW:
-		# In computer view, ESC exits
-		if Input.is_action_just_pressed("ui_cancel"):
-			exit_computer_view()
+		interact_prompt_changed.emit("")
 		return
 
 	if interaction_ray.is_colliding():
@@ -215,3 +217,20 @@ func exit_computer_view():
 	var game_3d = get_tree().root.get_node_or_null("Game3D")
 	if game_3d:
 		game_3d.exit_computer_view()
+
+func handle_settings_shortcut():
+	var game_3d = get_tree().root.get_node_or_null("Game3D")
+	if not game_3d:
+		return
+		
+	if current_state == State.COMPUTER_VIEW:
+		exit_computer_view()
+	else:
+		var pause_menu = game_3d.get_node_or_null("HUD/PauseMenu")
+		if pause_menu:
+			if pause_menu.visible:
+				pause_menu.visible = false
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			else:
+				pause_menu.visible = true
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

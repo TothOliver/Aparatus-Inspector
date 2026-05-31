@@ -8,6 +8,8 @@ var hack_warning_printed: bool = false
 var system_locked_out: bool = false
 var lockout_timer: float = 0.0
 
+var prompt_prefix: String = "C:\\> "
+
 var files = {
 	"safety_guide.txt": "=== APARATUS INSPECTOR SAFETY PROTOCOLS ===\n\n1. SENSORY THREATS: Roaming test units hunt via audio and visual cues.\n2. CELING LIGHTS: Avoid keeping the office ceiling light on when a unit is nearby in the corridor. Turn it off to reduce visibility.\n3. MONITOR GLOW: The computer screen is bright. If footsteps are close, turn off your monitor (ESC out of computer and toggle monitor power) and hide.\n4. PHYSICAL SURVIVAL: When a unit breaches the room, crouch under the desk (Ctrl) immediately and stay in the dark. Do not move.",
 	"diary_log.txt": "=== INSPECTOR LOG - ENTRY #12 ===\n\nThey think the units are just programs, but I know they hear us. Unit 'Larry' offered me money today. He offered 14 dollars. Why 14? Is it a code? \nI rejected Walter. He was too calm. My sanity is slipping. If I make one more wrong call, the terminal says I will be decommissioned. I keep hearing clanking in the vents...",
@@ -27,10 +29,38 @@ var encrypted_files = {
 	}
 }
 
+func log_debug(msg: String):
+	var file = FileAccess.open("res://terminal_focus_debug.txt", FileAccess.READ_WRITE)
+	if not file:
+		file = FileAccess.open("res://terminal_focus_debug.txt", FileAccess.WRITE)
+	if file:
+		file.seek_end()
+		file.store_line(str(Time.get_ticks_msec()) + ": " + msg)
+		file.close()
+
 func _ready():
+	# Clear the log file at startup
+	var file = FileAccess.open("res://terminal_focus_debug.txt", FileAccess.WRITE)
+	if file:
+		file.store_line("Startup")
+		file.close()
+
+	# Configure monospaced font dynamically for terminal to enable clean layouts
+	var mono_font = SystemFont.new()
+	mono_font.font_names = PackedStringArray(["Courier New", "Consolas", "Monospace", "Courier"])
+	
+	if output_log:
+		output_log.add_theme_font_override("normal_font", mono_font)
+		output_log.add_theme_font_size_override("normal_font_size", 14)
+	if input_field:
+		input_field.add_theme_font_override("font", mono_font)
+		input_field.add_theme_font_size_override("font_size", 14)
+
 	input_field.text_submitted.connect(_on_command_submitted)
+	input_field.focus_exited.connect(_on_input_field_focus_exited)
 	print_to_terminal("Microsoft(R) MS-DOS(R) Version 4.98\n(C)Copyright Microsoft Corp 1981-1998.\n\nType 'help' for a list of available commands.\n")
-	input_field.grab_focus()
+	_set_prompt()
+	call_deferred("grab_input_focus")
 	
 	# Connect to parent window to grab focus when restored
 	var parent_window = get_parent()
@@ -38,18 +68,43 @@ func _ready():
 		parent_window.visibility_changed.connect(func():
 			if parent_window.visible and input_field:
 				await get_tree().create_timer(0.05).timeout
-				input_field.grab_focus()
+				_set_prompt()
+				call_deferred("grab_input_focus")
 		)
 		
+		# When the window is focused (brought to front), re-grab input focus
+		if parent_window.has_signal("focused"):
+			parent_window.focused.connect(func():
+				if input_field and parent_window.visible:
+					call_deferred("grab_input_focus")
+			)
+	
 	# Connect log clicks to focus input field
 	if output_log:
 		output_log.gui_input.connect(func(event):
 			if event is InputEventMouseButton and event.pressed:
-				if input_field:
-					input_field.grab_focus()
+				call_deferred("grab_input_focus")
 		)
 
 func _process(delta):
+	# Keep focus on input field whenever this terminal body is visible and it is the top window
+	var parent_window = get_parent()
+	if parent_window and parent_window.visible and input_field:
+		if not input_field.has_focus():
+			var is_top = is_top_window()
+			var focused_node = get_viewport().gui_get_focus_owner()
+			var focused_name = focused_node.name if focused_node else "null"
+			log_debug("Process check: has_focus=false is_top=" + str(is_top) + " focused=" + focused_name)
+			if is_top:
+				if focused_node == null or not (focused_node is Button):
+					log_debug("Process calling grab_input_focus")
+					grab_input_focus()
+	
+	# Ensure prompt prefix is always present
+	if input_field and not system_locked_out:
+		if not input_field.text.begins_with(prompt_prefix):
+			_set_prompt()
+	
 	# Handle Lockout countdown
 	if system_locked_out:
 		lockout_timer -= delta
@@ -59,8 +114,8 @@ func _process(delta):
 			GameStats.hack_progress = 0.0
 			if input_field:
 				input_field.editable = true
-				input_field.text = ""
-				input_field.grab_focus()
+				_set_prompt()
+				call_deferred("grab_input_focus")
 			print_to_terminal("\n>>> SYSTEM LOCKOUT RESTORED. SYSTEM ONLINE. <<<\n")
 		return
 
@@ -101,8 +156,45 @@ func _generate_random_code() -> String:
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed:
-		if input_field:
-			input_field.grab_focus()
+		call_deferred("grab_input_focus")
+
+func _set_prompt():
+	if input_field:
+		input_field.text = prompt_prefix
+		input_field.caret_column = prompt_prefix.length()
+
+func is_top_window() -> bool:
+	var parent_window = get_parent()
+	if not parent_window or not parent_window.visible:
+		return false
+	var root = parent_window.get_parent()
+	if not root:
+		return false
+	var desktop = root.get_node_or_null("DesktopOS")
+	if not desktop:
+		return false
+	return "active_window" in desktop and desktop.active_window == parent_window
+
+func _on_input_field_focus_exited():
+	# Wait a tiny bit (deferred) to let the focus system settle and update the active window state
+	_check_and_restore_focus.call_deferred()
+
+func _check_and_restore_focus():
+	var is_top = is_top_window()
+	var focused_node = get_viewport().gui_get_focus_owner()
+	var focused_name = focused_node.name if focused_node else "null"
+	log_debug("Check_and_restore: is_top=" + str(is_top) + " focused=" + focused_name)
+	var parent_window = get_parent()
+	if parent_window and parent_window.visible and is_top:
+		if focused_node == null or not (focused_node is Button):
+			log_debug("Check_and_restore calling grab_input_focus")
+			grab_input_focus()
+
+func grab_input_focus():
+	if input_field and is_inside_tree():
+		log_debug("grab_input_focus called. Current text=" + input_field.text)
+		input_field.grab_focus()
+		input_field.caret_column = input_field.text.length()
 
 func print_to_terminal(text: String):
 	output_log.text += text + "\n"
@@ -110,33 +202,49 @@ func print_to_terminal(text: String):
 	await get_tree().create_timer(0.05).timeout
 	output_log.scroll_to_line(output_log.get_line_count() - 1)
 
+func format_help_line(cmd: String, desc: String) -> String:
+	var padded_cmd = cmd
+	while padded_cmd.length() < 18:
+		padded_cmd += " "
+	return "  " + padded_cmd + "- " + desc + "\n"
+
+func get_help_text() -> String:
+	var text = "Available commands:\n"
+	text += format_help_line("help", "Show this help message")
+	text += format_help_line("status", "Display system health and security status")
+	text += format_help_line("dir", "List files in current directory")
+	text += format_help_line("cat <file>", "Display the contents of a file")
+	text += format_help_line("lights", "Check or toggle physical room lights (usage: 'lights' or 'lights toggle')")
+	text += format_help_line("scan", "Run a bio-mechanical diagnostic scan of the active unit")
+	text += format_help_line("lock", "Engage office door lock (drains power grid)")
+	text += format_help_line("unlock", "Disengage door lock (recharges power grid)")
+	text += format_help_line("decrypt <f> <k>", "Decrypt a classified file using a key")
+	text += format_help_line("purge <code>", "Clear an active security hack")
+	text += format_help_line("cls", "Clear the screen")
+	return text.strip_edges(false, true)
+
 func _on_command_submitted(new_text: String):
+	# Strip the prompt prefix from the input to get the actual command
 	var command = new_text.strip_edges()
+	if command.begins_with(prompt_prefix.strip_edges()):
+		command = command.substr(prompt_prefix.strip_edges().length()).strip_edges()
+	
 	if command == "":
-		input_field.clear()
+		_set_prompt()
 		input_field.grab_focus()
+		input_field.caret_column = input_field.text.length()
+		call_deferred("grab_input_focus")
 		return
 	
-	input_field.clear()
-	print_to_terminal("> " + command)
+	print_to_terminal(prompt_prefix + command)
+	_set_prompt()
 	
 	var args = command.split(" ")
 	var cmd_name = args[0].to_lower()
 	
 	match cmd_name:
 		"help":
-			print_to_terminal("Available commands:\n" +
-				"  help            - Show this help message\n" +
-				"  status          - Display system health and security status\n" +
-				"  dir             - List files in current directory\n" +
-				"  cat <file>      - Display the contents of a file\n" +
-				"  lights          - Check or toggle physical room lights (usage: 'lights' or 'lights toggle')\n" +
-				"  scan            - Run a bio-mechanical diagnostic scan of the active unit\n" +
-				"  lock            - Engage office door lock (drains power grid)\n" +
-				"  unlock          - Disengage door lock (recharges power grid)\n" +
-				"  decrypt <f> <k> - Decrypt a classified file using a key\n" +
-				"  purge <code>    - Clear an active security hack\n" +
-				"  cls             - Clear the screen")
+			print_to_terminal(get_help_text())
 		"cls":
 			output_log.text = ""
 		"status":
@@ -227,5 +335,8 @@ func _on_command_submitted(new_text: String):
 					print_to_terminal("Error: File '" + args[1] + "' is not a decryptable classified file.")
 		_:
 			print_to_terminal("Bad command or file name: '" + command + "'")
-			
+	
 	input_field.grab_focus()
+	input_field.caret_column = input_field.text.length()
+	await get_tree().create_timer(0.12).timeout
+	grab_input_focus()
