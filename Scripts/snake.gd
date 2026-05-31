@@ -118,6 +118,7 @@ func game_tick():
 	if head == food:
 		score += 10
 		score_label.text = "Score: " + str(score)
+		GameStats.casino_balance = round(GameStats.casino_balance + 1.0)
 		spawn_food()
 	else:
 		# Remove tail segment if food not eaten

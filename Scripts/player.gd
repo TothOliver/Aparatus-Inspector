@@ -149,6 +149,27 @@ func _input(event):
 			sit_yaw = clamp(sit_yaw, -max_sit_yaw, max_sit_yaw)
 			sit_pitch = clamp(sit_pitch, -max_sit_pitch, max_sit_pitch)
 
+	# Handle interaction trigger exactly once when key/button is pressed
+	if current_state != State.COMPUTER_VIEW and event.is_pressed():
+		var is_interact_pressed = false
+		if InputMap.has_action("interact") and event.is_action("interact"):
+			is_interact_pressed = true
+		elif event is InputEventKey and event.keycode == KEY_E:
+			is_interact_pressed = true
+		elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			is_interact_pressed = true
+			
+		if is_interact_pressed:
+			if interaction_ray.is_colliding():
+				var collider = interaction_ray.get_collider()
+				if collider:
+					if collider.has_method("interact"):
+						collider.interact(self)
+					elif collider.name.contains("Screen") or collider.name.contains("Computer") or collider.name.contains("Monitor"):
+						interact_with_computer()
+					elif collider.name.contains("Chair"):
+						sit_down()
+
 func check_interaction():
 	if current_state == State.COMPUTER_VIEW:
 		interact_prompt_changed.emit("")
@@ -164,18 +185,6 @@ func check_interaction():
 				target_name = collider.name
 			
 			interact_prompt_changed.emit("Press E or Left Click to interact with: " + target_name)
-			
-			var is_interact_pressed = false
-			if InputMap.has_action("interact") and Input.is_action_just_pressed("interact"):
-				is_interact_pressed = true
-				
-			if is_interact_pressed or Input.is_key_pressed(KEY_E) or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				if collider.has_method("interact"):
-					collider.interact(self)
-				elif collider.name.contains("Screen") or collider.name.contains("Computer") or collider.name.contains("Monitor"):
-					interact_with_computer()
-				elif collider.name.contains("Chair"):
-					sit_down()
 	else:
 		interact_prompt_changed.emit("")
 

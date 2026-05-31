@@ -201,6 +201,7 @@ func trigger_game_over(won: bool):
 	if won:
 		face_button.text = "B)" # Sunglasses face
 		print("Minesweeper Won!")
+		GameStats.casino_balance = round(GameStats.casino_balance + 15.0)
 	else:
 		face_button.text = "X(" # Dead face
 		# Reveal all mines

@@ -17,10 +17,10 @@ var speed: float = 1.2
 var chase_speed: float = 3.5
 
 # Position track
-# Corridor runs along X from -15 to -3.1, at Z = 2.5
+# Corridor runs along X from -15 to -3.1, at Z = 1.5
 var start_x: float = -15.0
 var door_x: float = -3.1
-var target_z: float = 2.5
+var target_z: float = 1.5
 
 # Sit/stand location of player inside office
 var player_office_pos: Vector3 = Vector3(0.0, 1.0, 0.5)
@@ -199,29 +199,15 @@ func is_player_detectable() -> bool:
 	if not game_3d:
 		return true
 		
-	# 1. Check ceiling lights
+	# 1. Check ceiling lights: if on, player is always visible
 	if game_3d.is_ceiling_light_on:
 		return true
 		
-	# 2. Check monitor glow
-	if game_3d.is_monitor_on:
-		return true
-		
-	# 3. Check player movement / standing / crouching
+	# 2. Check monitor glow: only detectable if player is actively in COMPUTER_VIEW
 	var player = game_3d.get_node_or_null("Player")
 	if player:
-		if player.current_state == player.State.WALKING:
-			# Check if player is crouching (shape height is 1.0)
-			var collision_shape = player.get_node_or_null("CollisionShape3D")
-			if collision_shape and collision_shape.shape is CapsuleShape3D:
-				if collision_shape.shape.height < 1.1:
-					# Crouching under the desk in the dark is safe!
-					return false
-			# Standing up in the dark is visible
-			return true 
-		# If sitting but screen is off and room is dark, player is safe
-		elif player.current_state == player.State.SITTING:
-			return false
+		if player.current_state == player.State.COMPUTER_VIEW:
+			return true
 			
 	return false
 

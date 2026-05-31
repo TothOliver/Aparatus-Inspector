@@ -9,7 +9,9 @@ extends Node3D
 @onready var screen_mesh = $ComputerMonitor/Screen
 @onready var corridor_light = $Lighting/CorridorLight
 @onready var door_light = $Office/DoorLight
+@onready var door_mesh = $Office/LeftDoor
 @onready var reticle = $HUD/Reticle
+@onready var ceiling_bulb = $Office/CeilingFixture/Bulb
 
 # Office States (monitored by roaming hunter AI)
 var is_ceiling_light_on: bool = true
@@ -37,6 +39,7 @@ func _ready():
 		
 	# Initialize door light to green
 	_update_door_light_material(false)
+	_update_lights_visibility()
 
 func _process(delta):
 	# Power grid calculations
@@ -59,6 +62,13 @@ func _process(delta):
 		
 	# Update door light mesh material based on global lock state
 	_update_door_light_material(GameStats.door_locked)
+
+	# Update door rotation: open (90 deg) unless locked (0 deg)
+	if door_mesh:
+		if GameStats.door_locked:
+			door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, 0.0, 10.0 * delta)
+		else:
+			door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, deg_to_rad(90.0), 10.0 * delta)
 
 func _input(event):
 	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
@@ -113,25 +123,32 @@ func toggle_monitor_power():
 		player.exit_computer_view()
 
 func _update_lights_visibility():
+	var is_lit = is_ceiling_light_on and not is_blackout
 	if desk_light:
-		desk_light.visible = is_ceiling_light_on and not is_blackout
+		desk_light.visible = is_lit
 	var ambient_light = $Lighting/AmbientLight
 	if ambient_light:
-		ambient_light.visible = is_ceiling_light_on and not is_blackout
+		ambient_light.visible = is_lit
+	if ceiling_bulb:
+		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
+		if mat:
+			if is_lit:
+				mat.emission_enabled = true
+				mat.emission = Color(1, 0.95, 0.85)
+				mat.emission_energy_multiplier = 2.0
+				mat.albedo_color = Color(1, 1, 0.9)
+			else:
+				mat.emission_enabled = false
+				mat.albedo_color = Color(0.2, 0.2, 0.2)
 
 func _trigger_power_outage():
 	is_blackout = true
 	
-	# Turn off monitor and lights visually
+	# Turn off monitor visually
 	if screen_mesh:
 		screen_mesh.visible = false
 		
-	if desk_light:
-		desk_light.visible = false
-		
-	var ambient_light = $Lighting/AmbientLight
-	if ambient_light:
-		ambient_light.visible = false
+	_update_lights_visibility()
 		
 	# Force player out of computer screen
 	var player = $Player

@@ -5,10 +5,13 @@ extends Control
 @onready var volume_value_label = $VolumeValueLabel
 @onready var sensitivity_slider = $SensitivitySlider
 @onready var sensitivity_value_label = $SensitivityValueLabel
+@onready var quit_button = $QuitButton
 
 func _ready():
 	visibility_changed.connect(update_ui_from_stats)
 	update_ui_from_stats()
+	if quit_button:
+		quit_button.pressed.connect(_on_quit_pressed)
 
 func update_ui_from_stats():
 	if crt_checkbox:
@@ -61,3 +64,6 @@ func _on_sensitivity_changed(value: float):
 	GameStats.mouse_sensitivity = sens
 	if sensitivity_value_label:
 		sensitivity_value_label.text = "%.2f" % sens
+
+func _on_quit_pressed():
+	get_tree().quit()
