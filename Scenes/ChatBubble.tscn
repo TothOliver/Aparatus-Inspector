@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p5v4p"]
 
 [node name="ChatBubble" type="PanelContainer" unique_id=1543406601]
-custom_minimum_size = Vector2(510, 40)
+custom_minimum_size = Vector2(470, 40)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,6 +19,7 @@ script = ExtResource("1_46vr1")
 
 [node name="Label" type="Label" parent="." unique_id=1411707274]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_p5v4p")
 theme_override_font_sizes/font_size = 14
 autowrap_mode = 3

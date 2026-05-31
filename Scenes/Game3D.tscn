@@ -1,0 +1,384 @@
+[gd_scene format=3 uid="uid://dkaju7y2nila5"]
+
+[ext_resource type="Script" uid="uid://bip8ew85g0dse" path="res://Scripts/game3d.gd" id="1_game3d"]
+[ext_resource type="PackedScene" uid="uid://lr6ecx4umycn" path="res://Scenes/Game.tscn" id="2_game"]
+[ext_resource type="Script" uid="uid://bwioa3l565go3" path="res://Scripts/player.gd" id="3_player"]
+[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
+[ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
+[ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
+[ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_door_light"]
+radius = 0.04
+height = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_light"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Environment" id="Environment_game"]
+background_mode = 1
+background_color = Color(0.01, 0.01, 0.01, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.2, 0.2, 0.22, 1)
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
+albedo_color = Color(0.28, 0.28, 0.28, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls"]
+albedo_color = Color(0.24, 0.25, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="QuadMesh" id="QuadMesh_glass"]
+size = Vector2(1.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
+transparency = 1
+albedo_color = Color(0.65, 0.85, 0.95, 0.12)
+metallic = 0.4
+roughness = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_desk"]
+albedo_color = Color(0.18, 0.12, 0.09, 1)
+roughness = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
+albedo_color = Color(0.22, 0.2, 0.18, 1)
+roughness = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
+size = Vector3(0.15, 0.15, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing"]
+albedo_color = Color(0.42, 0.42, 0.39, 1)
+roughness = 0.65
+
+[sub_resource type="QuadMesh" id="QuadMesh_screen"]
+size = Vector2(0.44, 0.33)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_monitor"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_monitor")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_screen"]
+size = Vector3(0.5, 0.4, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_corridor"]
+albedo_color = Color(0.18, 0.18, 0.2, 1)
+roughness = 0.95
+
+[node name="Game3D" type="Node3D" unique_id=1133432829]
+script = ExtResource("1_game3d")
+
+[node name="CCTVViewport" type="SubViewport" parent="." unique_id=574545020]
+handle_input_locally = false
+size = Vector2i(320, 240)
+render_target_update_mode = 3
+
+[node name="CCTVCamera" type="Camera3D" parent="CCTVViewport"]
+transform = Transform3D(-4.37114e-08, 0.173648, -0.984808, 0, 0.984808, 0.173648, 1, 7.5904e-09, -4.30473e-08, -8, 2.2, 2.5)
+fov = 65.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1196134443]
+environment = SubResource("Environment_game")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=177393882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.9)
+script = ExtResource("3_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1155043992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=224191488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+current = true
+fov = 70.0
+
+[node name="InteractionRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1002061143]
+target_position = Vector3(0, 0, -1.8)
+
+[node name="Office" type="Node3D" parent="." unique_id=1729367864]
+
+[node name="DoorLight" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 2.3, 2.5)
+mesh = SubResource("SphereMesh_door_light")
+surface_material_override/0 = SubResource("StandardMaterial3D_door_light")
+
+[node name="Floor" type="CSGBox3D" parent="Office" unique_id=2085543163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 1.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="Office" unique_id=272765307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 1.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="LeftWall_Back" type="CSGBox3D" parent="Office" unique_id=1627625243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, -0.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="LeftWall_Front" type="CSGBox3D" parent="Office" unique_id=1646054487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, 3.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="LeftWall_Top" type="CSGBox3D" parent="Office" unique_id=2111334837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 2.35, 1.5)
+use_collision = true
+size = Vector3(0.1, 0.4, 2)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="RightWall" type="CSGBox3D" parent="Office" unique_id=1975533488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 1.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 6)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="BackWall_Bottom" type="CSGBox3D" parent="Office" unique_id=848312036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -1.55)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="BackWall_Top" type="CSGBox3D" parent="Office" unique_id=847237108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, -1.55)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="BackWall_Left" type="CSGBox3D" parent="Office" unique_id=1575880598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.3, -1.55)
+use_collision = true
+size = Vector3(2.2, 1, 0.1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="BackWall_Right" type="CSGBox3D" parent="Office" unique_id=1186311686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.3, -1.55)
+use_collision = true
+size = Vector3(2.2, 1, 0.1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1.54)
+mesh = SubResource("QuadMesh_glass")
+surface_material_override/0 = SubResource("StandardMaterial3D_glass")
+
+[node name="Desk" type="CSGBox3D" parent="Office" unique_id=1164375303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.1)
+use_collision = true
+size = Vector3(1.6, 0.7, 0.7)
+material = SubResource("StandardMaterial3D_desk")
+
+[node name="Chair" type="CSGBox3D" parent="Office" unique_id=1026963878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.48)
+use_collision = true
+size = Vector3(0.5, 0.5, 0.5)
+material = SubResource("StandardMaterial3D_desk")
+
+[node name="LeftDoor" type="Node3D" parent="Office" unique_id=409843211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 2.5)
+
+[node name="DoorMesh" type="CSGBox3D" parent="Office/LeftDoor" unique_id=891369027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -1)
+use_collision = true
+size = Vector3(0.08, 2.2, 2)
+material = SubResource("StandardMaterial3D_door")
+
+[node name="LightSwitch" type="CSGBox3D" parent="Office" unique_id=886701734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 1.25, 3.8)
+size = Vector3(0.08, 0.12, 0.02)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="SwitchInteractable" type="StaticBody3D" parent="Office/LightSwitch" unique_id=41774067]
+script = ExtResource("4_switch")
+target_node_path = NodePath("../../..")
+target_method = "toggle_ceiling_lights"
+interact_name = "Ceiling Lights Switch"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/LightSwitch/SwitchInteractable" unique_id=548412008]
+shape = SubResource("BoxShape3D_switch")
+
+[node name="ComputerMonitor" type="Node3D" parent="." unique_id=1637242882]
+
+[node name="Casing" type="CSGBox3D" parent="ComputerMonitor" unique_id=879704546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.15)
+use_collision = true
+size = Vector3(0.5, 0.4, 0.35)
+material = SubResource("StandardMaterial3D_casing")
+
+[node name="Screen" type="MeshInstance3D" parent="ComputerMonitor" unique_id=1456098325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.027)
+mesh = SubResource("QuadMesh_screen")
+surface_material_override/0 = SubResource("StandardMaterial3D_screen")
+
+[node name="ScreenInteractable" type="StaticBody3D" parent="ComputerMonitor/Screen" unique_id=683158066]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ComputerMonitor/Screen/ScreenInteractable" unique_id=633049555]
+shape = SubResource("BoxShape3D_screen")
+
+[node name="PowerButton" type="CSGBox3D" parent="ComputerMonitor" unique_id=324230941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.75, 0.03)
+size = Vector3(0.04, 0.04, 0.02)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="PowerButtonInteractable" type="StaticBody3D" parent="ComputerMonitor/PowerButton" unique_id=498740941]
+script = ExtResource("4_switch")
+target_node_path = NodePath("../..")
+target_method = "toggle_monitor_power"
+interact_name = "Monitor Toggle Switch"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ComputerMonitor/PowerButton/PowerButtonInteractable" unique_id=18906943]
+shape = SubResource("BoxShape3D_switch")
+
+[node name="Corridor" type="CSGBox3D" parent="." unique_id=635068787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.943415, 1.4, 2.5)
+use_collision = true
+size = Vector3(15, 3, 3)
+material = SubResource("StandardMaterial3D_corridor")
+
+[node name="HunterRobot" type="CharacterBody3D" parent="." unique_id=1941049951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 2.5)
+script = ExtResource("5_hunter")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterRobot" unique_id=1202728272]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterRobot" unique_id=617537311]
+
+[node name="Sprite3D" type="Sprite3D" parent="HunterRobot" unique_id=217862556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="RobotChamber" type="Node3D" parent="." unique_id=534640245]
+
+[node name="ChamberFloor" type="CSGBox3D" parent="RobotChamber" unique_id=808811918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -3.5)
+use_collision = true
+size = Vector3(4, 0.1, 4)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="ChamberCeiling" type="CSGBox3D" parent="RobotChamber" unique_id=2062247221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, -3.5)
+use_collision = true
+size = Vector3(4, 0.1, 4)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="ChamberBackWall" type="CSGBox3D" parent="RobotChamber" unique_id=1316252060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -5.55)
+use_collision = true
+size = Vector3(4, 2.6, 0.1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="ChamberLeftWall" type="CSGBox3D" parent="RobotChamber" unique_id=817384724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05, 1.25, -3.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 4)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="ChamberRightWall" type="CSGBox3D" parent="RobotChamber" unique_id=1206405157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 1.25, -3.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 4)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="RobotSprite3D" type="Sprite3D" parent="RobotChamber" unique_id=980507438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -3)
+pixel_size = 0.0055
+
+[node name="Lighting" type="Node3D" parent="." unique_id=344344158]
+
+[node name="DeskLight" type="SpotLight3D" parent="Lighting" unique_id=1599754461]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.2, 0.1)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 3.5
+spot_angle = 80.0
+
+[node name="ChamberLight" type="SpotLight3D" parent="Lighting" unique_id=444097396]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -3)
+light_color = Color(0.8, 0.9, 1, 1)
+light_energy = 3.5
+spot_angle = 35.0
+
+[node name="AmbientLight" type="OmniLight3D" parent="Lighting" unique_id=651361840]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 1.5)
+light_color = Color(0.45, 0.45, 0.55, 1)
+light_energy = 0.85
+omni_range = 8.0
+
+[node name="CorridorLight" type="OmniLight3D" parent="Lighting" unique_id=1666440431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 2.5)
+light_color = Color(0.65, 0.65, 0.55, 1)
+light_energy = 2.2
+omni_range = 15.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1744836067]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=574545017]
+handle_input_locally = false
+size = Vector2i(1280, 1024)
+render_target_update_mode = 4
+
+[node name="Control2" parent="SubViewportContainer/SubViewport" unique_id=1893410505 instance=ExtResource("2_game")]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=296355366]
+
+[node name="PromptLabel" type="Label" parent="HUD" unique_id=1687394081]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reticle" type="ColorRect" parent="HUD" unique_id=460381430]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.8)

@@ -5,7 +5,9 @@ extends Control
 @onready var gameOverSFX =$gameOverSFX
 
 func _ready():
-	# This runs the moment the Death Scene appears on screen
+	# This runs the moment the Death/Victory Scene appears on screen
+	if GameStats.is_victory:
+		$Title.text = "SHIFT COMPLETED / VICTORY!"
 	display_stats()
 	gameOverSFX.play()
 
@@ -57,10 +59,10 @@ func _on_restart_button_up() -> void:
 	GameStats.final_missed_score = 0
 	GameStats.total_security_breaches = 0
 	GameStats.innocent_robots_killed = 0 # Reset here
-	get_tree().change_scene_to_file("res://Scene/Game.tscn")
-	GameStats.innocent_robots_killed = 0
 	GameStats.bad_robots_terminated = 0 # Reset this!
-	get_tree().change_scene_to_file("res://Scenes/Game.tscn")
+	GameStats.is_victory = false
+	GameStats.current_day = 1
+	get_tree().change_scene_to_file("res://Scenes/Game3D.tscn")
 
 
 

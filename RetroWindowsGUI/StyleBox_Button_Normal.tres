@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" uid="uid://djm6jm6xr80dg" path="res://RetroWindowsGUI/Windows_Button.png" id="1_normal"]
+
+[resource]
+texture = ExtResource("1_normal")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0

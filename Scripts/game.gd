@@ -1,5 +1,8 @@
 extends Control
 
+signal robot_spawned(robot: RobotData)
+
+
 @onready var robot_texture = %RobotTexture
 @onready var good_button = %GoodButton
 @onready var bad_button = %BadButton
@@ -38,6 +41,7 @@ func spawn_next_robot():
 	
 	if robots.size() > 0:
 		current_robot = pick_next_robot()
+		robot_spawned.emit(current_robot)
 		chat_manager.add_message(current_robot.robotChat[0], current_robot.name)
 		
 		chat_button1.text = current_robot.humanChat[chat_manager.chatCount]
@@ -103,81 +107,87 @@ func handle_last_terminal_chat():
 		final_message = true
 
 func _on_good_button_button_down() -> void:
-	%Good.texture = pressed_tex
+	pass
 
 func _on_good_button_button_up() -> void:
-	%Good.texture = normal_tex
 	print("Button Pressed: GOOD (Pass)")
 	if current_robot:
-		day_manager.process_robot(current_robot.is_good, true)
+		day_manager.process_robot(current_robot, true)
 		spawn_next_robot()
 
 func _on_good_button_mouse_entered() -> void:
-	%Good.texture = hover_tex
+	pass
 
 func _on_good_button_mouse_exited() -> void:
-	%Good.texture = normal_tex
+	pass
 
 func _on_bad_button_button_down() -> void:
-	%Bad.texture = pressed_tex
+	pass
 
 func _on_bad_button_button_up() -> void:
-	%Bad.texture = normal_tex
 	print("Button Pressed: BAD (Reject)")
 	if current_robot:
-		# Sending 'false' because the player is NOT passing the robot
-		day_manager.process_robot(current_robot.is_good, false)
+		day_manager.process_robot(current_robot, false)
 		spawn_next_robot()
 
 func _on_bad_button_mouse_entered() -> void:
-	%Bad.texture = hover_tex
+	pass
 
 func _on_bad_button_mouse_exited() -> void:
-	%Bad.texture = normal_tex
+	pass
 
 func _on_button_1_button_down() -> void:
-	%Option1.texture = pressed_tex
+	pass
 
 func _on_button_1_button_up() -> void:
 	if chat_manager.chatCount > 5:
 		return
-	%Option1.texture = normal_tex
 	handle_chat_choice(current_robot.humanChat[chat_manager.chatCount], current_robot.robotChat[chat_manager.chatCount+1])
 
 func _on_button_2_button_up() -> void:
 	if chat_manager.chatCount >= 5:
 		return
-	%Option2.texture = normal_tex
 	handle_chat_choice(current_robot.humanChat[chat_manager.chatCount+1], current_robot.robotChat[chat_manager.chatCount+2])
 
 func _on_button_1_mouse_entered() -> void:
-	%Option1.texture = hover_tex
+	pass
 
 func _on_button_1_mouse_exited() -> void:
-	%Option1.texture = normal_tex
+	pass
 
 func _on_button_2_button_down() -> void:
-	%Option2.texture = pressed_tex
+	pass
 
 func _on_button_2_mouse_entered() -> void:
-	%Option2.texture = hover_tex
+	pass
 
 func _on_button_2_mouse_exited() -> void:
-	%Option2.texture = normal_tex
+	pass
 
 
 func _on_quit_button_button_down() -> void:
-	%StartQuit.texture = pressed_tex
+	pass
 
 
 func _on_quit_button_button_up() -> void:
-	%StartQuit.texture = normal_tex
 	get_tree().quit()
 
 
 func _on_quit_button_mouse_entered() -> void:
-	%StartQuit.texture = hover_tex
+	pass
 
 
 func _on_quit_button_mouse_exited() -> void:
-	%StartQuit.texture = normal_tex
+	pass
+
+func _on_good_button_pressed() -> void:
+	_on_good_button_button_up()
+
+func _on_bad_button_pressed() -> void:
+	_on_bad_button_button_up()
+
+func _on_chat_button1_pressed() -> void:
+	_on_button_1_button_up()
+
+func _on_chat_button2_pressed() -> void:
+	_on_button_2_button_up()
