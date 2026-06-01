@@ -5,6 +5,9 @@ extends Control
 @onready var gameOverSFX = $gameOverSFX
 
 func _ready():
+	if has_node("CRTOverlay"):
+		$CRTOverlay.visible = GameStats.crt_effect_enabled
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if GameStats.is_victory:
 		title_label.text = "SHIFT COMPLETED / VICTORY!"
 	else:

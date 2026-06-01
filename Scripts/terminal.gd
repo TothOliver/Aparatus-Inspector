@@ -67,9 +67,11 @@ func _ready():
 	if parent_window:
 		parent_window.visibility_changed.connect(func():
 			if parent_window.visible and input_field:
-				await get_tree().create_timer(0.05).timeout
-				_set_prompt()
-				call_deferred("grab_input_focus")
+				if is_inside_tree() and get_tree():
+					await get_tree().create_timer(0.05).timeout
+				if is_inside_tree():
+					_set_prompt()
+					call_deferred("grab_input_focus")
 		)
 		
 		# When the window is focused (brought to front), re-grab input focus
@@ -197,10 +199,13 @@ func grab_input_focus():
 		input_field.caret_column = input_field.text.length()
 
 func print_to_terminal(text: String):
-	output_log.text += text + "\n"
+	if output_log:
+		output_log.text += text + "\n"
 	# Auto-scroll to bottom
-	await get_tree().create_timer(0.05).timeout
-	output_log.scroll_to_line(output_log.get_line_count() - 1)
+	if is_inside_tree() and get_tree():
+		await get_tree().create_timer(0.05).timeout
+	if is_inside_tree() and output_log:
+		output_log.scroll_to_line(output_log.get_line_count() - 1)
 
 func format_help_line(cmd: String, desc: String) -> String:
 	var padded_cmd = cmd
@@ -278,7 +283,9 @@ func _on_command_submitted(new_text: String):
 				if not found:
 					print_to_terminal("Error: File '" + args[1] + "' not found.")
 		"lights":
-			var game_3d = get_tree().root.get_node_or_null("Game3D")
+			var game_3d = null
+			if is_inside_tree() and get_tree():
+				game_3d = get_tree().root.get_node_or_null("Game3D")
 			if game_3d:
 				if args.size() >= 2 and args[1].to_lower() == "toggle":
 					game_3d.toggle_ceiling_lights()
@@ -289,7 +296,9 @@ func _on_command_submitted(new_text: String):
 			else:
 				print_to_terminal("Error: Office control interface connection lost.")
 		"scan":
-			var game_3d = get_tree().root.get_node_or_null("Game3D")
+			var game_3d = null
+			if is_inside_tree() and get_tree():
+				game_3d = get_tree().root.get_node_or_null("Game3D")
 			if game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
 				var robot = game_3d.game_2d.current_robot
 				print_to_terminal("Scanning active unit in test chamber...\n" +
@@ -338,5 +347,7 @@ func _on_command_submitted(new_text: String):
 	
 	input_field.grab_focus()
 	input_field.caret_column = input_field.text.length()
-	await get_tree().create_timer(0.12).timeout
-	grab_input_focus()
+	if is_inside_tree() and get_tree():
+		await get_tree().create_timer(0.12).timeout
+	if is_inside_tree():
+		grab_input_focus()

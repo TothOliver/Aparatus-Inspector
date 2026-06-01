@@ -10,8 +10,18 @@
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_ButtonPressed"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_InnerFrame"]
 [ext_resource type="AudioStream" uid="uid://dnsgo7efwdd7w" path="res://sound/alphix-game-over-417465.mp3" id="Audio_GameOver"]
+[ext_resource type="Shader" uid="uid://crt_shader_uid" path="res://crt_filter.gdshader" id="CRT_Shader"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("CRT_Shader")
+shader_parameter/scanline_count = 320.0
+shader_parameter/scanline_intensity = 0.08
+shader_parameter/curvature = 0.025
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/grr_intensity = 0.03
+shader_parameter/aberration = 0.001
 
 [node name="Control" type="Control" unique_id=748163525]
 layout_mode = 3
@@ -138,6 +148,17 @@ text = "Quit"
 
 [node name="gameOverSFX" type="AudioStreamPlayer" parent="." unique_id=1722259798]
 stream = ExtResource("Audio_GameOver")
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_crt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="Window/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Window/Quit" to="." method="_on_quit_pressed"]

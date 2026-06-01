@@ -1,3 +1,33 @@
 Startup
-1276: grab_input_focus called. Current text=C:\> 
-3709: Check_and_restore: is_top=false focused=Button1
+1297: grab_input_focus called. Current text=C:\> 
+1896: Check_and_restore: is_top=false focused=null
+22474: grab_input_focus called. Current text=C:\> 
+22519: grab_input_focus called. Current text=C:\> 
+24740: Check_and_restore: is_top=true focused=null
+24746: Check_and_restore calling grab_input_focus
+24751: grab_input_focus called. Current text=C:\> 
+24757: grab_input_focus called. Current text=C:\> 
+28807: Check_and_restore: is_top=true focused=CloseButton
+28816: Process check: has_focus=false is_top=true focused=CloseButton
+28823: Process check: has_focus=false is_top=true focused=CloseButton
+28829: Process check: has_focus=false is_top=true focused=CloseButton
+28835: Process check: has_focus=false is_top=true focused=CloseButton
+28841: Process check: has_focus=false is_top=true focused=CloseButton
+28847: Process check: has_focus=false is_top=true focused=CloseButton
+28853: Process check: has_focus=false is_top=true focused=CloseButton
+28859: Process check: has_focus=false is_top=true focused=CloseButton
+28865: Process check: has_focus=false is_top=true focused=CloseButton
+28871: Process check: has_focus=false is_top=true focused=CloseButton
+28877: Process check: has_focus=false is_top=true focused=CloseButton
+28883: Process check: has_focus=false is_top=true focused=CloseButton
+28889: Process check: has_focus=false is_top=true focused=CloseButton
+28895: Process check: has_focus=false is_top=true focused=CloseButton
+28901: Process check: has_focus=false is_top=true focused=CloseButton
+28907: Process check: has_focus=false is_top=true focused=CloseButton
+28914: Process check: has_focus=false is_top=true focused=CloseButton
+28920: Process check: has_focus=false is_top=true focused=CloseButton
+28927: Process check: has_focus=false is_top=true focused=CloseButton
+28933: Process check: has_focus=false is_top=true focused=CloseButton
+28940: Process check: has_focus=false is_top=true focused=CloseButton
+28946: Process check: has_focus=false is_top=true focused=CloseButton
+28953: Process check: has_focus=false is_top=true focused=CloseButton

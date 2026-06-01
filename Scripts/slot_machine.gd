@@ -212,7 +212,7 @@ func get_day_manager() -> Node:
 	var dm = get_node_or_null("/root/Game3D/SubViewportContainer/SubViewport/Control2/DayManager")
 	if not dm:
 		dm = get_node_or_null("/root/Control2/DayManager")
-	if not dm:
+	if not dm and is_inside_tree() and get_tree():
 		dm = get_tree().root.find_child("DayManager", true, false)
 	return dm
 
@@ -302,7 +302,11 @@ func _on_spin_pressed():
 	var r3_val = symbols[0]
 	
 	while elapsed < total_spin_time:
+		if not is_inside_tree() or not get_tree():
+			return
 		await get_tree().create_timer(tick_interval).timeout
+		if not is_inside_tree():
+			return
 		elapsed += tick_interval
 		
 		var played_stop = false
@@ -392,7 +396,9 @@ func calculate_win(r1: String, r2: String, r3: String):
 						return
 						
 				# Instantly trigger Hunter Robot chase!
-				var hunter = get_tree().root.find_child("HunterRobot", true, false)
+				var hunter = null
+				if is_inside_tree() and get_tree():
+					hunter = get_tree().root.find_child("HunterRobot", true, false)
 				if hunter:
 					if GameStats.let_through_bad_sprites.is_empty():
 						var robot_tex = load("res://Sprites/robot2.png")

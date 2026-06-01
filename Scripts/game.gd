@@ -36,6 +36,8 @@ func _ready():
 	sanity_bar.value = 100
 
 func spawn_next_robot():
+	if not is_inside_tree():
+		return
 	chat_manager.clear_messages()
 	final_message = false
 	
@@ -87,21 +89,37 @@ func handle_chat_choice(player_text: String, robot_reply: String):
 		return
 	is_waiting_for_replay = true
 	
-	chat_manager.add_message(player_text, "You")
+	if is_inside_tree() and chat_manager:
+		chat_manager.add_message(player_text, "You")
+	
+	if not is_inside_tree() or not get_tree():
+		is_waiting_for_replay = false
+		return
 	await get_tree().create_timer(2.0).timeout
+	
+	if not is_inside_tree() or not chat_manager:
+		is_waiting_for_replay = false
+		return
 	chat_manager.add_message(robot_reply, current_robot.name)
 	is_waiting_for_replay = false
 	
 	if chat_manager.chatCount == 6:
 		chat_button1.text = ""
 		chat_button2.text = ""
+		if not is_inside_tree() or not get_tree():
+			return
 		await get_tree().create_timer(1.0).timeout
+		if not is_inside_tree():
+			return
 		handle_last_terminal_chat()
 	else:
-		chat_button1.text = current_robot.humanChat[chat_manager.chatCount]
-		chat_button2.text = current_robot.humanChat[chat_manager.chatCount+1]
+		if current_robot:
+			chat_button1.text = current_robot.humanChat[chat_manager.chatCount]
+			chat_button2.text = current_robot.humanChat[chat_manager.chatCount+1]
 
 func handle_last_terminal_chat():
+	if not is_inside_tree() or not chat_manager:
+		return
 	if final_message == false:
 		chat_manager.add_message("Inspectation complete. Please issue your final judgment for this AI.", "Terminal: ")
 		final_message = true
