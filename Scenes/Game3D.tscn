@@ -126,6 +126,16 @@ albedo_color = Color(1, 1, 0.9, 1)
 emission_enabled = true
 emission = Color(1, 0.95, 0.85, 1)
 emission_energy_multiplier = 2.0
+[sub_resource type="SphereMesh" id="SphereMesh_wifi_led"]
+radius = 0.012
+height = 0.024
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wifi_led"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 1.5
 
 [node name="Game3D" type="Node3D" unique_id=1133432829]
 script = ExtResource("1_game3d")
@@ -263,6 +273,31 @@ target_method = "toggle_ceiling_lights"
 interact_name = "Ceiling Lights Switch"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/LightSwitch/SwitchInteractable" unique_id=548412008]
+shape = SubResource("BoxShape3D_switch")
+[node name="WifiRouter" type="CSGBox3D" parent="Office" unique_id=2085543169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.715, -0.2)
+use_collision = true
+size = Vector3(0.16, 0.03, 0.12)
+material = SubResource("StandardMaterial3D_casing_gray")
+
+[node name="Antenna" type="CSGCylinder3D" parent="Office/WifiRouter" unique_id=2085543170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.07, -0.04)
+radius = 0.005
+height = 0.12
+material = SubResource("StandardMaterial3D_casing_gray")
+
+[node name="WifiButton" type="MeshInstance3D" parent="Office/WifiRouter" unique_id=2085543171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.015, 0.04)
+mesh = SubResource("SphereMesh_wifi_led")
+surface_material_override/0 = SubResource("StandardMaterial3D_wifi_led")
+
+[node name="SwitchInteractable" type="StaticBody3D" parent="Office/WifiRouter/WifiButton" unique_id=2085543172]
+script = ExtResource("4_switch")
+target_node_path = NodePath("/root/Game3D")
+target_method = "toggle_wifi"
+interact_name = "Wifi Router Power Button"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/WifiRouter/WifiButton/SwitchInteractable" unique_id=2085543173]
 shape = SubResource("BoxShape3D_switch")
 
 [node name="CeilingFixture" type="Node3D" parent="Office"]

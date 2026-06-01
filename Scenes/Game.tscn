@@ -646,12 +646,26 @@ offset_bottom = 18.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="WifiStatus" type="TextureRect" parent="DesktopOS/Taskbar/ClockPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -8.0
+offset_right = 22.0
+offset_bottom = 8.0
+grow_vertical = 2
+expand_mode = 1
+
 [node name="ClockLabel" type="Label" parent="DesktopOS/Taskbar/ClockPanel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -683,108 +697,75 @@ theme_override_constants/separation = 10
 
 [node name="InspectorTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "[Inspector]"
+icon = ExtResource("Icon_Inspector")
+icon_alignment = 1
+expand_icon = true
 
 [node name="NotepadTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Notepad"
+icon = ExtResource("Icon_Notepad")
+icon_alignment = 1
+expand_icon = true
 
 [node name="TerminalTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Terminal"
+icon = ExtResource("Icon_Terminal")
+icon_alignment = 1
+expand_icon = true
 
 [node name="MinesweeperTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Minesweeper"
+icon = ExtResource("Icon_Minesweeper")
+icon_alignment = 1
+expand_icon = true
 
 [node name="SnakeTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Snake"
+icon = ExtResource("Icon_Snake")
+icon_alignment = 1
+expand_icon = true
 
 [node name="CCTVTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Security Feed"
+icon = ExtResource("Icon_CCTV")
+icon_alignment = 1
+expand_icon = true
 
 [node name="SlotsTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Casino Slots"
-
+icon = ExtResource("Icon_Slots")
+icon_alignment = 1
+expand_icon = true
 
 [node name="SettingsTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Settings"
+icon = ExtResource("Icon_Settings")
+icon_alignment = 1
+expand_icon = true
 
 [node name="StartMenu" type="NinePatchRect" parent="DesktopOS"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = 6.0
-offset_top = 580.0
-offset_right = 246.0
+offset_top = 530.0
+offset_right = 266.0
 offset_bottom = 970.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
@@ -806,7 +787,7 @@ grow_vertical = 2
 theme_override_constants/separation = 4
 
 [node name="Sidebar" type="TextureRect" parent="DesktopOS/StartMenu/HBox"]
-custom_minimum_size = Vector2(28, 0)
+custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 texture = ExtResource("Sidebar_Texture")
 expand_mode = 1
@@ -817,10 +798,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
+offset_left = 6.0
 offset_top = -20.0
-offset_right = 320.0
-offset_bottom = 4.0
+offset_right = 340.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -1.5708
@@ -962,7 +943,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
-text = " Shutdown..."
+text = " Power Off"
 icon = ExtResource("7_2irst")
 alignment = 0
 
@@ -1058,19 +1039,25 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[node name="DialoguePanel" type="VBoxContainer" parent="AparatusInspectorWindow/ChatManager" unique_id=1209100797]
+[node name="ScrollContainer" type="ScrollContainer" parent="AparatusInspectorWindow/ChatManager"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -245.0
-offset_top = -186.0
-offset_right = 245.0
-offset_bottom = 220.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 39.0
+offset_right = -6.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="DialoguePanel" type="VBoxContainer" parent="AparatusInspectorWindow/ChatManager/ScrollContainer" unique_id=1209100797]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4
 
 [node name="Option" type="Control" parent="AparatusInspectorWindow" unique_id=442527454]
 layout_mode = 3
@@ -1361,6 +1348,7 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 script = ExtResource("11_window")
+is_scalable = true
 
 [node name="TitleBar" type="NinePatchRect" parent="NotepadWindow"]
 layout_mode = 0
@@ -1422,6 +1410,7 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 script = ExtResource("11_window")
+is_scalable = true
 
 [node name="TitleBar" type="NinePatchRect" parent="TerminalWindow"]
 layout_mode = 0
@@ -1494,7 +1483,7 @@ anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = -32.0
+offset_bottom = -44.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("9_71axn")
@@ -2587,7 +2576,7 @@ mouse_filter = 2
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/MinesweeperBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Minesweeper"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SnakeBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Snake"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/CCTVBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["CCTV"]]
-[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/ShutdownBtn" to="." method="_on_quit_button_button_up"]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/ShutdownBtn" to="DesktopOS" method="shutdown_computer"]
 [connection signal="pressed" from="HackerAlert/TerminalButton" to="DesktopOS" method="_on_hacker_alert_terminal_pressed"]
 [connection signal="pressed" from="DesktopOS/DesktopIcons/SlotsIcon" to="DesktopOS" method="open_app" binds= ["Slots"]]
 [connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SlotsTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Slots"]]

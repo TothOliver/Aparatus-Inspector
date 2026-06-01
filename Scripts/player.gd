@@ -205,13 +205,16 @@ func stand_up():
 		camera.transform.basis = Basis.IDENTITY
 
 func interact_with_computer():
+	var game_3d = get_tree().root.get_node_or_null("Game3D")
+	if game_3d and not game_3d.is_monitor_on and not game_3d.is_blackout:
+		game_3d.toggle_monitor_power()
+
 	if current_state == State.WALKING:
 		sit_down()
 	
 	# Transition directly to computer view
 	current_state = State.COMPUTER_VIEW
 	# Tell Game3D to zoom in and release mouse
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
 	if game_3d:
 		game_3d.enter_computer_view()
 

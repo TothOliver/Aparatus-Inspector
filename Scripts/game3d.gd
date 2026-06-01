@@ -12,6 +12,7 @@ extends Node3D
 @onready var door_mesh = $Office/LeftDoor
 @onready var reticle = $HUD/Reticle
 @onready var ceiling_bulb = $Office/CeilingFixture/Bulb
+@onready var wifi_led = $Office/WifiRouter/WifiButton
 
 # Office States (monitored by roaming hunter AI)
 var is_ceiling_light_on: bool = true
@@ -39,6 +40,7 @@ func _ready():
 		
 	# Initialize door light to green
 	_update_door_light_material(false)
+	_update_wifi_led_material()
 	_update_lights_visibility()
 
 func _process(delta):
@@ -149,6 +151,7 @@ func _trigger_power_outage():
 		screen_mesh.visible = false
 		
 	_update_lights_visibility()
+	_update_wifi_led_material()
 		
 	# Force player out of computer screen
 	var player = $Player
@@ -161,6 +164,7 @@ func _restore_power():
 	if screen_mesh:
 		screen_mesh.visible = is_monitor_on
 	_update_lights_visibility()
+	_update_wifi_led_material()
 
 func _update_door_light_material(locked: bool):
 	if door_light:
@@ -175,6 +179,24 @@ func _update_door_light_material(locked: bool):
 			else:
 				mat.albedo_color = Color(0, 1, 0) # green
 				mat.emission = Color(0, 1, 0)
+
+func toggle_wifi():
+	GameStats.wifi_on = not GameStats.wifi_on
+	_update_wifi_led_material()
+
+func _update_wifi_led_material():
+	if wifi_led:
+		var mat = wifi_led.get_active_material(0) as StandardMaterial3D
+		if mat:
+			if is_blackout:
+				mat.albedo_color = Color(0.1, 0.1, 0.1) # black/off
+				mat.emission = Color(0, 0, 0)
+			elif GameStats.wifi_on:
+				mat.albedo_color = Color(0, 1, 0) # green
+				mat.emission = Color(0, 1, 0)
+			else:
+				mat.albedo_color = Color(1, 0, 0) # red
+				mat.emission = Color(1, 0, 0)
 
 func _on_interact_prompt_changed(text: String):
 	$HUD/PromptLabel.text = text

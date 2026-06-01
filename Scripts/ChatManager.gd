@@ -1,5 +1,5 @@
 extends Control
-@onready var dialogue_panel = $DialoguePanel
+@onready var dialogue_panel = get_node_or_null("ScrollContainer/DialoguePanel") if has_node("ScrollContainer/DialoguePanel") else get_node("DialoguePanel")
 
 var bubble_scene = preload("res://Scenes/ChatBubble.tscn")
 var chatCount = -1
@@ -11,6 +11,12 @@ func add_message(text: String, name: String):
 	dialogue_panel.add_child(bubble)
 	bubble.set_message(name + ": " + text)
 	chatCount += 1
+	
+	# Auto-scroll to bottom on the next frame
+	await get_tree().process_frame
+	var scroll = dialogue_panel.get_parent() as ScrollContainer
+	if scroll:
+		scroll.scroll_vertical = int(scroll.get_v_scroll_bar().max_value)
 
 func clear_messages():
 	chatCount = -1;

@@ -15,6 +15,7 @@ var hack_active: bool = false
 var hack_progress: float = 0.0
 var is_victory: bool = false
 var casino_balance: float = 100.0
+var wifi_on: bool = true
 
 # User System Settings
 var mouse_sensitivity: float = 0.15
