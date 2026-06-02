@@ -817,6 +817,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
 [node name="InspectorBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -829,8 +830,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Aparatus Inspector"
 icon = ExtResource("Icon_Inspector")
 alignment = 0
+expand_icon = true
 
 [node name="NotepadBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -843,8 +846,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Notepad"
 icon = ExtResource("Icon_Notepad")
 alignment = 0
+expand_icon = true
 
 [node name="TerminalBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -857,8 +862,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " MS-DOS Prompt"
 icon = ExtResource("Icon_Terminal")
 alignment = 0
+expand_icon = true
 
 [node name="MinesweeperBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -871,8 +878,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Minesweeper"
 icon = ExtResource("Icon_Minesweeper")
 alignment = 0
+expand_icon = true
 
 [node name="SnakeBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -885,8 +894,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Snake"
 icon = ExtResource("Icon_Snake")
 alignment = 0
+expand_icon = true
 
 [node name="CCTVBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -899,8 +910,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Security Feed"
 icon = ExtResource("Icon_CCTV")
 alignment = 0
+expand_icon = true
 
 [node name="SlotsBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -913,8 +926,10 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Casino Slots"
 icon = ExtResource("Icon_Slots")
 alignment = 0
+expand_icon = true
 
 [node name="SettingsBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -927,6 +942,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " System Settings"
 icon = ExtResource("Icon_Settings")
 alignment = 0
+expand_icon = true
 
 [node name="Divider" type="ColorRect" parent="DesktopOS/StartMenu/HBox/ProgramList"]
 custom_minimum_size = Vector2(0, 2)
@@ -934,6 +950,7 @@ layout_mode = 2
 color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="ShutdownBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -946,6 +963,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Power Off"
 icon = ExtResource("7_2irst")
 alignment = 0
+expand_icon = true
 
 [node name="AparatusInspectorWindow" type="NinePatchRect" parent="." unique_id=1911909970]
 unique_name_in_owner = true

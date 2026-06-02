@@ -1,28 +1,7 @@
-extends Node
+with open("Scripts/gameStats.gd", "r", encoding="utf-8") as f:
+    code = f.read()
 
-var final_missed_score: int = 0
-var total_security_breaches: int = 0
-var innocent_robots_killed: int = 0
-var good_robots_through: int = 0
-var bad_robots_terminated: int = 0
-var let_through_bad_sprites: Array = []
-
-# Gameplay depth additions
-var current_day: int = 1
-var power_level: float = 100.0
-var door_locked: bool = false
-var hack_active: bool = false
-var hack_progress: float = 0.0
-var is_victory: bool = false
-var casino_balance: float = 100.0
-var wifi_on: bool = true
-
-# User System Settings
-var mouse_sensitivity: float = 0.15
-var crt_effect_enabled: bool = true
-var master_volume: float = 80.0
-
-
+helper_code = """
 
 var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
@@ -74,3 +53,11 @@ func _generate_button_click_sound() -> AudioStreamWAV:
 		data[i] = int(clamp((val * env) * 127.0 + 128.0, 0, 255))
 	stream.data = data
 	return stream
+"""
+
+code += helper_code
+
+with open("Scripts/gameStats.gd", "w", encoding="utf-8") as f:
+    f.write(code)
+
+print("gameStats.gd updated successfully!")

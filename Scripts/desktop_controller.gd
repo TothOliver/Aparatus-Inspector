@@ -33,6 +33,12 @@ var browser_window: Control = null
 var browser_tab: Button = null
 
 func _ready():
+	if start_menu:
+		start_menu.z_index = 10
+	var taskbar = get_node_or_null("Taskbar")
+	if taskbar:
+		taskbar.z_index = 9
+
 	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Slots; show Inspector
 	inspector_window.visible = true
 	notepad_window.visible = false
@@ -128,7 +134,7 @@ func _ready():
 		browser_btn.name = "BrowserBtn"
 		browser_btn.text = " Aparatus Explorer"
 		browser_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		browser_btn.custom_minimum_size = Vector2(0, 30)
+		browser_btn.custom_minimum_size = Vector2(0, 36)
 		browser_btn.add_theme_color_override("font_color", Color(0,0,0,1))
 		browser_btn.add_theme_color_override("font_hover_color", Color(1,1,1,1))
 		browser_btn.add_theme_color_override("font_focus_color", Color(1,1,1,1))
@@ -183,12 +189,31 @@ func _ready():
 	# Initialize tab focus states
 	_update_top_window_focus()
 	
+	_adjust_start_menu_height()
+	
 	# Close start menu initially
 	if start_menu:
 		start_menu.visible = false
 		
 	# Automatically focus and raise window if a child control inside it gains focus
 	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
+
+func _adjust_start_menu_height():
+	if not start_menu:
+		return
+	var program_list = start_menu.get_node_or_null("HBox/ProgramList") as VBoxContainer
+	if not program_list:
+		return
+	
+	if is_inside_tree():
+		await get_tree().process_frame
+		
+	var list_height = program_list.get_combined_minimum_size().y
+	var new_height = list_height + 8 # Top/bottom margins of HBox inside NinePatchRect
+	var bottom_y = 970.0 # Standard Y coordinate right above taskbar top edge
+	
+	start_menu.size.y = new_height
+	start_menu.position.y = bottom_y - new_height
 
 func _process(_delta):
 	# Update clock time

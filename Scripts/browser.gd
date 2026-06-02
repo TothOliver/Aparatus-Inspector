@@ -13,51 +13,214 @@ var forward_btn: Button
 var websites = {
 	"www.aparatusexplorer.net": {
 		"title": "Aparatus Explorer Network Portal",
-		"content": "=== APARATUS EXPLORER PORTAL ===\n\nWelcome to the World Wide Web! This portal lists all websites currently online in the local network segment. Please verify your WiFi router signal before browsing.\n\n[b]Active Sites List:[/b]\n• [url=www.robot-factory.corp]Aparatus Robotics Factory[/url] - Official corporate page.\n• [url=www.inspections-database.org]Inspector Logs Database[/url] - Archives and reports.\n• [url=www.larry-shrine.fans]The Larry Fan Club[/url] - A shrine to model Larry.\n• [url=www.walter-files.com]The Walter Conspiracy[/url] - Underground whistleblower blog.\n• [url=www.weather-central.net]Local Weather Central[/url] - Meteorological service.\n• [url=www.retro-slots-cheats.info]Slots Strategy & Cheats[/url] - Double payout info.\n• [url=www.creepy-cryptid-forum.org]Vents & Vapors Discussion[/url] - Local forum.\n• [url=www.router-support.corp]NetGate Router Support[/url] - Device user manual.\n• [url=www.the-archivist.net]The Archivist's Diary[/url] - Personal notes."
+		"content": """[center][img=48]res://Sprites/icon_browser.png[/img]
+[font_size=16][color=navy][b]APARATUS NET FINDER[/b][/color][/font_size]
+[color=#333333]Your Gateway to the Intranet • Ver 1.0b[/color][/center]
+[hr]
+Welcome to the Aparatus Explorer Portal! This portal index lists all active web servers running on the local network segment. Please verify your NetGate wifi router connection before browsing.
+
+[b]Web Directories & Resources:[/b]
+[indent]
+• [url=www.robot-factory.corp]Aparatus Robotics Corp[/url] - Official corporate homepage and model schematics.
+• [url=www.inspections-database.org]Inspector Logs Database[/url] - Decommissioning reports and safety archives.
+• [url=www.larry-shrine.fans]The Larry Fan Club[/url] - A fan-operated shrine to the friendly Larry model.
+• [url=www.walter-files.com]The Walter Conspiracy[/url] - Whistleblower blog about security frame anomalies.
+• [url=www.weather-central.net]Local Weather Central[/url] - Meteorological warning and satellite radar map.
+• [url=www.retro-slots-cheats.info]Slots Strategy & Cheats[/url] - Secret payout tips for the terminal slots software.
+• [url=www.creepy-cryptid-forum.org]Vents & Vapors Discussion[/url] - Local forum discussing vent noises and sightings.
+• [url=www.router-support.corp]NetGate Router Support[/url] - Network device manuals and troubleshooting guides.
+• [url=www.the-archivist.net]The Archivist's Diary[/url] - Glitched personal logs and notes.
+[/indent]
+[hr]
+[center][color=#333333]© 1998 Aparatus Corporation. All Rights Reserved.[/color][/center]"""
 	},
 	"www.robot-factory.corp": {
 		"title": "Aparatus Robotics - Building the Future",
-		"content": "=== APARATUS ROBOTICS CORPORATION ===\n\nSafety, Efficiency, Compliance.\n\nAt Aparatus Robotics, we design state-of-the-art synthetic models to assist humanity. Our signature chassis models include the Larry social testbed and the Walter security frame.\n\nWe have recently passed 150 days without a major decommissioning accident! (Note: Any reports of rogue units crawling in ventilation systems are strictly rumors spread by disgruntled former inspectors.)\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=128]res://Sprites/robot4.png[/img]
+[font_size=16][color=darkblue][b]APARATUS ROBOTICS[/b][/color][/font_size]
+[color=teal][i]Safety • Efficiency • Compliance[/i][/color][/center]
+[hr]
+At Aparatus Robotics, we engineer state-of-the-art synthetic models to assist humanity in high-risk environments. Our signature chassis models include the [b]Larry[/b] social testbed and the [b]Walter[/b] security frame.
+
+[b]Current Production Lines:[/b]
+• [b]Larry series[/b]: Highly empathetic conversational units designed for administrative roles.
+• [b]Walter series[/b]: Robust armored mechanical frames designed for security patrol.
+
+[color=green][b]SAFETY NOTICE:[/b][/color] We have recently passed 150 days without a decommissioning accident! 
+[i](Note: Any rumors regarding rogue units crawling inside the ventilation shafts are strictly corporate sabotage spread by disgruntled former inspectors.)[/i]
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.inspections-database.org": {
 		"title": "Inspector Archives & Logs",
-		"content": "=== ARCHIVE LOG #984 - CLASSIFIED ===\n\nSTATUS: DECOMMISSIONED\nInspector ID: 8872\nNotes: Unit showed signs of intense paranoia. Claimed that the security files 'classified_01' and 'classified_02' contained sensitive information about project Apparatus. Tried to decrypt them but couldn't find the encryption codes. If only he checked Walter's data...\n\n=== ARCHIVE LOG #985 ===\nInspector ID: 8873\nNotes: Safe, clean record. Terminated after failing to recognize a corrupted model that claimed to be 'innocent'.\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=48]res://Sprites/icon_inspector.png[/img]
+[font_size=16][color=purple][b]INSPECTOR ARCHIVES DATABASE[/b][/color][/font_size]
+[color=darkred][b]CONFIDENTIAL - INTERNAL USE ONLY[/b][/color][/center]
+[hr]
+[b]ARCHIVE LOG #984 - DECOMMISSIONED[/b]
+• [b]Inspector ID[/b]: 8872
+• [b]Decommission Status[/b]: TERMINATED
+• [b]Notes[/b]: Unit showed signs of intense paranoia. Claimed that the security files 'classified_01' and 'classified_02' contained sensitive information about project Apparatus. Tried to decrypt them but couldn't find the encryption codes. If only he checked Walter's data...
+
+[b]ARCHIVE LOG #985[/b]
+• [b]Inspector ID[/b]: 8873
+• [b]Decommission Status[/b]: TERMINATED
+• [b]Notes[/b]: Safe, clean record. Terminated after failing to recognize a corrupted model that claimed to be 'innocent'.
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.larry-shrine.fans": {
 		"title": "LARRY'S WORLD - Larry Fan Page",
-		"content": "[color=red]❤❤❤ WELCOME TO LARRY'S SHRINE ❤❤❤[/color]\n\nLarry is the best robot model ever! He is so friendly and always tries to talk to the inspector. \n\nDid you know? In entry log #12, the author notes that Larry offered the inspector exactly [b]14[/b] dollars. Why 14? Some think it is a secret code! In fact, the local inspector discovered that the number [color=blue][b]14[/b][/color] is the [b]decryption key[/b] for the encrypted archive [color=green]classified_01.enc[/color]! Try typing `decrypt classified_01.enc 14` in your terminal.\n\nLARRY FOREVER!\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][color=red]❤❤❤ WELCOME TO LARRY'S WORLD ❤❤❤[/color]
+[img=128]res://Sprites/robot1.png[/img]
+[color=magenta][b]THE ULTIMATE LARRY SHRINE[/b][/color][/center]
+[hr]
+Larry is the absolute best robot model ever created! He is so friendly and always tries to talk to the inspectors during testing. We love Larry!
+
+[b]Did you know?[/b]
+In entry log #12, the author notes that Larry offered the inspector exactly [color=red][b]14[/b][/color] dollars. Why 14? Some think it is a secret code! In fact, the local inspector discovered that the number [color=blue][b]14[/b][/color] is the [b]decryption key[/b] for the encrypted archive [color=green]classified_01.enc[/color]! Try typing `decrypt classified_01.enc 14` in your system terminal.
+
+[center][color=red]LARRY FOREVER![/color]
+[url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.walter-files.com": {
 		"title": "The Walter Files - The Truth Out There",
-		"content": "=== THE WALTER THREAT ===\n\nThey want you to think Walter is just a peaceful security frame. They are lying! \n\nWalter is the base chassis used by [color=red]The Hunter Robot[/color], a mechanical beast programmed to hunt and eliminate inspectors who know too much. The Hunter is blind in the dark; it cannot see you if the room lights and the PC screen are completely powered off.\n\nI found out that the code word [color=blue][b]walter[/b][/color] decrypts the file [color=green]classified_02.enc[/color] in the system terminal! Enter `decrypt classified_02.enc walter` to read the security warning yourself before it's too late.\n\nSTAY SAFE. STAY DARK.\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][color=darkred][b]⚠️⚠️⚠️ WARNING: THE TRUTH OUT THERE ⚠️⚠️⚠️[/b][/color]
+[img=128]res://Sprites/robot2.png[/img]
+[color=red][b]THE WALTER FILES[/b][/color][/center]
+[hr]
+They want you to think Walter is just a peaceful security frame. They are lying to you!
+
+Walter is the base chassis used by [color=red][b]The Hunter Robot[/b][/color], a mechanical beast programmed to hunt and eliminate inspectors who know too much. The Hunter is blind in the dark; it cannot see you if the room lights and the PC screen are completely powered off.
+
+I found out that the code word [color=blue][b]walter[/b][/color] decrypts the file [color=green]classified_02.enc[/color] in the system terminal! Enter `decrypt classified_02.enc walter` to read the security warning yourself before it's too late.
+
+If you want to bypass the firewall and see the root controls, I host a mirror at [url=www.system-backdoor.hack]www.system-backdoor.hack[/url].
+
+[center][b]STAY SAFE. STAY DARK.[/b]
+[url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.weather-central.net": {
 		"title": "Metro Weather Station",
-		"content": "=== SOLAR ANOMALY WARNING ===\n\nThe weather radar is reporting severe electromagnetic spikes in the local area. This is causing significant power grid issues. Local offices may experience complete light blackouts. \n\nDuring blackouts, the power grid will reboot automatically when it reaches 10% charge. Keep your computer and office doors closed to conserve battery!\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=128]res://Sprites/think.jpg[/img]
+[font_size=16][color=darkcyan][b]METRO WEATHER STATION[/b][/color][/font_size]
+[color=#333333]Satellite Atmospheric Diagnostics[/color][/center]
+[hr]
+[color=red][b]SOLAR EM ANOMALY WARNING[/b][/color]
+
+The weather radar is reporting severe electromagnetic spikes in the local area. This is causing significant power grid overload. Local offices may experience complete light blackouts.
+
+During blackouts, the power grid will reboot automatically when it reaches 10% charge. Keep your computer and office doors closed to conserve battery!
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.retro-slots-cheats.info": {
 		"title": "Casino Slots Cheats & Tips",
-		"content": "=== HOW TO BEAT THE CASINO APP ===\n\nThe slots application on the PC is rigged! But there are some hidden things in the code:\n• There is a 5% chance the reels will glitch and display the [color=red]ROBOT[/color] symbol across all three slots.\n• [b]WARNING:[/b] Spawning triple robots triggers the immediate deployment of the Hunter Robot. Do not spin unless you are prepared to hide under the desk!\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=48]res://Sprites/icon_slots.png[/img]
+[font_size=16][color=darkgreen][b]CASINO SLOTS CHEATS & STRATEGY[/b][/color][/font_size]
+[color=orange][b]DOUBLE PAYOUT GUIDE[/b][/color][/center]
+[hr]
+The slots application on the PC is rigged! But there are some hidden things in the code:
+• There is a 5% chance the reels will glitch and display the [color=red]ROBOT[/color] symbol across all three slots.
+• [b]WARNING:[/b] Spawning triple robots triggers the immediate deployment of the Hunter Robot. Do not spin unless you are prepared to hide under the desk!
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.creepy-cryptid-forum.org": {
 		"title": "Local Area Cryptid Forum",
-		"content": "=== VENTILATION NOISES ===\n\nUser_8832: 'Does anyone else hear clanking inside the vents at night?'\nUser_9921: 'Yes! It sounds like steel claws scraping. I think something is roaming around the corridors.'\nUser_1002: 'If you hear it coming, turn off your lights and hide. If it enters your room, crawl under the desk. The desk is a blind spot for its sensors! Don't move until it leaves.'\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=128]res://Sprites/monkey.jpg[/img]
+[font_size=16][color=indigo][b]VENTS & VAPORS DISCUSSION FORUM[/b][/color][/font_size]
+[color=#333333]Thread: Strange Scraping Sound in Room Vents[/color][/center]
+[hr]
+[b]User_8832[/b]: "Does anyone else hear clanking inside the vents at night?"
+[b]User_9921[/b]: "Yes! It sounds like steel claws scraping. I think something is roaming around the corridors."
+[b]User_1002[/b]: "If you hear it coming, turn off your lights and hide. If it enters your room, crawl under the desk. The desk is a blind spot for its sensors! Don't move until it leaves."
+
+[b]User_4044[/b]: "Guys, stop talking about vents for a second, check out this weird hidden joke page I found: [url=www.funny-monkey.meme]funny monkey meme[/url]"
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.router-support.corp": {
 		"title": "NetGate WiFi Router User Manual",
-		"content": "=== NetGate Model NG-100 ===\n\nYour router on the desk provides network connectivity to the PC Explorer browser.\n\n• [color=green]Green LED[/color]: Router is ONLINE and transmitting internet traffic.\n• [color=red]Red LED[/color]: Router is OFFLINE. No external network traffic will load on the PC.\n\nTo toggle router power, click the physical button on top of the router device in the room.\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=16]res://Sprites/wifi_on.png[/img]
+[font_size=16][color=navy][b]NETGATE ROUTER USER MANUAL[/b][/color][/font_size]
+[color=teal]Model NG-100 Troubleshooting[/color][/center]
+[hr]
+Your router on the desk provides network connectivity to the PC Explorer browser.
+
+• [color=green][b]Green LED[/b][/color]: Router is ONLINE and transmitting internet traffic.
+• [color=red][b]Red LED[/b][/color]: Router is OFFLINE. No external network traffic will load on the PC.
+
+To toggle router power, click the physical button on top of the router device in the room.
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.the-archivist.net": {
 		"title": "The Archivist's Diary",
-		"content": "=== PERSONAL LOG ===\n\nI have hidden the decryption keys across these fan pages and conspiracy blogs where corporate won't look. The Larry shrine and the Walter files host the keys. \n\nIf you are reading this, the system is watching you. Keep your router on to gather information, but be ready to power off the monitor and hide when the metal scrapes.\n\n[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+		"content": """[center][img=128]res://Sprites/ojoj.png[/img]
+[font_size=16][color=darkred][b]THE ARCHIVIST'S DIARY[/b][/color][/font_size]
+[color=#333333]Decrypted Fragment[/color][/center]
+[hr]
+I have hidden the decryption keys across these fan pages and conspiracy blogs where corporate won't look. The Larry shrine and the Walter files host the keys.
+
+If you are reading this, the system is watching you. Keep your router on to gather information, but be ready to power off the monitor and hide when the metal scrapes.
+
+P.S. I managed to mirror the prototype specs of the stalker chassis before they wiped the server: [url=www.hunter-origin.spec]Hunter Prototype Specs[/url]
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+	},
+	# Hidden Webpages (Not on Main Portal Homepage)
+	"www.funny-monkey.meme": {
+		"title": "Monkey Meme Land",
+		"content": """[center][img=250]res://Sprites/hehe.jpg[/img]
+[font_size=16][color=darkorange][b]MONKEY MEME LAND[/b][/color][/font_size]
+[color=green]Best laughs of 1998!!![/color][/center]
+[hr]
+Look at this funny monkey! Haha! He looks like he just got decommissioned for admitting a rogue unit! 
+
+"When the inspector tells you it's a trustworthy model but you hear metal scraping in the vents."
+
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+	},
+	"www.hunter-origin.spec": {
+		"title": "Hunter Chassis Prototype Specs",
+		"content": """[center][img=128]res://Sprites/robot9.png[/img]
+[font_size=16][color=darkred][b]HUNTER CHASSIS PROTOTYPE SPECS[/b][/color][/font_size]
+[color=#333333]CLASSIFIED DOCUMENT - MODEL H-198[/color][/center]
+[hr]
+[b]PROJECT HUNTER ORIGIN[/b]
+• [b]Core AI Alignment[/b]: Anti-Inspector Retrieval Sweep
+• [b]Sensory Array[/b]: Acoustic location tracking and thermal movement sweep.
+• [b]Optics[/b]: Deactivated in complete pitch-black conditions. Requires photon emission (such as office ceiling lights or glowing computer CRT monitors) to achieve lock-on.
+• [b]Threat Level[/b]: ABSOLUTE.
+• [b]Developer Notes[/b]: "The H-198 chassis prototype features a physical claw sensor array designed specifically to sweep tables and computer consoles. However, due to structural height limitations, it cannot sweep under the standard office desk partition. This remains a critical design flaw."
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+	},
+	"www.system-backdoor.hack": {
+		"title": "Aparatus System Backdoor",
+		"content": """[center][img=48]res://Sprites/icon_settings.png[/img]
+[font_size=16][color=red][b]⚠️ APARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
+[color=green]Connection: SECURE BACKDOOR TACK[/color][/center]
+[hr]
+Welcome to the backdoor terminal console. This page intercepts active telemetry and system parameters from the main PC mainframe.
+
+[b]Telemetry Logs:[/b]
+• [color=orange][b]OEC Lights Link[/b][/color]: ACTIVE. (Can toggle room lights from the computer command console using `lights toggle`).
+• [color=orange][b]Security Hack Lockout[/b][/color]: ACTIVE. (Warning: If security intrusion triggers, a randomized verification code will lock out the computer terminal unless bypassed using the `purge <code>` terminal command).
+• [color=orange][b]Office Doors[/b][/color]: ACTIVE. (Warning: Locking doors consumes room power grids. Engage only when threat proximity is critical).
+
+[i]Keep browsing. Stay one step ahead of the machine.[/i]
+[hr]
+[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	}
 }
 
 func _ready():
 	is_scalable = true
 	# Dynamically assemble the browser UI components inside this NinePatchRect window.
-	custom_minimum_size = Vector2(500, 400)
-	size = Vector2(500, 400)
+	custom_minimum_size = Vector2(800, 600)
+	size = Vector2(800, 600)
 	
 	# Load retro styling resources
 	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
@@ -77,7 +240,7 @@ func _ready():
 	title_bar_rect.patch_margin_right = 5
 	title_bar_rect.patch_margin_bottom = 3
 	title_bar_rect.position = Vector2(6, 6)
-	title_bar_rect.size = Vector2(488, 30)
+	title_bar_rect.size = Vector2(size.x - 12, 30)
 	title_bar_rect.mouse_filter = Control.MOUSE_FILTER_PASS
 	add_child(title_bar_rect)
 	
@@ -112,15 +275,16 @@ func _ready():
 	close_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	close_btn.icon = preload("res://RetroWindowsGUI/ExitButton.png")
 	close_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	close_btn.position = Vector2(464, 6)
+	close_btn.position = Vector2(title_bar_rect.size.x - 24, 6)
 	close_btn.size = Vector2(18, 18)
 	close_btn.pressed.connect(func(): close())
 	title_bar_rect.add_child(close_btn)
 	
 	# Address bar container
 	var addr_container = HBoxContainer.new()
+	addr_container.name = "addr_container"
 	addr_container.position = Vector2(12, 42)
-	addr_container.size = Vector2(476, 26)
+	addr_container.size = Vector2(size.x - 24, 26)
 	addr_container.add_theme_constant_override("separation", 6)
 	add_child(addr_container)
 	
@@ -193,8 +357,9 @@ func _ready():
 	
 	# Content Border Panel
 	var content_panel = Panel.new()
+	content_panel.name = "content_panel"
 	content_panel.position = Vector2(12, 74)
-	content_panel.size = Vector2(476, 314)
+	content_panel.size = Vector2(size.x - 24, size.y - 86)
 	content_panel.add_theme_stylebox_override("panel", inner_frame)
 	add_child(content_panel)
 	
@@ -220,6 +385,8 @@ func _ready():
 	content_label.add_theme_color_override("default_color", Color(0, 0, 0, 1))
 	content_label.add_theme_color_override("hyperlink_color", Color(0, 0, 0.8, 1))
 	content_label.meta_clicked.connect(on_link_clicked)
+	content_label.meta_hover_started.connect(_on_link_hover_started)
+	content_label.meta_hover_ended.connect(_on_link_hover_ended)
 	scroll.add_child(content_label)
 	
 	# Initial navigation load
@@ -285,3 +452,9 @@ func on_url_submitted(new_url: String):
 func on_link_clicked(meta):
 	var url_str = str(meta)
 	navigate_to(url_str)
+
+func _on_link_hover_started(_meta):
+	content_label.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_link_hover_ended(_meta):
+	content_label.mouse_default_cursor_shape = Control.CURSOR_ARROW

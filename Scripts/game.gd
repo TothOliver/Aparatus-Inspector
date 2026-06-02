@@ -30,6 +30,9 @@ var is_waiting_for_replay = false
 var final_message = false
 
 func _ready():
+	var crt = get_node_or_null("CRTOverlay")
+	if crt:
+		crt.add_to_group("CRTOverlays")
 	robots = RobotFactory.create_robots()
 	spawn_next_robot()
 	health_bar.value = 100
@@ -296,6 +299,8 @@ func _on_chat_button2_pressed() -> void:
 func _process(_delta):
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
+		if crt.z_index != 20:
+			crt.z_index = 20
 		var last_idx = crt.get_parent().get_child_count() - 1
 		if crt.get_index() != last_idx:
 			crt.get_parent().move_child(crt, last_idx)

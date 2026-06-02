@@ -8,6 +8,33 @@ extends Control
 @onready var quit_button = $QuitButton
 
 func _ready():
+	# If parent is PauseWindow, dynamically add a CRTOverlay covering it.
+	var pause_window = get_parent()
+	if pause_window and pause_window.name == "PauseWindow":
+		var crt = ColorRect.new()
+		crt.name = "PauseCRTOverlay"
+		crt.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		crt.set_anchors_preset(Control.PRESET_FULL_RECT)
+		crt.offset_left = 0
+		crt.offset_top = 0
+		crt.offset_right = 0
+		crt.offset_bottom = 0
+		
+		var crt_shader = preload("res://crt_filter.gdshader")
+		var mat = ShaderMaterial.new()
+		mat.shader = crt_shader
+		mat.set_shader_parameter("scanline_count", 320.0)
+		mat.set_shader_parameter("scanline_intensity", 0.08)
+		mat.set_shader_parameter("curvature", 0.025)
+		mat.set_shader_parameter("vignette_intensity", 0.08)
+		mat.set_shader_parameter("grr_intensity", 0.03)
+		mat.set_shader_parameter("aberration", 0.001)
+		crt.material = mat
+		crt.z_index = 20
+		pause_window.add_child(crt)
+		crt.add_to_group("CRTOverlays")
+		crt.visible = GameStats.crt_effect_enabled
+
 	visibility_changed.connect(update_ui_from_stats)
 	update_ui_from_stats()
 	if quit_button:
@@ -38,9 +65,9 @@ func update_ui_from_stats():
 
 func _on_crt_toggled(toggled_on: bool):
 	GameStats.crt_effect_enabled = toggled_on
-	var crt_overlay = get_tree().root.find_child("CRTOverlay", true, false)
-	if crt_overlay:
-		crt_overlay.visible = toggled_on
+	if is_inside_tree():
+		for crt in get_tree().get_nodes_in_group("CRTOverlays"):
+			crt.visible = toggled_on
 
 func _on_volume_changed(value: float):
 	GameStats.master_volume = value

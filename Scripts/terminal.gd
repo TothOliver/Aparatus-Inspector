@@ -267,7 +267,8 @@ func _on_command_submitted(new_text: String):
 			print_to_terminal(" Directory of C:\\Documents\n")
 			for file_name in files.keys():
 				var file_size = files[file_name].length()
-				print_to_terminal("  " + file_name + "      " + str(file_size) + " bytes")
+				var padded_name = file_name.rpad(25, " ")
+				print_to_terminal("  " + padded_name + str(file_size) + " bytes")
 			print_to_terminal("\n  " + str(files.size()) + " File(s) current.")
 		"cat":
 			if args.size() < 2:
