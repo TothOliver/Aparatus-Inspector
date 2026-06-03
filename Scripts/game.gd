@@ -98,7 +98,7 @@ func handle_chat_choice(player_text: String, robot_reply: String):
 	if not is_inside_tree() or not get_tree():
 		is_waiting_for_replay = false
 		return
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(0.4).timeout
 	
 	if not is_inside_tree() or not chat_manager:
 		is_waiting_for_replay = false
@@ -111,7 +111,7 @@ func handle_chat_choice(player_text: String, robot_reply: String):
 		chat_button2.text = ""
 		if not is_inside_tree() or not get_tree():
 			return
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(0.3).timeout
 		if not is_inside_tree():
 			return
 		handle_last_terminal_chat()

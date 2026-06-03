@@ -1,3 +1,3 @@
 Startup
-1324: grab_input_focus called. Current text=C:\> 
-3259: Check_and_restore: is_top=false focused=null
+1391: grab_input_focus called. Current text=C:\> 
+2791: Check_and_restore: is_top=false focused=CloseButton
