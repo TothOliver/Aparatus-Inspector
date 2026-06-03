@@ -107,7 +107,7 @@ func game_over_death():
 	GameStats.bad_robots_terminated = bad_ai_killed
 	GameStats.is_victory = false
 	print("YOU DIE")
-	get_tree().change_scene_to_file("res://Scenes/death_scene.tscn")
+	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 
 func check_quota_progress():
 	if processed_today >= day_configs[current_day].quota:
@@ -123,5 +123,5 @@ func end_day():
 		GameStats.total_security_breaches = bad_ai_let_in_count
 		GameStats.bad_robots_terminated = bad_ai_killed
 		GameStats.is_victory = true
-		get_tree().change_scene_to_file("res://Scenes/death_scene.tscn")
+		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 		

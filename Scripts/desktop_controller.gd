@@ -65,7 +65,7 @@ func _ready():
 	browser_window.patch_margin_right = 12
 	browser_window.patch_margin_bottom = 12
 	browser_window.position = Vector2(250, 150)
-	add_child(browser_window)
+	get_parent().call_deferred("add_child", browser_window)
 	browser_window.visible = false
 
 	# Instantiate Browser Tab Button
@@ -318,7 +318,7 @@ func toggle_window_from_tab(app_name: String):
 	var tab = _get_tab_by_name(app_name)
 	if window:
 		# If the window is currently visible and is at the top of the viewport z-order, minimize it
-		if window.visible and window.get_index() == window.get_parent().get_child_count() - 1:
+		if window.visible and window.get_parent() and window.get_index() == window.get_parent().get_child_count() - 1:
 			window.minimize()
 		else:
 			# Otherwise, restore and focus it

@@ -526,7 +526,7 @@ offset_right = 200.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("Font_Bold")
 theme_override_font_sizes/font_size = 14
-text = "Pause & Settings"
+text = "System Settings"
 
 [node name="CloseButton" type="Button" parent="HUD/PauseMenu/PauseWindow/TitleBar" unique_id=1564126796]
 layout_mode = 0

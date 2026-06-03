@@ -2089,9 +2089,9 @@ text = "Casino Slots 98"
 
 [node name="CloseButton" type="Button" parent="SlotMachineWindow/TitleBar"]
 layout_mode = 0
-offset_left = 470.0
+offset_left = 464.0
 offset_top = 6.0
-offset_right = 488.0
+offset_right = 482.0
 offset_bottom = 24.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")

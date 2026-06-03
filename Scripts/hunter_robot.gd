@@ -192,7 +192,7 @@ func kill_player():
 	if door_mesh:
 		door_mesh.rotation.y = 0.0
 		
-	get_tree().change_scene_to_file("res://Scenes/death_scene.tscn")
+	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 
 func is_player_detectable() -> bool:
 	var game_3d = get_parent_node_3d()

@@ -14,6 +14,10 @@ func _ready():
 		title_label.text = "GAME OVER"
 	display_stats()
 	gameOverSFX.play()
+	
+	var menu_btn = get_node_or_null("Window/MainMenu")
+	if menu_btn:
+		menu_btn.pressed.connect(_on_main_menu_pressed)
 
 func display_stats():
 	var calculated_score = GameStats.bad_robots_terminated + GameStats.good_robots_through - GameStats.innocent_robots_killed
@@ -50,7 +54,16 @@ func _on_restart_pressed() -> void:
 	GameStats.bad_robots_terminated = 0 
 	GameStats.is_victory = false
 	GameStats.current_day = 1
-	get_tree().change_scene_to_file("res://Scenes/Game3D.tscn")
+	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
+
+func _on_main_menu_pressed() -> void:
+	GameStats.final_missed_score = 0
+	GameStats.total_security_breaches = 0
+	GameStats.innocent_robots_killed = 0 
+	GameStats.bad_robots_terminated = 0 
+	GameStats.is_victory = false
+	GameStats.current_day = 1
+	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/MainMenu.tscn")
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
+	GameStats.quit_or_menu(get_tree())

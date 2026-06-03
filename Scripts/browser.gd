@@ -259,6 +259,7 @@ func _ready():
 	
 	# Title Label
 	var title_lbl = Label.new()
+	title_lbl.name = "Title"
 	title_lbl.text = "Aparatus Explorer"
 	title_lbl.add_theme_font_override("font", font_bold)
 	title_lbl.add_theme_font_size_override("font_size", 12)
@@ -391,6 +392,19 @@ func _ready():
 	
 	# Initial navigation load
 	_load_current_page(false)
+	
+	_connect_focus_signals(self)
+
+func _connect_focus_signals(node: Node):
+	if node is Control:
+		if node != self:
+			node.gui_input.connect(func(event):
+				if event is InputEventMouseButton and event.pressed:
+					move_to_front()
+					focused.emit()
+			)
+	for child in node.get_children():
+		_connect_focus_signals(child)
 
 func navigate_to(url: String, record_history: bool = true):
 	var target = url.strip_edges().to_lower()

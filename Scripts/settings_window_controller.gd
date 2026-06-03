@@ -5,7 +5,7 @@ extends Control
 @onready var volume_value_label = $VolumeValueLabel
 @onready var sensitivity_slider = $SensitivitySlider
 @onready var sensitivity_value_label = $SensitivityValueLabel
-@onready var quit_button = $QuitButton
+@onready var quit_button = get_node_or_null("QuitButton")
 
 func _ready():
 	# If parent is PauseWindow, dynamically add a CRTOverlay covering it.
@@ -95,7 +95,7 @@ func _on_sensitivity_changed(value: float):
 func _on_quit_pressed():
 	var parent = get_parent()
 	if not parent:
-		get_tree().quit()
+		GameStats.quit_or_menu(get_tree())
 		return
 		
 	var parent_size = parent.size if parent.size != Vector2.ZERO else Vector2(450, 460)
@@ -160,7 +160,7 @@ func _on_quit_pressed():
 	yes_btn.position = Vector2(45, 90)
 	yes_btn.size = Vector2(85, 30)
 	yes_btn.pressed.connect(func():
-		get_tree().quit()
+		GameStats.quit_or_menu(get_tree())
 	)
 	dialog.add_child(yes_btn)
 	

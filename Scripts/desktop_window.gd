@@ -215,6 +215,7 @@ func _process(_delta):
 				resized.connect(_on_window_resized)
 		_margins_registered = true
 		_update_resize_handles_positions()
+		update_child_positions()
 		
 	# Safety release in case mouse up occurred outside focus
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

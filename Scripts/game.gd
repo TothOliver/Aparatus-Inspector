@@ -253,7 +253,7 @@ func _on_quit_button_button_up() -> void:
 	yes_btn.position = Vector2(45, 90)
 	yes_btn.size = Vector2(85, 30)
 	yes_btn.pressed.connect(func():
-		get_tree().quit()
+		GameStats.quit_or_menu(get_tree())
 	)
 	dialog.add_child(yes_btn)
 	

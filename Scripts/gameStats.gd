@@ -22,6 +22,8 @@ var mouse_sensitivity: float = 0.15
 var crt_effect_enabled: bool = true
 var master_volume: float = 80.0
 
+var target_scene_path: String = ""
+
 
 
 var button_click_player: AudioStreamPlayer
@@ -74,3 +76,19 @@ func _generate_button_click_sound() -> AudioStreamWAV:
 		data[i] = int(clamp((val * env) * 127.0 + 128.0, 0, 255))
 	stream.data = data
 	return stream
+
+func quit_or_menu(tree: SceneTree):
+	if tree.current_scene and (tree.current_scene.scene_file_path == "res://Scenes/MainMenu.tscn" or tree.current_scene.name == "MainMenu"):
+		tree.quit()
+	else:
+		final_missed_score = 0
+		total_security_breaches = 0
+		innocent_robots_killed = 0
+		bad_robots_terminated = 0
+		is_victory = false
+		current_day = 1
+		change_scene_with_loading(tree, "res://Scenes/MainMenu.tscn")
+
+func change_scene_with_loading(tree: SceneTree, target_path: String):
+	target_scene_path = target_path
+	tree.change_scene_to_file("res://Scenes/LoadingScreen.tscn")
