@@ -13,6 +13,10 @@ func _ready():
 	else:
 		title_label.text = "GAME OVER"
 	display_stats()
+	if has_node("/root/BGMusic"):
+		var bg_music = get_node("/root/BGMusic")
+		if bg_music is AudioStreamPlayer:
+			bg_music.stop()
 	gameOverSFX.play()
 	
 	var menu_btn = get_node_or_null("Window/MainMenu")
@@ -48,22 +52,11 @@ func calculate_grade(score: int) -> String:
 		return "F"
 
 func _on_restart_pressed() -> void:
-	GameStats.final_missed_score = 0
-	GameStats.total_security_breaches = 0
-	GameStats.innocent_robots_killed = 0 
-	GameStats.bad_robots_terminated = 0 
-	GameStats.is_victory = false
-	GameStats.current_day = 1
+	GameStats.reset_game_state()
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
-
 func _on_main_menu_pressed() -> void:
-	GameStats.final_missed_score = 0
-	GameStats.total_security_breaches = 0
-	GameStats.innocent_robots_killed = 0 
-	GameStats.bad_robots_terminated = 0 
-	GameStats.is_victory = false
-	GameStats.current_day = 1
+	GameStats.reset_game_state()
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/MainMenu.tscn")
 
 func _on_quit_pressed() -> void:
-	GameStats.quit_or_menu(get_tree())
+	get_tree().quit()

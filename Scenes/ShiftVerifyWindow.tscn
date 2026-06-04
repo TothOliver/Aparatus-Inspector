@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://bf5p4v1v8841a"]
+
+[ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="1_base"]
+[ext_resource type="Script" uid="uid://desktop_window_script" path="res://Scripts/desktop_window.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://b6ousc5vgvsd8" path="res://RetroWindowsGUI/Window_Header.png" id="3_header"]
+[ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="4_font_bold"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="5_style_norm"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="6_style_hov"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="7_style_press"]
+[ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="8_exit"]
+[ext_resource type="Script" path="res://Scripts/shift_verify_window.gd" id="9_body_script"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="10_style_inner"]
+[ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="11_font_body"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_close"]
+
+[node name="ShiftVerifyWindow" type="NinePatchRect"]
+unique_name_in_owner = true
+offset_left = 380.0
+offset_top = 180.0
+offset_right = 760.0
+offset_bottom = 420.0
+texture = ExtResource("1_base")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("2_script")
+
+[node name="TitleBar" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 374.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("3_header")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 250.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("4_font_bold")
+theme_override_font_sizes/font_size = 14
+text = "Shift Verification"
+
+[node name="CloseButton" type="Button" parent="TitleBar"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 5.0
+offset_right = 364.0
+offset_bottom = 25.0
+theme_override_styles/normal = ExtResource("5_style_norm")
+theme_override_styles/hover = ExtResource("6_style_hov")
+theme_override_styles/pressed = ExtResource("7_style_press")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_close")
+icon = ExtResource("8_exit")
+icon_alignment = 1
+
+[node name="ShiftVerifyBody" type="Control" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 368.0
+offset_bottom = 228.0
+script = ExtResource("9_body_script")
+
+[node name="InnerFrame" type="Panel" parent="ShiftVerifyBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 346.0
+offset_bottom = 176.0
+theme_override_styles/panel = ExtResource("10_style_inner")
+
+[node name="StatusLabel" type="Label" parent="ShiftVerifyBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 20.0
+offset_top = 22.0
+offset_right = 336.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_font_body")
+theme_override_font_sizes/font_size = 12
+text = "STATUS: CHECKING SYSTEM..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="ShiftVerifyBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 336.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.3, 0.3, 0.3, 1)
+theme_override_fonts/font = ExtResource("11_font_body")
+theme_override_font_sizes/font_size = 12
+text = "Enter Shift Verification Passcode:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PasscodeInput" type="LineEdit" parent="ShiftVerifyBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 75.0
+offset_right = 276.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_fonts/font = ExtResource("11_font_body")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("10_style_inner")
+placeholder_text = "Code required"
+alignment = 1
+max_length = 8
+
+[node name="VerifyButton" type="Button" parent="ShiftVerifyBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 70.0
+offset_top = 112.0
+offset_right = 286.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_fonts/font = ExtResource("11_font_body")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("5_style_norm")
+theme_override_styles/hover = ExtResource("6_style_hov")
+theme_override_styles/pressed = ExtResource("7_style_press")
+theme_override_styles/disabled = ExtResource("5_style_norm")
+text = "Verify & Complete Shift"
+
+[node name="FeedbackLabel" type="Label" parent="ShiftVerifyBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 20.0
+offset_top = 148.0
+offset_right = 336.0
+offset_bottom = 168.0
+theme_override_colors/font_color = Color(0.8, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_font_body")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -80,6 +80,7 @@ func _ready():
 		loan_button.pressed.connect(_on_loan_pressed)
 	if buy_sanity_btn:
 		buy_sanity_btn.pressed.connect(_on_buy_sanity_pressed)
+		buy_sanity_btn.text = "Buy Medkit & Sanity ($50)\n[+25 HP / +25 Sanity]"
 	if buy_battery_btn:
 		buy_battery_btn.pressed.connect(_on_buy_battery_pressed)
 
@@ -427,16 +428,15 @@ func _on_buy_sanity_pressed():
 	if balance >= 50.0:
 		var dm = get_day_manager()
 		if dm:
-			if dm.sanity >= 100:
+			if dm.sanity >= 100 and dm.health >= 100:
 				if win_label:
-					win_label.text = "Sanity already full!"
+					win_label.text = "Health & Sanity already full!"
 				return
 			balance -= 50.0
 			dm.sanity = min(100, dm.sanity + 25)
-			if dm.sanity_bar:
-				dm.sanity_bar.value = dm.sanity
+			dm.health = min(100, dm.health + 25)
 			if win_label:
-				win_label.text = "Bought Sanity Pack (+25)"
+				win_label.text = "Bought Medkit & Sanity (+25)"
 			_play_sfx(win_stream)
 			update_ui()
 

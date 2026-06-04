@@ -50,7 +50,7 @@ The Hunter is a physical, heavy-duty mechanical disposal drone patrolling the co
 ```mermaid
 flowchart TD
     subgraph 2D OS (Aethelgard OS)
-        Browser[Aparatus Explorer]
+        Browser[Apparatus Explorer]
         Terminal[MS-DOS Terminal]
         Inspector[Apparatus Inspector]
         Slots[Casino Slots / Shop]
@@ -76,7 +76,7 @@ The player must process a specific quota of robots per shift.
 *   **Decisions & Consequences**: Clicking **APPROVE** sends the unit back to the grid. Clicking **EXTERMINATE** incinerates the robot. Incorrect judgments drain player health or sanity.
 
 ### 3.2 2D Simulated OS Applications
-1.  **Aparatus Explorer (Web Browser)**: A fully resizable and draggable window (`800x600` default) implementing standard `<` back, `>` forward, and `Home` navigation. Includes custom hyperlink hover detection that swaps the cursor to a pointing hand. Features 10 base network directories and 3 hidden pages:
+1.  **Apparatus Explorer (Web Browser)**: A fully resizable and draggable window (`800x600` default) implementing standard `<` back, `>` forward, and `Home` navigation. Includes custom hyperlink hover detection that swaps the cursor to a pointing hand. Features 10 base network directories and 3 hidden pages:
     *   `www.funny-monkey.meme`: A joke website featuring a dithered monkey graphic (`hehe.jpg`), linked from the cryptid forum.
     *   `www.hunter-origin.spec`: Classified specs details for the H-198 Hunter chassis (revealing its blindness in complete darkness and under-desk sensor limitations), linked from the Archivist's Diary.
     *   `www.system-backdoor.hack`: A glitched administrative page detailing telemetry loops, lights controls, and manual system overrides, linked from the Walter Conspiracy blog.

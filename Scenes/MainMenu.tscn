@@ -9,7 +9,6 @@
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
 [ext_resource type="Texture2D" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
-[ext_resource type="PackedScene" path="res://Scenes/bg_music.tscn" id="7_fh7cp"]
 [ext_resource type="Shader" path="res://crt_filter.gdshader" id="10_shader"]
 [ext_resource type="Script" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner_Frame"]
@@ -125,7 +124,7 @@ theme_override_colors/font_color = Color(0.6658723, 0.6653325, 0.67696697, 1)
 theme_override_constants/outline_size = 14
 theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 100
-text = "Aparatus Inspector"
+text = "Apparatus Inspector"
 horizontal_alignment = 1
 
 [node name="MenuButtons" type="VBoxContainer" parent="."]
@@ -397,5 +396,3 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="bgSFX" parent="." instance=ExtResource("7_fh7cp")]
-layout_mode = 0

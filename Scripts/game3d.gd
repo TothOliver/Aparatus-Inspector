@@ -13,10 +13,16 @@ extends Node3D
 @onready var reticle = $HUD/Reticle
 @onready var ceiling_bulb = $Office/CeilingFixture/Bulb
 @onready var wifi_led = $Office/WifiRouter/WifiButton
+@onready var curtain_node = $Office/Curtain
 
 # Office States (monitored by roaming hunter AI)
 var is_ceiling_light_on: bool = true
 var is_monitor_on: bool = true
+
+# Curtain states
+var is_curtain_closed: bool = false
+var target_curtain_scale_x: float = 0.1
+var target_curtain_pos_x: float = -0.75
 
 # Tracks if power has completely failed
 var is_blackout: bool = false
@@ -43,20 +49,29 @@ func _ready():
 	_update_wifi_led_material()
 	_update_lights_visibility()
 
+	if has_node("/root/BGMusic"):
+		var bg_music = get_node("/root/BGMusic")
+		if bg_music is AudioStreamPlayer and not bg_music.playing:
+			bg_music.play()
+
 func _process(delta):
 	# Power grid calculations
 	if GameStats.door_locked:
 		var drain_rate = 3.5 * (1.0 + (GameStats.current_day - 1) * 0.45)
 		GameStats.power_level = max(0.0, GameStats.power_level - drain_rate * delta)
-		if GameStats.power_level <= 0.0:
-			GameStats.door_locked = false
-			_trigger_power_outage()
 	else:
 		if GameStats.power_level < 100.0:
 			# Recharge power: ~2.5% per second
 			GameStats.power_level = min(100.0, GameStats.power_level + 2.5 * delta)
-			if is_blackout and GameStats.power_level >= 10.0:
-				_restore_power()
+
+	# Handle Blackout state changes based on power level
+	if GameStats.power_level <= 0.0:
+		if not is_blackout:
+			GameStats.door_locked = false
+			_trigger_power_outage()
+	else:
+		if is_blackout and GameStats.power_level >= 10.0:
+			_restore_power()
 
 	# Creepy flickering corridor light effect
 	if corridor_light and randf() < 0.08:
@@ -71,6 +86,10 @@ func _process(delta):
 			door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, 0.0, 10.0 * delta)
 		else:
 			door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, deg_to_rad(90.0), 10.0 * delta)
+
+	if curtain_node:
+		curtain_node.scale.x = lerp(curtain_node.scale.x, target_curtain_scale_x, 8.0 * delta)
+		curtain_node.position.x = lerp(curtain_node.position.x, target_curtain_pos_x, 8.0 * delta)
 
 func _input(event):
 	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
@@ -102,8 +121,11 @@ func exit_computer_view():
 		reticle.visible = true
 
 func _on_robot_spawned(robot_data: RobotData):
-	if sprite_3d and robot_data and robot_data.sprite:
-		sprite_3d.texture = robot_data.sprite
+	if sprite_3d:
+		if robot_data and robot_data.sprite:
+			sprite_3d.texture = robot_data.sprite
+		else:
+			sprite_3d.texture = null
 
 # Light controls (can be called by light switches or the MS-DOS terminal)
 func toggle_ceiling_lights():
@@ -183,6 +205,20 @@ func _update_door_light_material(locked: bool):
 func toggle_wifi():
 	GameStats.wifi_on = not GameStats.wifi_on
 	_update_wifi_led_material()
+
+func toggle_door_lock():
+	if is_blackout:
+		return
+	GameStats.door_locked = not GameStats.door_locked
+
+func toggle_curtain():
+	is_curtain_closed = not is_curtain_closed
+	if is_curtain_closed:
+		target_curtain_scale_x = 1.0
+		target_curtain_pos_x = 0.0
+	else:
+		target_curtain_scale_x = 0.1
+		target_curtain_pos_x = -0.75
 
 func _update_wifi_led_material():
 	if wifi_led:

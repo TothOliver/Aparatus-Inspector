@@ -1,10 +1,15 @@
-with open("Scenes/Game.tscn", "r", encoding="utf-8") as f:
-    lines = f.readlines()
+import os
 
-for i, line in enumerate(lines):
-    if "CloseButton" in line or 'name="CloseButton"' in line or "connection" in line:
-        if "CloseButton" in line:
-            print(f"Line {i+1}: {line.strip()}")
-            # Print nearby lines to see context
-            for k in range(max(0, i-2), min(len(lines), i+8)):
-                print(f"  {k+1}: {lines[k].rstrip()}")
+for root, dirs, files in os.walk("."):
+    if ".git" in root or ".godot" in root:
+        continue
+    for file in files:
+        if file.endswith(".gd"):
+            path = os.path.join(root, file)
+            with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+                if "CloseButton" in content or "close" in content:
+                    # Print lines with CloseButton
+                    for i, line in enumerate(content.split("\n")):
+                        if "CloseButton" in line or ".pressed.connect" in line:
+                            print(f"{path}:{i+1}: {line.strip()}")

@@ -1,13 +1,8 @@
 with open("Scenes/Game.tscn", "r", encoding="utf-8") as f:
-    lines = f.readlines()
+    content = f.read()
 
-notepad_start = -1
-for i, line in enumerate(lines):
-    if 'name="NotepadWindow"' in line:
-        notepad_start = i
-        break
-
-if notepad_start != -1:
-    print(f"--- NotepadWindow starting at line {notepad_start+1} ---")
-    for j in range(notepad_start, notepad_start + 45):
-        print(f"{j+1}: {lines[j].strip()}")
+pos = content.find('[node name="NotepadWindow"')
+if pos != -1:
+    print(content[pos:pos+1500])
+else:
+    print("NotepadWindow not found!")

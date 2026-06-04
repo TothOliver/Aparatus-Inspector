@@ -32,6 +32,9 @@ var _margins_registered: bool = false
 func _ready():
 	if title_bar:
 		title_bar.gui_input.connect(_on_title_bar_gui_input)
+		var close_btn = title_bar.get_node_or_null("CloseButton")
+		if close_btn and not close_btn.pressed.is_connected(close):
+			close_btn.pressed.connect(close)
 	
 	# Bring to front on clicking anywhere on the window
 	gui_input.connect(_on_window_gui_input)

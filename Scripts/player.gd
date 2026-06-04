@@ -16,6 +16,7 @@ enum State {
 }
 
 var current_state = State.WALKING
+var is_crouching: bool = false
 
 # Movement variables
 var rotation_x: float = 0.0
@@ -47,8 +48,10 @@ func _physics_process(delta):
 	if current_state == State.WALKING:
 		handle_walking_movement(delta)
 	elif current_state == State.SITTING:
+		is_crouching = false
 		handle_sitting_camera(delta)
 	elif current_state == State.COMPUTER_VIEW:
+		is_crouching = false
 		handle_computer_view(delta)
 
 func _process(delta):
@@ -74,8 +77,10 @@ func handle_walking_movement(delta):
 	if is_crouch_pressed or Input.is_key_pressed(KEY_CTRL):
 		target_cam_y = crouch_cam_y
 		collider_shape.height = 1.0
+		is_crouching = true
 	else:
 		collider_shape.height = 1.8
+		is_crouching = false
 	
 	# Smoothly interpolate camera height and zoom out
 	camera.position.y = lerp(camera.position.y, target_cam_y, lerp_speed * delta)
@@ -170,6 +175,16 @@ func _input(event):
 					elif collider.name.contains("Chair"):
 						sit_down()
 
+func is_interactable(collider) -> bool:
+	if not collider:
+		return false
+	if collider.has_method("interact"):
+		return true
+	var name_lower = collider.name.to_lower()
+	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor") or name_lower.contains("chair") or name_lower.contains("curtain"):
+		return true
+	return false
+
 func check_interaction():
 	if current_state == State.COMPUTER_VIEW:
 		interact_prompt_changed.emit("")
@@ -177,7 +192,7 @@ func check_interaction():
 
 	if interaction_ray.is_colliding():
 		var collider = interaction_ray.get_collider()
-		if collider:
+		if collider and is_interactable(collider):
 			var target_name = ""
 			if collider.has_method("get_interact_name"):
 				target_name = collider.get_interact_name()
@@ -185,6 +200,8 @@ func check_interaction():
 				target_name = collider.name
 			
 			interact_prompt_changed.emit("Press E or Left Click to interact with: " + target_name)
+		else:
+			interact_prompt_changed.emit("")
 	else:
 		interact_prompt_changed.emit("")
 
@@ -243,6 +260,8 @@ func handle_settings_shortcut():
 			if pause_menu.visible:
 				pause_menu.visible = false
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+				get_tree().paused = false
 			else:
 				pause_menu.visible = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				get_tree().paused = true

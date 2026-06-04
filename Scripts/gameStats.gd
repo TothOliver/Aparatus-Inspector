@@ -16,6 +16,8 @@ var hack_progress: float = 0.0
 var is_victory: bool = false
 var casino_balance: float = 100.0
 var wifi_on: bool = true
+var player_health: float = 100.0
+var player_sanity: float = 100.0
 
 # User System Settings
 var mouse_sensitivity: float = 0.15
@@ -77,18 +79,34 @@ func _generate_button_click_sound() -> AudioStreamWAV:
 	stream.data = data
 	return stream
 
+func reset_game_state():
+	final_missed_score = 0
+	total_security_breaches = 0
+	innocent_robots_killed = 0
+	good_robots_through = 0
+	bad_robots_terminated = 0
+	let_through_bad_sprites.clear()
+	
+	current_day = 1
+	power_level = 100.0
+	door_locked = false
+	hack_active = false
+	hack_progress = 0.0
+	is_victory = false
+	casino_balance = 100.0
+	wifi_on = true
+	player_health = 100.0
+	player_sanity = 100.0
+
 func quit_or_menu(tree: SceneTree):
 	if tree.current_scene and (tree.current_scene.scene_file_path == "res://Scenes/MainMenu.tscn" or tree.current_scene.name == "MainMenu"):
 		tree.quit()
 	else:
-		final_missed_score = 0
-		total_security_breaches = 0
-		innocent_robots_killed = 0
-		bad_robots_terminated = 0
-		is_victory = false
-		current_day = 1
-		change_scene_with_loading(tree, "res://Scenes/MainMenu.tscn")
+		reset_game_state()
+		tree.paused = false
+		tree.change_scene_to_file("res://Scenes/MainMenu.tscn")
 
 func change_scene_with_loading(tree: SceneTree, target_path: String):
 	target_scene_path = target_path
+	tree.paused = false
 	tree.change_scene_to_file("res://Scenes/LoadingScreen.tscn")

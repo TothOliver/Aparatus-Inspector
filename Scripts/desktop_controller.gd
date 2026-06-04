@@ -1,7 +1,7 @@
 extends Control
 class_name DesktopController
 
-@onready var inspector_window = %AparatusInspectorWindow
+@onready var inspector_window = %ApparatusInspectorWindow
 @onready var notepad_window = %NotepadWindow
 @onready var terminal_window = %TerminalWindow
 @onready var minesweeper_window = %MinesweeperWindow
@@ -31,6 +31,8 @@ var hacker_alert_dismissed: bool = false
 var active_window: Control = null
 var browser_window: Control = null
 var browser_tab: Button = null
+var shift_verify_window: Control = null
+var shift_verify_tab: Button = null
 
 func _ready():
 	if start_menu:
@@ -68,6 +70,12 @@ func _ready():
 	get_parent().call_deferred("add_child", browser_window)
 	browser_window.visible = false
 
+	# Instantiate Shift Verify Window (Disabled)
+	# var shift_verify_scene = preload("res://Scenes/ShiftVerifyWindow.tscn")
+	# shift_verify_window = shift_verify_scene.instantiate()
+	# get_parent().call_deferred("add_child", shift_verify_window)
+	# shift_verify_window.visible = false
+
 	# Instantiate Browser Tab Button
 	var active_tabs_container = get_node_or_null("Taskbar/ActiveTabs")
 	browser_tab = Button.new()
@@ -81,6 +89,19 @@ func _ready():
 	)
 	if active_tabs_container:
 		active_tabs_container.add_child(browser_tab)
+
+	# Instantiate Shift Verify Tab Button (Disabled)
+	# shift_verify_tab = Button.new()
+	# shift_verify_tab.name = "ShiftVerifyTab"
+	# shift_verify_tab.custom_minimum_size = Vector2(40, 0)
+	# shift_verify_tab.icon = load("res://Sprites/icon_shift_verify.png")
+	# shift_verify_tab.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# shift_verify_tab.expand_icon = true
+	# shift_verify_tab.pressed.connect(func():
+	# 	toggle_window_from_tab("ShiftVerify")
+	# )
+	# if active_tabs_container:
+	# 	active_tabs_container.add_child(shift_verify_tab)
 
 	# Dynamic Browser Desktop Shortcut
 	var desktop_icons_container = get_node_or_null("DesktopIcons")
@@ -113,7 +134,7 @@ func _ready():
 		vbox.add_child(icon_rect)
 		
 		var label = Label.new()
-		label.text = "Aparatus\nExplorer"
+		label.text = "Apparatus\nExplorer"
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.add_theme_color_override("font_color", Color(1,1,1,1))
@@ -127,12 +148,56 @@ func _ready():
 		)
 		desktop_icons_container.add_child(browser_icon_btn)
 
+	# Dynamic Shift Verify Desktop Shortcut (Disabled)
+	# if desktop_icons_container:
+	# 	var verify_icon_btn = Button.new()
+	# 	verify_icon_btn.name = "ShiftVerifyIcon"
+	# 	verify_icon_btn.layout_mode = 0
+	# 	verify_icon_btn.position = Vector2(160, 150)
+	# 	verify_icon_btn.size = Vector2(110, 90)
+	# 	verify_icon_btn.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
+	# 	
+	# 	var other_btn = desktop_icons_container.get_node_or_null("InspectorIcon") as Button
+	# 	if other_btn:
+	# 		verify_icon_btn.add_theme_stylebox_override("hover", other_btn.get_theme_stylebox("hover"))
+	# 		verify_icon_btn.add_theme_stylebox_override("pressed", other_btn.get_theme_stylebox("pressed"))
+	# 		verify_icon_btn.add_theme_stylebox_override("focus", other_btn.get_theme_stylebox("focus"))
+	# 	
+	# 	var vbox = VBoxContainer.new()
+	# 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# 	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	# 	vbox.add_theme_constant_override("separation", 2)
+	# 	verify_icon_btn.add_child(vbox)
+	# 	
+	# 	var icon_rect = TextureRect.new()
+	# 	icon_rect.custom_minimum_size = Vector2(0, 48)
+	# 	icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# 	icon_rect.texture = load("res://Sprites/icon_shift_verify.png")
+	# 	icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	# 	vbox.add_child(icon_rect)
+	# 	
+	# 	var label = Label.new()
+	# 	label.text = "Shift\nVerify"
+	# 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	# 	label.add_theme_color_override("font_color", Color(1,1,1,1))
+	# 	label.add_theme_font_override("font", preload("res://RetroWindowsGUI/M 8pt.ttf"))
+	# 	label.add_theme_font_size_override("font_size", 12)
+	# 	label.add_theme_constant_override("line_spacing", -4)
+	# 	vbox.add_child(label)
+	# 	
+	# 	verify_icon_btn.pressed.connect(func():
+	# 		open_app("ShiftVerify")
+	# 	)
+	# 	desktop_icons_container.add_child(verify_icon_btn)
+
 	# Dynamic Browser Start Menu Button
 	var program_list = get_node_or_null("StartMenu/HBox/ProgramList")
 	if program_list:
 		var browser_btn = Button.new()
 		browser_btn.name = "BrowserBtn"
-		browser_btn.text = " Aparatus Explorer"
+		browser_btn.text = " Apparatus Explorer"
 		browser_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		browser_btn.custom_minimum_size = Vector2(0, 36)
 		browser_btn.add_theme_color_override("font_color", Color(0,0,0,1))
@@ -156,6 +221,35 @@ func _ready():
 		var divider_node = program_list.get_node_or_null("Divider")
 		if divider_node:
 			program_list.move_child(browser_btn, divider_node.get_index())
+
+	# Dynamic Shift Verify Start Menu Button (Disabled)
+	# if program_list:
+	# 	var verify_btn = Button.new()
+	# 	verify_btn.name = "ShiftVerifyBtn"
+	# 	verify_btn.text = " Shift Verify"
+	# 	verify_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	# 	verify_btn.custom_minimum_size = Vector2(0, 36)
+	# 	verify_btn.add_theme_color_override("font_color", Color(0,0,0,1))
+	# 	verify_btn.add_theme_color_override("font_hover_color", Color(1,1,1,1))
+	# 	verify_btn.add_theme_color_override("font_focus_color", Color(1,1,1,1))
+	# 	verify_btn.add_theme_font_override("font", preload("res://RetroWindowsGUI/M 8pt.ttf"))
+	# 	verify_btn.add_theme_font_size_override("font_size", 12)
+	# 	
+	# 	var ref_btn = program_list.get_node_or_null("InspectorBtn") as Button
+	# 	if ref_btn:
+	# 		verify_btn.add_theme_stylebox_override("normal", ref_btn.get_theme_stylebox("normal"))
+	# 		verify_btn.add_theme_stylebox_override("hover", ref_btn.get_theme_stylebox("hover"))
+	# 		verify_btn.add_theme_stylebox_override("focus", ref_btn.get_theme_stylebox("focus"))
+	# 	
+	# 	verify_btn.icon = load("res://Sprites/icon_shift_verify.png")
+	# 	verify_btn.expand_icon = true
+	# 	verify_btn.pressed.connect(func():
+	# 		_on_start_menu_app_selected("ShiftVerify")
+	# 	)
+	# 	program_list.add_child(verify_btn)
+	# 	var divider_node = program_list.get_node_or_null("Divider")
+	# 	if divider_node:
+	# 		program_list.move_child(verify_btn, divider_node.get_index())
 	
 	# Connect window signals to update taskbar tabs and focus state
 	var apps = [
@@ -170,6 +264,8 @@ func _ready():
 	]
 	if browser_window and browser_tab:
 		apps.append([browser_window, browser_tab])
+	if shift_verify_window and shift_verify_tab:
+		apps.append([shift_verify_window, shift_verify_tab])
 		
 	for app in apps:
 		var window = app[0]
@@ -297,6 +393,7 @@ func _get_window_by_name(name: String) -> Control:
 		"Slots": return slot_machine_window
 		"Settings": return settings_window
 		"Browser": return browser_window
+		"ShiftVerify": return shift_verify_window
 	return null
 
 func shutdown_computer():
@@ -312,16 +409,12 @@ func open_app(app_name: String):
 	if window:
 		window.restore()
 
-# Triggered by clicking taskbar tabs
 func toggle_window_from_tab(app_name: String):
 	var window = _get_window_by_name(app_name)
-	var tab = _get_tab_by_name(app_name)
 	if window:
-		# If the window is currently visible and is at the top of the viewport z-order, minimize it
-		if window.visible and window.get_parent() and window.get_index() == window.get_parent().get_child_count() - 1:
+		if window.visible:
 			window.minimize()
 		else:
-			# Otherwise, restore and focus it
 			window.restore()
 
 func _get_tab_by_name(name: String) -> Button:
@@ -335,6 +428,7 @@ func _get_tab_by_name(name: String) -> Button:
 		"Slots": return slots_tab
 		"Settings": return settings_tab
 		"Browser": return browser_tab
+		"ShiftVerify": return shift_verify_tab
 	return null
 
 func _on_start_button_pressed():

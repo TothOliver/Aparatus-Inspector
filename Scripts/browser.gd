@@ -1,6 +1,6 @@
 extends DesktopWindow
 
-var current_url: String = "www.aparatusexplorer.net"
+var current_url: String = "www.apparatusexplorer.net"
 var history_back: Array = []
 var history_forward: Array = []
 
@@ -11,17 +11,17 @@ var forward_btn: Button
 
 # 10 Website pages BBCode directory
 var websites = {
-	"www.aparatusexplorer.net": {
-		"title": "Aparatus Explorer Network Portal",
+	"www.apparatusexplorer.net": {
+		"title": "Apparatus Explorer Network Portal",
 		"content": """[center][img=48]res://Sprites/icon_browser.png[/img]
-[font_size=16][color=navy][b]APARATUS NET FINDER[/b][/color][/font_size]
+[font_size=16][color=navy][b]APPARATUS NET FINDER[/b][/color][/font_size]
 [color=#333333]Your Gateway to the Intranet • Ver 1.0b[/color][/center]
 [hr]
-Welcome to the Aparatus Explorer Portal! This portal index lists all active web servers running on the local network segment. Please verify your NetGate wifi router connection before browsing.
+Welcome to the Apparatus Explorer Portal! This portal index lists all active web servers running on the local network segment. Please verify your NetGate wifi router connection before browsing.
 
 [b]Web Directories & Resources:[/b]
 [indent]
-• [url=www.robot-factory.corp]Aparatus Robotics Corp[/url] - Official corporate homepage and model schematics.
+• [url=www.robot-factory.corp]Apparatus Robotics Corp[/url] - Official corporate homepage and model schematics.
 • [url=www.inspections-database.org]Inspector Logs Database[/url] - Decommissioning reports and safety archives.
 • [url=www.larry-shrine.fans]The Larry Fan Club[/url] - A fan-operated shrine to the friendly Larry model.
 • [url=www.walter-files.com]The Walter Conspiracy[/url] - Whistleblower blog about security frame anomalies.
@@ -32,15 +32,15 @@ Welcome to the Aparatus Explorer Portal! This portal index lists all active web 
 • [url=www.the-archivist.net]The Archivist's Diary[/url] - Glitched personal logs and notes.
 [/indent]
 [hr]
-[center][color=#333333]© 1998 Aparatus Corporation. All Rights Reserved.[/color][/center]"""
+[center][color=#333333]© 1998 Apparatus Corporation. All Rights Reserved.[/color][/center]"""
 	},
 	"www.robot-factory.corp": {
-		"title": "Aparatus Robotics - Building the Future",
+		"title": "Apparatus Robotics - Building the Future",
 		"content": """[center][img=128]res://Sprites/robot4.png[/img]
-[font_size=16][color=darkblue][b]APARATUS ROBOTICS[/b][/color][/font_size]
+[font_size=16][color=darkblue][b]APPARATUS ROBOTICS[/b][/color][/font_size]
 [color=teal][i]Safety • Efficiency • Compliance[/i][/color][/center]
 [hr]
-At Aparatus Robotics, we engineer state-of-the-art synthetic models to assist humanity in high-risk environments. Our signature chassis models include the [b]Larry[/b] social testbed and the [b]Walter[/b] security frame.
+At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist humanity in high-risk environments. Our signature chassis models include the [b]Larry[/b] social testbed and the [b]Walter[/b] security frame.
 
 [b]Current Production Lines:[/b]
 • [b]Larry series[/b]: Highly empathetic conversational units designed for administrative roles.
@@ -49,7 +49,7 @@ At Aparatus Robotics, we engineer state-of-the-art synthetic models to assist hu
 [color=green][b]SAFETY NOTICE:[/b][/color] We have recently passed 150 days without a decommissioning accident! 
 [i](Note: Any rumors regarding rogue units crawling inside the ventilation shafts are strictly corporate sabotage spread by disgruntled former inspectors.)[/i]
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.inspections-database.org": {
 		"title": "Inspector Archives & Logs",
@@ -67,7 +67,7 @@ At Aparatus Robotics, we engineer state-of-the-art synthetic models to assist hu
 • [b]Decommission Status[/b]: TERMINATED
 • [b]Notes[/b]: Safe, clean record. Terminated after failing to recognize a corrupted model that claimed to be 'innocent'.
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.larry-shrine.fans": {
 		"title": "LARRY'S WORLD - Larry Fan Page",
@@ -81,7 +81,7 @@ Larry is the absolute best robot model ever created! He is so friendly and alway
 In entry log #12, the author notes that Larry offered the inspector exactly [color=red][b]14[/b][/color] dollars. Why 14? Some think it is a secret code! In fact, the local inspector discovered that the number [color=blue][b]14[/b][/color] is the [b]decryption key[/b] for the encrypted archive [color=green]classified_01.enc[/color]! Try typing `decrypt classified_01.enc 14` in your system terminal.
 
 [center][color=red]LARRY FOREVER![/color]
-[url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.walter-files.com": {
 		"title": "The Walter Files - The Truth Out There",
@@ -98,7 +98,7 @@ I found out that the code word [color=blue][b]walter[/b][/color] decrypts the fi
 If you want to bypass the firewall and see the root controls, I host a mirror at [url=www.system-backdoor.hack]www.system-backdoor.hack[/url].
 
 [center][b]STAY SAFE. STAY DARK.[/b]
-[url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.weather-central.net": {
 		"title": "Metro Weather Station",
@@ -112,7 +112,7 @@ The weather radar is reporting severe electromagnetic spikes in the local area. 
 
 During blackouts, the power grid will reboot automatically when it reaches 10% charge. Keep your computer and office doors closed to conserve battery!
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.retro-slots-cheats.info": {
 		"title": "Casino Slots Cheats & Tips",
@@ -124,7 +124,7 @@ The slots application on the PC is rigged! But there are some hidden things in t
 • There is a 5% chance the reels will glitch and display the [color=red]ROBOT[/color] symbol across all three slots.
 • [b]WARNING:[/b] Spawning triple robots triggers the immediate deployment of the Hunter Robot. Do not spin unless you are prepared to hide under the desk!
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.creepy-cryptid-forum.org": {
 		"title": "Local Area Cryptid Forum",
@@ -138,7 +138,7 @@ The slots application on the PC is rigged! But there are some hidden things in t
 
 [b]User_4044[/b]: "Guys, stop talking about vents for a second, check out this weird hidden joke page I found: [url=www.funny-monkey.meme]funny monkey meme[/url]"
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.router-support.corp": {
 		"title": "NetGate WiFi Router User Manual",
@@ -153,7 +153,7 @@ Your router on the desk provides network connectivity to the PC Explorer browser
 
 To toggle router power, click the physical button on top of the router device in the room.
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.the-archivist.net": {
 		"title": "The Archivist's Diary",
@@ -167,7 +167,7 @@ If you are reading this, the system is watching you. Keep your router on to gath
 
 P.S. I managed to mirror the prototype specs of the stalker chassis before they wiped the server: [url=www.hunter-origin.spec]Hunter Prototype Specs[/url]
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	# Hidden Webpages (Not on Main Portal Homepage)
 	"www.funny-monkey.meme": {
@@ -180,7 +180,7 @@ Look at this funny monkey! Haha! He looks like he just got decommissioned for ad
 
 "When the inspector tells you it's a trustworthy model but you hear metal scraping in the vents."
 
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.hunter-origin.spec": {
 		"title": "Hunter Chassis Prototype Specs",
@@ -195,12 +195,12 @@ Look at this funny monkey! Haha! He looks like he just got decommissioned for ad
 • [b]Threat Level[/b]: ABSOLUTE.
 • [b]Developer Notes[/b]: "The H-198 chassis prototype features a physical claw sensor array designed specifically to sweep tables and computer consoles. However, due to structural height limitations, it cannot sweep under the standard office desk partition. This remains a critical design flaw."
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.system-backdoor.hack": {
-		"title": "Aparatus System Backdoor",
+		"title": "Apparatus System Backdoor",
 		"content": """[center][img=48]res://Sprites/icon_settings.png[/img]
-[font_size=16][color=red][b]⚠️ APARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
+[font_size=16][color=red][b]⚠️ APPARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
 [color=green]Connection: SECURE BACKDOOR TACK[/color][/center]
 [hr]
 Welcome to the backdoor terminal console. This page intercepts active telemetry and system parameters from the main PC mainframe.
@@ -212,7 +212,7 @@ Welcome to the backdoor terminal console. This page intercepts active telemetry 
 
 [i]Keep browsing. Stay one step ahead of the machine.[/i]
 [hr]
-[center][url=www.aparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	}
 }
 
@@ -260,7 +260,7 @@ func _ready():
 	# Title Label
 	var title_lbl = Label.new()
 	title_lbl.name = "Title"
-	title_lbl.text = "Aparatus Explorer"
+	title_lbl.text = "Apparatus Explorer"
 	title_lbl.add_theme_font_override("font", font_bold)
 	title_lbl.add_theme_font_size_override("font_size", 12)
 	title_lbl.position = Vector2(30, 6)
@@ -425,7 +425,7 @@ func _load_current_page(update_history_buttons: bool = true):
 	# Check WiFi connection
 	if not GameStats.wifi_on:
 		content_label.text = "[color=red][b]Server Not Found[/b][/color]\n\n" + \
-			"Aparatus Explorer cannot connect to the server at this address. The server might be temporarily down or you are disconnected from the network.\n\n" + \
+			"Apparatus Explorer cannot connect to the server at this address. The server might be temporarily down or you are disconnected from the network.\n\n" + \
 			"[b]Diagnostic Suggestions:[/b]\n" + \
 			"1. Verify that your physical WiFi Router's power light is glowing [color=green]Green[/color].\n" + \
 			"2. If the light is [color=red]Red[/color], press the physical button on top of the router in the room to power it back on.\n" + \
@@ -436,7 +436,7 @@ func _load_current_page(update_history_buttons: bool = true):
 	else:
 		content_label.text = "[color=darkred][b]404 Page Not Found[/b][/color]\n\n" + \
 			"The requested URL '" + current_url + "' could not be found on this server. Please check the spelling and try again.\n\n" + \
-			"[url=www.aparatusexplorer.net]<< Return to Web Portal[/url]"
+			"[url=www.apparatusexplorer.net]<< Return to Web Portal[/url]"
 			
 	# Update back/forward button states
 	if back_btn:
@@ -457,7 +457,7 @@ func go_forward():
 		_load_current_page(false)
 
 func go_home():
-	navigate_to("www.aparatusexplorer.net")
+	navigate_to("www.apparatusexplorer.net")
 
 func on_url_submitted(new_url: String):
 	if new_url.strip_edges() != "":

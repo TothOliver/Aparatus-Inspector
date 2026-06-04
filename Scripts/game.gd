@@ -18,6 +18,7 @@ signal robot_spawned(robot: RobotData)
 @onready var modelInfo = %ModelLabel
 @onready var statusInfo = %StatusLabel
 @onready var manuInfo = %ManuLabel
+@onready var quotaLabel = %QuotaLabel
 
 # --- FLYTTADE VARIABLAR HIT UPP ---
 var normal_tex = preload("res://RetroWindowsGUI/Windows_Button.png")
@@ -28,15 +29,18 @@ var robots: Array[RobotData] = []
 var current_robot: RobotData
 var is_waiting_for_replay = false
 var final_message = false
+var is_processing_choice = false
+var was_wifi_on: bool = true
 
 func _ready():
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
 		crt.add_to_group("CRTOverlays")
 	robots = RobotFactory.create_robots()
+	was_wifi_on = GameStats.wifi_on
 	spawn_next_robot()
-	health_bar.value = 100
-	sanity_bar.value = 100
+	health_bar.value = GameStats.player_health
+	sanity_bar.value = GameStats.player_sanity
 
 func spawn_next_robot():
 	if not is_inside_tree():
@@ -44,8 +48,54 @@ func spawn_next_robot():
 	chat_manager.clear_messages()
 	final_message = false
 	
+	# Check if WiFi is offline
+	if not GameStats.wifi_on:
+		robot_spawned.emit(null)
+		robot_texture.texture = null
+		nameInfo.text = "N/A"
+		modelInfo.text = "N/A"
+		statusInfo.text = "N/A"
+		manuInfo.text = "N/A"
+		if quotaLabel:
+			quotaLabel.text = "N/A"
+		chat_button1.text = ""
+		chat_button2.text = ""
+		good_button.disabled = true
+		bad_button.disabled = true
+		chat_manager.add_message("CONNECTION LOST: WiFi network is offline. Please check physical router or terminal network settings.", "System Error")
+		return
+	
+	# Check if daily quota has been met
+	var current_day = day_manager.current_day
+	var quota = 3
+	if current_day in day_manager.day_configs:
+		quota = day_manager.day_configs[current_day].quota
+		
+	if quotaLabel:
+		quotaLabel.text = "%d / %d" % [day_manager.processed_today, quota]
+		
+	if day_manager.processed_today >= quota:
+		current_robot = null
+		robot_spawned.emit(null)
+		robot_texture.texture = null
+		nameInfo.text = "N/A"
+		modelInfo.text = "N/A"
+		statusInfo.text = "N/A"
+		manuInfo.text = "N/A"
+		chat_button1.text = ""
+		chat_button2.text = ""
+		good_button.disabled = true
+		bad_button.disabled = true
+		chat_manager.add_message("Shift quota complete. Authorizing shift exit...", "System")
+		await get_tree().create_timer(1.5).timeout
+		day_manager.end_day()
+		return
+	
 	if robots.size() > 0:
-		current_robot = pick_next_robot()
+		good_button.disabled = false
+		bad_button.disabled = false
+		if not current_robot:
+			current_robot = pick_next_robot()
 		robot_spawned.emit(current_robot)
 		chat_manager.add_message(current_robot.robotChat[0], current_robot.name)
 		
@@ -131,10 +181,7 @@ func _on_good_button_button_down() -> void:
 	pass
 
 func _on_good_button_button_up() -> void:
-	print("Button Pressed: GOOD (Pass)")
-	if current_robot:
-		day_manager.process_robot(current_robot, true)
-		spawn_next_robot()
+	pass
 
 func _on_good_button_mouse_entered() -> void:
 	pass
@@ -146,10 +193,7 @@ func _on_bad_button_button_down() -> void:
 	pass
 
 func _on_bad_button_button_up() -> void:
-	print("Button Pressed: BAD (Reject)")
-	if current_robot:
-		day_manager.process_robot(current_robot, false)
-		spawn_next_robot()
+	pass
 
 func _on_bad_button_mouse_entered() -> void:
 	pass
@@ -285,10 +329,30 @@ func _on_quit_button_mouse_exited() -> void:
 	pass
 
 func _on_good_button_pressed() -> void:
-	_on_good_button_button_up()
+	if is_processing_choice:
+		return
+	is_processing_choice = true
+	print("Button Pressed: GOOD (Pass)")
+	if current_robot:
+		day_manager.process_robot(current_robot, true)
+		current_robot = null
+		spawn_next_robot()
+	if is_inside_tree() and get_tree():
+		await get_tree().create_timer(0.25).timeout
+		is_processing_choice = false
 
 func _on_bad_button_pressed() -> void:
-	_on_bad_button_button_up()
+	if is_processing_choice:
+		return
+	is_processing_choice = true
+	print("Button Pressed: BAD (Reject)")
+	if current_robot:
+		day_manager.process_robot(current_robot, false)
+		current_robot = null
+		spawn_next_robot()
+	if is_inside_tree() and get_tree():
+		await get_tree().create_timer(0.25).timeout
+		is_processing_choice = false
 
 func _on_chat_button1_pressed() -> void:
 	_on_button_1_button_up()
@@ -304,3 +368,8 @@ func _process(_delta):
 		var last_idx = crt.get_parent().get_child_count() - 1
 		if crt.get_index() != last_idx:
 			crt.get_parent().move_child(crt, last_idx)
+			
+	# WiFi connection listener
+	if was_wifi_on != GameStats.wifi_on:
+		was_wifi_on = GameStats.wifi_on
+		spawn_next_robot()

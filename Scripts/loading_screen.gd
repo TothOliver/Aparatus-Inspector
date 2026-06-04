@@ -15,7 +15,8 @@ var status_steps: Array = [
 	"Finalizing setup..."
 ]
 var step_index: int = 0
-var time_accum: float = 0.0
+var elapsed_time: float = 0.0
+var min_load_time: float = 0.75
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -28,6 +29,11 @@ func _ready() -> void:
 	if target_path.is_empty():
 		target_path = "res://Scenes/MainMenu.tscn" # Fallback
 		
+	if target_path == "res://Scenes/MainMenu.tscn":
+		min_load_time = 1.0
+	else:
+		min_load_time = 0.75
+		
 	# Start background loading
 	var err = ResourceLoader.load_threaded_request(target_path)
 	if err != OK:
@@ -35,26 +41,30 @@ func _ready() -> void:
 		set_process(false)
 
 func _process(delta: float) -> void:
-	time_accum += delta
+	elapsed_time += delta
 	
-	# Rotate status labels slowly
-	if time_accum >= 0.4:
-		time_accum = 0.0
-		step_index = min(step_index + 1, status_steps.size() - 1)
+	# Determine step index based on elapsed time dynamically spread over minimum duration
+	step_index = clamp(int(elapsed_time / (min_load_time / float(status_steps.size()))), 0, status_steps.size() - 1)
 		
-	# Check loading status
+	# Check actual background loading status
 	var load_status = ResourceLoader.load_threaded_get_status(target_path, progress)
-	
 	var progress_val = progress[0]
+	
+	# Visual progress is elapsed time ratio
+	var visual_progress = clamp(elapsed_time / min_load_time, 0.0, 1.0)
+	
+	# Display progress is the minimum of visual progress and actual loader progress
+	var display_progress = min(progress_val, visual_progress)
 	
 	# Update status text and progress bar
 	if progress_bar:
-		progress_bar.value = progress_val * 100.0
+		progress_bar.value = display_progress * 100.0
 		
 	if status_label:
-		status_label.text = status_steps[step_index] + " (" + str(round(progress_val * 100.0)) + "%)"
+		status_label.text = status_steps[step_index] + " (" + str(round(display_progress * 100.0)) + "%)"
 		
-	if load_status == ResourceLoader.THREAD_LOAD_LOADED:
+	# Only transition once the loading is complete AND the minimum time has elapsed
+	if load_status == ResourceLoader.THREAD_LOAD_LOADED and elapsed_time >= min_load_time:
 		var loaded_res = ResourceLoader.load_threaded_get(target_path)
 		get_tree().change_scene_to_packed(loaded_res)
 	elif load_status == ResourceLoader.THREAD_LOAD_FAILED or load_status == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:

@@ -7,38 +7,123 @@ extends Control
 @onready var sensitivity_value_label = $SensitivityValueLabel
 @onready var quit_button = get_node_or_null("QuitButton")
 
+var is_pause_menu: bool = false
+var was_visible: bool = false
+var opened_frame: int = -1
+
 func _ready():
-	# If parent is PauseWindow, dynamically add a CRTOverlay covering it.
+	# If parent is PauseWindow, dynamically add a CRTOverlay covering the full PauseMenu.
 	var pause_window = get_parent()
 	if pause_window and pause_window.name == "PauseWindow":
-		var crt = ColorRect.new()
-		crt.name = "PauseCRTOverlay"
-		crt.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		crt.set_anchors_preset(Control.PRESET_FULL_RECT)
-		crt.offset_left = 0
-		crt.offset_top = 0
-		crt.offset_right = 0
-		crt.offset_bottom = 0
-		
-		var crt_shader = preload("res://crt_filter.gdshader")
-		var mat = ShaderMaterial.new()
-		mat.shader = crt_shader
-		mat.set_shader_parameter("scanline_count", 320.0)
-		mat.set_shader_parameter("scanline_intensity", 0.08)
-		mat.set_shader_parameter("curvature", 0.025)
-		mat.set_shader_parameter("vignette_intensity", 0.08)
-		mat.set_shader_parameter("grr_intensity", 0.03)
-		mat.set_shader_parameter("aberration", 0.001)
-		crt.material = mat
-		crt.z_index = 20
-		pause_window.add_child(crt)
-		crt.add_to_group("CRTOverlays")
-		crt.visible = GameStats.crt_effect_enabled
+		is_pause_menu = true
+		var pause_menu = pause_window.get_parent()
+		if pause_menu and pause_menu.name == "PauseMenu":
+			pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+			
+			var crt = ColorRect.new()
+			crt.name = "PauseCRTOverlay"
+			crt.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			crt.set_anchors_preset(Control.PRESET_FULL_RECT)
+			crt.anchor_left = 0
+			crt.anchor_top = 0
+			crt.anchor_right = 1
+			crt.anchor_bottom = 1
+			crt.offset_left = 0
+			crt.offset_top = 0
+			crt.offset_right = 0
+			crt.offset_bottom = 0
+			
+			var crt_shader = preload("res://crt_filter.gdshader")
+			var mat = ShaderMaterial.new()
+			mat.shader = crt_shader
+			mat.set_shader_parameter("scanline_count", 320.0)
+			mat.set_shader_parameter("scanline_intensity", 0.08)
+			mat.set_shader_parameter("curvature", 0.025)
+			mat.set_shader_parameter("vignette_intensity", 0.08)
+			mat.set_shader_parameter("grr_intensity", 0.03)
+			mat.set_shader_parameter("aberration", 0.001)
+			crt.material = mat
+			crt.z_index = 20
+			
+			# Add as a child of PauseMenu so it draws over everything full-screen without squashing
+			pause_menu.add_child.call_deferred(crt)
+			crt.add_to_group("CRTOverlays")
+			crt.visible = GameStats.crt_effect_enabled
 
 	visibility_changed.connect(update_ui_from_stats)
 	update_ui_from_stats()
-	if quit_button:
-		quit_button.pressed.connect(_on_quit_pressed)
+	
+	if is_pause_menu:
+		# Reposition Exit Game button dynamically to make space for Resume button
+		if quit_button:
+			quit_button.pressed.connect(_on_quit_pressed)
+			quit_button.position = Vector2(246, 360)
+			quit_button.size = Vector2(120, 30)
+
+		# Dynamically instantiate the Resume button
+		var resume_button = Button.new()
+		resume_button.name = "ResumeButton"
+		resume_button.text = "Resume"
+		resume_button.add_theme_font_override("font", preload("res://RetroWindowsGUI/windows-bold[1].ttf"))
+		resume_button.add_theme_font_size_override("font_size", 12)
+		resume_button.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		resume_button.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
+		resume_button.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+		resume_button.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
+		resume_button.add_theme_stylebox_override("normal", preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres"))
+		resume_button.add_theme_stylebox_override("hover", preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres"))
+		resume_button.add_theme_stylebox_override("pressed", preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres"))
+		resume_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+		resume_button.position = Vector2(60, 360)
+		resume_button.size = Vector2(120, 30)
+		resume_button.pressed.connect(_on_resume_pressed)
+		add_child(resume_button)
+
+		# Divert TitleBar CloseButton (x) to unpause the tree
+		var close_button = get_node_or_null("../TitleBar/CloseButton")
+		if close_button:
+			for conn in close_button.pressed.get_connections():
+				close_button.pressed.disconnect(conn.callable)
+			close_button.pressed.connect(_on_resume_pressed)
+	else:
+		# 2D OS Settings Menu: Just connect the quit button normally (don't move it)
+		if quit_button:
+			quit_button.pressed.connect(_on_quit_pressed)
+
+func _process(_delta):
+	if not is_pause_menu:
+		return
+		
+	# Visibility change check to prevent double-triggering input in the same frame
+	var pause_menu = get_node_or_null("../..")
+	if pause_menu and pause_menu.name == "PauseMenu":
+		if pause_menu.visible and not was_visible:
+			opened_frame = Engine.get_process_frames()
+		was_visible = pause_menu.visible
+
+func _on_resume_pressed():
+	if not is_pause_menu:
+		return
+		
+	var pause_menu = get_node_or_null("../..")
+	if pause_menu and pause_menu.name == "PauseMenu":
+		pause_menu.visible = false
+	get_tree().paused = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _input(event):
+	if not is_pause_menu:
+		return
+		
+	var pause_menu = get_node_or_null("../..")
+	if pause_menu and pause_menu.name == "PauseMenu" and pause_menu.visible:
+		# Prevent unpausing in the same frame the menu is opened
+		if Engine.get_process_frames() == opened_frame:
+			return
+			
+		if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and (event.keycode == KEY_ESCAPE or event.physical_keycode == KEY_ESCAPE)):
+			get_viewport().set_input_as_handled()
+			_on_resume_pressed()
 
 func update_ui_from_stats():
 	if crt_checkbox:

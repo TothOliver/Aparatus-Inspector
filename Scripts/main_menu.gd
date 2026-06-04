@@ -29,6 +29,11 @@ func _ready() -> void:
 		crt.add_to_group("CRTOverlays")
 		crt.visible = GameStats.crt_effect_enabled
 
+	if has_node("/root/BGMusic"):
+		var bg_music = get_node("/root/BGMusic")
+		if bg_music is AudioStreamPlayer and not bg_music.playing:
+			bg_music.play()
+
 func _on_play_pressed() -> void:
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 
