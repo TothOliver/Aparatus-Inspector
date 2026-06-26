@@ -7,7 +7,6 @@ extends Control
 @onready var sensitivity_value_label = $SensitivityValueLabel
 @onready var quit_button = get_node_or_null("QuitButton")
 
-var fullscreen_checkbox: CheckBox
 var is_pause_menu: bool = false
 var was_visible: bool = false
 var opened_frame: int = -1
@@ -50,36 +49,6 @@ func _ready():
 			pause_menu.add_child.call_deferred(crt)
 			crt.add_to_group("CRTOverlays")
 			crt.visible = GameStats.crt_effect_enabled
-
-	# Dynamically instantiate Fullscreen checkbox next to CRT checkbox
-	if crt_checkbox:
-		# Shift CRT checkbox up a bit to fit both in the DisplayGroup panel
-		crt_checkbox.position.y = 20
-		
-		fullscreen_checkbox = CheckBox.new()
-		fullscreen_checkbox.name = "FullscreenCheckbox"
-		fullscreen_checkbox.text = " Enable Full Screen Mode"
-		
-		# Copy styles from CRTCheckbox
-		fullscreen_checkbox.add_theme_color_override("font_color", crt_checkbox.get_theme_color("font_color"))
-		fullscreen_checkbox.add_theme_color_override("font_pressed_color", crt_checkbox.get_theme_color("font_pressed_color"))
-		fullscreen_checkbox.add_theme_color_override("font_hover_color", crt_checkbox.get_theme_color("font_hover_color"))
-		fullscreen_checkbox.add_theme_color_override("font_hover_pressed_color", crt_checkbox.get_theme_color("font_hover_pressed_color"))
-		fullscreen_checkbox.add_theme_font_override("font", crt_checkbox.get_theme_font("font"))
-		fullscreen_checkbox.add_theme_font_size_override("font_size", crt_checkbox.get_theme_font_size("font_size"))
-		fullscreen_checkbox.add_theme_icon_override("checked", crt_checkbox.get_theme_icon("checked"))
-		fullscreen_checkbox.add_theme_icon_override("unchecked", crt_checkbox.get_theme_icon("unchecked"))
-		
-		# Position below CRTCheckbox
-		fullscreen_checkbox.position = Vector2(crt_checkbox.position.x, 50)
-		fullscreen_checkbox.size = Vector2(crt_checkbox.size.x, crt_checkbox.size.y)
-		
-		add_child(fullscreen_checkbox)
-		fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
-		
-		# Connect to global fullscreen signal
-		GameStats.fullscreen_toggled.connect(_on_global_fullscreen_toggled)
-
 	visibility_changed.connect(update_ui_from_stats)
 	update_ui_from_stats()
 	
@@ -163,12 +132,6 @@ func update_ui_from_stats():
 		crt_checkbox.toggled.connect(_on_crt_toggled)
 		_on_crt_toggled(GameStats.crt_effect_enabled)
 
-	if fullscreen_checkbox:
-		if fullscreen_checkbox.toggled.is_connected(_on_fullscreen_toggled):
-			fullscreen_checkbox.toggled.disconnect(_on_fullscreen_toggled)
-		var is_fs = (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN or DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-		fullscreen_checkbox.button_pressed = is_fs
-		fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
 
 	if volume_slider:
 		if volume_slider.value_changed.is_connected(_on_volume_changed):
@@ -191,21 +154,7 @@ func _on_crt_toggled(toggled_on: bool):
 		for crt in get_tree().get_nodes_in_group("CRTOverlays"):
 			crt.visible = toggled_on
 
-func _on_fullscreen_toggled(toggled_on: bool):
-	if toggled_on:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-		GameStats.fullscreen_enabled = true
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		GameStats.fullscreen_enabled = false
-	GameStats.fullscreen_toggled.emit(toggled_on)
 
-func _on_global_fullscreen_toggled(is_fs: bool):
-	if fullscreen_checkbox and fullscreen_checkbox.button_pressed != is_fs:
-		if fullscreen_checkbox.toggled.is_connected(_on_fullscreen_toggled):
-			fullscreen_checkbox.toggled.disconnect(_on_fullscreen_toggled)
-		fullscreen_checkbox.button_pressed = is_fs
-		fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
 
 func _on_volume_changed(value: float):
 	GameStats.master_volume = value
