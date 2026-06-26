@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="AWTBG"
-run/main_scene="uid://dvq7hwhliod3q"
+run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://Sprites/icon.svg"
+boot_splash/bg_color=Color(0, 0.50196, 0.50196, 1)
+boot_splash/stretch_mode=0
+boot_splash/use_filter=false
+boot_splash/image="res://Sprites/project_icon.png"
+config/icon="res://Sprites/project_icon.png"
 
 [autoload]
 
 GameStats="*uid://blxe4wyof8jen"
+BGMusic="*res://Scenes/bg_music.tscn"
 
 [display]
 

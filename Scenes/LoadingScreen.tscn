@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://loading_screen_scene_uid"]
+
+[ext_resource type="Script" path="res://Scripts/loading_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Window_Base.png" id="2_base"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Window_Header.png" id="3_header"]
+[ext_resource type="FontFile" path="res://RetroWindowsGUI/M 8pt.ttf" id="4_font"]
+[ext_resource type="FontFile" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_bold"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner"]
+[ext_resource type="Shader" path="res://crt_filter.gdshader" id="6_shader"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0, 0, 0.5019608, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("6_shader")
+shader_parameter/scanline_count = 320.0
+shader_parameter/scanline_intensity = 0.08
+shader_parameter/curvature = 0.025
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/grr_intensity = 0.03
+shader_parameter/aberration = 0.001
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="BackgroundTeal" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.5019608, 0.5019608, 1)
+
+[node name="Window" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_base")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TitleBar" type="NinePatchRect" parent="Window"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 354.0
+offset_bottom = 36.0
+texture = ExtResource("3_header")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="Window/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_font_sizes/font_size = 12
+text = "System Loader"
+
+[node name="LoadingBody" type="Control" parent="Window"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 348.0
+offset_bottom = 168.0
+
+[node name="StatusLabel" type="Label" parent="Window/LoadingBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 20.0
+offset_right = 326.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 12
+text = "Initializing system components..."
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Window/LoadingBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 55.0
+offset_right = 326.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/background = ExtResource("StyleBox_Inner")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_crt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+z_index = 20

@@ -1,0 +1,224 @@
+[node name="SettingsWindow" type="NinePatchRect" parent="." unique_id=202610230]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 380.0
+offset_top = 120.0
+offset_right = 830.0
+offset_bottom = 580.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+
+[node name="TitleBar" type="NinePatchRect" parent="SettingsWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 444.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="SettingsWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "System Settings"
+
+[node name="CloseButton" type="Button" parent="SettingsWindow/TitleBar"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 5.0
+offset_right = 434.0
+offset_bottom = 25.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="SettingsBody" type="Control" parent="SettingsWindow"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 438.0
+offset_bottom = 448.0
+script = ExtResource("Settings_Controller_Script")
+
+[node name="DisplayGroup" type="Panel" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 416.0
+offset_bottom = 90.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="DisplayGroupLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Display"
+
+[node name="CRTCheckbox" type="CheckBox" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 35.0
+offset_right = 350.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_icons/checked = ExtResource("Icon_ToggleActive")
+theme_override_icons/unchecked = ExtResource("Icon_ToggleInactive")
+text = " Enable CRT Screen Filter"
+
+[node name="AudioGroup" type="Panel" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 105.0
+offset_right = 416.0
+offset_bottom = 215.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="AudioGroupLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 97.0
+offset_right = 120.0
+offset_bottom = 113.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Audio"
+
+[node name="VolumeLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 125.0
+offset_right = 150.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Master Volume:"
+
+[node name="VolumeValueLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 125.0
+offset_right = 220.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "80%"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 155.0
+offset_right = 390.0
+offset_bottom = 190.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 80.0
+
+[node name="MouseGroup" type="Panel" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 230.0
+offset_right = 416.0
+offset_bottom = 340.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="MouseGroupLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 222.0
+offset_right = 150.0
+offset_bottom = 238.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Mouse Input"
+
+[node name="SensitivityLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "3D Look Sensitivity:"
+
+[node name="SensitivityValueLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 175.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "0.15"
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 280.0
+offset_right = 390.0
+offset_bottom = 315.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 30.0
+
+[node name="QuitButton" type="Button" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 360.0
+offset_right = 273.0
+offset_bottom = 390.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Exit Game"
+

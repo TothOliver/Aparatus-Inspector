@@ -1,56 +1,46 @@
-[gd_scene format=3 uid="uid://dvq7hwhliod3q"]
+[gd_scene load_steps=22 format=3 uid="uid://dvq7hwhliod3q"]
 
-[ext_resource type="Script" uid="uid://d3c64iask50su" path="res://Scripts/main_menu.gd" id="1_xim88"]
-[ext_resource type="Texture2D" uid="uid://b6ousc5vgvsd8" path="res://RetroWindowsGUI/Window_Header.png" id="2_koqhg"]
-[ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="3_cmrfp"]
-[ext_resource type="Texture2D" uid="uid://djm6jm6xr80dg" path="res://RetroWindowsGUI/Windows_Button.png" id="4_loo7a"]
-[ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_if7li"]
-[ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
-[ext_resource type="PackedScene" uid="uid://b4rqpuli5bw6i" path="res://Scenes/bg_music.tscn" id="7_fh7cp"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_xim88"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Window_Header.png" id="2_koqhg"]
+[ext_resource type="FontFile" path="res://RetroWindowsGUI/M 8pt.ttf" id="3_cmrfp"]
+[ext_resource type="FontFile" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_if7li"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Window_Base.png" id="8_base"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
+[ext_resource type="Shader" path="res://crt_filter.gdshader" id="10_shader"]
+[ext_resource type="Script" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner_Frame"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmrqt"]
-bg_color = Color(0.26666668, 0.62352943, 0, 0)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.2509804)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g7qx"]
-bg_color = Color(0.10251091, 0.27725604, 0, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.2509804)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("10_shader")
+shader_parameter/scanline_count = 320.0
+shader_parameter/scanline_intensity = 0.08
+shader_parameter/curvature = 0.025
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/grr_intensity = 0.03
+shader_parameter/aberration = 0.001
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8dbq"]
-bg_color = Color(0.188178, 0.457964, 0, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.2509804)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6o36"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GroupLabel"]
+bg_color = Color(0.83137, 0.81568, 0.78431, 1)
+expand_margin_left = 4.0
+expand_margin_right = 4.0
 
-[node name="MainMenu" type="Control" unique_id=2123905387]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
+texture = ExtResource("Icon_SliderBG")
+texture_margin_left = 2.0
+texture_margin_top = 1.0
+texture_margin_right = 2.0
+texture_margin_bottom = 1.0
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xim88")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=330054456]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,26 +58,56 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.5019608, 0.5019608, 1)
 
-[node name="Background" type="NinePatchRect" parent="." unique_id=1911909970]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 221.0
-offset_top = 273.0
-offset_right = -856.5
-offset_bottom = -591.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-texture = ExtResource("2_koqhg")
-region_rect = Rect2(0, 0, 48, 48)
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 230.0
+offset_right = 970.0
+offset_bottom = 610.0
+texture = ExtResource("8_base")
 patch_margin_left = 12
-patch_margin_top = 45
+patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="Title" type="Label" parent="." unique_id=667048265]
+[node name="TitleBar" type="NinePatchRect" parent="Background"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 654.0
+offset_bottom = 36.0
+texture = ExtResource("2_koqhg")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="Background/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 300.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_if7li")
+theme_override_font_sizes/font_size = 12
+text = "System Briefing"
+
+[node name="BriefingLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 14
+text = "Hello Inspector
+You have been assigned to examine a series of artificial intelligences scheduled for final review. Each subject will be observed through direct conversation and evaluated based on its behavior, reasoning, and emotional responses. Your task is to determine whether each AI should be approved for continued existence or marked for termination. Proceed carefully. Some may be dangerous. Some may only appear to be. It is up to you to ensure that only the trustworthy are accepted."
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -107,111 +127,272 @@ theme_override_font_sizes/font_size = 100
 text = "Apparatus Inspector"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="." unique_id=453010544]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -339.0
-offset_top = -108.0
-offset_right = 319.0
-offset_bottom = 229.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_cmrfp")
-theme_override_font_sizes/font_size = 19
-text = "Hello Inspector
-You have been assigned to examine a series of artificial intelligences scheduled for final review. Each subject will be observed through direct conversation and evaluated based on its behavior, reasoning, and emotional responses. Your task is to determine whether each AI should be approved for continued existence or marked for termination. Proceed carefully. Some may be dangerous. Some may only appear to be. It is up to you to ensure that only the trustworthy are accepted."
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="StartQuit" type="NinePatchRect" parent="." unique_id=1058907255]
-unique_name_in_owner = true
+[node name="MenuButtons" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 936.0
-offset_top = 300.0
-offset_right = 950.8
-offset_bottom = 314.0
-scale = Vector2(4, 4)
-size_flags_stretch_ratio = 0.0
-mouse_filter = 1
-texture = ExtResource("4_loo7a")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
+offset_left = 515.0
+offset_top = 650.0
+offset_right = 765.0
+offset_bottom = 810.0
+theme_override_constants/separation = 12
 
-[node name="QuitButton" type="Button" parent="StartQuit" unique_id=196206400]
-layout_mode = 0
-offset_left = 0.40000057
-offset_top = 0.4000001
-offset_right = 14.200004
-offset_bottom = 13.199999
+[node name="PlayButton" type="Button" parent="MenuButtons"]
+layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_if7li")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_kmrqt")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3g7qx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_r8dbq")
-flat = true
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Play"
 
-[node name="ExitButton" type="Sprite2D" parent="StartQuit" unique_id=1816149814]
-position = Vector2(6.799999, 6.799999)
-texture = ExtResource("6_rrcx7")
-
-[node name="Start" type="NinePatchRect" parent="." unique_id=1631952192]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 453.0
-offset_top = 774.0
-offset_right = 516.5
-offset_bottom = 790.5
-scale = Vector2(4, 4)
-size_flags_stretch_ratio = 0.0
-mouse_filter = 1
-texture = ExtResource("4_loo7a")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="StartButton" type="Button" parent="." unique_id=11416290]
-layout_mode = 1
-offset_left = 465.0
-offset_top = 781.0
-offset_right = 695.0
-offset_bottom = 828.0
+[node name="SettingsButton" type="Button" parent="MenuButtons"]
+layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_if7li")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_if7li")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Quit"
+
+[node name="SettingsPopup" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 415.0
+offset_top = 282.0
+offset_right = 865.0
+offset_bottom = 742.0
+texture = ExtResource("8_base")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TitleBar" type="NinePatchRect" parent="SettingsPopup"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 444.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_koqhg")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="SettingsPopup/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_if7li")
+theme_override_font_sizes/font_size = 14
+text = "System Settings"
+
+[node name="CloseButton" type="Button" parent="SettingsPopup/TitleBar"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 5.0
+offset_right = 434.0
+offset_bottom = 25.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("6_rrcx7")
+icon_alignment = 1
+
+[node name="SettingsBody" type="Control" parent="SettingsPopup"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 438.0
+offset_bottom = 448.0
+script = ExtResource("Settings_Controller_Script")
+
+[node name="DisplayGroup" type="Panel" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 416.0
+offset_bottom = 90.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="DisplayGroupLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Display"
+
+[node name="CRTCheckbox" type="CheckBox" parent="SettingsPopup/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 35.0
+offset_right = 350.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_cmrfp")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_n6o36")
-text = "Start Evaluation"
-flat = true
+theme_override_font_sizes/font_size = 12
+theme_override_icons/checked = ExtResource("Icon_ToggleActive")
+theme_override_icons/unchecked = ExtResource("Icon_ToggleInactive")
+text = " Enable CRT Screen Filter"
 
-[node name="bgSFX" parent="." unique_id=2125335852 instance=ExtResource("7_fh7cp")]
+[node name="AudioGroup" type="Panel" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 105.0
+offset_right = 416.0
+offset_bottom = 215.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[connection signal="button_down" from="StartQuit/QuitButton" to="." method="_on_quit_button_button_down"]
-[connection signal="button_up" from="StartQuit/QuitButton" to="." method="_on_quit_button_button_up"]
-[connection signal="mouse_entered" from="StartQuit/QuitButton" to="." method="_on_quit_button_mouse_entered"]
-[connection signal="mouse_exited" from="StartQuit/QuitButton" to="." method="_on_quit_button_mouse_exited"]
-[connection signal="button_down" from="StartButton" to="." method="_on_start_button_button_down"]
-[connection signal="button_up" from="StartButton" to="." method="_on_start_button_button_up"]
-[connection signal="mouse_entered" from="StartButton" to="." method="_on_start_button_mouse_entered"]
-[connection signal="mouse_exited" from="StartButton" to="." method="_on_start_button_mouse_exited"]
+[node name="AudioGroupLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 97.0
+offset_right = 120.0
+offset_bottom = 113.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Audio"
+
+[node name="VolumeLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 125.0
+offset_right = 150.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+text = "Master Volume:"
+
+[node name="VolumeValueLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 125.0
+offset_right = 220.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+text = "80%"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsPopup/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 155.0
+offset_right = 390.0
+offset_bottom = 190.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 80.0
+
+[node name="MouseGroup" type="Panel" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 230.0
+offset_right = 416.0
+offset_bottom = 340.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="MouseGroupLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 222.0
+offset_right = 150.0
+offset_bottom = 238.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Mouse Input"
+
+[node name="SensitivityLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+text = "3D Look Sensitivity:"
+
+[node name="SensitivityValueLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 175.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cmrfp")
+theme_override_font_sizes/font_size = 12
+text = "0.15"
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsPopup/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 280.0
+offset_right = 390.0
+offset_bottom = 315.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 30.0
+
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_crt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+

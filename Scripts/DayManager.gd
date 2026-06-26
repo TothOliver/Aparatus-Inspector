@@ -13,7 +13,19 @@ var max_days: int = 3
 # BAD AI let in
 var bad_ai_let_in_count: int = 0
 var bad_ai_killed: int = 0
-var sanity: int = 100
+var sanity: int = 100:
+	set(value):
+		sanity = value
+		GameStats.player_sanity = value
+		if sanity_bar:
+			sanity_bar.value = value
+
+var health: int = 100:
+	set(value):
+		health = value
+		GameStats.player_health = value
+		if health_bar:
+			health_bar.value = value
 const MAX_ALLOWED_BAD_AI = 2
 
 # Day Configurations: [Quota, Difficulty Level]
@@ -23,65 +35,137 @@ var day_configs = {
 	3: {"quota": 5, "difficulty": 3}
 }
 
+var hack_timer: float = 0.0
+var sanity_drain_accumulator: float = 0.0
+
+func _ready():
+	current_day = GameStats.current_day
+	start_new_day()
+
+func _process(delta):
+	# Keep day stats synced
+	GameStats.current_day = current_day
+	
+	# Hacking events: Day 2 or 3 only, and only if WiFi is enabled!
+	if current_day >= 2:
+		if not GameStats.wifi_on:
+			if GameStats.hack_active:
+				GameStats.hack_active = false
+				GameStats.hack_progress = 0.0
+				print("Intrusion connection aborted (WiFi turned off).")
+		else:
+			if not GameStats.hack_active:
+				hack_timer -= delta
+				if hack_timer <= 0:
+					# Trigger system breach!
+					GameStats.hack_active = true
+					GameStats.hack_progress = 0.0
+					# Day 2 hacks: ~35-55s, Day 3 hacks: ~18-35s
+					var min_time = 35.0 if current_day == 2 else 18.0
+					var max_time = 55.0 if current_day == 2 else 35.0
+					hack_timer = randf_range(min_time, max_time)
+
+	# Slow sanity drain when lights are not on
+	var game_3d = get_tree().root.get_node_or_null("Game3D")
+	if game_3d:
+		var lights_are_off = not game_3d.is_ceiling_light_on or game_3d.is_blackout
+		if lights_are_off:
+			sanity_drain_accumulator += delta * 0.4 # ~1 sanity per 2.5 seconds
+			if sanity_drain_accumulator >= 1.0:
+				var amount = int(sanity_drain_accumulator)
+				sanity = max(0, sanity - amount)
+				sanity_drain_accumulator -= amount
+				if sanity == 0:
+					game_over_death()
+
 func start_new_day():
 	processed_today = 0
+	GameStats.current_day = current_day
+	
+	# Clear previous day's hallway threats
+	GameStats.let_through_bad_sprites.clear()
+	GameStats.door_locked = false
+	
+	# Close door mesh if it was left open
+	var door = get_tree().root.find_child("LeftDoor", true, false)
+	if door:
+		door.rotation.y = 0.0
+		
+	# Load persisted health/sanity
+	sanity = GameStats.player_sanity
+	health = GameStats.player_health
+		
 	var config = day_configs[current_day]
 	print("--- DAY ", current_day, " START ---")
 	print("Quota: ", config.quota, " | Difficulty Level: ", config.difficulty)
-	# Trigger your UI to show the new quota here
+	
+	# Start hack timer shortly after day start on Day 2/3
+	if current_day >= 2:
+		hack_timer = randf_range(15.0, 30.0)
 
-func process_robot(is_good_robot: bool, player_choice_pass: bool):
+func process_robot(robot: RobotData, player_choice_pass: bool):
+	var is_good_robot = robot.is_good
 	if player_choice_pass:
 		if not is_good_robot:
 			# ADMITTED A BAD AI
 			bad_ai_let_in_count += 1
-			health_bar.value = health_bar.max_value - 50
-			print("SECURITY BREACH! Bad AI admitted. Total: ", bad_ai_let_in_count)
-			
-			# Check for Game Over condition
-			if bad_ai_let_in_count >= MAX_ALLOWED_BAD_AI:
-				game_over_death()
-				return # Stop further processing
-				
+			GameStats.total_security_breaches = bad_ai_let_in_count
+			if robot.sprite:
+				GameStats.let_through_bad_sprites.append(robot.sprite)
+			print("SECURITY BREACH! Bad AI admitted and is now roaming. Total: ", bad_ai_let_in_count)
 			print("Fail! You let a bad robot in.")
+			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
+			health = max(0, health - 25)
+			if health == 0:
+				game_over_death()
+				return
 		else:
 			print("Success! Good robot admitted.")
 			GameStats.good_robots_through += 1
+			GameStats.casino_balance += 20.0
 	else:
 		if is_good_robot:
 			GameStats.innocent_robots_killed += 1
-			sanity -= 25
+			sanity = max(0, sanity - 25)
 			if sanity == 0:
 				game_over_death()
-			sanity_bar.value = sanity
+				return
+			if sanity_bar:
+				sanity_bar.value = sanity
 			print("Fail! You rejected a perfectly good robot.")
+			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 		else:
 			print("Success! You caught a bad robot.")
 			bad_ai_killed += 1
+			GameStats.bad_robots_terminated = bad_ai_killed
+			GameStats.casino_balance += 20.0
 	
-	processed_today += 1
-	check_quota_progress()
+	var is_correct = (player_choice_pass == is_good_robot)
+	if is_correct:
+		processed_today += 1
+		check_quota_progress()
 
 func game_over_death():
 	# Save the count of bad robots allowed through
 	GameStats.total_security_breaches = bad_ai_let_in_count 
 	GameStats.bad_robots_terminated = bad_ai_killed
-	# IMPORTANT: Ensure bad_robots_terminated was already incremented 
-	# in your process_robot logic when you hit "Exterminate" on a bad robot!
-	
+	GameStats.is_victory = false
 	print("YOU DIE")
-	get_tree().change_scene_to_file("res://Scenes/death_scene.tscn")
+	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 
 func check_quota_progress():
 	if processed_today >= day_configs[current_day].quota:
-		end_day()
+		print("Quota Met for Day ", current_day, "! Transitioning to the next shift.")
 
 func end_day():
 	print("Day ", current_day, " finished!")
 	if current_day < max_days:
-		current_day += 1
-		# Show a transition screen or auto-start next day
-		start_new_day()
+		GameStats.current_day = current_day
+		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/StoryScreen.tscn")
 	else:
-		print("Game Over. Final missed score: ", missed_robots_score)
+		print("Game Over. Victory achieved!")
+		GameStats.total_security_breaches = bad_ai_let_in_count
+		GameStats.bad_robots_terminated = bad_ai_killed
+		GameStats.is_victory = true
+		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 		

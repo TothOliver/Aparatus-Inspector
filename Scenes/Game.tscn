@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://lr6ecx4umycn"]
+[gd_scene load_steps=22 format=3 uid="uid://lr6ecx4umycn"]
 
 [ext_resource type="Script" uid="uid://bqkkd4gsbvfer" path="res://Scripts/game.gd" id="1_wbfu4"]
 [ext_resource type="Texture2D" uid="uid://b6ousc5vgvsd8" path="res://RetroWindowsGUI/Window_Header.png" id="2_7lihs"]
+[ext_resource type="Texture2D" uid="uid://win_flag_uid" path="res://RetroWindowsGUI/win_flag.png" id="Icon_WinFlag"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="2_b2bpf"]
 [ext_resource type="PackedScene" uid="uid://dpc3mn20a11aa" path="res://Scenes/ChatManager.tscn" id="2_u44n3"]
 [ext_resource type="Script" uid="uid://bwe8iquljpjp2" path="res://Scripts/DayManager.gd" id="2_xkndl"]
@@ -9,37 +10,52 @@
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_fgofq"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="7_2irst"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="9_71axn"]
-[ext_resource type="PackedScene" uid="uid://b4rqpuli5bw6i" path="res://Scenes/bg_music.tscn" id="9_bf53h"]
+[ext_resource type="Script" uid="uid://desktop_window_script" path="res://Scripts/desktop_window.gd" id="11_window"]
+[ext_resource type="Script" uid="uid://desktop_controller_script" path="res://Scripts/desktop_controller.gd" id="12_desktop"]
+[ext_resource type="Script" uid="uid://terminal_script" path="res://Scripts/terminal.gd" id="13_terminal"]
+[ext_resource type="Script" path="res://Scripts/minesweeper.gd" id="14_minesweeper"]
+[ext_resource type="Script" path="res://Scripts/snake.gd" id="15_snake"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner_Frame"]
+[ext_resource type="Texture2D" uid="uid://boxfi5b6h1i2h" path="res://Sprites/icon_inspector.png" id="Icon_Inspector"]
+[ext_resource type="Texture2D" uid="uid://spey6fdtwvpx" path="res://Sprites/icon_notepad.png" id="Icon_Notepad"]
+[ext_resource type="Texture2D" uid="uid://dv8bjm55e6hhy" path="res://Sprites/icon_terminal.png" id="Icon_Terminal"]
+[ext_resource type="Texture2D" uid="uid://cqss4qegoagix" path="res://Sprites/icon_minesweeper.png" id="Icon_Minesweeper"]
+[ext_resource type="Texture2D" uid="uid://prbwmpqwy4vo" path="res://Sprites/icon_snake.png" id="Icon_Snake"]
+[ext_resource type="Texture2D" uid="uid://bssqgcbfamb8g" path="res://Sprites/icon_cctv.png" id="Icon_CCTV"]
+[ext_resource type="Texture2D" uid="uid://slots_icon_uid" path="res://Sprites/icon_slots.png" id="Icon_Slots"]
+[ext_resource type="Script" uid="uid://slots_script_uid" path="res://Scripts/slot_machine.gd" id="Script_Slots"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_SideBar_Underside.png" id="Sidebar_Texture"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Inner_Frame.png" id="Windows_Inner_Frame_Texture"]
+[ext_resource type="Texture2D" uid="uid://settings_icon_uid" path="res://Sprites/icon_settings.png" id="Icon_Settings"]
+[ext_resource type="Texture2D" uid="uid://active_toggle_uid" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
+[ext_resource type="Texture2D" uid="uid://inactive_toggle_uid" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
+[ext_resource type="Texture2D" uid="uid://slider_bg_uid" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
+[ext_resource type="Texture2D" uid="uid://slider_handle_uid" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
+[ext_resource type="Shader" uid="uid://crt_shader_uid" path="res://crt_filter.gdshader" id="CRT_Shader"]
+[ext_resource type="Script" uid="uid://settings_window_controller_script" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icon_focus"]
+bg_color = Color(0, 0, 0.501961, 0.4)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu_hover"]
+bg_color = Color(0, 0, 0.501961, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dahhg"]
-bg_color = Color(0.26666668, 0.62352943, 0, 0)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.2509804)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3so38"]
-bg_color = Color(0.10251091, 0.27725604, 0, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.2509804)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cx6b"]
-bg_color = Color(0.188178, 0.457964, 0, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0, 0, 0, 0.2509804)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
+bg_color = Color(0.266667, 0.623529, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf53h"]
 content_margin_left = 2.0
@@ -54,7 +70,7 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0.5019608, 1)
+bg_color = Color(0, 0, 0.501961, 1)
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2irst"]
@@ -70,7 +86,7 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0.5019608, 1)
+bg_color = Color(0, 0, 0.501961, 1)
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kldst"]
@@ -79,6 +95,38 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_active_tab"]
+bg_color = Color(0.75, 0.75, 0.75, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxFlat_terminal_bg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("CRT_Shader")
+shader_parameter/scanline_count = 320.0
+shader_parameter/scanline_intensity = 0.08
+shader_parameter/curvature = 0.025
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/grr_intensity = 0.03
+shader_parameter/aberration = 0.001
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
+texture = ExtResource("Icon_SliderBG")
+texture_margin_left = 2.0
+texture_margin_top = 1.0
+texture_margin_right = 2.0
+texture_margin_bottom = 1.0
+
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GroupLabel"]
+bg_color = Color(0.83137, 0.81568, 0.78431, 1)
+expand_margin_left = 4.0
+expand_margin_right = 4.0
 
 [node name="Control2" type="Control" unique_id=1345712339]
 layout_mode = 3
@@ -89,7 +137,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wbfu4")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=965011394]
+[node name="TealBackground" type="ColorRect" parent="."]
 layout_direction = 1
 layout_mode = 1
 anchors_preset = 15
@@ -97,578 +145,2716 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.5019608, 0.5019608, 1)
-
-[node name="Background" type="NinePatchRect" parent="." unique_id=506019513]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 61.0
-offset_top = 29.0
-offset_right = -919.5
-offset_bottom = -761.75
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-texture = ExtResource("2_7lihs")
-region_rect = Rect2(0, 0, 48, 48)
-patch_margin_left = 12
-patch_margin_top = 26
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="ChatManager" parent="." unique_id=1942021245 instance=ExtResource("2_u44n3")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = -274.5
-offset_top = 109.0
-offset_right = 275.5
-offset_bottom = 580.0
-grow_vertical = 1
-
-[node name="NinePatchRect" type="ColorRect" parent="ChatManager" unique_id=1991950810]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 35.0
-offset_right = 2.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="DialoguePanel" type="VBoxContainer" parent="ChatManager" unique_id=1209100797]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -270.0
-offset_top = -186.0
-offset_right = 270.0
-offset_bottom = 220.0
-grow_horizontal = 2
-grow_vertical = 2
+color = Color(0, 0.501961, 0.501961, 1)
 
 [node name="DayManager" type="Node" parent="." unique_id=1392718977]
 unique_name_in_owner = true
 script = ExtResource("2_xkndl")
 
-[node name="StartQuit" type="NinePatchRect" parent="." unique_id=191348600]
+[node name="DesktopOS" type="Control" parent="." unique_id=202610150]
 unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_desktop")
+
+[node name="DesktopIcons" type="Control" parent="DesktopOS"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InspectorIcon" type="Button" parent="DesktopOS/DesktopIcons"]
 layout_mode = 0
-offset_left = 1172.0
-offset_top = 52.0
-offset_right = 1187.0
-offset_bottom = 66.0
-scale = Vector2(4, 4)
-size_flags_stretch_ratio = 0.0
-mouse_filter = 1
-texture = ExtResource("3_kldst")
-patch_margin_left = 3
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 140.0
+offset_bottom = 120.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/InspectorIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/InspectorIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Inspector")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/InspectorIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Apparatus
+Inspector"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="NotepadIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 150.0
+offset_right = 140.0
+offset_bottom = 240.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/NotepadIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/NotepadIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Notepad")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/NotepadIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Notepad"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="TerminalIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 270.0
+offset_right = 140.0
+offset_bottom = 360.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/TerminalIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/TerminalIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Terminal")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/TerminalIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "MS-DOS
+Prompt"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="MinesweeperIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 390.0
+offset_right = 140.0
+offset_bottom = 480.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/MinesweeperIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/MinesweeperIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Minesweeper")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/MinesweeperIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Minesweeper"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="SnakeIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 510.0
+offset_right = 140.0
+offset_bottom = 600.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/SnakeIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/SnakeIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Snake")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/SnakeIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Snake"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="CCTVIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 630.0
+offset_right = 140.0
+offset_bottom = 720.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/CCTVIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/CCTVIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_CCTV")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/CCTVIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Security
+Feed"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="SlotsIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 750.0
+offset_right = 140.0
+offset_bottom = 840.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/SlotsIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/SlotsIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Slots")
+stretch_mode = 5
+
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/SlotsIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Casino
+Slots"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="SettingsIcon" type="Button" parent="DesktopOS/DesktopIcons"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 870.0
+offset_right = 140.0
+offset_bottom = 960.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/SettingsIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/SettingsIcon/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Settings")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/SettingsIcon/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "System
+Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_constants/line_spacing = -4
+
+[node name="SystemMonitor" type="NinePatchRect" parent="DesktopOS"]
+layout_mode = 0
+offset_left = 1040.0
+offset_top = 30.0
+offset_right = 1250.0
+offset_bottom = 320.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TitleBar" type="NinePatchRect" parent="DesktopOS/SystemMonitor"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 202.0
+offset_bottom = 34.0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
 patch_margin_top = 3
-patch_margin_right = 3
+patch_margin_right = 5
 patch_margin_bottom = 3
 
-[node name="QuitButton" type="Button" parent="StartQuit" unique_id=1330054589]
+[node name="Label" type="Label" parent="DesktopOS/SystemMonitor/TitleBar"]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 layout_mode = 0
-offset_left = 0.40000057
-offset_top = 0.4000001
-offset_right = 14.200004
-offset_bottom = 13.199999
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 180.0
+offset_bottom = 22.0
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_dahhg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3so38")
-theme_override_styles/hover = SubResource("StyleBoxFlat_3cx6b")
-flat = true
+theme_override_font_sizes/font_size = 12
+text = "Sys Monitor"
 
-[node name="ExitButton" type="Sprite2D" parent="StartQuit" unique_id=532135793]
-position = Vector2(6.799999, 6.799999)
-texture = ExtResource("7_2irst")
+[node name="Health" type="Control" parent="DesktopOS/SystemMonitor" unique_id=89895376]
 
-[node name="Option" type="Node2D" parent="." unique_id=442527454]
-position = Vector2(592, 594)
-
-[node name="AnswerPanel" type="NinePatchRect" parent="Option" unique_id=131471417]
-offset_left = -183.0
-offset_top = 18.0
-offset_right = -66.5
-offset_bottom = 93.0
-scale = Vector2(4, 4)
-texture = ExtResource("2_b2bpf")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="Option1" type="NinePatchRect" parent="Option" unique_id=1597597857]
-unique_name_in_owner = true
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -143.0
-offset_top = 34.0
-offset_right = -44.5
-offset_bottom = 60.5
-grow_horizontal = 2
-scale = Vector2(4, 4)
-size_flags_stretch_ratio = 0.0
-mouse_filter = 1
-texture = ExtResource("3_kldst")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="Option2" type="NinePatchRect" parent="Option" unique_id=737537932]
-unique_name_in_owner = true
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -143.0
-offset_top = 150.0
-offset_right = -44.5
-offset_bottom = 176.75
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(4, 4)
-mouse_filter = 1
-texture = ExtResource("3_kldst")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="Button1" type="Button" parent="Option" unique_id=1764300952]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -126.0
-offset_top = 53.0
-offset_right = 217.0
-offset_bottom = 119.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
+[node name="HealthLabel" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=1207754543]
+offset_left = 15.0
+offset_top = 45.0
+offset_right = 195.0
+offset_bottom = 70.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Option1"
-flat = true
-autowrap_mode = 3
-
-[node name="Button2" type="Button" parent="Option" unique_id=1685185524]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.0
-offset_top = 168.0
-offset_right = 215.0
-offset_bottom = 233.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Option2
-"
-flat = true
-autowrap_mode = 3
-
-[node name="Health" type="Node2D" parent="." unique_id=89895376]
-position = Vector2(214, 584)
-
-[node name="PlayerStats" type="NinePatchRect" parent="Health" unique_id=1163065888]
-offset_left = -126.0
-offset_top = 32.0
-offset_right = -65.75
-offset_bottom = 78.5
-scale = Vector2(4, 4)
-texture = ExtResource("2_b2bpf")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="HealthLabel" type="Label" parent="Health" unique_id=1207754543]
-offset_left = -106.0
-offset_top = 40.0
-offset_right = 94.0
-offset_bottom = 75.0
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 16
-text = "Health:"
+theme_override_font_sizes/font_size = 14
+text = "Security Health:"
 
-[node name="HealthBar" type="ProgressBar" parent="Health" unique_id=1602687783]
+[node name="HealthBar" type="ProgressBar" parent="DesktopOS/SystemMonitor/Health" unique_id=1602687783]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 unique_name_in_owner = true
-offset_left = -106.0
-offset_top = 65.0
-offset_right = 98.0
-offset_bottom = 92.0
+offset_left = 15.0
+offset_top = 70.0
+offset_right = 195.0
+offset_bottom = 95.0
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_styles/background = SubResource("StyleBoxFlat_bf53h")
+theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fgofq")
 
-[node name="SanityLabel" type="Label" parent="Health" unique_id=1531452417]
-offset_left = -106.0
-offset_top = 99.0
-offset_right = 94.0
-offset_bottom = 134.0
+[node name="SanityLabel" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=1531452417]
+offset_left = 15.0
+offset_top = 115.0
+offset_right = 195.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 16
-text = "Sanity:"
+theme_override_font_sizes/font_size = 14
+text = "Mental Sanity:"
 
-[node name="SanityBar" type="ProgressBar" parent="Health" unique_id=601489287]
+[node name="SanityBar" type="ProgressBar" parent="DesktopOS/SystemMonitor/Health" unique_id=601489287]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 unique_name_in_owner = true
-offset_left = -106.0
-offset_top = 124.0
-offset_right = 98.0
-offset_bottom = 151.0
+offset_left = 15.0
+offset_top = 140.0
+offset_right = 195.0
+offset_bottom = 165.0
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_styles/background = SubResource("StyleBoxFlat_2irst")
+theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
 theme_override_styles/fill = SubResource("StyleBoxFlat_71axn")
 
-[node name="AcceptTerminate" type="Node2D" parent="." unique_id=1629775354]
-position = Vector2(203, 306)
+[node name="PowerLabel" type="Label" parent="DesktopOS/SystemMonitor/Health"]
+offset_left = 15.0
+offset_top = 185.0
+offset_right = 195.0
+offset_bottom = 210.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 14
+text = "Power Grid:"
 
-[node name="ButtonPanel" type="NinePatchRect" parent="AcceptTerminate" unique_id=966110224]
-offset_left = -119.0
-offset_top = 18.0
-offset_right = -55.25
-offset_bottom = 69.0
-scale = Vector2(4, 4)
+[node name="PowerBar" type="ProgressBar" parent="DesktopOS/SystemMonitor/Health" unique_id=601489299]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+unique_name_in_owner = true
+offset_left = 15.0
+offset_top = 210.0
+offset_right = 195.0
+offset_bottom = 235.0
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/fill = SubResource("StyleBoxFlat_71axn")
+
+[node name="Taskbar" type="NinePatchRect" parent="DesktopOS"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+grow_horizontal = 2
+grow_vertical = 0
 texture = ExtResource("2_b2bpf")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
-[node name="Good" type="NinePatchRect" parent="AcceptTerminate/ButtonPanel" unique_id=1488520394]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 5.5
-offset_top = 8.0
-offset_right = 54.5
-offset_bottom = 22.0
-mouse_filter = 1
-texture = ExtResource("3_kldst")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="Bad" type="NinePatchRect" parent="AcceptTerminate/ButtonPanel" unique_id=609471749]
-unique_name_in_owner = true
+[node name="StartButton" type="Button" parent="DesktopOS/Taskbar"]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 24.5
-offset_right = 56.0
-offset_bottom = 40.5
-mouse_filter = 1
-texture = ExtResource("3_kldst")
-patch_margin_left = 3
+offset_top = 6.0
+offset_right = 110.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "Start"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_WinFlag")
+expand_icon = true
+
+[node name="ClockPanel" type="Panel" parent="DesktopOS/Taskbar"]
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -18.0
+offset_right = -6.0
+offset_bottom = 18.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="WifiStatus" type="TextureRect" parent="DesktopOS/Taskbar/ClockPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -8.0
+offset_right = 22.0
+offset_bottom = 8.0
+grow_vertical = 2
+expand_mode = 1
+
+[node name="ClockLabel" type="Label" parent="DesktopOS/Taskbar/ClockPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 16
+text = "12:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="Button" parent="DesktopOS/Taskbar" unique_id=1330054589]
+layout_mode = 0
+offset_left = 1130.0
+offset_top = 6.0
+offset_right = 1166.0
+offset_bottom = 42.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="ActiveTabs" type="HBoxContainer" parent="DesktopOS/Taskbar"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 6.0
+offset_right = 900.0
+offset_bottom = 42.0
+theme_override_constants/separation = 10
+
+[node name="InspectorTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Inspector")
+icon_alignment = 1
+expand_icon = true
+
+[node name="NotepadTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Notepad")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TerminalTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Terminal")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MinesweeperTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Minesweeper")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SnakeTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Snake")
+icon_alignment = 1
+expand_icon = true
+
+[node name="CCTVTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_CCTV")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SlotsTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Slots")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SettingsTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Settings")
+icon_alignment = 1
+expand_icon = true
+
+[node name="StartMenu" type="NinePatchRect" parent="DesktopOS"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 530.0
+offset_right = 266.0
+offset_bottom = 970.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="HBox" type="HBoxContainer" parent="DesktopOS/StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="Sidebar" type="TextureRect" parent="DesktopOS/StartMenu/HBox"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+texture = ExtResource("Sidebar_Texture")
+expand_mode = 1
+
+[node name="SidebarLabel" type="Label" parent="DesktopOS/StartMenu/HBox/Sidebar"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -20.0
+offset_right = 340.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -1.5708
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Windows 98"
+vertical_alignment = 2
+
+[node name="ProgramList" type="VBoxContainer" parent="DesktopOS/StartMenu/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="InspectorBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Apparatus Inspector"
+icon = ExtResource("Icon_Inspector")
+alignment = 0
+expand_icon = true
+
+[node name="NotepadBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Notepad"
+icon = ExtResource("Icon_Notepad")
+alignment = 0
+expand_icon = true
+
+[node name="TerminalBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " MS-DOS Prompt"
+icon = ExtResource("Icon_Terminal")
+alignment = 0
+expand_icon = true
+
+[node name="MinesweeperBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Minesweeper"
+icon = ExtResource("Icon_Minesweeper")
+alignment = 0
+expand_icon = true
+
+[node name="SnakeBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Snake"
+icon = ExtResource("Icon_Snake")
+alignment = 0
+expand_icon = true
+
+[node name="CCTVBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Security Feed"
+icon = ExtResource("Icon_CCTV")
+alignment = 0
+expand_icon = true
+
+[node name="SlotsBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Casino Slots"
+icon = ExtResource("Icon_Slots")
+alignment = 0
+expand_icon = true
+
+[node name="SettingsBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " System Settings"
+icon = ExtResource("Icon_Settings")
+alignment = 0
+expand_icon = true
+
+[node name="Divider" type="ColorRect" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[node name="ShutdownBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
+text = " Power Off"
+icon = ExtResource("7_2irst")
+alignment = 0
+expand_icon = true
+
+[node name="ApparatusInspectorWindow" type="NinePatchRect" parent="." unique_id=1911909970]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 180.0
+offset_top = 40.0
+offset_right = 1240.0
+offset_bottom = 840.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+
+[node name="TitleBar" type="NinePatchRect" parent="ApparatusInspectorWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 1054.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
 patch_margin_top = 3
-patch_margin_right = 3
+patch_margin_right = 5
 patch_margin_bottom = 3
 
-[node name="GoodButton" type="Button" parent="AcceptTerminate" unique_id=809091503]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -97.0
-offset_top = 62.0
-offset_right = 103.0
-offset_bottom = 98.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "ACCEPT"
-flat = true
-
-[node name="BadButton" type="Button" parent="AcceptTerminate" unique_id=956657047]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -103.0
-offset_top = 133.5
-offset_right = 103.0
-offset_bottom = 164.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "EXTERMINATE"
-flat = true
-
-[node name="Model" type="Node2D" parent="." unique_id=538820585]
-position = Vector2(1063, 611)
-
-[node name="InfoPanel" type="NinePatchRect" parent="Model" unique_id=356643237]
-offset_left = -151.0
-offset_top = 29.0
-offset_right = -76.75
-offset_bottom = 88.0
-scale = Vector2(4, 4)
-texture = ExtResource("2_b2bpf")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-
-[node name="NamePanel" type="Panel" parent="Model" unique_id=722898887]
-offset_left = -128.0
-offset_top = 51.0
-offset_right = 122.0
-offset_bottom = 83.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kldst")
-
-[node name="StaticNameLabel" type="Label" parent="Model/NamePanel" unique_id=766496088]
+[node name="Title" type="Label" parent="ApparatusInspectorWindow/TitleBar"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 2.0
-offset_right = 263.99988
-offset_bottom = 31.999966
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Name:"
-
-[node name="NameLabel" type="Label" parent="Model/NamePanel" unique_id=2063255729]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 77.0
-offset_top = 5.0
-offset_right = 318.0
-offset_bottom = 35.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Johnny"
-
-[node name="ModelPanel" type="Panel" parent="Model" unique_id=2041964042]
-offset_left = -128.0
-offset_top = 99.0
-offset_right = 122.0
-offset_bottom = 131.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kldst")
-
-[node name="StaticModelLabel" type="Label" parent="Model/ModelPanel" unique_id=835369628]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 3.0
-offset_right = 263.99988
-offset_bottom = 31.99997
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Model:"
-
-[node name="ModelLabel" type="Label" parent="Model/ModelPanel" unique_id=303726268]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 80.0
-offset_top = 4.0
-offset_right = 320.0
-offset_bottom = 34.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "T6767"
-
-[node name="StatusPanel" type="Panel" parent="Model" unique_id=1015063183]
-offset_left = -128.0
-offset_top = 147.0
-offset_right = 122.0
-offset_bottom = 179.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kldst")
-
-[node name="StaticStatusLabel" type="Label" parent="Model/StatusPanel" unique_id=114314964]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 3.0
-offset_right = 263.99988
-offset_bottom = 31.99997
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Status:"
-
-[node name="StatusLabel" type="Label" parent="Model/StatusPanel" unique_id=958371121]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 88.0
 offset_top = 6.0
-offset_right = 328.0
+offset_right = 300.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Apparatus Inspector AI reviewer"
+
+[node name="CloseButton" type="Button" parent="ApparatusInspectorWindow/TitleBar"]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 6.0
+offset_right = 1042.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="Picture" type="Control" parent="ApparatusInspectorWindow" unique_id=2014082233]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 45.0
+offset_right = 262.0
+offset_bottom = 325.0
+
+[node name="RobotArea" type="Panel" parent="ApparatusInspectorWindow/Picture" unique_id=1551997195]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="CameraScreenBg" type="ColorRect" parent="ApparatusInspectorWindow/Picture/RobotArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RobotTexture" type="TextureRect" parent="ApparatusInspectorWindow/Picture" unique_id=275378146]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 15.0
+offset_right = 225.0
+offset_bottom = 265.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CamLabel" type="Label" parent="ApparatusInspectorWindow/Picture"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0.8, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "CAM 01 - FEED: LIVE"
+
+[node name="DiagLabel" type="Label" parent="ApparatusInspectorWindow/Picture"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 250.0
+offset_right = 200.0
+offset_bottom = 266.0
+theme_override_colors/font_color = Color(0, 0.8, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "TESTING CHAMBER OK"
+
+[node name="AcceptTerminate" type="Control" parent="ApparatusInspectorWindow" unique_id=1629775354]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 340.0
+offset_right = 262.0
+offset_bottom = 755.0
+
+[node name="ButtonPanel" type="Panel" parent="ApparatusInspectorWindow/AcceptTerminate" unique_id=966110224]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="VerdictGroupLabel" type="Label" parent="ApparatusInspectorWindow/AcceptTerminate"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -8.0
+offset_right = 140.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Evaluation Verdict"
+
+[node name="ApproveInfo" type="Label" parent="ApparatusInspectorWindow/AcceptTerminate"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 235.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(0.3, 0.3, 0.3, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "APPROVE:\nPass AI core into immediate grid service."
+autowrap_mode = 3
+
+[node name="GoodButton" type="Button" parent="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel" unique_id=809091503]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 100.0
+offset_right = 215.0
+offset_bottom = 165.0
+theme_override_colors/font_color = Color(0, 0.4, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.5, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.4, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.3, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "APPROVE"
+
+[node name="ExterminateInfo" type="Label" parent="ApparatusInspectorWindow/AcceptTerminate"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 200.0
+offset_right = 235.0
+offset_bottom = 265.0
+theme_override_colors/font_color = Color(0.3, 0.3, 0.3, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "EXTERMINATE:\nFlag AI core for immediate disposal."
+autowrap_mode = 3
+
+[node name="BadButton" type="Button" parent="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel" unique_id=956657047]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 280.0
+offset_right = 215.0
+offset_bottom = 345.0
+theme_override_colors/font_color = Color(0.7, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.7, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.6, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "EXTERMINATE"
+
+[node name="ChatManager" parent="ApparatusInspectorWindow" unique_id=1942021245 instance=ExtResource("2_u44n3")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 277.0
+offset_top = 45.0
+offset_right = 792.0
+offset_bottom = 505.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ChatBorder" type="Panel" parent="ApparatusInspectorWindow/ChatManager"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="ChatBg" type="ColorRect" parent="ApparatusInspectorWindow/ChatManager/ChatBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 20.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="ChatGroupLabel" type="Label" parent="ApparatusInspectorWindow/ChatManager"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -8.0
+offset_right = 160.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Dialogue Interaction Log"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ApparatusInspectorWindow/ChatManager"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="DialoguePanel" type="VBoxContainer" parent="ApparatusInspectorWindow/ChatManager/ScrollContainer" unique_id=1209100797]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="Option" type="Control" parent="ApparatusInspectorWindow" unique_id=442527454]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 277.0
+offset_top = 520.0
+offset_right = 792.0
+offset_bottom = 755.0
+
+[node name="AnswerPanel" type="Panel" parent="ApparatusInspectorWindow/Option" unique_id=131471417]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="OptionGroupLabel" type="Label" parent="ApparatusInspectorWindow/Option"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -8.0
+offset_right = 160.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Select Human Response"
+
+[node name="Button1" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=1764300952]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 500.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+autowrap_mode = 3
+
+[node name="Button2" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=1685185524]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 120.0
+offset_right = 500.0
+offset_bottom = 210.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+autowrap_mode = 3
+
+[node name="Model" type="Control" parent="ApparatusInspectorWindow" unique_id=538820585]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 804.0
+offset_top = 45.0
+offset_right = 1048.0
+offset_bottom = 755.0
+
+[node name="InfoPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=356643237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="DatabaseGroupLabel" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -8.0
+offset_right = 150.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "AI Core Specsheet"
+
+[node name="NameFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 150.0
 offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Broken"
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Subject Name:"
 
-[node name="ManuPanel" type="Panel" parent="Model" unique_id=566703700]
-offset_left = -128.0
-offset_top = 195.0
-offset_right = 122.0
-offset_bottom = 227.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kldst")
+[node name="NamePanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=722898887]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 40.0
+offset_right = 225.0
+offset_bottom = 72.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[node name="StaticManuLabel" type="Label" parent="Model/ManuPanel" unique_id=1674359586]
+[node name="NameFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/NamePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="StaticNameLabel" type="Label" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=766496088]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 2.0
-offset_right = 263.99988
-offset_bottom = 31.999939
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Creator:"
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "ID:"
 
-[node name="ManuLabel" type="Label" parent="Model/ManuPanel" unique_id=1969003573]
+[node name="NameLabel" type="Label" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=2063255729]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 102.0
+offset_left = 35.0
 offset_top = 4.0
-offset_right = 286.0
-offset_bottom = 34.0
+offset_right = 200.0
+offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 24
-text = "Axel"
+theme_override_font_sizes/font_size = 14
 
-[node name="Picture" type="Node2D" parent="." unique_id=2014082233]
-position = Vector2(1070, 183)
+[node name="ModelFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 85.0
+offset_right = 180.0
+offset_bottom = 101.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Model Designation:"
 
-[node name="RobotArea" type="NinePatchRect" parent="Picture" unique_id=1551997195]
-offset_left = -132.0
-offset_top = -6.0
-offset_right = -61.0
-offset_bottom = 86.25
-scale = Vector2(4, 4)
+[node name="ModelPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=2041964042]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 105.0
+offset_right = 225.0
+offset_bottom = 137.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="ModelFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/ModelPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="StaticModelLabel" type="Label" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=835369628]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "TYPE:"
+
+[node name="ModelLabel" type="Label" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=303726268]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 4.0
+offset_right = 200.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+
+[node name="StatusFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 150.0
+offset_right = 180.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Chassis Status:"
+
+[node name="StatusPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=1015063183]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 170.0
+offset_right = 225.0
+offset_bottom = 202.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="StatusFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/StatusPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="StaticStatusLabel" type="Label" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=114314964]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "ALIGN:"
+
+[node name="StatusLabel" type="Label" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=958371121]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 65.0
+offset_top = 4.0
+offset_right = 200.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+
+[node name="ManuFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 215.0
+offset_right = 180.0
+offset_bottom = 231.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Manufacturer Code:"
+
+[node name="ManuPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=566703700]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 235.0
+offset_right = 225.0
+offset_bottom = 267.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="ManuFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/ManuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="StaticManuLabel" type="Label" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1674359586]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "CORP:"
+
+[node name="ManuLabel" type="Label" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1969003573]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 4.0
+offset_right = 200.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+
+[node name="QuotaFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 280.0
+offset_right = 180.0
+offset_bottom = 296.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Today's Quota Progress:"
+
+[node name="QuotaPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=566703799]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 300.0
+offset_right = 225.0
+offset_bottom = 332.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="QuotaFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/QuotaPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="StaticQuotaLabel" type="Label" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=1674359599]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "GOAL:"
+
+[node name="QuotaLabel" type="Label" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=1969003599]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 4.0
+offset_right = 200.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0.5, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+
+[node name="DiagSpecsTitle" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 355.0
+offset_right = 225.0
+offset_bottom = 371.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+text = "SYSTEM TELEMETRY:"
+
+[node name="DiagSpecsDetails" type="Label" parent="ApparatusInspectorWindow/Model"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 380.0
+offset_right = 225.0
+offset_bottom = 665.0
+theme_override_colors/font_color = Color(0.2, 0.4, 0.2, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "INTEGRITY: NOMINAL\nEMPATHY: 98.4%\nCLOCK RATE: 8.87MHz\nALLOCATED: 64KB RAM\nOEC LINK: ONLINE\nTEMP: 37.4C (STABLE)\nLOGIC STACK: PASS\nTHREAT INDEX: SCANNED\nCHAMBER LOCK: SECURE\n\n-----------------\nAPPARATUS OS v4.98\nSYSTEM READY."
+autowrap_mode = 3
+[node name="NotepadWindow" type="NinePatchRect" parent="." unique_id=202610160]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 900.0
+offset_bottom = 500.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
+script = ExtResource("11_window")
+is_scalable = true
 
-[node name="RobotTexture" type="TextureRect" parent="Picture" unique_id=275378146]
+[node name="TitleBar" type="NinePatchRect" parent="NotepadWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 494.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="NotepadWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Notepad"
+
+[node name="CloseButton" type="Button" parent="NotepadWindow/TitleBar"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 6.0
+offset_right = 482.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="NotepadWindow"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 490.0
+offset_bottom = 390.0
+theme_override_fonts/font = ExtResource("9_71axn")
+placeholder_text = "Type notes here..."
+wrap_mode = 1
+
+[node name="TerminalWindow" type="NinePatchRect" parent="." unique_id=202610170]
 unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -99.0
-offset_top = 36.0
-offset_right = 116.0
-offset_bottom = 315.0
+layout_mode = 0
+offset_left = 280.0
+offset_top = 180.0
+offset_right = 1020.0
+offset_bottom = 630.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+is_scalable = true
+
+[node name="TitleBar" type="NinePatchRect" parent="TerminalWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 734.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="TerminalWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "MS-DOS Prompt"
+
+[node name="CloseButton" type="Button" parent="TerminalWindow/TitleBar"]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 6.0
+offset_right = 722.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="TerminalBody" type="Control" parent="TerminalWindow"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 730.0
+offset_bottom = 440.0
+script = ExtResource("13_terminal")
+
+[node name="ColorRect" type="ColorRect" parent="TerminalWindow/TerminalBody"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TerminalBorder" type="Panel" parent="TerminalWindow/TerminalBody"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="OutputLog" type="RichTextLabel" parent="TerminalWindow/TerminalBody"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("9_71axn")
+theme_override_font_sizes/normal_font_size = 12
+scroll_following = true
+
+[node name="InputField" type="LineEdit" parent="TerminalWindow/TerminalBody"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -32.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_terminal_bg")
+caret_blink = true
+
+[node name="MinesweeperWindow" type="NinePatchRect" parent="." unique_id=202610180]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 480.0
+offset_top = 200.0
+offset_right = 792.0
+offset_bottom = 600.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+
+[node name="TitleBar" type="NinePatchRect" parent="MinesweeperWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 306.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="MinesweeperWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Minesweeper"
+
+[node name="CloseButton" type="Button" parent="MinesweeperWindow/TitleBar"]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 6.0
+offset_right = 294.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="MinesweeperBody" type="Control" parent="MinesweeperWindow"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 300.0
+offset_bottom = 388.0
+script = ExtResource("14_minesweeper")
+
+[node name="HeaderPanel" type="Panel" parent="MinesweeperWindow/MinesweeperBody"]
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 288.0
+offset_bottom = 40.0
+
+[node name="MineLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 68.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "010"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FaceButton" type="Button" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = ExtResource("StyleBox_Button_Hover")
+layout_mode = 0
+offset_left = 124.0
+offset_top = 5.0
+offset_right = 164.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = ":)"
+
+[node name="TimerLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MinesweeperWindow/MinesweeperBody"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 50.0
+offset_right = 288.0
+offset_bottom = 338.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 9
+
+[node name="SnakeWindow" type="NinePatchRect" parent="." unique_id=202610190]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 400.0
+offset_top = 180.0
+offset_right = 780.0
+offset_bottom = 610.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+
+[node name="TitleBar" type="NinePatchRect" parent="SnakeWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 374.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="SnakeWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Snake"
+
+[node name="CloseButton" type="Button" parent="SnakeWindow/TitleBar"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 6.0
+offset_right = 362.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="SnakeBody" type="Control" parent="SnakeWindow"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 370.0
+offset_bottom = 390.0
+script = ExtResource("15_snake")
+
+[node name="GameTimer" type="Timer" parent="SnakeWindow/SnakeBody"]
+
+[node name="HeaderPanel" type="Panel" parent="SnakeWindow/SnakeBody"]
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 360.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="SnakeWindow/SnakeBody/HeaderPanel"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 110.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Score: 0"
+vertical_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="SnakeWindow/SnakeBody/HeaderPanel"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 120.0
+offset_top = 8.0
+offset_right = 240.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Ready to Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="SnakeWindow/SnakeBody/HeaderPanel"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = ExtResource("StyleBox_Button_Hover")
+layout_mode = 0
+offset_left = 280.0
+offset_top = 5.0
+offset_right = 350.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Start"
+
+[node name="GameArea" type="Control" parent="SnakeWindow/SnakeBody"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 45.0
+offset_right = 360.0
+offset_bottom = 369.0
+
+[node name="CCTVWindow" type="NinePatchRect" parent="." unique_id=202610200]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 680.0
+offset_top = 100.0
+offset_right = 1024.0
+offset_bottom = 400.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+
+[node name="TitleBar" type="NinePatchRect" parent="CCTVWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 338.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="CCTVWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Security Camera Feed"
+
+[node name="CloseButton" type="Button" parent="CCTVWindow/TitleBar"]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 6.0
+offset_right = 326.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="VideoPanel" type="Panel" parent="CCTVWindow"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 332.0
+offset_bottom = 288.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="CCTVTexture" type="TextureRect" parent="CCTVWindow/VideoPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 
-[node name="bgSFX" parent="." unique_id=2125335852 instance=ExtResource("9_bf53h")]
+[node name="SlotMachineWindow" type="NinePatchRect" parent="." unique_id=202610220]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 220.0
+offset_top = 140.0
+offset_right = 720.0
+offset_bottom = 600.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
 
-[connection signal="button_down" from="StartQuit/QuitButton" to="." method="_on_quit_button_button_down"]
-[connection signal="button_up" from="StartQuit/QuitButton" to="." method="_on_quit_button_button_up"]
-[connection signal="mouse_entered" from="StartQuit/QuitButton" to="." method="_on_quit_button_mouse_entered"]
-[connection signal="mouse_exited" from="StartQuit/QuitButton" to="." method="_on_quit_button_mouse_exited"]
-[connection signal="button_down" from="Option/Button1" to="." method="_on_button_1_button_down"]
-[connection signal="button_up" from="Option/Button1" to="." method="_on_button_1_button_up"]
-[connection signal="mouse_entered" from="Option/Button1" to="." method="_on_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="Option/Button1" to="." method="_on_button_1_mouse_exited"]
-[connection signal="pressed" from="Option/Button1" to="." method="_on_chat_button1_pressed"]
-[connection signal="button_down" from="Option/Button2" to="." method="_on_button_2_button_down"]
-[connection signal="button_up" from="Option/Button2" to="." method="_on_button_2_button_up"]
-[connection signal="mouse_entered" from="Option/Button2" to="." method="_on_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="Option/Button2" to="." method="_on_button_2_mouse_exited"]
-[connection signal="pressed" from="Option/Button2" to="." method="_on_chat_button2_pressed"]
-[connection signal="button_down" from="AcceptTerminate/GoodButton" to="." method="_on_good_button_button_down"]
-[connection signal="button_up" from="AcceptTerminate/GoodButton" to="." method="_on_good_button_button_up"]
-[connection signal="mouse_entered" from="AcceptTerminate/GoodButton" to="." method="_on_good_button_mouse_entered"]
-[connection signal="mouse_exited" from="AcceptTerminate/GoodButton" to="." method="_on_good_button_mouse_exited"]
-[connection signal="pressed" from="AcceptTerminate/GoodButton" to="." method="_on_good_button_pressed"]
-[connection signal="button_down" from="AcceptTerminate/BadButton" to="." method="_on_bad_button_button_down"]
-[connection signal="button_up" from="AcceptTerminate/BadButton" to="." method="_on_bad_button_button_up"]
-[connection signal="mouse_entered" from="AcceptTerminate/BadButton" to="." method="_on_bad_button_mouse_entered"]
-[connection signal="mouse_exited" from="AcceptTerminate/BadButton" to="." method="_on_bad_button_mouse_exited"]
-[connection signal="pressed" from="AcceptTerminate/BadButton" to="." method="_on_bad_button_pressed"]
+[node name="TitleBar" type="NinePatchRect" parent="SlotMachineWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 494.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="SlotMachineWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 300.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Casino Slots 98"
+
+[node name="CloseButton" type="Button" parent="SlotMachineWindow/TitleBar"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 6.0
+offset_right = 482.0
+offset_bottom = 24.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="SlotBody" type="Control" parent="SlotMachineWindow"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 488.0
+offset_bottom = 448.0
+script = ExtResource("Script_Slots")
+
+[node name="SlotBorder" type="Panel" parent="SlotMachineWindow/SlotBody"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="BevelSlots" type="Panel" parent="SlotMachineWindow/SlotBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 456.0
+offset_bottom = 120.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="HBoxReels" type="HBoxContainer" parent="SlotMachineWindow/SlotBody/BevelSlots"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ReelPanel1" type="Panel" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="ColorRect" type="ColorRect" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Reel1" type="Label" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel1"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "[ CHERRY ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReelPanel2" type="Panel" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="ColorRect" type="ColorRect" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Reel2" type="Label" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "[DIAMOND]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReelPanel3" type="Panel" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="ColorRect" type="ColorRect" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="Reel3" type="Label" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel3"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "[  BAR  ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpinButton" type="Button" parent="SlotMachineWindow/SlotBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 330.0
+offset_top = 135.0
+offset_right = 456.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "SPIN"
+
+[node name="BetPanel" type="Panel" parent="SlotMachineWindow/SlotBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 135.0
+offset_right = 160.0
+offset_bottom = 185.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="BetLabel" type="Label" parent="SlotMachineWindow/SlotBody/BetPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 14
+text = "Bet: $10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BetMinusBtn" type="Button" parent="SlotMachineWindow/SlotBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 170.0
+offset_top = 135.0
+offset_right = 210.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "-"
+
+[node name="BetPlusBtn" type="Button" parent="SlotMachineWindow/SlotBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 220.0
+offset_top = 135.0
+offset_right = 260.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "+"
+
+[node name="StatsPanel" type="Panel" parent="SlotMachineWindow/SlotBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 456.0
+offset_bottom = 260.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="HBoxStats" type="HBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxBalance" type="VBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="BalTitle" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxBalance"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.6)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 10
+text = "BALANCE"
+horizontal_alignment = 1
+
+[node name="BalanceLabel" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxBalance"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.5, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+text = "$100"
+horizontal_alignment = 1
+
+[node name="VBoxOutcome" type="VBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="WinLabel" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxOutcome"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+text = "Spin to win!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="VBoxSanity" type="VBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="SanityTitle" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxSanity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.6)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 10
+text = "STATUS"
+horizontal_alignment = 1
+
+[node name="SanityStatusLabel" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxSanity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "Sanity: 100%"
+horizontal_alignment = 1
+
+[node name="LoanButton" type="Button" parent="SlotMachineWindow/SlotBody"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = 135.0
+offset_right = 320.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "Get Loan ($10)"
+
+[node name="ShopTitle" type="Label" parent="SlotMachineWindow/SlotBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 275.0
+offset_right = 200.0
+offset_bottom = 295.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+text = "Prize Shop:"
+
+[node name="Divider" type="ColorRect" parent="SlotMachineWindow/SlotBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 295.0
+offset_right = 456.0
+offset_bottom = 297.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="BuySanityBtn" type="Button" parent="SlotMachineWindow/SlotBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 30.0
+offset_top = 315.0
+offset_right = 230.0
+offset_bottom = 375.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "Buy Sanity Pack ($50)
+[+25 Sanity]"
+
+[node name="BuyBatteryBtn" type="Button" parent="SlotMachineWindow/SlotBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 246.0
+offset_top = 315.0
+offset_right = 446.0
+offset_bottom = 375.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "Buy Battery Booster ($40)
+[+25% Power]"
+
+[node name="SettingsWindow" type="NinePatchRect" parent="." unique_id=202610230]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 380.0
+offset_top = 120.0
+offset_right = 830.0
+offset_bottom = 580.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
+
+[node name="TitleBar" type="NinePatchRect" parent="SettingsWindow"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 444.0
+offset_bottom = 36.0
+mouse_filter = 0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="SettingsWindow/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "System Settings"
+
+[node name="CloseButton" type="Button" parent="SettingsWindow/TitleBar"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 5.0
+offset_right = 434.0
+offset_bottom = 25.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="SettingsBody" type="Control" parent="SettingsWindow"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 42.0
+offset_right = 438.0
+offset_bottom = 448.0
+script = ExtResource("Settings_Controller_Script")
+
+[node name="DisplayGroup" type="Panel" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 416.0
+offset_bottom = 90.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="DisplayGroupLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Display"
+
+[node name="CRTCheckbox" type="CheckBox" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 35.0
+offset_right = 350.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_icons/checked = ExtResource("Icon_ToggleActive")
+theme_override_icons/unchecked = ExtResource("Icon_ToggleInactive")
+text = " Enable CRT Screen Filter"
+
+[node name="AudioGroup" type="Panel" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 105.0
+offset_right = 416.0
+offset_bottom = 215.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="AudioGroupLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 97.0
+offset_right = 120.0
+offset_bottom = 113.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Audio"
+
+[node name="VolumeLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 125.0
+offset_right = 150.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "Master Volume:"
+
+[node name="VolumeValueLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 125.0
+offset_right = 220.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "80%"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 155.0
+offset_right = 390.0
+offset_bottom = 190.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 80.0
+
+[node name="MouseGroup" type="Panel" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 230.0
+offset_right = 416.0
+offset_bottom = 340.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="MouseGroupLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 222.0
+offset_right = 150.0
+offset_bottom = 238.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
+text = "Mouse Input"
+
+[node name="SensitivityLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "3D Look Sensitivity:"
+
+[node name="SensitivityValueLabel" type="Label" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 175.0
+offset_top = 250.0
+offset_right = 250.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 12
+text = "0.15"
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsWindow/SettingsBody"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 280.0
+offset_right = 390.0
+offset_bottom = 315.0
+theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
+theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+value = 30.0
+
+[node name="QuitButton" type="Button" parent="SettingsWindow/SettingsBody"]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 360.0
+offset_right = 273.0
+offset_bottom = 390.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Exit Game"
+
+[node name="HackerAlert" type="NinePatchRect" parent="." unique_id=202610210]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -80.0
+offset_right = 175.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TitleBar" type="NinePatchRect" parent="HackerAlert"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 344.0
+offset_bottom = 36.0
+texture = ExtResource("2_7lihs")
+region_rect = Rect2(0, 0, 48, 25)
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+
+[node name="Title" type="Label" parent="HackerAlert/TitleBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 300.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "System Security Alert"
+
+[node name="ErrorLabel" type="Label" parent="HackerAlert"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 330.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 14
+text = "SECURITY INTRUSION DETECTED!
+Terminal purge required."
+horizontal_alignment = 1
+
+[node name="TerminalButton" type="Button" parent="HackerAlert"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 115.0
+offset_right = 230.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+text = "Open Terminal"
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_crt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="SettingsWindow/TitleBar/CloseButton" to="SettingsWindow" method="close"]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/SettingsIcon" to="DesktopOS" method="open_app" binds= ["Settings"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SettingsTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Settings"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SettingsBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Settings"]]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/InspectorIcon" to="DesktopOS" method="open_app" binds= ["Inspector"]]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/NotepadIcon" to="DesktopOS" method="open_app" binds= ["Notepad"]]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/TerminalIcon" to="DesktopOS" method="open_app" binds= ["Terminal"]]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/MinesweeperIcon" to="DesktopOS" method="open_app" binds= ["Minesweeper"]]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/SnakeIcon" to="DesktopOS" method="open_app" binds= ["Snake"]]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/CCTVIcon" to="DesktopOS" method="open_app" binds= ["CCTV"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/StartButton" to="DesktopOS" method="_on_start_button_pressed"]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/InspectorTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Inspector"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/NotepadTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Notepad"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/TerminalTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Terminal"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/MinesweeperTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Minesweeper"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SnakeTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Snake"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/CCTVTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["CCTV"]]
+[connection signal="button_up" from="DesktopOS/Taskbar/QuitButton" to="." method="_on_quit_button_button_up"]
+[connection signal="pressed" from="ApparatusInspectorWindow/TitleBar/CloseButton" to="ApparatusInspectorWindow" method="close"]
+[connection signal="pressed" from="NotepadWindow/TitleBar/CloseButton" to="NotepadWindow" method="close"]
+[connection signal="pressed" from="TerminalWindow/TitleBar/CloseButton" to="TerminalWindow" method="close"]
+[connection signal="pressed" from="MinesweeperWindow/TitleBar/CloseButton" to="MinesweeperWindow" method="close"]
+[connection signal="pressed" from="SnakeWindow/TitleBar/CloseButton" to="SnakeWindow" method="close"]
+[connection signal="pressed" from="CCTVWindow/TitleBar/CloseButton" to="CCTVWindow" method="close"]
+[connection signal="button_down" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_button_down"]
+[connection signal="button_up" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_button_up"]
+[connection signal="mouse_entered" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_mouse_exited"]
+[connection signal="pressed" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_chat_button1_pressed"]
+[connection signal="button_down" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_button_down"]
+[connection signal="button_up" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_button_up"]
+[connection signal="mouse_entered" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_mouse_exited"]
+[connection signal="pressed" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_chat_button2_pressed"]
+[connection signal="pressed" from="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel/GoodButton" to="." method="_on_good_button_pressed"]
+[connection signal="pressed" from="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel/BadButton" to="." method="_on_bad_button_pressed"]
+
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/InspectorBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Inspector"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/NotepadBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Notepad"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/TerminalBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Terminal"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/MinesweeperBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Minesweeper"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SnakeBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Snake"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/CCTVBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["CCTV"]]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/ShutdownBtn" to="DesktopOS" method="shutdown_computer"]
+[connection signal="pressed" from="HackerAlert/TerminalButton" to="DesktopOS" method="_on_hacker_alert_terminal_pressed"]
+[connection signal="pressed" from="DesktopOS/DesktopIcons/SlotsIcon" to="DesktopOS" method="open_app" binds= ["Slots"]]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SlotsTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Slots"]]
+[connection signal="pressed" from="SlotMachineWindow/TitleBar/CloseButton" to="SlotMachineWindow" method="close"]
+[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SlotsBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Slots"]]
+

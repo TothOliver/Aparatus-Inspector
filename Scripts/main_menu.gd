@@ -1,46 +1,53 @@
 extends Control
 
-var normal_tex = preload("res://RetroWindowsGUI/Windows_Button.png")
-var hover_tex = preload("res://RetroWindowsGUI/Windows_Button_Focus.png")
-var pressed_tex = preload("res://RetroWindowsGUI/Windows_Button_Pressed.png")
-# Called when the node enters the scene tree for the first time.
+@onready var settings_popup = get_node_or_null("SettingsPopup")
+
 func _ready() -> void:
-	pass # Replace with function body.
+	# Make sure mouse is visible in the main menu
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	# Connect main menu buttons
+	var play_btn = get_node_or_null("MenuButtons/PlayButton")
+	if play_btn:
+		play_btn.pressed.connect(_on_play_pressed)
+		
+	var settings_btn = get_node_or_null("MenuButtons/SettingsButton")
+	if settings_btn:
+		settings_btn.pressed.connect(_on_settings_pressed)
+		
+	var quit_btn = get_node_or_null("MenuButtons/QuitButton")
+	if quit_btn:
+		quit_btn.pressed.connect(_on_quit_pressed)
 
+	var close_btn = get_node_or_null("SettingsPopup/TitleBar/CloseButton")
+	if close_btn:
+		close_btn.pressed.connect(_on_close_settings_pressed)
+		
+	# Register main menu CRT overlay if exists
+	var crt = get_node_or_null("CRTOverlay")
+	if crt:
+		crt.add_to_group("CRTOverlays")
+		crt.visible = GameStats.crt_effect_enabled
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	if has_node("/root/BGMusic"):
+		var bg_music = get_node("/root/BGMusic")
+		if bg_music is AudioStreamPlayer and not bg_music.playing:
+			bg_music.play()
 
-func _on_start_button_mouse_entered() -> void:
-	%Start.texture = hover_tex
+func _on_play_pressed() -> void:
+	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 
+func _on_settings_pressed() -> void:
+	if settings_popup:
+		settings_popup.visible = true
+		# Force synchronization of stats to UI inside SettingsBody
+		var body = settings_popup.get_node_or_null("SettingsBody")
+		if body and body.has_method("update_ui_from_stats"):
+			body.update_ui_from_stats()
 
-func _on_start_button_mouse_exited() -> void:
-	%Start.texture = normal_tex
+func _on_close_settings_pressed() -> void:
+	if settings_popup:
+		settings_popup.visible = false
 
-
-func _on_start_button_button_down() -> void:
-	%Start.texture = pressed_tex
-
-
-func _on_start_button_button_up() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Game.tscn")
-	%Start.texture = normal_tex
-
-
-func _on_quit_button_button_down() -> void:
-	%StartQuit.texture = pressed_tex
-
-
-func _on_quit_button_button_up() -> void:
-	%StartQuit.texture = normal_tex
-	get_tree().quit()
-
-
-func _on_quit_button_mouse_entered() -> void:
-	%StartQuit.texture = hover_tex
-
-
-func _on_quit_button_mouse_exited() -> void:
-	%StartQuit.texture = normal_tex
+func _on_quit_pressed() -> void:
+	GameStats.quit_or_menu(get_tree())
