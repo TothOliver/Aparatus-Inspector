@@ -15,6 +15,14 @@ extends Node3D
 @onready var wifi_led = $Office/WifiRouter/WifiButton
 @onready var curtain_node = $Office/Curtain
 
+var aspect_overlay: Control
+var left_bar: ColorRect
+var right_bar: ColorRect
+
+var os_mask_overlay: Control
+var os_left_mask: ColorRect
+var os_right_mask: ColorRect
+
 # Office States (monitored by roaming hunter AI)
 var is_ceiling_light_on: bool = true
 var is_monitor_on: bool = true
@@ -53,6 +61,88 @@ func _ready():
 		var bg_music = get_node("/root/BGMusic")
 		if bg_music is AudioStreamPlayer and not bg_music.playing:
 			bg_music.play()
+
+	# Create 16:9 aspect ratio overlay for first person view
+	aspect_overlay = Control.new()
+	aspect_overlay.name = "Aspect169Overlay"
+	aspect_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	aspect_overlay.anchor_left = 0
+	aspect_overlay.anchor_top = 0
+	aspect_overlay.anchor_right = 1
+	aspect_overlay.anchor_bottom = 1
+	aspect_overlay.offset_left = 0
+	aspect_overlay.offset_top = 0
+	aspect_overlay.offset_right = 0
+	aspect_overlay.offset_bottom = 0
+	aspect_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	left_bar = ColorRect.new()
+	left_bar.name = "LeftBar"
+	left_bar.color = Color(0, 0, 0, 1) # Solid black
+	left_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	aspect_overlay.add_child(left_bar)
+	
+	right_bar = ColorRect.new()
+	right_bar.name = "RightBar"
+	right_bar.color = Color(0, 0, 0, 1) # Solid black
+	right_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	aspect_overlay.add_child(right_bar)
+	
+	var hud = get_node_or_null("HUD")
+	if hud:
+		hud.add_child(aspect_overlay)
+		hud.move_child(aspect_overlay, 0)
+	else:
+		add_child(aspect_overlay)
+	
+	aspect_overlay.resized.connect(_on_aspect_overlay_resized)
+	_on_aspect_overlay_resized()
+	
+	aspect_overlay.visible = not (viewport_container and viewport_container.visible)
+	
+	# Dynamically center and scale the 2D computer viewport container in 5:4 ratio
+	if viewport_container:
+		viewport_container.anchor_left = 0
+		viewport_container.anchor_top = 0
+		viewport_container.anchor_right = 0
+		viewport_container.anchor_bottom = 0
+		viewport_container.grow_horizontal = Control.GROW_DIRECTION_BOTH
+		viewport_container.grow_vertical = Control.GROW_DIRECTION_BOTH
+		
+		# Create masks to black out the sides of Aethelgard OS
+		os_mask_overlay = Control.new()
+		os_mask_overlay.name = "OSSideMasks"
+		os_mask_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+		os_mask_overlay.anchor_left = 0
+		os_mask_overlay.anchor_top = 0
+		os_mask_overlay.anchor_right = 1
+		os_mask_overlay.anchor_bottom = 1
+		os_mask_overlay.offset_left = 0
+		os_mask_overlay.offset_top = 0
+		os_mask_overlay.offset_right = 0
+		os_mask_overlay.offset_bottom = 0
+		os_mask_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		os_left_mask = ColorRect.new()
+		os_left_mask.name = "LeftMask"
+		os_left_mask.color = Color(0, 0, 0, 1) # Solid black
+		os_left_mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		os_mask_overlay.add_child(os_left_mask)
+		
+		os_right_mask = ColorRect.new()
+		os_right_mask.name = "RightMask"
+		os_right_mask.color = Color(0, 0, 0, 1) # Solid black
+		os_right_mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		os_mask_overlay.add_child(os_right_mask)
+		
+		add_child(os_mask_overlay)
+		var original_index = viewport_container.get_index()
+		move_child(os_mask_overlay, original_index)
+		
+		os_mask_overlay.visible = viewport_container.visible
+		
+		get_viewport().size_changed.connect(_on_viewport_container_resized)
+		_on_viewport_container_resized()
 
 func _process(delta):
 	# Power grid calculations
@@ -111,6 +201,10 @@ func enter_computer_view():
 		viewport_container.visible = true
 	if reticle:
 		reticle.visible = false
+	if aspect_overlay:
+		aspect_overlay.visible = false
+	if os_mask_overlay:
+		os_mask_overlay.visible = true
 
 func exit_computer_view():
 	# Re-lock mouse and hide 2D overlay
@@ -119,6 +213,10 @@ func exit_computer_view():
 		viewport_container.visible = false
 	if reticle:
 		reticle.visible = true
+	if aspect_overlay:
+		aspect_overlay.visible = true
+	if os_mask_overlay:
+		os_mask_overlay.visible = false
 
 func _on_robot_spawned(robot_data: RobotData):
 	if sprite_3d:
@@ -254,3 +352,101 @@ func _double_trigger_enter():
 		release_event.keycode = KEY_ENTER
 		release_event.physical_keycode = KEY_ENTER
 		sub_viewport.push_input(release_event)
+
+func _on_aspect_overlay_resized():
+	if not aspect_overlay or not left_bar or not right_bar:
+		return
+	var size = aspect_overlay.size
+	var H = size.y
+	var W = size.x
+	
+	if H <= 0 or W <= 0:
+		return
+		
+	var target_aspect = 16.0 / 9.0
+	var current_aspect = W / H
+	
+	if current_aspect > target_aspect:
+		# The screen is wider than 16:9 (pillarbox on sides)
+		var target_w = H * target_aspect
+		var side_w = (W - target_w) / 2.0
+		
+		left_bar.position = Vector2.ZERO
+		left_bar.size = Vector2(side_w, H)
+		left_bar.visible = true
+		
+		right_bar.position = Vector2(W - side_w, 0)
+		right_bar.size = Vector2(side_w, H)
+		right_bar.visible = true
+	else:
+		# The screen is taller than 16:9 (letterbox on top/bottom)
+		var target_h = W / target_aspect
+		var side_h = (H - target_h) / 2.0
+		
+		left_bar.position = Vector2.ZERO
+		left_bar.size = Vector2(W, side_h)
+		left_bar.visible = true
+		
+		right_bar.position = Vector2(0, H - side_h)
+		right_bar.size = Vector2(W, side_h)
+		right_bar.visible = true
+
+func _on_viewport_container_resized():
+	if not viewport_container:
+		return
+	var size = get_viewport().get_visible_rect().size
+	var H = size.y
+	var W = size.x
+	
+	if H <= 0 or W <= 0:
+		return
+		
+	var target_aspect = 1.25 # 5:4 aspect ratio (1280x1024)
+	var current_aspect = W / H
+	
+	var pos_x = 0.0
+	var pos_y = 0.0
+	var width = W
+	var height = H
+	
+	if current_aspect > target_aspect:
+		# Screen is wider than 5:4 (pillarbox Aethelgard OS)
+		var target_w = H * target_aspect
+		var side_w = (W - target_w) / 2.0
+		viewport_container.position = Vector2(side_w, 0)
+		viewport_container.size = Vector2(target_w, H)
+		
+		pos_x = side_w
+		width = target_w
+	else:
+		# Screen is taller than 5:4 (letterbox Aethelgard OS)
+		var target_h = W / target_aspect
+		var side_h = (H - target_h) / 2.0
+		viewport_container.position = Vector2(0, side_h)
+		viewport_container.size = Vector2(W, target_h)
+		
+		pos_y = side_h
+		height = target_h
+		
+	# Update the black mask positions to cover areas outside viewport_container
+	if os_mask_overlay and os_left_mask and os_right_mask:
+		if current_aspect > target_aspect:
+			# Left mask covers left side
+			os_left_mask.position = Vector2.ZERO
+			os_left_mask.size = Vector2(pos_x, H)
+			os_left_mask.visible = true
+			
+			# Right mask covers right side
+			os_right_mask.position = Vector2(pos_x + width, 0)
+			os_right_mask.size = Vector2(W - (pos_x + width), H)
+			os_right_mask.visible = true
+		else:
+			# Top mask covers top side
+			os_left_mask.position = Vector2.ZERO
+			os_left_mask.size = Vector2(W, pos_y)
+			os_left_mask.visible = true
+			
+			# Bottom mask covers bottom side
+			os_right_mask.position = Vector2(0, pos_y + height)
+			os_right_mask.size = Vector2(W, H - (pos_y + height))
+			os_right_mask.visible = true

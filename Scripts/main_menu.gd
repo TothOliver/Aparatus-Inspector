@@ -6,6 +6,10 @@ func _ready() -> void:
 	# Make sure mouse is visible in the main menu
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	# Dynamically center main menu controls for expand stretch aspect
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
+	
 	# Connect main menu buttons
 	var play_btn = get_node_or_null("MenuButtons/PlayButton")
 	if play_btn:
@@ -33,6 +37,17 @@ func _ready() -> void:
 		var bg_music = get_node("/root/BGMusic")
 		if bg_music is AudioStreamPlayer and not bg_music.playing:
 			bg_music.play()
+
+func _on_viewport_size_changed() -> void:
+	var viewport_size = get_viewport_rect().size
+	var briefing = get_node_or_null("Background")
+	if briefing:
+		briefing.position.x = (viewport_size.x - briefing.size.x) / 2.0
+	var buttons = get_node_or_null("MenuButtons")
+	if buttons:
+		buttons.position.x = (viewport_size.x - buttons.size.x) / 2.0
+	if settings_popup:
+		settings_popup.position.x = (viewport_size.x - settings_popup.size.x) / 2.0
 
 func _on_play_pressed() -> void:
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")

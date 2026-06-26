@@ -23,6 +23,9 @@ var player_sanity: float = 100.0
 var mouse_sensitivity: float = 0.15
 var crt_effect_enabled: bool = true
 var master_volume: float = 80.0
+var fullscreen_enabled: bool = true
+
+signal fullscreen_toggled(is_fullscreen: bool)
 
 var target_scene_path: String = ""
 
@@ -37,6 +40,12 @@ func _ready():
 	add_child(button_click_player)
 	
 	button_click_stream = _generate_button_click_sound()
+	
+	# Initialize fullscreen mode based on setting
+	if fullscreen_enabled:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	
 	# Listen to new nodes added to the tree dynamically
 	get_tree().node_added.connect(_on_node_added)
@@ -110,3 +119,19 @@ func change_scene_with_loading(tree: SceneTree, target_path: String):
 	target_scene_path = target_path
 	tree.paused = false
 	tree.change_scene_to_file("res://Scenes/LoadingScreen.tscn")
+
+func _input(event):
+	if event is InputEventKey and event.pressed and not event.echo:
+		var is_f11 = event.keycode == KEY_F11
+		var is_enter = event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER
+		var is_alt_enter = is_enter and event.alt_pressed
+		if is_f11 or is_alt_enter:
+			get_viewport().set_input_as_handled()
+			var mode = DisplayServer.window_get_mode()
+			if mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+				fullscreen_enabled = false
+			else:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+				fullscreen_enabled = true
+			fullscreen_toggled.emit(fullscreen_enabled)
