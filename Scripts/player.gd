@@ -174,6 +174,10 @@ func _input(event):
 						interact_with_computer()
 					elif collider.name.contains("Chair"):
 						sit_down()
+					elif collider.name.contains("Breaker") or collider.name.contains("Fuse"):
+						var parent = get_parent()
+						if parent and parent.has_method("reset_breaker"):
+							parent.reset_breaker()
 
 func is_interactable(collider) -> bool:
 	if not collider:
@@ -181,7 +185,7 @@ func is_interactable(collider) -> bool:
 	if collider.has_method("interact"):
 		return true
 	var name_lower = collider.name.to_lower()
-	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor") or name_lower.contains("chair") or name_lower.contains("curtain"):
+	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor") or name_lower.contains("chair") or name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse"):
 		return true
 	return false
 

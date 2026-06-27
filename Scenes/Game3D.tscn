@@ -109,6 +109,23 @@ emission_enabled = true
 emission = Color(1, 0.95, 0.85, 1)
 emission_energy_multiplier = 2.0
 
+[sub_resource type="BoxMesh" id="BoxMesh_breaker_body"]
+size = Vector3(0.18, 0.25, 0.08)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_breaker_body"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+metallic = 0.9
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_breaker_lever"]
+size = Vector3(0.02, 0.08, 0.03)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_breaker_lever"]
+albedo_color = Color(0.8, 0.1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_breaker_col"]
+size = Vector3(0.18, 0.25, 0.08)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing"]
 albedo_color = Color(0.42, 0.42, 0.39, 1)
 roughness = 0.65
@@ -374,6 +391,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.55)
 use_collision = true
 size = Vector3(6, 2.6, 0.1)
 material = SubResource("StandardMaterial3D_walls")
+
+[node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
+transform = Transform3D(-0.027991377, 0, 0.99960816, 0, 1, 0, -0.99960816, 0, -0.027991377, -2.9693189, 1.25, 0.07474077)
+
+[node name="Casing" type="MeshInstance3D" parent="Office/BreakerBox" unique_id=237491290]
+mesh = SubResource("BoxMesh_breaker_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_breaker_body")
+
+[node name="BreakerLever" type="MeshInstance3D" parent="Office/BreakerBox" unique_id=237491291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.045)
+mesh = SubResource("BoxMesh_breaker_lever")
+surface_material_override/0 = SubResource("StandardMaterial3D_breaker_lever")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/BreakerBox" unique_id=237491292]
+shape = SubResource("BoxShape3D_breaker_col")
 
 [node name="ComputerMonitor" type="Node3D" parent="." unique_id=1637242882]
 
