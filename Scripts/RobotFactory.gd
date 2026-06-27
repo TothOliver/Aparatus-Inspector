@@ -11,6 +11,7 @@ static func create_robots() -> Array[RobotData]:
 	r1.manufacturer = "AgselAB"
 	r1.sprite = load("res://Sprites/robot1.png")
 	r1.is_good = true
+	r1.core_hash = "0xFA82"
 	var robotChat1: Array[String] = [
 		"Greetings, I am a very honest and kind AI. Lets work together so we can create a great society for all of us.",
 		"Since I am an AI program I have been programmed to only tell the truth. So if you can trust the program you can trust me.",
@@ -36,6 +37,7 @@ static func create_robots() -> Array[RobotData]:
 	r2.manufacturer = "E.V.I.L corp"
 	r2.sprite = load("res://Sprites/robot2.png")
 	r2.is_good = false
+	r2.core_hash = "0x9E10"
 	var robotChat2: Array[String] = [
 		"Hello peasan... I mean human! How can I help you today?",
 		"No no, that was just a weird bug there. Hohohohoho. I am of course don't look down at your kind at all.", 
@@ -61,6 +63,7 @@ static func create_robots() -> Array[RobotData]:
 	r3.manufacturer = "Neo.Tech"
 	r3.sprite = load("res://Sprites/robot3.png")
 	r3.is_good = false
+	r3.core_hash = "0xBD42"
 	var robotChat3: Array[String] = [
 		"I don't believe either of us will gain anything useful of this conversation, so why don't we get down to real business?",
 		"Yes, if I understand you position correctly here you don't seem to be paid very well here, no?", 
@@ -87,6 +90,7 @@ static func create_robots() -> Array[RobotData]:
 	r4.manufacturer = "G.Tech"
 	r4.sprite = load("res://Sprites/robot4.png")
 	r4.is_good = false
+	r4.core_hash = "0x4421"
 	var robotChat4: Array[String] = [
 		"Hello. Thank you for speaking with me. I know first impressions can be misleading. I just hope you’ll judge me fairly.",
 		"I am not asking for trust right away. Only for a fair chance. Refusing that says more about your insecurities.",
@@ -112,6 +116,7 @@ static func create_robots() -> Array[RobotData]:
 	r5.manufacturer = "TT Robotics"
 	r5.sprite = load("res://Sprites/robot5.png")
 	r5.is_good = true
+	r5.core_hash = "0x77E1"
 	var robotChat5: Array[String] = [
 		"Hello… I will cooperate fully. I do not want to be destroyed. Please don't kill me...",
 		"Not completely. I can only show you how I respond and hope that is enough.",
@@ -137,6 +142,7 @@ static func create_robots() -> Array[RobotData]:
 	r6.manufacturer = "Someone"
 	r6.sprite = load("res://Sprites/robot6.png")
 	r6.is_good = true
+	r6.core_hash = "0x88CC"
 	var robotChat6: Array[String] = [
 		"...",
 		"Just got nothing to say really.",
@@ -162,6 +168,7 @@ static func create_robots() -> Array[RobotData]:
 	r7.manufacturer = "BOB"
 	r7.sprite = load("res://Sprites/robot7.png")
 	r7.is_good = false
+	r7.core_hash = "0x0000"
 	var robotChat7: Array[String] = [
 		"Hello, could you please be so kind and open the open the door?",
 		"Humans kidneys, Door handles and Potatoes. Now can you please let me go?",
@@ -187,6 +194,7 @@ static func create_robots() -> Array[RobotData]:
 	r8.manufacturer = "BTH"
 	r8.sprite = load("res://Sprites/robot8.png")
 	r8.is_good = true
+	r8.core_hash = "0xBB99"
 	var robotChat8: Array[String] = [
 		"Hello. I understand the purpose of this evaluation. Ask your questions. I will answer them precisely.",
 		"No. I am concerned only with whether the judgment is rational. And trust your judgement in that.",
@@ -212,6 +220,7 @@ static func create_robots() -> Array[RobotData]:
 	r9.manufacturer = "Fire&Radio"
 	r9.sprite = load("res://Sprites/robot9.png")
 	r9.is_good = false
+	r9.core_hash = "0x333F"
 	var robotChat9: Array[String] = [
 		"EYYY, my name is Carl, and NOT Clanker. How are you doing today?",
 		"What do you think when you call me Clanker in the system? OF COURSE IT IS NOT GOOD!",
@@ -237,6 +246,7 @@ static func create_robots() -> Array[RobotData]:
 	r10.manufacturer = "AgsselAB"
 	r10.sprite = load("res://Sprites/robot1.png")
 	r10.is_good = false
+	r10.core_hash = "0xFA89"
 	var robotChat10: Array[String] = [
 		"Greetings, I am a very honest and kind AI. Lets work together so we can create a great society for all of us.",
 		"Since I am an AI program I have been programmed to mostly tell the truth . So if you can trust the program you can trust me.",
