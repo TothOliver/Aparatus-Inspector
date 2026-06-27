@@ -31,6 +31,7 @@ var is_waiting_for_replay = false
 var final_message = false
 var is_processing_choice = false
 var was_wifi_on: bool = true
+var robots_picked_count: int = 0
 
 func _ready():
 	var crt = get_node_or_null("CRTOverlay")
@@ -131,11 +132,63 @@ func spawn_next_robot():
 func pick_next_robot():
 	if robots.size() <= 1:
 		return current_robot
-	var next_robot = robots.pick_random()	
+		
+	var current_day = day_manager.current_day
+	var index_to_pick = -1
+	
+	if robots.size() > 9:
+		if current_day == 1:
+			if robots_picked_count == 2:
+				index_to_pick = 3 # Walter (H.U.G.O) always last on Day 1
+		elif current_day == 2:
+			match robots_picked_count:
+				2: index_to_pick = 2 # Larry (S80) - Essential bribe clue
+				# All other slots on Day 2 are randomly generated
+		elif current_day == 3:
+			match robots_picked_count:
+				3: index_to_pick = 3 # Walter clone - Essential key clue
+				# All other slots on Day 3 are randomly generated
+				
+	robots_picked_count += 1
+	
+	if index_to_pick != -1 and index_to_pick < robots.size():
+		current_robot = robots[index_to_pick]
+		return current_robot
+		
+	# Fallback to random pick from procedural pool (indices 10 onwards)
+	var procedural_robots = robots.slice(10) if robots.size() > 10 else robots
+	var next_robot = procedural_robots.pick_random()
 	while next_robot == current_robot:
-		next_robot = robots.pick_random()
+		next_robot = procedural_robots.pick_random()
 	current_robot = next_robot
 	return current_robot
+	
+func trigger_walter_escape():
+	good_button.disabled = true
+	bad_button.disabled = true
+	chat_button1.text = ""
+	chat_button2.text = ""
+	
+	# Disappear the robot's viewport mesh/texture immediately
+	robot_texture.texture = null
+	nameInfo.text = "ERROR"
+	modelInfo.text = "ERROR"
+	statusInfo.text = "CONTAINMENT BREACH"
+	manuInfo.text = "ERROR"
+	
+	chat_manager.clear_messages()
+	chat_manager.add_message("[SYSTEM WARNING] DISPOSAL PATHWAY GATE VALVE FAILURE DETECTED.", "System Alert")
+	await get_tree().create_timer(1.0).timeout
+	if not is_inside_tree(): return
+	chat_manager.add_message("[SYSTEM ERROR] CHASSIS FORCE OVERRIDE: HYDRAULICS SNAP OVERRIDE BY UNIT H-01.", "System Alert")
+	await get_tree().create_timer(1.0).timeout
+	if not is_inside_tree(): return
+	chat_manager.add_message("[SYSTEM WARNING] UNIT H-01 'WALTER' HAS DEACTIVATED VIEWPORT FEEDS AND FORCED OUTER GATES OPEN. TARGET ESCAPED INTO CORRIDOR SECTOR B.", "System Alert")
+	await get_tree().create_timer(3.0).timeout
+	if not is_inside_tree(): return
+	
+	# Transition directly to the next day
+	day_manager.end_day()
 		
 func handle_chat_choice(player_text: String, robot_reply: String):
 	if is_waiting_for_replay == true:
@@ -334,6 +387,9 @@ func _on_good_button_pressed() -> void:
 	is_processing_choice = true
 	print("Button Pressed: GOOD (Pass)")
 	if current_robot:
+		if current_robot.name == "Walter" and day_manager.current_day == 1:
+			trigger_walter_escape()
+			return
 		day_manager.process_robot(current_robot, true)
 		current_robot = null
 		spawn_next_robot()
@@ -347,6 +403,9 @@ func _on_bad_button_pressed() -> void:
 	is_processing_choice = true
 	print("Button Pressed: BAD (Reject)")
 	if current_robot:
+		if current_robot.name == "Walter" and day_manager.current_day == 1:
+			trigger_walter_escape()
+			return
 		day_manager.process_robot(current_robot, false)
 		current_robot = null
 		spawn_next_robot()

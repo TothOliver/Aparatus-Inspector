@@ -70,13 +70,20 @@ flowchart TD
     Slots -->|Shop Items| Stats[Sanity / Battery Stats]
 ```
 
-### 3.1 The Daily Evaluation Loop
-The player must process a specific quota of robots per shift. 
+### 3.1 The Daily Evaluation Loop & Multi-Layered Verification
+The player must process a specific quota of robots per shift. To stop the player from "speedrunning" diagnostics, direct pass/fail telemetry is removed. Instead, the player must perform detective work:
 *   **Apparatus Inspector Application**: Redesigned to utilize a wide aspect ratio format (`1060x800`). The left panel manages conversational dialogue options and verdict logs. The right panel houses the live CRT viewport camera feed (`CAM 01 - FEED: LIVE`) displaying the robot's physical model, and a database-themed spec card with read-only monospaced telemetry fields (Unit Name, Model Designation, Chassis Status, Manufacturer Code).
+*   **Core Signature Verification**: Running the `scan` command in the MS-DOS terminal returns the unit's **Core Signature Hash** (e.g., `0xFA82`). The player must cross-reference this hash against the intranet database.
+*   **Procedural Anomaly Scaling (Daily Difficulty)**:
+    *   **Day 1 (3 Anomalies)**: Rogues have 3 indicators (e.g. Model typo + Manufacturer typo + dialogue tell). Easy to identify.
+    *   **Day 2 (2 Anomalies)**: Rogues have 2 indicators (e.g. telemetry typo, but dialogue is clean and honest).
+    *   **Day 3 (1 Anomaly)**: Rogues have only 1 indicator. Leads to **Perfect Telemetry Spoofs** (100% clean telemetry and registry matches, but dialogue contains tells) or **Perfect Dialogue Spoofs** (honest dialogue, but core hash is blacklisted or telemetry contains a typo).
 *   **Decisions & Consequences**: Clicking **APPROVE** sends the unit back to the grid. Clicking **EXTERMINATE** incinerates the robot. Incorrect judgments drain player health or sanity.
 
 ### 3.2 2D Simulated OS Applications
-1.  **Apparatus Explorer (Web Browser)**: A fully resizable and draggable window (`800x600` default) implementing standard `<` back, `>` forward, and `Home` navigation. Includes custom hyperlink hover detection that swaps the cursor to a pointing hand. Features 10 base network directories and 3 hidden pages:
+1.  **Apparatus Explorer (Web Browser)**: A fully resizable and draggable window (`800x600` default) implementing standard `<` back, `>` forward, and `Home` navigation. Includes custom hyperlink hover detection that swaps the cursor to a pointing hand. Features 12 base network directories, including:
+    *   `www.robot-factory.corp/registry`: The official Aethelgard specification database showing valid Model, Manufacturer, Core Hash, and Status fields for approved models (`T1337`, `PAAST22`, `TT69`, `Last`).
+    *   `www.inspections-database.org/behavior`: Whistleblower behavioral diagnostic logs mapping mimic/infected dialogue tells (Redd mimic's "mostly tell the truth" tell, Larry's bribes, Walter's passive-aggressive deflections).
     *   `www.funny-monkey.meme`: A joke website featuring a dithered monkey graphic (`hehe.jpg`), linked from the cryptid forum.
     *   `www.hunter-origin.spec`: Classified specs details for the H-198 Hunter chassis (revealing its blindness in complete darkness and under-desk sensor limitations), linked from the Archivist's Diary.
     *   `www.system-backdoor.hack`: A glitched administrative page detailing telemetry loops, lights controls, and manual system overrides, linked from the Walter Conspiracy blog.
@@ -108,6 +115,11 @@ The player must process a specific quota of robots per shift.
 *   **WiFi Control**: A 3D router box is positioned on the desk. Clicking the physical button toggles the network state (`GameStats.wifi_on`).
 *   **Status LED Indicator**: A diagnostic light on the router glows green when the network is online, red when offline, and shuts down during blackouts.
 *   **Browser Interception**: Toggling the router off blocks browser requests, rendering a `"Server Not Found"` error panel until connection is re-established.
+
+### 4.3 Physical Circuit Breaker & Outages
+*   **Tripping Events**: The office circuit breaker trips randomly every **45 to 90 seconds**.
+*   **System Failure**: Tripping immediately sets power to 0%, plunges the office into darkness, disables monitor screens, and **unlocks the security door**. Automatic battery recharging is blocked while the breaker is tripped.
+*   **Tactile Reset Interaction**: The breaker box is permanently mounted on the left wall (`Vector3(-0.95, 1.25, 1.45)`). Its visual red lever switch snaps down (`-45°`) when tripped. The player must stand up, turn toward the wall, and press `E` or `Left-Click` on the box to snap the lever back straight (`0°`) and restore power.
 
 ---
 

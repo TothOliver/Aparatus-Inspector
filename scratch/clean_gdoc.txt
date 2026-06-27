@@ -1,0 +1,30 @@
+Title: Live Content
+
+Description: Fetched live
+
+Source: https://docs.google.com/document/d/1tlwSiDrLqV9EDNjJ8xB8bNRy4Mt9ucc714u577xFXIc/edit?tab=t.0
+
+---
+Game Design Document: Apparatus Inspector - Google Docs
+JavaScript isn't enabled in your browser, so this file can't be opened. Enable and reload.
+This browser version is no longer supported. Please upgrade to a supported browser.
+Game Design Document: Apparatus Inspector
+Tab
+External
+Share
+Sign in
+File
+Edit
+View
+Insert
+Format
+Tools
+Extensions
+Help
+Accessibility
+Debug
+Unsaved changes to Drive
+Image options
+Replace image
+Table options
+Accessibility
