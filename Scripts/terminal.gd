@@ -47,14 +47,14 @@ func _ready():
 
 	# Configure monospaced font dynamically for terminal to enable clean layouts
 	var mono_font = SystemFont.new()
-	mono_font.font_names = PackedStringArray(["Courier New", "Consolas", "Monospace", "Courier"])
+	mono_font.font_names = PackedStringArray(["Consolas", "Courier New", "Monospace", "Courier"])
 	
 	if output_log:
 		output_log.add_theme_font_override("normal_font", mono_font)
-		output_log.add_theme_font_size_override("normal_font_size", 14)
+		output_log.add_theme_font_size_override("normal_font_size", 16)
 	if input_field:
 		input_field.add_theme_font_override("font", mono_font)
-		input_field.add_theme_font_size_override("font_size", 14)
+		input_field.add_theme_font_size_override("font_size", 16)
 
 	input_field.text_submitted.connect(_on_command_submitted)
 	input_field.focus_exited.connect(_on_input_field_focus_exited)
