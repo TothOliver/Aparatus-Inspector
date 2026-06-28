@@ -1,8 +1,21 @@
 extends CharacterBody3D
 class_name HunterRobot
 
+# --- MODULAR NODE EXPORTS (Assign in Inspector for custom maps) ---
+@export_group("Modular Markers")
+@export var start_marker: Marker3D      # Far corridor starting/idle point
+@export var door_marker: Marker3D       # Point directly outside the office door
+@export var window_marker: Node3D       # The glass window node (used for sight check)
+@export var window_peek_marker: Marker3D # Where the Hunter stands to peek through the window
+@export var camera_peek_marker: Marker3D # Where the Hunter stands to be seen by the CCTV camera
+@export var jumpscare_marker: Marker3D  # Where the Hunter warps to jumpscare the player
+
+@export_group("Modular Mesh & Audio overrides")
+@export var door_mesh_override: Node3D  # The door mesh to swing open
+@export var custom_audio_player: AudioStreamPlayer3D # Audio override (defaults to child)
+
 @onready var audio_player = $AudioStreamPlayer3D
-@onready var door_mesh = $"../Office/LeftDoor" # Target door mesh to rotate
+@onready var door_mesh = $"../Office/LeftDoor" # Default scene fallback
 
 enum State {
 	PATROLLING,
@@ -11,12 +24,17 @@ enum State {
 	BREAKING_IN
 }
 
-var current_state = State.PATROLLING
-var patrol_dir: int = 1
-var speed: float = 1.2
+enum PeekLocation {
+	DOOR,
+	WINDOW,
+	CAMERA
+}
 
-# Position track
-# Corridor runs along X from -15 to -3.1, at Z = 1.5
+var current_state = State.PATROLLING
+var speed: float = 1.2
+var active_peek_location = PeekLocation.DOOR
+
+# --- BACKWARD COMPATIBILITY FALLBACKS ---
 var start_x: float = -15.0
 var door_x: float = -3.1
 var target_z: float = 1.5
@@ -44,6 +62,37 @@ var is_active: bool = false
 var patrol_laps: int = 0
 var warning_played: bool = false
 
+# --- POSITION & REFERENCE GETTERS (Resolves overrides vs fallbacks) ---
+func get_start_pos() -> Vector3:
+	if start_marker:
+		return start_marker.global_position
+	return Vector3(start_x, 1.0, target_z)
+
+func get_door_pos() -> Vector3:
+	if door_marker:
+		return door_marker.global_position
+	return Vector3(door_x, 1.0, target_z)
+
+func get_window_pos() -> Vector3:
+	if window_marker:
+		return window_marker.global_position
+	return Vector3(0.0, 1.3, -1.54)
+
+func get_jumpscare_pos() -> Vector3:
+	if jumpscare_marker:
+		return jumpscare_marker.global_position
+	return get_door_pos()
+
+func get_door_mesh() -> Node3D:
+	if door_mesh_override:
+		return door_mesh_override
+	return door_mesh
+
+func get_active_audio_player() -> AudioStreamPlayer3D:
+	if custom_audio_player:
+		return custom_audio_player
+	return audio_player
+
 func _ready():
 	# Generate procedural sounds
 	step_stream = _generate_clank_sound()
@@ -53,12 +102,12 @@ func _ready():
 	audio_player.unit_size = 4.0
 	audio_player.max_db = 3.0
 	
-	global_position = Vector3(start_x, 1.0, target_z)
+	global_position = get_start_pos()
 
 func _physics_process(delta):
 	# Hunter is completely inactive on Day 1 no matter what
 	if GameStats.current_day <= 1:
-		global_position = Vector3(start_x, 1.0, target_z)
+		global_position = get_start_pos()
 		current_state = State.PATROLLING
 		patrol_laps = 4
 		$Sprite3D.visible = false
@@ -91,7 +140,7 @@ func _physics_process(delta):
 		if GameStats.let_through_bad_sprites.size() > 0:
 			$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 			
-	# Dynamically scale speeds based on threat count and current day
+	# Dynamically scale speed based on threat count and current day
 	var day_factor = (GameStats.current_day - 1) * 0.25
 	speed = (1.1 + day_factor) + danger_level * 0.45
 	
@@ -100,9 +149,10 @@ func _physics_process(delta):
 		next_investigation_time -= delta
 		if next_investigation_time <= 3.0 and not warning_played:
 			warning_played = true
-			audio_player.stream = screech_stream
-			audio_player.pitch_scale = 0.75
-			audio_player.play()
+			var ap = get_active_audio_player()
+			ap.stream = screech_stream
+			ap.pitch_scale = 0.75
+			ap.play()
 			
 	# State Machine Logic
 	match current_state:
@@ -120,8 +170,7 @@ func _physics_process(delta):
 
 func handle_patrol(delta):
 	# Remain stationary at the starting point in the far corridor
-	global_position.x = start_x
-	global_position.z = target_z
+	global_position = get_start_pos()
 	
 	# Check if it's time to investigate (approach)
 	if next_investigation_time <= 0:
@@ -132,17 +181,36 @@ func start_approach():
 	warning_played = false
 
 func handle_approaching(delta):
-	# Move directly to the door
-	if global_position.x < door_x:
-		global_position.x = move_toward(global_position.x, door_x, speed * 1.5 * delta)
-		global_position.z = target_z
+	# Move directly to the door dynamically in 3D
+	var target = get_door_pos()
+	if global_position.distance_to(target) > 0.15:
+		global_position = global_position.move_toward(target, speed * 1.5 * delta)
 	else:
-		# Arrived at the door
+		# Arrived at the door, randomly choose a peek location (DOOR, WINDOW, or CAMERA)
+		var choices = [PeekLocation.DOOR]
+		if window_peek_marker:
+			choices.append(PeekLocation.WINDOW)
+		if camera_peek_marker:
+			choices.append(PeekLocation.CAMERA)
+			
+		active_peek_location = choices[randi() % choices.size()]
+		
+		# Warp to the chosen location
+		if active_peek_location == PeekLocation.WINDOW:
+			global_position = window_peek_marker.global_position
+			look_at(Vector3(get_window_pos().x, global_position.y, get_window_pos().z))
+		elif active_peek_location == PeekLocation.CAMERA:
+			global_position = camera_peek_marker.global_position
+			look_at(Vector3(get_door_pos().x, global_position.y, get_door_pos().z))
+		else:
+			global_position = get_door_pos()
+			
 		current_state = State.DOOR_RATTLE
 		wait_at_door_timer = 2.0
-		if audio_player.stream != rattle_stream or not audio_player.playing:
-			audio_player.stream = rattle_stream
-			audio_player.play()
+		var ap = get_active_audio_player()
+		if ap.stream != rattle_stream or not ap.playing:
+			ap.stream = rattle_stream
+			ap.play()
 
 func handle_door_rattle(delta):
 	# If player spots the Hunter on CCTV or through the window, it retreats!
@@ -152,6 +220,9 @@ func handle_door_rattle(delta):
 
 	wait_at_door_timer -= delta
 	if wait_at_door_timer <= 0:
+		# Move back to door position to break in
+		global_position = get_door_pos()
+		
 		if GameStats.door_locked:
 			current_state = State.BREAKING_IN
 			bang_count = 0
@@ -168,9 +239,10 @@ func handle_breaking_in(delta):
 	state_timer -= delta
 	if state_timer <= 0:
 		# Bang on the door
-		audio_player.stream = screech_stream
-		audio_player.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
-		audio_player.play()
+		var ap = get_active_audio_player()
+		ap.stream = screech_stream
+		ap.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
+		ap.play()
 		
 		# Drain power
 		GameStats.power_level = max(0.0, GameStats.power_level - 15.0)
@@ -196,29 +268,37 @@ func check_if_player_sees_hunter() -> bool:
 		return false
 		
 	# 1. Check if player is viewing CCTV Camera app on computer
+	var seen_on_cctv = false
 	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
-			return true
+			seen_on_cctv = true
 			
 	# 2. Check if player is looking directly at the glass window in 3D
+	var seen_through_window = false
 	if player.current_state != player.State.COMPUTER_VIEW:
 		if not game_3d.is_curtain_closed:
 			var camera = player.get_node_or_null("Camera3D")
 			if camera:
-				var window_pos = Vector3(0.0, 1.3, -1.54) # Center of the glass window
+				var window_pos = get_window_pos()
 				var dir_to_window = (window_pos - camera.global_position).normalized()
 				var camera_forward = -camera.global_transform.basis.z.normalized()
 				var dot = camera_forward.dot(dir_to_window)
-				# 0.7 dot product threshold corresponds to roughly a 45-degree angle pointing towards the window
 				if dot > 0.7:
-					return true
+					seen_through_window = true
 					
-	return false
+	# Match based on chosen peek location
+	if active_peek_location == PeekLocation.WINDOW:
+		return seen_through_window
+	elif active_peek_location == PeekLocation.CAMERA:
+		return seen_on_cctv
+	else:
+		# DOOR can be spotted by either CCTV or direct window look (fallback)
+		return seen_on_cctv or seen_through_window
 
 func retreat_and_reset():
 	current_state = State.PATROLLING
-	global_position = Vector3(start_x, 1.0, target_z)
+	global_position = get_start_pos()
 	
 	# Set a new investigation cooldown
 	var danger_level = GameStats.let_through_bad_sprites.size()
@@ -232,28 +312,47 @@ func retreat_and_reset():
 	warning_played = false
 	
 	# Play rapid footsteps walking away quickly (pitch_scale = 1.4)
-	audio_player.stream = step_stream
-	audio_player.pitch_scale = 1.4
-	audio_player.play()
+	var ap = get_active_audio_player()
+	ap.stream = step_stream
+	ap.pitch_scale = 1.4
+	ap.play()
+
+func start_chase():
+	# Slot machine threat trigger: immediately warp to the door and start rattling!
+	if GameStats.current_day <= 1:
+		return # Do nothing on Day 1
+	current_state = State.APPROACHING
+	is_active = true
+	global_position = get_door_pos()
 
 func kill_player():
 	# Make sure sprite is visible
 	$Sprite3D.visible = true
 	
+	# Warp to jumpscare position
+	global_position = get_jumpscare_pos()
+	
+	# Rotate to face player directly during jumpscare
+	var player = get_tree().root.find_child("Player", true, false)
+	if player:
+		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z))
+	
 	# Play jumpscare sound
-	audio_player.stream = screech_stream
-	audio_player.pitch_scale = 1.0
-	audio_player.play()
+	var ap = get_active_audio_player()
+	ap.stream = screech_stream
+	ap.pitch_scale = 1.0
+	ap.play()
 	
 	# Swing door open physically
-	if door_mesh:
-		door_mesh.rotation.y = deg_to_rad(90.0)
+	var dm = get_door_mesh()
+	if dm:
+		dm.rotation.y = deg_to_rad(90.0)
 	
 	# Trigger game over after brief freeze
 	await get_tree().create_timer(1.2).timeout
 	
-	if door_mesh:
-		door_mesh.rotation.y = 0.0
+	if dm:
+		dm.rotation.y = 0.0
 		
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 
@@ -272,9 +371,10 @@ func handle_footsteps(delta):
 			is_moving = false
 			
 		if is_moving:
-			audio_player.stream = step_stream
-			audio_player.pitch_scale = randf_range(0.85, 1.15)
-			audio_player.play()
+			var ap = get_active_audio_player()
+			ap.stream = step_stream
+			ap.pitch_scale = randf_range(0.85, 1.15)
+			ap.play()
 
 # === PROCEDURAL AUDIO GENERATION ===
 
