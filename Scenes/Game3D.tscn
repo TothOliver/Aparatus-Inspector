@@ -139,6 +139,7 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
 resource_local_to_scene = true
 shading_mode = 0
+texture_filter = 0
 albedo_texture = SubResource("ViewportTexture_monitor")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_screen"]
@@ -516,6 +517,7 @@ light_energy = 2.2
 omni_range = 15.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1744836067]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
