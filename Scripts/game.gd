@@ -32,6 +32,9 @@ var final_message = false
 var is_processing_choice = false
 var was_wifi_on: bool = true
 
+const QUESTIONS_PER_PAGE := 2
+var question_page_start := 0
+
 func _ready():
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
@@ -82,8 +85,7 @@ func spawn_next_robot():
 		modelInfo.text = "N/A"
 		statusInfo.text = "N/A"
 		manuInfo.text = "N/A"
-		chat_button1.text = ""
-		chat_button2.text = ""
+		clear_question_buttons()
 		good_button.disabled = true
 		bad_button.disabled = true
 		chat_manager.add_message("Shift quota complete. Authorizing shift exit...", "System")
@@ -99,8 +101,8 @@ func spawn_next_robot():
 		robot_spawned.emit(current_robot)
 		chat_manager.add_message(current_robot.robotChat[0], current_robot.name)
 		
-		chat_button1.text = current_robot.humanChat[chat_manager.chatCount]
-		chat_button2.text = current_robot.humanChat[chat_manager.chatCount+1]
+		question_page_start = 0
+		refresh_question_buttons()
 		
 		# Only update texture if one exists
 		if current_robot.sprite:
@@ -156,19 +158,22 @@ func handle_chat_choice(player_text: String, robot_reply: String):
 	chat_manager.add_message(robot_reply, current_robot.name)
 	is_waiting_for_replay = false
 	
-	if chat_manager.chatCount == 6:
-		chat_button1.text = ""
-		chat_button2.text = ""
+	question_page_start += QUESTIONS_PER_PAGE
+
+	if question_page_start >= current_robot.humanChat.size():
+		clear_question_buttons()
+
 		if not is_inside_tree() or not get_tree():
 			return
+
 		await get_tree().create_timer(0.3).timeout
+
 		if not is_inside_tree():
 			return
+
 		handle_last_terminal_chat()
 	else:
-		if current_robot:
-			chat_button1.text = current_robot.humanChat[chat_manager.chatCount]
-			chat_button2.text = current_robot.humanChat[chat_manager.chatCount+1]
+		refresh_question_buttons()
 
 func handle_last_terminal_chat():
 	if not is_inside_tree() or not chat_manager:
@@ -205,13 +210,10 @@ func _on_button_1_button_down() -> void:
 	pass
 
 func _on_button_1_button_up() -> void:
-	if chat_manager.chatCount > 5:
-		return
-	handle_chat_choice(current_robot.humanChat[chat_manager.chatCount], current_robot.robotChat[chat_manager.chatCount+1])
+	ask_question_at_index(question_page_start)
 
 func _on_button_2_button_up() -> void:
-	if chat_manager.chatCount >= 5:
-		return
+	ask_question_at_index(question_page_start + 1)	
 	handle_chat_choice(current_robot.humanChat[chat_manager.chatCount+1], current_robot.robotChat[chat_manager.chatCount+2])
 
 func _on_button_1_mouse_entered() -> void:
@@ -373,3 +375,50 @@ func _process(_delta):
 	if was_wifi_on != GameStats.wifi_on:
 		was_wifi_on = GameStats.wifi_on
 		spawn_next_robot()
+
+func clear_question_buttons() -> void:
+	chat_button1.text = ""
+	chat_button2.text = ""
+	chat_button1.disabled = true
+	chat_button2.disabled = true
+
+func refresh_question_buttons() -> void:
+	if current_robot == null:
+		clear_question_buttons()
+		return
+	
+	set_question_button(chat_button1, question_page_start)
+	set_question_button(chat_button2, question_page_start +1)
+	
+func set_question_button(button: Button, question_index: int) -> void:
+	if current_robot == null:
+		button.text = ""
+		button.disabled = true
+		return
+	
+	if question_index >= 0 and question_index < current_robot.humanChat.size():
+		button.text = current_robot.humanChat[question_index]
+		button.disabled = false
+	else:
+		button.text = ""
+		button.disabled = true
+
+func ask_question_at_index(question_index: int) -> void:
+	if current_robot == null:
+		return
+
+	if is_waiting_for_replay:
+		return
+
+	if question_index < 0 or question_index >= current_robot.humanChat.size():
+		return
+
+	var player_text := current_robot.humanChat[question_index]
+	var robot_reply_index := question_index + 1
+
+	if robot_reply_index < 0 or robot_reply_index >= current_robot.robotChat.size():
+		push_warning("Missing robot reply for question index: " + str(question_index))
+		return
+
+	var robot_reply := current_robot.robotChat[robot_reply_index]
+	handle_chat_choice(player_text, robot_reply)

@@ -1584,6 +1584,7 @@ autowrap_mode = 3
 
 [node name="NotepadWindow" type="NinePatchRect" parent="." unique_id=202610160]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 100.0
@@ -1646,6 +1647,7 @@ wrap_mode = 1
 
 [node name="TerminalWindow" type="NinePatchRect" parent="." unique_id=202610170]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 280.0
 offset_top = 180.0
@@ -1757,6 +1759,7 @@ caret_blink = true
 
 [node name="MinesweeperWindow" type="NinePatchRect" parent="." unique_id=202610180]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 480.0
 offset_top = 200.0
@@ -1875,6 +1878,7 @@ columns = 9
 
 [node name="SnakeWindow" type="NinePatchRect" parent="." unique_id=202610190]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 180.0
@@ -1991,6 +1995,7 @@ offset_bottom = 369.0
 
 [node name="CCTVWindow" type="NinePatchRect" parent="." unique_id=202610200]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 680.0
 offset_top = 100.0
@@ -2060,6 +2065,7 @@ expand_mode = 1
 
 [node name="SlotMachineWindow" type="NinePatchRect" parent="." unique_id=202610220]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 220.0
 offset_top = 140.0
@@ -2457,6 +2463,7 @@ text = "Buy Battery Booster ($40)
 
 [node name="SettingsWindow" type="NinePatchRect" parent="." unique_id=202610230]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 380.0
 offset_top = 120.0
@@ -2752,6 +2759,7 @@ text = "Open Terminal"
 
 [node name="CRTOverlay" type="ColorRect" parent="." unique_id=2027712922]
 unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_crt")
 layout_mode = 1
 anchors_preset = 15
