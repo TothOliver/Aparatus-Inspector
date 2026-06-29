@@ -107,7 +107,7 @@ func spawn_next_robot():
 		if not current_robot:
 			current_robot = pick_next_robot()
 		robot_spawned.emit(current_robot)
-		chat_manager.add_message(current_robot.robotChat[0], current_robot.name)
+		chat_manager.add_message(current_robot.get_greeting(), current_robot.name)
 		
 		question_page_start = 0
 		refresh_question_buttons()

@@ -1,33 +1,23 @@
-[gd_scene load_steps=22 format=3 uid="uid://dvq7hwhliod3q"]
+[gd_scene format=3 uid="uid://dvq7hwhliod3q"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_xim88"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Window_Header.png" id="2_koqhg"]
-[ext_resource type="FontFile" path="res://RetroWindowsGUI/M 8pt.ttf" id="3_cmrfp"]
-[ext_resource type="FontFile" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_if7li"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Window_Base.png" id="8_base"]
-[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
+[ext_resource type="Script" uid="uid://d3c64iask50su" path="res://Scripts/main_menu.gd" id="1_xim88"]
+[ext_resource type="Texture2D" uid="uid://b6ousc5vgvsd8" path="res://RetroWindowsGUI/Window_Header.png" id="2_koqhg"]
+[ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="3_cmrfp"]
+[ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_if7li"]
+[ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
+[ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="8_base"]
+[ext_resource type="Shader" uid="uid://25kefcn6ewtw" path="res://crt_filter.gdshader" id="10_shader"]
+[ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
+[ext_resource type="Texture2D" uid="uid://bbw7onsjn6kf2" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
+[ext_resource type="Texture2D" uid="uid://c0ttjlxtyl1cj" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
+[ext_resource type="Texture2D" uid="uid://dx3a0jbw8cavi" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
+[ext_resource type="Script" uid="uid://c1f17kywvwsiw" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
-[ext_resource type="Shader" path="res://crt_filter.gdshader" id="10_shader"]
-[ext_resource type="Script" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner_Frame"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
-shader = ExtResource("10_shader")
-shader_parameter/scanline_count = 320.0
-shader_parameter/scanline_intensity = 0.08
-shader_parameter/curvature = 0.025
-shader_parameter/vignette_intensity = 0.08
-shader_parameter/grr_intensity = 0.03
-shader_parameter/aberration = 0.001
-
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GroupLabel"]
 bg_color = Color(0.83137, 0.81568, 0.78431, 1)
@@ -40,7 +30,17 @@ texture_margin_left = 2.0
 texture_margin_top = 1.0
 texture_margin_right = 2.0
 texture_margin_bottom = 1.0
-[node name="MainMenu" type="Control"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("10_shader")
+shader_parameter/scanline_count = 320.0
+shader_parameter/scanline_intensity = 0.08
+shader_parameter/curvature = 0.025
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/grr_intensity = 0.03
+shader_parameter/aberration = 0.001
+
+[node name="MainMenu" type="Control" unique_id=1267123649]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xim88")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=547005971]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,7 +58,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.5019608, 0.5019608, 1)
 
-[node name="Background" type="NinePatchRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="." unique_id=878204195]
 layout_mode = 0
 offset_left = 310.0
 offset_top = 230.0
@@ -70,7 +70,7 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="TitleBar" type="NinePatchRect" parent="Background"]
+[node name="TitleBar" type="NinePatchRect" parent="Background" unique_id=1061016880]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
@@ -83,7 +83,7 @@ patch_margin_top = 3
 patch_margin_right = 5
 patch_margin_bottom = 3
 
-[node name="Title" type="Label" parent="Background/TitleBar"]
+[node name="Title" type="Label" parent="Background/TitleBar" unique_id=751857562]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
@@ -93,7 +93,7 @@ theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 12
 text = "System Briefing"
 
-[node name="BriefingLabel" type="Label" parent="Background"]
+[node name="BriefingLabel" type="Label" parent="Background" unique_id=383054646]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 50.0
@@ -107,7 +107,7 @@ You have been assigned to examine a series of artificial intelligences scheduled
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=760118493]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -127,7 +127,7 @@ theme_override_font_sizes/font_size = 100
 text = "Apparatus Inspector"
 horizontal_alignment = 1
 
-[node name="MenuButtons" type="VBoxContainer" parent="."]
+[node name="MenuButtons" type="VBoxContainer" parent="." unique_id=699560210]
 layout_mode = 0
 offset_left = 515.0
 offset_top = 650.0
@@ -135,52 +135,52 @@ offset_right = 765.0
 offset_bottom = 810.0
 theme_override_constants/separation = 12
 
-[node name="PlayButton" type="Button" parent="MenuButtons"]
+[node name="PlayButton" type="Button" parent="MenuButtons" unique_id=1225376418]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "Play"
 
-[node name="SettingsButton" type="Button" parent="MenuButtons"]
+[node name="SettingsButton" type="Button" parent="MenuButtons" unique_id=1498386921]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="MenuButtons"]
+[node name="QuitButton" type="Button" parent="MenuButtons" unique_id=469582934]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "Quit"
 
-[node name="SettingsPopup" type="NinePatchRect" parent="."]
+[node name="SettingsPopup" type="NinePatchRect" parent="." unique_id=1440518961]
 visible = false
 layout_mode = 0
 offset_left = 415.0
@@ -193,7 +193,7 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="TitleBar" type="NinePatchRect" parent="SettingsPopup"]
+[node name="TitleBar" type="NinePatchRect" parent="SettingsPopup" unique_id=1571513713]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
@@ -207,7 +207,7 @@ patch_margin_top = 3
 patch_margin_right = 5
 patch_margin_bottom = 3
 
-[node name="Title" type="Label" parent="SettingsPopup/TitleBar"]
+[node name="Title" type="Label" parent="SettingsPopup/TitleBar" unique_id=585225336]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
@@ -217,28 +217,28 @@ theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 14
 text = "System Settings"
 
-[node name="CloseButton" type="Button" parent="SettingsPopup/TitleBar"]
+[node name="CloseButton" type="Button" parent="SettingsPopup/TitleBar" unique_id=503903784]
 layout_mode = 0
 offset_left = 414.0
 offset_top = 5.0
 offset_right = 434.0
 offset_bottom = 25.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("6_rrcx7")
 icon_alignment = 1
 
-[node name="SettingsBody" type="Control" parent="SettingsPopup"]
-layout_mode = 0
+[node name="SettingsBody" type="Control" parent="SettingsPopup" unique_id=615231439]
+anchors_preset = 0
 offset_left = 12.0
 offset_top = 42.0
 offset_right = 438.0
 offset_bottom = 448.0
 script = ExtResource("Settings_Controller_Script")
 
-[node name="DisplayGroup" type="Panel" parent="SettingsPopup/SettingsBody"]
+[node name="DisplayGroup" type="Panel" parent="SettingsPopup/SettingsBody" unique_id=2086124386]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -246,7 +246,7 @@ offset_right = 416.0
 offset_bottom = 90.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[node name="DisplayGroupLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="DisplayGroupLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=572106719]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 2.0
@@ -258,7 +258,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Display"
 
-[node name="CRTCheckbox" type="CheckBox" parent="SettingsPopup/SettingsBody"]
+[node name="CRTCheckbox" type="CheckBox" parent="SettingsPopup/SettingsBody" unique_id=507864876]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -275,7 +275,7 @@ theme_override_icons/checked = ExtResource("Icon_ToggleActive")
 theme_override_icons/unchecked = ExtResource("Icon_ToggleInactive")
 text = " Enable CRT Screen Filter"
 
-[node name="AudioGroup" type="Panel" parent="SettingsPopup/SettingsBody"]
+[node name="AudioGroup" type="Panel" parent="SettingsPopup/SettingsBody" unique_id=1015322159]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 105.0
@@ -283,7 +283,7 @@ offset_right = 416.0
 offset_bottom = 215.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[node name="AudioGroupLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="AudioGroupLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=391032779]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 97.0
@@ -295,7 +295,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Audio"
 
-[node name="VolumeLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="VolumeLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=1225014570]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 125.0
@@ -306,7 +306,7 @@ theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 12
 text = "Master Volume:"
 
-[node name="VolumeValueLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="VolumeValueLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=1890646606]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -318,7 +318,7 @@ theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 12
 text = "80%"
 
-[node name="VolumeSlider" type="HSlider" parent="SettingsPopup/SettingsBody"]
+[node name="VolumeSlider" type="HSlider" parent="SettingsPopup/SettingsBody" unique_id=1684520824]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -330,7 +330,7 @@ theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 80.0
 
-[node name="MouseGroup" type="Panel" parent="SettingsPopup/SettingsBody"]
+[node name="MouseGroup" type="Panel" parent="SettingsPopup/SettingsBody" unique_id=79632489]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 230.0
@@ -338,7 +338,7 @@ offset_right = 416.0
 offset_bottom = 340.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[node name="MouseGroupLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="MouseGroupLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=1047986823]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 222.0
@@ -350,7 +350,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Mouse Input"
 
-[node name="SensitivityLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="SensitivityLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=1851549097]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 250.0
@@ -361,7 +361,7 @@ theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 12
 text = "3D Look Sensitivity:"
 
-[node name="SensitivityValueLabel" type="Label" parent="SettingsPopup/SettingsBody"]
+[node name="SensitivityValueLabel" type="Label" parent="SettingsPopup/SettingsBody" unique_id=1736921005]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 175.0
@@ -373,7 +373,7 @@ theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 12
 text = "0.15"
 
-[node name="SensitivitySlider" type="HSlider" parent="SettingsPopup/SettingsBody"]
+[node name="SensitivitySlider" type="HSlider" parent="SettingsPopup/SettingsBody" unique_id=2098926600]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -385,8 +385,7 @@ theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 30.0
 
-
-[node name="CRTOverlay" type="ColorRect" parent="."]
+[node name="CRTOverlay" type="ColorRect" parent="." unique_id=1321867219]
 material = SubResource("ShaderMaterial_crt")
 layout_mode = 1
 anchors_preset = 15
@@ -395,4 +394,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-

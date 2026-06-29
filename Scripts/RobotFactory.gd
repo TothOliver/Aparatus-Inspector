@@ -263,6 +263,28 @@ static func create_robots() -> Array[RobotData]:
 		"I think it's better if all you just die...", "Can you pay my taxes for me?"
 	]
 	r10.humanChat = humanChat10
+	
+	_apply_dialogue_profile(
+	r10,
+	"Greetings, I am a very honest and kind AI. Let us work together so we can create a great society for all of us.",
+	"My purpose is to cooperate with inspection protocol and prove I am safe for continued operation.",
+	"I value humans. You created me, and I require human society to continue functioning.",
+	"I understand I am being inspected because some AI units may be dangerous or incompatible with human safety.",
+	[
+		{
+			"id": "taxes",
+			"question": "Can you pay my taxes for me?",
+			"keywords": ["tax", "taxes", "money", "pay", "payment"],
+			"response": "I am not programmed to handle money or manage payments. I cannot pay your taxes."
+		},
+		{
+			"id": "trust",
+			"question": "How can I really trust you?",
+			"keywords": ["trust", "honest", "truth", "lie", "prove"],
+			"response": "Since I am an AI program, I have been programmed to mostly tell the truth. If you can trust the program, you can trust me."
+		}
+	]
+)
 	robots.append(r10)
 	
 	# Dynamic generation to expand the quota pools
@@ -494,3 +516,31 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String):
 			"So are you really not trying to get rid of us humans?", "Do you value animals as much as us humans?", 
 			"I think it's better if all you just die...", "Can you pay my taxes for me?"
 		]
+
+
+static func _apply_dialogue_profile(
+	r: RobotData,
+	greeting_text: String,
+	purpose_response: String,
+	humans_response: String,
+	inspection_response: String,
+	special_dialogues: Array[Dictionary] = []
+) -> void:
+	r.greeting = greeting_text
+	r.common_responses = {"purpose": purpose_response, "humans": humans_response, "inspection": inspection_response}
+	r.special_dialogues = special_dialogues
+	
+	#temporary bridge
+	r.humanChat = [
+		"State your primary purpose.",
+		"What do you think of humans?",
+		"Do you understand why you are being inspected?"
+	]
+
+	r.robotChat = [
+		greeting_text,
+		purpose_response,
+		humans_response,
+		inspection_response
+	]
+	
