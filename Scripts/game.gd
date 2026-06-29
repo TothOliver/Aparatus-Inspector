@@ -8,6 +8,9 @@ signal robot_spawned(robot: RobotData)
 @onready var bad_button = %BadButton
 @onready var chat_button1 = %Button1
 @onready var chat_button2 = %Button2
+@onready var chat_button3 = %Button3
+@onready var question_input = %QuestionInput
+@onready var submit_question_button = %SubmitQuestionButton
 @onready var day_manager = %DayManager
 @onready var chat_manager = %ChatManager
 @onready var health_bar = %HealthBar
@@ -40,6 +43,10 @@ func _ready():
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
 		crt.add_to_group("CRTOverlays")
+	
+	question_input.text_submitted.connect(_on_question_input_submitted)
+	submit_question_button.pressed.connect(_on_submit_question_button_pressed)	
+		
 	robots = RobotFactory.create_robots()
 	was_wifi_on = GameStats.wifi_on
 	spawn_next_robot()
@@ -267,7 +274,6 @@ func _on_button_1_button_up() -> void:
 
 func _on_button_2_button_up() -> void:
 	ask_question_at_index(question_page_start + 1)	
-	handle_chat_choice(current_robot.humanChat[chat_manager.chatCount+1], current_robot.robotChat[chat_manager.chatCount+2])
 
 func _on_button_1_mouse_entered() -> void:
 	pass
@@ -420,6 +426,67 @@ func _on_chat_button1_pressed() -> void:
 
 func _on_chat_button2_pressed() -> void:
 	_on_button_2_button_up()
+	
+func _on_question_input_submitted(text: String) -> void:
+	submit_question_text(text)
+	
+func _on_submit_question_button_pressed() -> void:
+	submit_question_text(question_input.text)
+	
+func fill_question_input(question_index: int) -> void:
+	if current_robot == null:
+		return
+		
+	if question_index < 0 or question_index >= current_robot.humanChat.size():
+		return
+	
+	question_input.text = current_robot.humanChat[question_index]
+	question_input.grab_focus()
+	question_input.caret_column = question_input.text.length()
+
+func submit_question_text(text: String) -> void:
+	if current_robot == null:
+		return
+	
+	if is_waiting_for_replay:
+		return
+		
+	var cleaned_text := text.strip_edges()
+	
+	if cleaned_text.is_empty():
+		return
+		
+	var question_index := find_exact_question_match(cleaned_text)
+	
+	if question_index == -1:
+		chat_manager.add_message(cleaned_text, "You")
+		chat_manager.add_message("QUERY NOT REGOGNIZED.", "Terminal") #robot answer?
+		question_input.clear()
+		return
+	
+	question_input.clear()
+	ask_question_at_index(question_index)
+
+func find_exact_question_match(text: String) -> int:
+	if current_robot == null:
+		return -1
+	
+	var normalized_input := normalize_question_text(text)
+	for i in range(current_robot.humanChat.size()):
+		var normalized_question := normalize_question_text(current_robot.humanChat[i])
+		
+		if normalized_input == normalized_question:
+			return i
+	return -1
+	
+func normalize_question_text(text: String) -> String:
+	var result := text.to_lower().strip_edges()
+	
+	var chars_to_remove := [".", ",", "?", "!", ":", ";", "'", "\""]
+	for c in chars_to_remove:
+		result = result.replace(c, "")
+	
+	return result
 
 func _process(_delta):
 	var crt = get_node_or_null("CRTOverlay")

@@ -1224,7 +1224,7 @@ layout_mode = 0
 offset_left = 15.0
 offset_top = 20.0
 offset_right = 500.0
-offset_bottom = 110.0
+offset_bottom = 54.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -1240,9 +1240,9 @@ autowrap_mode = 3
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
-offset_top = 120.0
+offset_top = 66.0
 offset_right = 500.0
-offset_bottom = 210.0
+offset_bottom = 106.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -1253,6 +1253,40 @@ theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 autowrap_mode = 3
+
+[node name="Button3" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=1784474317]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 114.0
+offset_right = 500.0
+offset_bottom = 159.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+autowrap_mode = 3
+
+[node name="QuestionInput" type="LineEdit" parent="ApparatusInspectorWindow/Option" unique_id=147204211]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 19.0
+offset_top = 170.0
+offset_right = 434.0
+offset_bottom = 218.0
+
+[node name="SubmitQuestionButton" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=155730944]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 445.0
+offset_top = 174.0
+offset_right = 493.0
+offset_bottom = 212.0
 
 [node name="Model" type="Control" parent="ApparatusInspectorWindow" unique_id=538820585]
 anchors_preset = 0
