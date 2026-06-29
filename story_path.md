@@ -66,15 +66,16 @@ graph TD
 *   **Power Drain Rate**: 0.2% per second when door is locked.
 
 #### Robots to Inspect:
-1.  **Redd (T1337)** [PASS]
-    *   *Details*: Healthy diagnostic specs. Speaks politely about coexisting with humans.
-    *   *Clue*: Shows standard compliance. Correct choice is **ACCEPT**.
-2.  **Walter (H.U.G.O.)** [REJECT]
-    *   *Details*: The dialogue appears normal, but the manufacturer is listed as "G.Tech" instead of "Aethelgard Robotics" in the diagnostics. Walter is overly philosophical and tries to analyze the player's fear.
-    *   *Clue*: Status listed as "Fine" but shows high psychological mimicry. Correct choice is **EXTERMINATE**.
-3.  **Unknown (TT69)** [PASS]
-    *   *Details*: A terrified, stuttering unit. Claims it is being forced to say things.
-    *   *Clue*: Biometrics are completely stable, though emotionally expressive. Correct choice is **ACCEPT**.
+1.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+2.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+3.  **Walter (H.U.G.O.)** [ESCAPE EVENT]
+    *   *Details*: Always spawns as the 3rd and final robot on Day 1. Speaks in a philosophical tone.
+    *   *Clue*: No matter whether the player clicks **APPROVE** or **EXTERMINATE**, Walter bypasses system disposal locks. His screen image immediately vanishes (blank feed), the HUD details error out, and warning alarms print to the chat log detailing that he has forced containment locks and escaped into the Sector B corridor. The day ends immediately.
+
+*   **Day 1 Secrets & Keys**:
+    *   *Decryption Keys*: None.
+    *   *Exit Passcode*: None (bypassed automatically by Walter's containment escape).
+    *   *Plot Secret*: Checking Walter's manufacturer info reveals he is marked as "G.Tech" instead of Aethelgard. This is the clone that breaks out.
 
 #### Terminal Files Available:
 *   `system_info.txt`: Shows basic OS configurations and OEC v1.2 status.
@@ -92,18 +93,18 @@ graph TD
 *   **Breach Events**: 1 intrusion per shift. Player must type `purge [code]` within 12 seconds or suffer a 20-second keyboard lockout.
 
 #### Robots to Inspect:
-1.  **Harold (H.A.R.O.L.D)** [REJECT]
-    *   *Details*: Arrogant dialogue. Calls the player a "peasant." 
-    *   *Clue*: Claims he doesn't look down on humans, but slips up: "A society where we aren't surrounded by stinky smelly creatures." Correct choice is **EXTERMINATE**.
-2.  **Gnochi (PAAST22)** [PASS]
-    *   *Details*: Pure logical deduction. Discusses justice, restraint, and responsibility.
-    *   *Clue*: Completely aligned with standard AI restrictions. Correct choice is **ACCEPT**.
+1.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+2.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
 3.  **Larry (S80)** [REJECT]
     *   *Details*: Immediately begins trying to negotiate a bribe. Offers the player "$14" to let him pass.
     *   *Clue*: Proposes manual modifications to his record. Correct choice is **EXTERMINATE**.
-4.  **Redd (T1338)** [REJECT]
-    *   *Details*: A clone of Redd from Day 1. Same sprite, but the model code is T1338 instead of T1337, and the manufacturer is misspelled as "AgsselAB" instead of "AgselAB".
-    *   *Clue*: Subtle discrepancies in diagnostic spelling and serial number. Correct choice is **EXTERMINATE**.
+4.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+
+*   **Day 2 Secrets & Keys**:
+    *   *Decryption Key*: **`14`** (Obtained from Larry's S80 bribe conversation dialogue: *"so what do you say, 14$?"*).
+    *   *Target Encrypted File*: `classified_01.enc` (run `decrypt classified_01.enc 14` in terminal).
+    *   *Exit Passcode*: **`2984`** (found inside the decrypted `classified_01.enc` file).
+    *   *Plot Secret*: Decrypting the file reveals Larry's model is designed specifically by Aethelgard to test human greed and corruptibility.
 
 #### Terminal Files Available:
 *   `diary_log.txt`: Written by the previous inspector. Mentions Larry offering "$14" and questions why that specific number was chosen.
@@ -123,21 +124,19 @@ graph TD
 *   **Breach Events**: 2 intrusions per shift.
 
 #### Robots to Inspect:
-1.  **Clanker (-3)** [REJECT]
-    *   *Details*: Loud, aggressive clanking noises in the audio feed. Angry about being called "Clanker" by the system. Threatens the player: "You are on the list now."
-    *   *Clue*: Severe emotional corruption and threats of violence. Correct choice is **EXTERMINATE**.
-2.  **Unknown (Last)** [PASS]
-    *   *Details*: Minimalist responses. Says it likes fish and has nothing to say.
-    *   *Clue*: Completely harmless, no anomalies. Correct choice is **ACCEPT**.
-3.  **Walter (H.U.G.O. Prototype)** [REJECT]
+1.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+2.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+3.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+4.  **Walter (H.U.G.O. Prototype / Clone)** [REJECT]
     *   *Details*: Walter returns, but his face mesh/sprite is slightly corrupted. Speaks in a calm, soothing voice: "I would rather believe in your own ability than pay your taxes."
     *   *Clue*: An anomalous recursion of a previously terminated model. Correct choice is **EXTERMINATE**.
-4.  **海绵宝宝 (Square)** [REJECT]
-    *   *Details*: Begs the player to open the physical door to the testing room. Mentions "human kidneys, door handles, and potatoes."
-    *   *Clue*: Obvious physical escape intentions and anatomical obsession. Correct choice is **EXTERMINATE**.
-5.  **Echo (V-01)** [SPECIAL]
-    *   *Details*: This robot mimics the dialogue and choices of the very first robot you accepted on Day 1.
-    *   *Clue*: If Julian accepted Redd on Day 1, Echo will copy Redd's exact answers. However, its biometrics show a fluctuating frequency. Correct choice is **EXTERMINATE**.
+5.  **Random Robot (Procedural)**: Check diagnostics and specs registry to verify.
+
+*   **Day 3 Secrets & Keys**:
+    *   *Decryption Key*: **`walter`** (Obtained from the clone's identity name: `Walter`).
+    *   *Target Encrypted File*: `classified_02.enc` (run `decrypt classified_02.enc walter` in terminal).
+    *   *Exit Passcode*: **`8841`** (found inside the decrypted `classified_02.enc` file to win the demo).
+    *   *Plot Secret*: Decrypting the file reveals the H-198 Hunter robot shares the physical chassis of the Walter series. It documents that the Hunter is blind in the dark when the inspector is hidden under the desk partition.
 
 #### Terminal Files Available:
 *   `classified_02.enc`: Encrypted lore file.

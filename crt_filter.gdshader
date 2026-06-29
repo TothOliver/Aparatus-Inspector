@@ -26,11 +26,12 @@ void fragment() {
     if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
         COLOR = vec4(0.0, 0.0, 0.0, 1.0);
     } else {
-        // Color chromatic aberration
+        // Color chromatic aberration (resolution-independent relative to 1280px design width)
         vec4 col;
-        col.r = texture(screen_texture, uv - vec2(aberration, 0.0)).r;
+        float shift = aberration * (1280.0 * SCREEN_PIXEL_SIZE.x);
+        col.r = texture(screen_texture, uv - vec2(shift, 0.0)).r;
         col.g = texture(screen_texture, uv).g;
-        col.b = texture(screen_texture, uv + vec2(aberration, 0.0)).b;
+        col.b = texture(screen_texture, uv + vec2(shift, 0.0)).b;
         col.a = 1.0;
         
         // Scanlines (horizontal lines)

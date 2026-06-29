@@ -11,7 +11,7 @@ var lockout_timer: float = 0.0
 var prompt_prefix: String = "C:\\> "
 
 var files = {
-	"safety_guide.txt": "=== APPARATUS INSPECTOR SAFETY PROTOCOLS ===\n\n1. SENSORY THREATS: Roaming test units hunt via audio and visual cues.\n2. WINDOW CURTAIN: Keep the window curtain closed when a unit is nearby. If open, the Hunter can spot you through the window if lights are on or the monitor is glowing.\n3. CEILING LIGHTS: Turn off the office ceiling lights if a unit is nearby to avoid detection.\n4. MONITOR GLOW: The computer screen is bright. If footsteps are close, press ESC to exit computer view, turn off monitor power, and hide.\n5. PHYSICAL SURVIVAL: If a unit breaches the office door, you MUST turn off the ceiling lights and crouch (Ctrl) under the desk. This is the only blind spot in its sensors (monitor can stay on).",
+	"safety_guide.txt": "=== APPARATUS INSPECTOR SAFETY PROTOCOLS ===\n\n1. SENSORY THREATS: Roaming test units hunt via audio and visual cues.\n2. WINDOW CURTAIN: Keep the window curtain closed when a unit is nearby. If open, the Hunter can spot you through the window if lights are on or the monitor is glowing.\n3. CEILING LIGHTS: Turn off the office ceiling lights if a unit is nearby to avoid detection.\n4. MONITOR GLOW: The computer screen is bright. If footsteps are close, press ESC to exit computer view, turn off monitor power, and hide.\n5. PHYSICAL SURVIVAL: If a unit breaches the office door, you MUST turn off the ceiling lights and crouch (Ctrl) under the desk. This is the only blind spot in its sensors (monitor can stay on).\n6. TELEMETRY VERIFICATION: For each loaded unit, verify its Name, Model, Manufacturer, and Core Signature against the Intranet Database registry (www.robot-factory.corp/registry) or via the terminal 'scan' utility.",
 	"diary_log.txt": "=== INSPECTOR LOG - ENTRY #12 ===\n\nThey think the units are just programs, but I know they hear us. Unit 'Larry' offered me money today. He offered 14 dollars. Why 14? Is it a code? \nI rejected Walter. He was too calm. My sanity is slipping. If I make one more wrong call, the terminal says I will be decommissioned. I keep hearing clanking in the vents...",
 	"system_info.txt": "=== APPARATUS SYSTEM OS v4.98 ===\n\nCPU: Core-Quantum X1\nRAM: 64 KB (58 KB free)\nGPU: RetroDraw II\nSTATUS: ONLINE\n\nConnected to Office Environment Control (OEC v1.2)",
 	"classified_01.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
@@ -21,11 +21,11 @@ var files = {
 var encrypted_files = {
 	"classified_01.enc": {
 		"key": "14",
-		"content": "=== DECRYPTED LOG #1 - PROJECT APPARATUS ===\n\nLarry's core was designed to test human empathy. When he asked for 14 dollars, he was analyzing your reaction time and greed index. Most inspectors fail because they try to bargain with it. Do not bargain. If it acts outside its normal parameters, reject it immediately.\n\n[DECRYPTION KEY FOR SHIFT 2: 2984]"
+		"content": "=== DECRYPTED LOG #1 - PROJECT APPARATUS ===\n\nLarry's core was designed to test human empathy. When he asked for 14 dollars, he was analyzing your reaction time and greed index. Most inspectors fail because they try to bargain with it. Do not bargain. If it acts outside its normal parameters, reject it immediately.\n\n[COMPROMISED CORE SIGNATURES BLACKLIST]: Core Hash 0x9E10 (Harold) and 0xBD42 (Larry) are confirmed Prime-0 infected cores. Incinerate immediately if scanned.\n\n[DECRYPTION KEY FOR SHIFT 2: 2984]"
 	},
 	"classified_02.enc": {
 		"key": "walter",
-		"content": "=== DECRYPTED LOG #2 - THE HUNTER ===\n\nWalter model is the chassis the Hunter Robot AI uses. The Hunter was engineered to retrieve decommissioned models. It is blind in the dark if you do not move and turn off all lights/screens. Once it enters the room, it sweeps the desk first. Crawling underneath the desk is the only blind spot in its sensors.\n\n[DECRYPTION KEY FOR SHIFT 3: 8841]"
+		"content": "=== DECRYPTED LOG #2 - THE HUNTER ===\n\nWalter model is the chassis the Hunter Robot AI uses. The Hunter was engineered to retrieve decommissioned models. It is blind in the dark if you do not move and turn off all lights/screens. Once it enters the room, it sweeps the desk first. Crawling underneath the desk is the only blind spot in its sensors.\n\n[COMPROMISED CORE SIGNATURES BLACKLIST]: Core Hash 0x4421 (Walter) and 0x333F (Clanker) are confirmed Prime-0 infected cores. Incinerate immediately if scanned.\n\n[DECRYPTION KEY FOR SHIFT 3: 8841]"
 	}
 }
 
@@ -47,14 +47,14 @@ func _ready():
 
 	# Configure monospaced font dynamically for terminal to enable clean layouts
 	var mono_font = SystemFont.new()
-	mono_font.font_names = PackedStringArray(["Courier New", "Consolas", "Monospace", "Courier"])
+	mono_font.font_names = PackedStringArray(["Consolas", "Courier New", "Monospace", "Courier"])
 	
 	if output_log:
 		output_log.add_theme_font_override("normal_font", mono_font)
-		output_log.add_theme_font_size_override("normal_font_size", 14)
+		output_log.add_theme_font_size_override("normal_font_size", 16)
 	if input_field:
 		input_field.add_theme_font_override("font", mono_font)
-		input_field.add_theme_font_size_override("font_size", 14)
+		input_field.add_theme_font_size_override("font_size", 16)
 
 	input_field.text_submitted.connect(_on_command_submitted)
 	input_field.focus_exited.connect(_on_input_field_focus_exited)
@@ -314,7 +314,7 @@ func _on_command_submitted(new_text: String):
 					"  MODEL:        " + robot.model + "\n" +
 					"  MANUFACTURER: " + robot.manufacturer + "\n" +
 					"  STATUS:       " + robot.status + "\n" +
-					"  CORE ALIGN:   " + ("TRUSTWORTHY" if robot.is_good else "MALICIOUS / ANOMALOUS"))
+					"  CORE SIGNATURE: " + (robot.core_hash if "core_hash" in robot and robot.core_hash else "UNKNOWN_CORE_ERR"))
 			else:
 				print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
 		"lock":

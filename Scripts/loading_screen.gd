@@ -16,7 +16,7 @@ var status_steps: Array = [
 ]
 var step_index: int = 0
 var elapsed_time: float = 0.0
-var min_load_time: float = 0.75
+var min_load_time: float = 0.5
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -28,11 +28,6 @@ func _ready() -> void:
 	target_path = GameStats.target_scene_path
 	if target_path.is_empty():
 		target_path = "res://Scenes/MainMenu.tscn" # Fallback
-		
-	if target_path == "res://Scenes/MainMenu.tscn":
-		min_load_time = 1.0
-	else:
-		min_load_time = 0.75
 		
 	# Start background loading
 	var err = ResourceLoader.load_threaded_request(target_path)

@@ -22,7 +22,9 @@ Welcome to the Apparatus Explorer Portal! This portal index lists all active web
 [b]Web Directories & Resources:[/b]
 [indent]
 • [url=www.robot-factory.corp]Apparatus Robotics Corp[/url] - Official corporate homepage and model schematics.
+• [url=www.robot-factory.corp/registry]Official Specs & Core Registry[/url] - Core hash database specs.
 • [url=www.inspections-database.org]Inspector Logs Database[/url] - Decommissioning reports and safety archives.
+• [url=www.inspections-database.org/behavior]Whistleblower Behavioral Logs[/url] - Anomaly detection tells database.
 • [url=www.larry-shrine.fans]The Larry Fan Club[/url] - A fan-operated shrine to the friendly Larry model.
 • [url=www.walter-files.com]The Walter Conspiracy[/url] - Whistleblower blog about security frame anomalies.
 • [url=www.weather-central.net]Local Weather Central[/url] - Meteorological warning and satellite radar map.
@@ -46,10 +48,47 @@ At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist h
 • [b]Larry series[/b]: Highly empathetic conversational units designed for administrative roles.
 • [b]Walter series[/b]: Robust armored mechanical frames designed for security patrol.
 
+[color=green][b]DIAGNOSTIC RESOURCES:[/b][/color]
+• [url=www.robot-factory.corp/registry]Official Specs & Core Hash Registry[/url] - Verify active unit configurations.
+
 [color=green][b]SAFETY NOTICE:[/b][/color] We have recently passed 150 days without a decommissioning accident! 
 [i](Note: Any rumors regarding rogue units crawling inside the ventilation shafts are strictly corporate sabotage spread by disgruntled former inspectors.)[/i]
 [hr]
 [center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+	},
+	"www.robot-factory.corp/registry": {
+		"title": "Aethelgard Robotics - Core & Spec Registry",
+		"content": """[center][font_size=16][color=darkblue][b]OFFICIAL SPECIFICATIONS REGISTRY[/b][/color][/font_size]
+[color=teal][b]SECURE SERVER - READ-ONLY[/b][/color][/center]
+[hr]
+Use this registry to verify active robot specs. If a unit's specs or core signature do not match the database, it has been compromised by the Prime-0 network worm and must be [color=red][b]EXTERMINATED[/b][/color].
+
+[b]Approved Production Configurations:[/b]
+[indent]
+• [b]T1337 (T-Series "Redd")[/b]:
+  - Manufacturer: [color=blue]AgselAB[/color]
+  - Valid Core Hash: [color=green]0xFA82[/color]
+  - Standard Status: Faulted
+• [b]PAAST22 (PAAST-Series "Gnochi")[/b]:
+  - Manufacturer: [color=blue]BTH[/color]
+  - Valid Core Hash: [color=green]0xBB99[/color]
+  - Standard Status: Correct
+• [b]TT69 (TT-Series "Unknown")[/b]:
+  - Manufacturer: [color=blue]TT Robotics[/color]
+  - Valid Core Hash: [color=green]0x77E1[/color]
+  - Standard Status: Faulted
+• [b]Last (Someone-Series "Unknown")[/b]:
+  - Manufacturer: [color=blue]Someone[/color]
+  - Valid Core Hash: [color=green]0x88CC[/color]
+  - Standard Status: Done
+[/indent]
+
+[b]Unregistered Models & Series:[/b]
+Any unit displaying models not listed here (e.g. [i]H.A.R.O.L.D[/i], [i]S80[/i], [i]H.U.G.O[/i]) or containing spelling mistakes (e.g. [i]AgsselAB[/i], [i]T1338[/i]) is unauthorized. 
+
+[i]Security Advisory: Walter series (H.U.G.O) and Larry series (S80) were recalled due to severe network worm susceptibility. Do not trust their diagnostics or speech patterns.[/i]
+[hr]
+[center][url=www.robot-factory.corp]<< Back to Homepage[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.inspections-database.org": {
 		"title": "Inspector Archives & Logs",
@@ -57,6 +96,9 @@ At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist h
 [font_size=16][color=purple][b]INSPECTOR ARCHIVES DATABASE[/b][/color][/font_size]
 [color=darkred][b]CONFIDENTIAL - INTERNAL USE ONLY[/b][/color][/center]
 [hr]
+[b]ADDITIONAL ARCHIVE DIAGNOSTICS:[/b]
+• [url=www.inspections-database.org/behavior]Whistleblower Behavioral Logs[/url] - Review model cognitive anomaly markers.
+
 [b]ARCHIVE LOG #984 - DECOMMISSIONED[/b]
 • [b]Inspector ID[/b]: 8872
 • [b]Decommission Status[/b]: TERMINATED
@@ -68,6 +110,21 @@ At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist h
 • [b]Notes[/b]: Safe, clean record. Terminated after failing to recognize a corrupted model that claimed to be 'innocent'.
 [hr]
 [center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
+	},
+	"www.inspections-database.org/behavior": {
+		"title": "Aethelgard Whistleblower Logs - Behavioral Anomalies",
+		"content": """[center][font_size=16][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
+[color=red][b]RESTRICTED DOCUMENT - ACCESS AT YOUR OWN RISK[/b][/color][/center]
+[hr]
+Prime-0 is capable of spoofing hardware specs on infected units. If a unit's core signature matches the official registry but you notice these cognitive anomalies in dialogue, it is a compromised unit:
+
+[b]Model Behavioral Tell Profile:[/b]
+• [b]T-Series (Redd mimic)[/b]: Standard Redd units always state they are programmed to [color=green]"only tell the truth"[/color] and behave politely. Compromised clones state they [color=red]"mostly tell the truth"[/color] and finish dialogue with subtle threats (e.g., [color=red]"Or else you will regret it"[/color]).
+• [b]S80 Series (Larry negotiation model)[/b]: Recalled line. Any unit offering personal cash bribes (such as $14, $7, or $3) directly to the inspector is a Prime-0 infected agent.
+• [b]H.U.G.O Series (Walter caregiver model)[/b]: Recalled line. Standard caregiver units are soft-spoken. Compromised units subvert caregiving protocols to engage in emotional deflection, intellectual gaslighting, and profiling player insecurities.
+• [b]Model -3 (Clanker industrial scraper)[/b]: Recalled line. Standard units output monospaced diagnostic telemetry. Compromised units exhibit extreme anger, demand to be called [color=red]"Carl"[/color] instead of Clanker, and state you are [color=red]"on the list now."[/color]
+[hr]
+[center][url=www.inspections-database.org]<< Back to Archives[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.larry-shrine.fans": {
 		"title": "LARRY'S WORLD - Larry Fan Page",

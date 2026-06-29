@@ -35,10 +35,18 @@ var target_curtain_pos_x: float = -0.75
 # Tracks if power has completely failed
 var is_blackout: bool = false
 
+# Outage / Circuit Breaker variables
+var outage_timer: float = 0.0
+var is_breaker_tripped: bool = false
+@onready var breaker_lever = get_node_or_null("Office/BreakerBox/BreakerLever") as MeshInstance3D
+
 func _ready():
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
+	# Initialize first outage timer randomly between 45.0 and 90.0 seconds
+	outage_timer = randf_range(45.0, 90.0)
+			
 	# Connect to the 2D game's robot spawning signal
 	if game_2d:
 		game_2d.robot_spawned.connect(_on_robot_spawned)
@@ -150,18 +158,24 @@ func _process(delta):
 		var drain_rate = 3.5 * (1.0 + (GameStats.current_day - 1) * 0.45)
 		GameStats.power_level = max(0.0, GameStats.power_level - drain_rate * delta)
 	else:
-		if GameStats.power_level < 100.0:
+		if GameStats.power_level < 100.0 and not is_breaker_tripped:
 			# Recharge power: ~2.5% per second
 			GameStats.power_level = min(100.0, GameStats.power_level + 2.5 * delta)
 
-	# Handle Blackout state changes based on power level
-	if GameStats.power_level <= 0.0:
+	# Handle Blackout state changes based on power level or breaker state
+	if GameStats.power_level <= 0.0 or is_breaker_tripped:
 		if not is_blackout:
 			GameStats.door_locked = false
 			_trigger_power_outage()
 	else:
-		if is_blackout and GameStats.power_level >= 10.0:
+		if is_blackout and GameStats.power_level >= 10.0 and not is_breaker_tripped:
 			_restore_power()
+
+	# Outage timer countdown
+	if not is_breaker_tripped and not is_blackout:
+		outage_timer -= delta
+		if outage_timer <= 0.0:
+			trigger_breaker_outage()
 
 	# Creepy flickering corridor light effect
 	if corridor_light and randf() < 0.08:
@@ -303,6 +317,31 @@ func _update_door_light_material(locked: bool):
 func toggle_wifi():
 	GameStats.wifi_on = not GameStats.wifi_on
 	_update_wifi_led_material()
+
+func trigger_breaker_outage():
+	is_breaker_tripped = true
+	GameStats.power_level = 0.0
+	GameStats.door_locked = false
+	_trigger_power_outage()
+	if breaker_lever:
+		breaker_lever.rotation.z = deg_to_rad(-45.0)
+	var prompt = get_node_or_null("HUD/PromptLabel") as Label
+	if prompt:
+		prompt.text = "WARNING: POWER BREAKER TRIPPED!"
+	print("Power breaker tripped! Plunged into darkness.")
+
+func reset_breaker():
+	if is_breaker_tripped or is_blackout:
+		is_breaker_tripped = false
+		GameStats.power_level = 100.0
+		_restore_power()
+		if breaker_lever:
+			breaker_lever.rotation.z = 0.0
+		outage_timer = randf_range(45.0, 90.0)
+		var prompt = get_node_or_null("HUD/PromptLabel") as Label
+		if prompt:
+			prompt.text = "SYSTEM POWER RESTORED."
+		print("Power breaker reset. System online.")
 
 func toggle_door_lock():
 	if is_blackout:

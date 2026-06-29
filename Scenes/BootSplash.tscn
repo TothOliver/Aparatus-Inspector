@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://bootsplash_scene_uid"]
+
+[ext_resource type="Script" path="res://Scripts/boot_splash.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://Sprites/project_icon.png" id="2_logo"]
+[ext_resource type="Shader" path="res://crt_filter.gdshader" id="3_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("3_shader")
+shader_parameter/scanline_count = 320.0
+shader_parameter/scanline_intensity = 0.08
+shader_parameter/curvature = 0.025
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/grr_intensity = 0.03
+shader_parameter/aberration = 0.001
+
+[node name="BootSplash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="BackgroundTeal" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.5019608, 0.5019608, 1)
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CRTOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_crt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+z_index = 20
