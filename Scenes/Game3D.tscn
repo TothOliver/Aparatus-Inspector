@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bip8ew85g0dse" path="res://Scripts/game3d.gd" id="1_game3d"]
 [ext_resource type="PackedScene" uid="uid://lr6ecx4umycn" path="res://Scenes/Game.tscn" id="2_game"]
+[ext_resource type="Texture2D" uid="uid://c01a2d8m1ovmx" path="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_diff_1k.jpg" id="3_4s40c"]
 [ext_resource type="Script" uid="uid://bwioa3l565go3" path="res://Scripts/player.gd" id="3_player"]
+[ext_resource type="Texture2D" uid="uid://b8it15upckpkx" path="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_arm_1k.jpg" id="4_ds5qe"]
+[ext_resource type="Texture2D" uid="uid://c3yxw51q8g2tb" path="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_nor_gl_1k.jpg" id="4_nyna6"]
 [ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
 [ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
@@ -42,6 +45,17 @@ albedo_color = Color(0, 1, 0, 1)
 emission_enabled = true
 emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lubl"]
+albedo_color = Color(0.28, 0.28, 0.28, 1)
+albedo_texture = ExtResource("3_4s40c")
+metallic = 1.0
+metallic_texture = ExtResource("4_ds5qe")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_ds5qe")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_nyna6")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
 albedo_color = Color(0.28, 0.28, 0.28, 1)
@@ -139,8 +153,8 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
 resource_local_to_scene = true
 shading_mode = 0
-texture_filter = 0
 albedo_texture = SubResource("ViewportTexture_monitor")
+texture_filter = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_screen"]
 size = Vector3(0.5, 0.4, 0.1)
@@ -205,7 +219,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_door_light")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 1.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
-material = SubResource("StandardMaterial3D_floor")
+material = SubResource("StandardMaterial3D_8lubl")
 
 [node name="Ceiling" type="CSGBox3D" parent="Office" unique_id=272765307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 1.5)
@@ -437,19 +451,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 operation = 2
 size = Vector3(15.8, 2.6, 2)
 material = SubResource("StandardMaterial3D_corridor")
-[node name="StartMarker" type="Marker3D" parent="."]
+
+[node name="StartMarker" type="Marker3D" parent="." unique_id=1756282730]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 
-[node name="DoorMarker" type="Marker3D" parent="."]
+[node name="DoorMarker" type="Marker3D" parent="." unique_id=2015219190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 1, 1.5)
 
-[node name="WindowPeekMarker" type="Marker3D" parent="."]
+[node name="WindowPeekMarker" type="Marker3D" parent="." unique_id=1129730654]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.5)
 
-[node name="CameraPeekMarker" type="Marker3D" parent="."]
+[node name="CameraPeekMarker" type="Marker3D" parent="." unique_id=1007718330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 1.5)
 
-[node name="JumpscareMarker" type="Marker3D" parent="."]
+[node name="JumpscareMarker" type="Marker3D" parent="." unique_id=1156730137]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1, 0.7)
 
 [node name="HunterRobot" type="CharacterBody3D" parent="." unique_id=1941049951]
