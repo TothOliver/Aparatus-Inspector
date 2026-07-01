@@ -3,7 +3,7 @@ class_name HunterPhase1
 
 @export_group("Phase 1 References")
 @export var phase2_robot: CharacterBody3D
-@export var spawn_markers: Array[Marker3D] = []
+@export var spawn_markers: Array = []
 
 enum State {
 	PATROLLING,
@@ -100,17 +100,18 @@ func is_player_at_computer() -> bool:
 func spawn_and_stare():
 	current_state = State.SPAWNED
 	warning_played = false
-	
+			
 	# Pick random spawn location
 	var spawn_pos = get_start_pos()
 	var spawn_idx = 0
 	if spawn_markers.size() > 0:
 		spawn_idx = randi() % spawn_markers.size()
-		var marker = spawn_markers[spawn_idx]
+		var marker_path = spawn_markers[spawn_idx]
+		var marker = get_node_or_null(marker_path) as Marker3D
 		if marker:
 			spawn_pos = marker.global_position
 	global_position = spawn_pos
-	
+
 	# Look at CCTV camera
 	var cctv_camera = get_tree().root.find_child("CCTVCamera", true, false)
 	if cctv_camera:

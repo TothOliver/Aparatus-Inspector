@@ -35,6 +35,7 @@ var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
 
 func _ready():
+	randomize()
 	button_click_player = AudioStreamPlayer.new()
 	button_click_player.volume_db = -10.0
 	add_child(button_click_player)
