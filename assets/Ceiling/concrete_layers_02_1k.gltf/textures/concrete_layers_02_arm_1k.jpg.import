@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://18srprpkwp1e"
-path.s3tc="res://.godot/imported/concrete_wall_004_diff_1k.jpg-003993c3ff87552e8d884f99172b5ca0.s3tc.ctex"
-path.etc2="res://.godot/imported/concrete_wall_004_diff_1k.jpg-003993c3ff87552e8d884f99172b5ca0.etc2.ctex"
+uid="uid://wt4tbcyt3c30"
+path.s3tc="res://.godot/imported/concrete_layers_02_arm_1k.jpg-a5fee5dadbc59525121374556191e75d.s3tc.ctex"
+path.etc2="res://.godot/imported/concrete_layers_02_arm_1k.jpg-a5fee5dadbc59525121374556191e75d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Wall/concrete_wall_004_1k.gltf/textures/concrete_wall_004_diff_1k.jpg"
-dest_files=["res://.godot/imported/concrete_wall_004_diff_1k.jpg-003993c3ff87552e8d884f99172b5ca0.s3tc.ctex", "res://.godot/imported/concrete_wall_004_diff_1k.jpg-003993c3ff87552e8d884f99172b5ca0.etc2.ctex"]
+source_file="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_arm_1k.jpg"
+dest_files=["res://.godot/imported/concrete_layers_02_arm_1k.jpg-a5fee5dadbc59525121374556191e75d.s3tc.ctex", "res://.godot/imported/concrete_layers_02_arm_1k.jpg-a5fee5dadbc59525121374556191e75d.etc2.ctex"]
 
 [params]
 

@@ -2,14 +2,20 @@
 
 [ext_resource type="Script" uid="uid://bip8ew85g0dse" path="res://Scripts/game3d.gd" id="1_game3d"]
 [ext_resource type="PackedScene" uid="uid://lr6ecx4umycn" path="res://Scenes/Game.tscn" id="2_game"]
-[ext_resource type="Texture2D" uid="uid://c01a2d8m1ovmx" path="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_diff_1k.jpg" id="3_4s40c"]
+[ext_resource type="Texture2D" uid="uid://dmnijqr3tiaq8" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_diff_1k.jpg" id="3_nyna6"]
 [ext_resource type="Script" uid="uid://bwioa3l565go3" path="res://Scripts/player.gd" id="3_player"]
-[ext_resource type="Texture2D" uid="uid://b8it15upckpkx" path="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_arm_1k.jpg" id="4_ds5qe"]
-[ext_resource type="Texture2D" uid="uid://c3yxw51q8g2tb" path="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_nor_gl_1k.jpg" id="4_nyna6"]
+[ext_resource type="Texture2D" uid="uid://bly0dnfebubvp" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_nor_gl_1k.jpg" id="4_ds5qe"]
 [ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
+[ext_resource type="Texture2D" uid="uid://hhgnfiisiie1" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_rough_1k.jpg" id="5_ds5qe"]
 [ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
+[ext_resource type="Texture2D" uid="uid://bjjnsf8mc3cx1" path="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_diff_1k.jpg" id="6_bdicf"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
+[ext_resource type="Texture2D" uid="uid://lyr6p4q5ajlj" path="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_nor_gl_1k.jpg" id="7_cu4db"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
+[ext_resource type="Texture2D" uid="uid://wt4tbcyt3c30" path="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_arm_1k.jpg" id="8_47omi"]
+[ext_resource type="Texture2D" uid="uid://dl6fu2ynfq6on" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_diff_1k.jpg" id="9_bdicf"]
+[ext_resource type="Texture2D" uid="uid://c7oy3suk3xg1y" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_nor_gl_1k.jpg" id="10_cu4db"]
+[ext_resource type="Texture2D" uid="uid://cf3kls2l2ud7v" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_rough_1k.jpg" id="11_47omi"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
@@ -47,23 +53,30 @@ emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lubl"]
-albedo_color = Color(0.28, 0.28, 0.28, 1)
-albedo_texture = ExtResource("3_4s40c")
-metallic = 1.0
-metallic_texture = ExtResource("4_ds5qe")
-metallic_texture_channel = 2
-roughness_texture = ExtResource("4_ds5qe")
-roughness_texture_channel = 1
+albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+albedo_texture = ExtResource("3_nyna6")
+roughness_texture = ExtResource("5_ds5qe")
 normal_enabled = true
-normal_texture = ExtResource("4_nyna6")
+normal_texture = ExtResource("4_ds5qe")
+uv1_scale = Vector3(3.03, 3.03, 3.03)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
-albedo_color = Color(0.28, 0.28, 0.28, 1)
-roughness = 0.85
+albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+albedo_texture = ExtResource("6_bdicf")
+metallic = 1.0
+metallic_texture = ExtResource("8_47omi")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("8_47omi")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("7_cu4db")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls"]
-albedo_color = Color(0.24, 0.25, 0.25, 1)
-roughness = 0.9
+albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+albedo_texture = ExtResource("9_bdicf")
+roughness_texture = ExtResource("11_47omi")
+normal_enabled = true
+normal_texture = ExtResource("10_cu4db")
 
 [sub_resource type="QuadMesh" id="QuadMesh_glass"]
 size = Vector2(1.6, 1)

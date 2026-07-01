@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8it15upckpkx"
-path.s3tc="res://.godot/imported/granite_tile_arm_1k.jpg-0a8d357011fbe19299bfab6ca5bbf034.s3tc.ctex"
-path.etc2="res://.godot/imported/granite_tile_arm_1k.jpg-0a8d357011fbe19299bfab6ca5bbf034.etc2.ctex"
+uid="uid://b568jqvujmxef"
+path.s3tc="res://.godot/imported/plastered_wall_03_diff_1k.jpg-7555c9ed80c0dbb52218fae8b46009a8.s3tc.ctex"
+path.etc2="res://.godot/imported/plastered_wall_03_diff_1k.jpg-7555c9ed80c0dbb52218fae8b46009a8.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Floor/granite_tile_1k.gltf/textures/granite_tile_arm_1k.jpg"
-dest_files=["res://.godot/imported/granite_tile_arm_1k.jpg-0a8d357011fbe19299bfab6ca5bbf034.s3tc.ctex", "res://.godot/imported/granite_tile_arm_1k.jpg-0a8d357011fbe19299bfab6ca5bbf034.etc2.ctex"]
+source_file="res://assets/Wall/plastered_wall_03_1k.gltf/textures/plastered_wall_03_diff_1k.jpg"
+dest_files=["res://.godot/imported/plastered_wall_03_diff_1k.jpg-7555c9ed80c0dbb52218fae8b46009a8.s3tc.ctex", "res://.godot/imported/plastered_wall_03_diff_1k.jpg-7555c9ed80c0dbb52218fae8b46009a8.etc2.ctex"]
 
 [params]
 

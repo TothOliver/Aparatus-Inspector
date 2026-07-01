@@ -1,6 +1,6 @@
 {
   "asset": {
-    "generator": "Khronos glTF Blender I/O v3.2.43",
+    "generator": "Khronos glTF Blender I/O v1.6.16",
     "version": "2.0"
   },
   "scene": 0,
@@ -21,7 +21,7 @@
   "materials": [
     {
       "doubleSided": true,
-      "name": "concrete_wall_004",
+      "name": "white_plaster_02",
       "normalTexture": {
         "index": 0
       },
@@ -69,47 +69,47 @@
   "images": [
     {
       "mimeType": "image/jpeg",
-      "name": "concrete_wall_004_nor_gl_8k",
-      "uri": "textures/concrete_wall_004_nor_gl_1k.jpg"
+      "name": "white_plaster_02_nor_gl_4k",
+      "uri": "textures/white_plaster_02_nor_gl_1k.jpg"
     },
     {
       "mimeType": "image/jpeg",
-      "name": "concrete_wall_004_diff_8k",
-      "uri": "textures/concrete_wall_004_diff_1k.jpg"
+      "name": "white_plaster_02_diff_4k",
+      "uri": "textures/white_plaster_02_diff_1k.jpg"
     },
     {
       "mimeType": "image/jpeg",
-      "name": "concrete_wall_004_rough_8k",
-      "uri": "textures/concrete_wall_004_rough_1k.jpg"
+      "name": "white_plaster_02_rough_4k",
+      "uri": "textures/white_plaster_02_rough_1k.jpg"
     }
   ],
   "accessors": [
     {
       "bufferView": 0,
       "componentType": 5126,
-      "count": 53934,
+      "count": 53929,
       "max": [
-        1.0034029483795166,
-        1.003678798675537,
-        1.0033559799194336
+        0.4993591606616974,
+        0.5015833973884583,
+        0.5003306865692139
       ],
       "min": [
-        -1.0034033060073853,
-        -1.003738522529602,
-        -1.0033537149429321
+        -0.49935927987098694,
+        -0.5012102127075195,
+        -0.5003525614738464
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 53934,
+      "count": 53929,
       "type": "VEC3"
     },
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 53934,
+      "count": 53929,
       "type": "VEC2"
     },
     {
@@ -122,23 +122,23 @@
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 647208,
+      "byteLength": 647148,
       "byteOffset": 0
     },
     {
       "buffer": 0,
-      "byteLength": 647208,
-      "byteOffset": 647208
+      "byteLength": 647148,
+      "byteOffset": 647148
     },
     {
       "buffer": 0,
-      "byteLength": 431472,
-      "byteOffset": 1294416
+      "byteLength": 431432,
+      "byteOffset": 1294296
     },
     {
       "buffer": 0,
       "byteLength": 644340,
-      "byteOffset": 1725888
+      "byteOffset": 1725728
     }
   ],
   "samplers": [
@@ -149,8 +149,8 @@
   ],
   "buffers": [
     {
-      "byteLength": 2370228,
-      "uri": "concrete_wall_004.bin"
+      "byteLength": 2370068,
+      "uri": "white_plaster_02.bin"
     }
   ]
 }

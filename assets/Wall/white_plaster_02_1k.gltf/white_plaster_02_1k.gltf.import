@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d3lm8qbxwktgx"
-path="res://.godot/imported/concrete_wall_004_1k.gltf-40e5b3091c5dabab91aa319b9a258b80.scn"
+uid="uid://cmjihfjiev0cd"
+path="res://.godot/imported/white_plaster_02_1k.gltf-96afffad9d0eca119cf19a0e25c89732.scn"
 
 [deps]
 
-source_file="res://assets/Wall/concrete_wall_004_1k.gltf/concrete_wall_004_1k.gltf"
-dest_files=["res://.godot/imported/concrete_wall_004_1k.gltf-40e5b3091c5dabab91aa319b9a258b80.scn"]
+source_file="res://assets/Wall/white_plaster_02_1k.gltf/white_plaster_02_1k.gltf"
+dest_files=["res://.godot/imported/white_plaster_02_1k.gltf-96afffad9d0eca119cf19a0e25c89732.scn"]
 
 [params]
 

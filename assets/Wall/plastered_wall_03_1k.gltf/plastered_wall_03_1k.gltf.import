@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d2gddfpyy3l5e"
-path="res://.godot/imported/granite_tile_1k.gltf-74fbef2a50e28d4863e414e005a161d7.scn"
+uid="uid://dcs5uv1udi26g"
+path="res://.godot/imported/plastered_wall_03_1k.gltf-503fb4f5c4f2f20d19afbc43c1f98dcb.scn"
 
 [deps]
 
-source_file="res://assets/Floor/granite_tile_1k.gltf/granite_tile_1k.gltf"
-dest_files=["res://.godot/imported/granite_tile_1k.gltf-74fbef2a50e28d4863e414e005a161d7.scn"]
+source_file="res://assets/Wall/plastered_wall_03_1k.gltf/plastered_wall_03_1k.gltf"
+dest_files=["res://.godot/imported/plastered_wall_03_1k.gltf-503fb4f5c4f2f20d19afbc43c1f98dcb.scn"]
 
 [params]
 
