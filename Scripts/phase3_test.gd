@@ -6,10 +6,7 @@ func _ready():
 	GameStats.door_locked = true # Lock door initially
 	
 	# Find hunter and force Phase 3 (Breaking In) start instantly
-	var hunter = get_node_or_null("HunterRobot")
+	var hunter = get_node_or_null("HunterPhase3")
 	if hunter:
-		hunter.is_active = true
-		hunter.current_state = hunter.State.BREAKING_IN
-		hunter.global_position = hunter.get_door_pos()
-		hunter.bang_count = 0
+		hunter.activate()
 		hunter.state_timer = 0.01 # Bangs instantly on load
