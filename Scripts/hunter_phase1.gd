@@ -3,6 +3,7 @@ class_name HunterPhase1
 
 @export_group("Phase 1 References")
 @export var phase2_robot: CharacterBody3D
+@export var phase3_robot: CharacterBody3D
 @export var spawn_markers: Array = []
 
 enum State {
@@ -196,30 +197,22 @@ func advance_to_phase2():
 	global_position = get_start_pos()
 	
 	if phase2_robot:
-		# Pick random peek location
-		var choices = [phase2_robot.PeekLocation.DOOR]
-		if window_peek_marker:
-			choices.append(phase2_robot.PeekLocation.WINDOW)
-		if camera_peek_marker:
-			choices.append(phase2_robot.PeekLocation.CAMERA)
-		var chosen_loc = choices[randi() % choices.size()]
-		
-		phase2_robot.activate(chosen_loc)
+		phase2_robot.activate()
 		set_physics_process(false)
 
 func retreat():
-	# Called by Phase 2 when spotted
+	# Called by subsequent phases when spotted
 	set_physics_process(true)
 	disappear_and_reset()
 
 func start_chase():
-	# Slot machine bypass: goes straight to Phase 2!
+	# Slot machine bypass: goes straight to Phase 3 (old Phase 2)!
 	if GameStats.current_day <= 1:
 		return
 	$Sprite3D.visible = false
 	current_state = State.PATROLLING
 	global_position = get_start_pos()
 	
-	if phase2_robot:
-		phase2_robot.activate(phase2_robot.PeekLocation.DOOR)
+	if phase3_robot:
+		phase3_robot.activate(phase3_robot.PeekLocation.DOOR)
 		set_physics_process(false)

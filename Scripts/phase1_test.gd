@@ -1,5 +1,8 @@
 extends "res://Scripts/johan_test.gd"
 
+func _init():
+	GameStats.current_day = 2
+
 func _ready():
 	super._ready()
 	GameStats.current_day = 2

@@ -1,98 +1,124 @@
 extends HunterBase
 class_name HunterPhase3
 
+@export_group("Phase 3 References")
+@export var phase1_robot: CharacterBody3D
+@export var phase4_robot: CharacterBody3D
+
+enum PeekLocation {
+	DOOR,
+	WINDOW,
+	CAMERA
+}
+
 enum State {
 	INACTIVE,
-	BREAKING_IN
+	DOOR_RATTLE
 }
 
 var current_state = State.INACTIVE
-var bang_count: int = 0
-var state_timer: float = 0.0
+var active_peek_location = PeekLocation.DOOR
+var wait_at_door_timer: float = 0.0
 
 func _ready():
 	super._ready()
 	$Sprite3D.visible = false
 	set_physics_process(false)
 
-func activate():
-	current_state = State.BREAKING_IN
-	global_position = get_door_pos()
+func activate(peek_loc: PeekLocation):
+	current_state = State.DOOR_RATTLE
+	active_peek_location = peek_loc
 	
-	# Face the office door
-	look_at(Vector3(0.0, global_position.y, 0.5))
-	
-	if GameStats.let_through_bad_sprites.size() > 0:
-		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
-		
-	$Sprite3D.visible = true
-	bang_count = 0
-	state_timer = 1.0 # time until first bang thud
-	set_physics_process(true)
-
-func _physics_process(delta):
-	if current_state != State.BREAKING_IN:
-		return
-		
-	# If player unlocks the door during breaking in, Hunter enters and jumpscares immediately
-	if not GameStats.door_locked:
-		kill_player()
-		return
-		
-	state_timer -= delta
-	if state_timer <= 0:
-		# Bang on the door
-		var ap = get_active_audio_player()
-		ap.stream = screech_stream
-		ap.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
-		ap.play()
-		
-		# Drain power
-		GameStats.power_level = max(0.0, GameStats.power_level - 15.0)
-		bang_count += 1
-		
-		# Check if we trip the breaker or break in
-		if bang_count >= 3 or GameStats.power_level <= 0:
-			var game_3d = get_parent_node_3d()
-			if game_3d and game_3d.has_method("trigger_breaker_outage"):
-				game_3d.trigger_breaker_outage() # This automatically sets door_locked to false
-			kill_player()
-		else:
-			# Schedule next bang
-			state_timer = randf_range(1.5, 3.5)
-
-func kill_player():
-	current_state = State.INACTIVE
-	set_physics_process(false)
-	
-	# Make sure sprite is visible
-	$Sprite3D.visible = true
+	# Ensure texture is loaded
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 	
-	# Warp to jumpscare position
-	global_position = get_jumpscare_pos()
+	# Warp to the chosen location
+	if active_peek_location == PeekLocation.WINDOW:
+		global_position = window_peek_marker.global_position
+		look_at(Vector3(get_window_pos().x, global_position.y, get_window_pos().z))
+	elif active_peek_location == PeekLocation.CAMERA:
+		global_position = camera_peek_marker.global_position
+		look_at(Vector3(get_door_pos().x, global_position.y, get_door_pos().z))
+	else:
+		global_position = get_door_pos()
+		# Face the office door
+		look_at(Vector3(0.0, global_position.y, 0.5))
+		
+	$Sprite3D.visible = true
+	wait_at_door_timer = 2.0
 	
-	# Rotate to face player directly during jumpscare
-	var player = get_tree().root.find_child("Player", true, false)
-	if player:
-		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z))
-	
-	# Play jumpscare sound
 	var ap = get_active_audio_player()
-	ap.stream = screech_stream
+	ap.stream = rattle_stream
 	ap.pitch_scale = 1.0
 	ap.play()
 	
-	# Swing door open physically
-	var dm = get_door_mesh()
-	if dm:
-		dm.rotation.y = deg_to_rad(90.0)
-	
-	# Trigger game over after brief freeze
-	await get_tree().create_timer(1.2).timeout
-	
-	if dm:
-		dm.rotation.y = 0.0
+	set_physics_process(true)
+
+func _physics_process(delta):
+	if current_state != State.DOOR_RATTLE:
+		return
+
+	# If player spots the Hunter on CCTV or through the window, it retreats!
+	if check_if_player_sees_hunter():
+		retreat_and_reset()
+		return
+
+	wait_at_door_timer -= delta
+	if wait_at_door_timer <= 0:
+		# Deactivate and advance
+		$Sprite3D.visible = false
+		current_state = State.INACTIVE
+		set_physics_process(false)
 		
-	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
+		if GameStats.door_locked:
+			if phase4_robot:
+				phase4_robot.activate()
+		else:
+			if phase4_robot:
+				phase4_robot.kill_player()
+
+func check_if_player_sees_hunter() -> bool:
+	var game_3d = get_parent_node_3d()
+	if not game_3d:
+		return false
+		
+	var player = game_3d.get_node_or_null("Player")
+	if not player:
+		return false
+		
+	# 1. Check if player is viewing CCTV Camera app on computer
+	var seen_on_cctv = false
+	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
+		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
+		if cctv_win and cctv_win.visible:
+			seen_on_cctv = true
+			
+	# 2. Check if player is looking directly at the glass window in 3D
+	var seen_through_window = false
+	if player.current_state != player.State.COMPUTER_VIEW:
+		if not game_3d.is_curtain_closed:
+			var camera = player.get_node_or_null("Camera3D")
+			if camera:
+				var window_pos = get_window_pos()
+				var dir_to_window = (window_pos - camera.global_position).normalized()
+				var camera_forward = -camera.global_transform.basis.z.normalized()
+				var dot = camera_forward.dot(dir_to_window)
+				if dot > 0.7:
+					seen_through_window = true
+					
+	# Match based on chosen peek location
+	if active_peek_location == PeekLocation.WINDOW:
+		return seen_through_window
+	elif active_peek_location == PeekLocation.CAMERA:
+		return seen_on_cctv
+	else:
+		return seen_on_cctv or seen_through_window
+
+func retreat_and_reset():
+	$Sprite3D.visible = false
+	current_state = State.INACTIVE
+	set_physics_process(false)
+	
+	if phase1_robot:
+		phase1_robot.retreat()
