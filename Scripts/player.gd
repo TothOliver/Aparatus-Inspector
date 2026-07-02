@@ -40,9 +40,24 @@ var max_sit_pitch: float = 30.0
 # Interaction prompt
 signal interact_prompt_changed(text: String)
 
+# Flashlight variables
+var flashlight: SpotLight3D
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.position.y = stand_cam_y
+	
+	# Create flashlight dynamically
+	flashlight = SpotLight3D.new()
+	flashlight.name = "Flashlight"
+	flashlight.visible = false
+	flashlight.light_energy = 2.5
+	flashlight.spot_range = 15.0
+	flashlight.spot_angle = 35.0
+	flashlight.shadow_enabled = true
+	flashlight.position = Vector3(0, 0, 0)
+	flashlight.rotation = Vector3(0, 0, 0)
+	camera.add_child(flashlight)
 
 func _physics_process(delta):
 	if current_state == State.WALKING:
@@ -138,6 +153,11 @@ func handle_computer_view(delta):
 	camera.transform.basis = camera.transform.basis.slerp(Basis.IDENTITY, lerp_speed * delta)
 
 func _input(event):
+	# Toggle flashlight on F press
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
+		if flashlight:
+			flashlight.visible = not flashlight.visible
+
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
 		if current_state == State.WALKING:
@@ -269,3 +289,7 @@ func handle_settings_shortcut():
 				pause_menu.visible = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				get_tree().paused = true
+
+
+
+
