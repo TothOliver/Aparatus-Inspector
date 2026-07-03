@@ -1,0 +1,411 @@
+[gd_scene format=4 uid="uid://jadxrpu615rl"]
+
+[ext_resource type="PackedScene" uid="uid://b6jy5w4hyitgg" path="res://assets/deskSetup/metal_office_desk_1k.gltf/metal_office_desk_1k.gltf" id="1_2ahxm"]
+[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="1_o0rpj"]
+[ext_resource type="Texture2D" uid="uid://3gy330gscfxm" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_diff_1k.jpg" id="2_c6e7y"]
+[ext_resource type="PackedScene" uid="uid://cjgeami31t3uy" path="res://assets/deskSetup/standing_picture_frame_01_1k.gltf/standing_picture_frame_01_1k.gltf" id="3_0aqei"]
+[ext_resource type="Texture2D" uid="uid://bowwh66e6ju4d" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_arm_1k.jpg" id="3_hw8yg"]
+[ext_resource type="Texture2D" uid="uid://bkoej6weosujf" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_nor_gl_1k.jpg" id="4_00gq5"]
+[ext_resource type="PackedScene" uid="uid://cj3wt800rvug5" path="res://assets/deskSetup/cigarette_pack_1k.gltf/cigarette_pack_1k.gltf" id="4_utein"]
+[ext_resource type="PackedScene" uid="uid://ddi0805nt6t1c" path="res://assets/deskSetup/cardboard_box_01_1k.gltf/cardboard_box_01_1k.gltf" id="8_lu60s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlte0"]
+albedo_color = Color(0.42, 0.42, 0.39, 1)
+roughness = 0.65
+
+[sub_resource type="QuadMesh" id="QuadMesh_0aqei"]
+size = Vector2(0.44, 0.33)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_utein"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cxmlp"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_utein")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y33b3"]
+size = Vector3(0.5, 0.4, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6e7y"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+roughness = 0.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_hw8yg"]
+radius = 0.012
+height = 0.024
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00gq5"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lu60s"]
+size = Vector3(0.15, 0.15, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhnmq"]
+resource_name = "office_notepads"
+cull_mode = 2
+albedo_texture = ExtResource("2_c6e7y")
+metallic_texture = ExtResource("3_hw8yg")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("3_hw8yg")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_00gq5")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d27vy"]
+_surfaces = [{
+"aabb": AABB(-0.035885345, 0, -0.035885345, 0.07177069, 1e-05, 0.07177069),
+"format": 34896613377,
+"index_count": 54,
+"index_data": PackedByteArray("DAACAAAADAABAAIADQAMAAAADQAAAAgABwANAAgABwAIAAkACgANAAcACgAOAA0ADgAMAA0ACwAOAAoACwAGAA4ADgAPAAwABgAPAA4ADwABAAwABgADAA8ADwAEAAEAAwAEAA8AAwAFAAQA"),
+"lods": [7.565296e-06, PackedByteArray("AAABAAIAAwABAAAAAwAEAAEAAwAFAAQABgADAAAABgAAAAcABwAAAAgABwAIAAkACgAGAAcACwAGAAoA")],
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("qqoAAP//AAD//wAAqaoAAP//AAD//wAAqaoAAAAAAAD//wAAVFUAAP//AAAAAAAAVFUAAAAAAAAAAAAAqqoAAFVVAAD//wAAAAAAAP//AAAAAAAAVVUAAAAAAAAAAAAAqqoAAKmqAABVVQAAqaoAAFVVAABVVQAAqqoAAFRVAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gdbfx"]
+resource_name = "office_notepads_1k_Cube_002"
+_surfaces = [{
+"aabb": AABB(-0.035885345, 0, -0.035885345, 0.07177069, 1e-05, 0.07177069),
+"attribute_data": PackedByteArray("U1w8Tp5hiFNTXIhTNmw8TupmiFM2bIhTNmzxSJ5hpUNTXPFIU1ylQ+pmpUM2bKVDnmE8Tp5h8UjqZvFI6mY8Tg=="),
+"format": 34896613399,
+"index_count": 54,
+"index_data": PackedByteArray("DAACAAAADAABAAIADQAMAAAADQAAAAgABwANAAgABwAIAAkACgANAAcACgAOAA0ADgAMAA0ACwAOAAoACwAGAA4ADgAPAAwABgAPAA4ADwABAAwABgADAA8ADwAEAAEAAwAEAA8AAwAFAAQA"),
+"lods": [7.565296e-06, PackedByteArray("AAABAAIAAwABAAAAAwAEAAEAAwAFAAQABgADAAAABgAAAAcABwAAAAgABwAIAAkACgAGAAcACwAGAAoA")],
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("qqoAAP//VNX//wAAqapU1f//AAD//1TVqaoAAAAAVNX//wAAVFVU1f//AAAAAFTVVFUAAAAAVNUAAAAAqqpU1VVVAAD//1TVAAAAAP//VNUAAAAAVVVU1QAAAAAAAFTVqqoAAKmqVNVVVQAAqapU1VVVAABVVVTVqqoAAFRVVNVU1aoqVNWqKlTVqipU1aoqVNWqKlTVqipU1aoqVNWqKlTVqipU1aoqVNWqKlTVqipU1aoqVNWqKlTVqipU1aoq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_d27vy")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_a2qec"]
+_surfaces = [{
+"aabb": AABB(-0.105000004, 0, -0.145, 0.21000001, 0.01, 0.29),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAAAEAAEAAgADAAUAAgAFAAAAAAAGAAQAAAAFAAYABAAHAAEAAQAHAAMABAAGAAcABQADAAcABQAHAAYA"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("////////AAAAAP//AAAAAP////8AAAAA//8AAAAAAAAAAP////8AAP//AAD//wAAAAAAAP//AAAAAAAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jry7k"]
+resource_name = "office_notepads_1k_Plane_007"
+_surfaces = [{
+"aabb": AABB(-0.105000004, 0, -0.145, 0.21000001, 0.01, 0.29),
+"attribute_data": PackedByteArray("7YQeqitJl1fthJdXK0kequ2E9qwrSX3/K0n2rO2Eff/thB6qK0n2rCtJHqrthPasK0mXV+2Ev1TthJdXK0m/VCtJHqpSRpdXK0mXV1JGHqrthJdXxocequ2EHqrGh5dX"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////////78AAP//AAD/v/////8AAP+/AAD//////7///wAA////vwAAAAAAAP+/AAAAAP///7///wAAAAD/v////////wCAAAAAAP//AIAAAP////8AgP//AAD//wCAAAD//wAA/////wAAAAD///////8AAP//AAAAAAAA//8AAP////9U1QAAAAAAAFTVAAD//wAAVNUAAAAA//9U1f////8AAFTV//8AAP//VNX///////9U1f//AAAAAFTV////f////3////9/////fwAA/38AAP9/AAD/fwAA/3//f////3////9/////f///////f////3////9/////f1TVVNVU1VTVVNVU1VTVVNWqqlRVqqpUVaqqVFWqqlRV")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_a2qec")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ynwqv"]
+_surfaces = [{
+"aabb": AABB(-0.105000004, 0, -0.145, 0.21000001, 1e-05, 0.29),
+"format": 34896613377,
+"index_count": 360,
+"index_data": PackedByteArray("LwABAAIALwAAAAEAMAAvAAIAMAACAAMAIQAAAC8AIQAEAAAAMQAvADAAMQAhAC8AIAAwAAMAIAADAAcAMgAxADAAMgAwACAAMwAEACEAMwAFAAQANAAhADEANAAzACEANQAxADIANQA0ADEANgAFADMANgAGAAUAJAAzADQAJAA2ADMANwA0ADUANwAkADQAOAAGADYAOAAdAAYAHgAdADgAHgAfAB0AHAAeADgAOQA4ADYAHAA4ADkAOQA2ACQAGwAcADkAJwA5ACQAGwA5ACcAJwAkADcAGgAbACcAGgAnACgAKAAnADcAFgAaACgAKAA3ACoAFgAoADoAOgAoACoAKgA3ADUAEwAWADoAKgA1ADsAOwA1ADIAOgAqADwAPAAqADsAEwA6AD0APQA6ADwAFAATAD0AOwAyACMAIwAyACAAPAA7ACYAJgA7ACMAPQA8AD4APgA8ACYAFAA9ACkAKQA9AD4AFQAUACkAIwAgAD8APwAgAAcAPwAHAAgAQAAjAD8AJgAjAEAAIgA/AAgAQAA/ACIAIgAIAAkALAAmAEAAPgAmACwAQQBAACIALABAAEEAJQAiAAkAQQAiACUAJQAJAAoAKwA+ACwAKQA+ACsAQgAsAEEAKwAsAEIAQwBBACUAQgBBAEMARAAlAAoAQwAlAEQARAAKAAsARQApACsAFQApAEUAFwAVAEUARQArAC0ALQArAEIAFwBFAEYARgBFAC0AGQAXAEYAGQBGABgAGABGAEcARgAtAEcAGABHABIALQBCAEgARwAtAEgASABCAEMAEgBHAEkARwBIAEkAEgBJAA0ASABDAC4ASQBIAC4ALgBDAEQADQBJAEoASQAuAEoADQBKAA4ALgBEAEsASgAuAEsASwBEAAsASwALAAwASgBLAEwADgBKAEwATABLAAwADgBMAA8ATAAMABAADwBMABAADwAQABEA"),
+"lods": [1.2827715e-05, PackedByteArray("AAABAAIAIAAAAAIAIAACAAMAIAADAAcAIQAAACAAIQAEAAAABQAEACEAIgAgAAcAIgAHAAgAIgAIAAkAIwAhACAAIwAgACIAJAAFACEAJAAhACMAJAAGAAUAJQAiAAkAJQAJAAoAJQAKAAsAJgAjACIAJgAiACUAJgAkACMADAAlAAsAJwAGACQAJwAdAAYAHgAfAB0AHAAeAB0AHAAdACcAGwAcACcAGgAbACcAGgAnACgAKAAnACQAFgAaACgAEwAWACgAEwAoACkAFAATACkAKAAkACoAKQAoACoAFQAUACkAKgAkACYAFQApABcAKQAqACsAKwAqACYAFwApACsAKwAmACwAFwArAC0ALQArACwAGAAXAC0AGQAXABgAGAAtABIALAAmAC4ALQAsAC4AEgAtAC4ALgAmACUAEgAuAA0ALgAlAAwADQAuAA4ADgAuAAwADgAMAA8ADwAMABAADwAQABEA"), 4.8157413e-05, PackedByteArray("AAABAAIAAwAAAAIABAAAAAMABQAEAAMABgAFAAMABgADAAcABgAHAAgABgAIAAkABgAJAAoABgAKAAsADAAGAAsADQAGAAwADgANAAwADgAMAA8ADwAMABAADwAQABEAEgAGAA0AEwAGABIAFAATABIAFQAUABIAEwAWAAYAFQASABcAGAAXABIAGQAXABgAFgAaAAYAGgAbAAYAGwAcAAYAHAAdAAYAHAAeAB0AHgAfAB0A")],
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("VNUAAAAAAAD//wAAAAAAAP//AACZGQAA//8AADIzAACpqgAAAAAAAP9/AAAAAAAAVVUAAAAAAAD//wAAzEwAAP//AABmZgAA//8AAP9/AAD//wAAmZkAAP//AAAyswAA//8AAMzMAAD/fwAA//8AAKmqAAD//wAAVNUAAP//AAD//wAAZeYAAP//AAD//wAAVVUAAP//AAAAAAAAmZkAAAAAAAAyswAAAAAAAMzMAAAAAAAA/38AAAAAAABl5gAAqioAAP//AAAAAAAA//8AAAAAAABmZgAAAAAAAMxMAAAAAAAAMjMAAKoqAAAAAAAAAAAAAJkZAAAAAAAAAAAAAFTVAADMTAAAqaoAAJkZAABU1QAA/38AAKmqAABmZgAAVVUAADIzAABU1QAAmZkAAP9/AAD/fwAAqioAAMxMAACqKgAAZmYAAKoqAAAyswAAVVUAAGZmAABVVQAAMrMAAP9/AACZmQAAVVUAAMzMAACpqgAAzMwAAFTVAACZGQAAVNUAADIzAACpqgAAMjMAAKmqAADMTAAA/38AAJkZAAD/fwAAMjMAAP9/AADMTAAAVVUAAJkZAABVVQAAzEwAAKoqAACZGQAAqioAADIzAACqKgAA/38AAP9/AABmZgAAVVUAAP9/AACqKgAAmZkAAFVVAACZmQAAVNUAAGZmAACpqgAA/38AAKmqAACZmQAA/38AADKzAACpqgAAMrMAAFTVAAAyswAAqioAAMzMAACqKgAAZeYAAFVVAABl5gAA/38AAMzMAAD/fwAAZeYAAKmqAABl5gAAVNUAAMzMAABU1QAAZeYAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_q8xjg"]
+resource_name = "office_notepads_1k_Plane_119"
+_surfaces = [{
+"aabb": AABB(-0.105000004, 0, -0.145, 0.21000001, 1e-05, 0.29),
+"attribute_data": PackedByteArray("d1w5C3dcRQCLZUUAn25FAHdcLhZ3XCMhd1wYLLN3RQDHgEUA2olFAO6SRQACnEUAFqVFAD63IyE+ty4WPrc5CyquRQA+t0UAPrcYLO6SAUICnAFCFqUBQtqJAUIqrgFCPrcMNz63AULHgAFCs3cBQp9uAUJ3XAw3i2UBQndcAUKzdzkLi2UuFtqJOQvHgC4Wn24YLO6SOQvaiSMhs3cMN8eADDcCnAw3x4AYLAKcGCzukiMhFqUYLBalLhaLZTkLn245C59uLhazdy4Wi2UjIZ9uIyGzdyMhi2UYLLN3GCyLZQw3n24MN9qJDDfHgCMh2okYLO6SDDfukhgsx4A5C9qJLhbuki4WApwjIQKcLhYCnDkLFqUMNyquDDcqrhgsFqUjISquIyEqri4WFqU5CyquOQs="),
+"format": 34896613399,
+"index_count": 360,
+"index_data": PackedByteArray("LwABAAIALwAAAAEAMAAvAAIAMAACAAMAIQAAAC8AIQAEAAAAMQAvADAAMQAhAC8AIAAwAAMAIAADAAcAMgAxADAAMgAwACAAMwAEACEAMwAFAAQANAAhADEANAAzACEANQAxADIANQA0ADEANgAFADMANgAGAAUAJAAzADQAJAA2ADMANwA0ADUANwAkADQAOAAGADYAOAAdAAYAHgAdADgAHgAfAB0AHAAeADgAOQA4ADYAHAA4ADkAOQA2ACQAGwAcADkAJwA5ACQAGwA5ACcAJwAkADcAGgAbACcAGgAnACgAKAAnADcAFgAaACgAKAA3ACoAFgAoADoAOgAoACoAKgA3ADUAEwAWADoAKgA1ADsAOwA1ADIAOgAqADwAPAAqADsAEwA6AD0APQA6ADwAFAATAD0AOwAyACMAIwAyACAAPAA7ACYAJgA7ACMAPQA8AD4APgA8ACYAFAA9ACkAKQA9AD4AFQAUACkAIwAgAD8APwAgAAcAPwAHAAgAQAAjAD8AJgAjAEAAIgA/AAgAQAA/ACIAIgAIAAkALAAmAEAAPgAmACwAQQBAACIALABAAEEAJQAiAAkAQQAiACUAJQAJAAoAKwA+ACwAKQA+ACsAQgAsAEEAKwAsAEIAQwBBACUAQgBBAEMARAAlAAoAQwAlAEQARAAKAAsARQApACsAFQApAEUAFwAVAEUARQArAC0ALQArAEIAFwBFAEYARgBFAC0AGQAXAEYAGQBGABgAGABGAEcARgAtAEcAGABHABIALQBCAEgARwAtAEgASABCAEMAEgBHAEkARwBIAEkAEgBJAA0ASABDAC4ASQBIAC4ALgBDAEQADQBJAEoASQAuAEoADQBKAA4ALgBEAEsASgAuAEsASwBEAAsASwALAAwASgBLAEwADgBKAEwATABLAAwADgBMAA8ATAAMABAADwBMABAADwAQABEA"),
+"lods": [1.2827715e-05, PackedByteArray("AAABAAIAIAAAAAIAIAACAAMAIAADAAcAIQAAACAAIQAEAAAABQAEACEAIgAgAAcAIgAHAAgAIgAIAAkAIwAhACAAIwAgACIAJAAFACEAJAAhACMAJAAGAAUAJQAiAAkAJQAJAAoAJQAKAAsAJgAjACIAJgAiACUAJgAkACMADAAlAAsAJwAGACQAJwAdAAYAHgAfAB0AHAAeAB0AHAAdACcAGwAcACcAGgAbACcAGgAnACgAKAAnACQAFgAaACgAEwAWACgAEwAoACkAFAATACkAKAAkACoAKQAoACoAFQAUACkAKgAkACYAFQApABcAKQAqACsAKwAqACYAFwApACsAKwAmACwAFwArAC0ALQArACwAGAAXAC0AGQAXABgAGAAtABIALAAmAC4ALQAsAC4AEgAtAC4ALgAmACUAEgAuAA0ALgAlAAwADQAuAA4ADgAuAAwADgAMAA8ADwAMABAADwAQABEA"), 4.8157413e-05, PackedByteArray("AAABAAIAAwAAAAIABAAAAAMABQAEAAMABgAFAAMABgADAAcABgAHAAgABgAIAAkABgAJAAoABgAKAAsADAAGAAsADQAGAAwADgANAAwADgAMAA8ADwAMABAADwAQABEAEgAGAA0AEwAGABIAFAATABIAFQAUABIAEwAWAAYAFQASABcAGAAXABIAGQAXABgAFgAaAAYAGgAbAAYAGwAcAAYAHAAdAAYAHAAeAB0AHgAfAB0A")],
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("VNUAAAAAVNX//wAAAABU1f//AACZGVTV//8AADIzVNWpqgAAAABU1f9/AAAAAFTVVVUAAAAAVNX//wAAzExU1f//AABmZlTV//8AAP9/VNX//wAAmZlU1f//AAAys1TV//8AAMzMVNX/fwAA//9U1amqAAD//1TVVNUAAP//VNX//wAAZeZU1f//AAD//1TVVVUAAP//VNUAAAAAmZlU1QAAAAAys1TVAAAAAMzMVNUAAAAA/39U1QAAAABl5lTVqioAAP//VNUAAAAA//9U1QAAAABmZlTVAAAAAMxMVNUAAAAAMjNU1aoqAAAAAFTVAAAAAJkZVNUAAAAAAABU1VTVAADMTFTVqaoAAJkZVNVU1QAA/39U1amqAABmZlTVVVUAADIzVNVU1QAAmZlU1f9/AAD/f1TVqioAAMxMVNWqKgAAZmZU1aoqAAAys1TVVVUAAGZmVNVVVQAAMrNU1f9/AACZmVTVVVUAAMzMVNWpqgAAzMxU1VTVAACZGVTVVNUAADIzVNWpqgAAMjNU1amqAADMTFTV/38AAJkZVNX/fwAAMjNU1f9/AADMTFTVVVUAAJkZVNVVVQAAzExU1aoqAACZGVTVqioAADIzVNWqKgAA/39U1f9/AABmZlTVVVUAAP9/VNWqKgAAmZlU1VVVAACZmVTVVNUAAGZmVNWpqgAA/39U1amqAACZmVTV/38AADKzVNWpqgAAMrNU1VTVAAAys1TVqioAAMzMVNWqKgAAZeZU1VVVAABl5lTV/38AAMzMVNX/fwAAZeZU1amqAABl5lTVVNUAAMzMVNVU1QAAZeZU1aqqqaqqqqqqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpqqqqqaqqqqmqqqqqqqqqqaqqqqqqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqqqqqqqaqqqqqqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqmqqqqpqqqqqqqqqqmqqqqqqqqqqqqqqqmqqqqqqqqqqaqqqqmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmqqqqpqqqqqqqqqqqqqqqpqqqqqaqqqqmqqqqqqqqqqqqqqqqq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ynwqv")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_icoxg"]
+_surfaces = [{
+"aabb": AABB(-0.09779001, 0, -0.05616748, 0.19558002, 1e-05, 0.11233496),
+"format": 34896613377,
+"index_count": 360,
+"index_data": PackedByteArray("LwAbACAAHAAgABsALwAaABsAHAAhACAAHwAhABwAHwAeACEAHgAwACEAHgAdADAAIQAxACAAIQAwADEAMgAvACAAMgAgADEAJwAaAC8AJwAZABoAJwAYABkAMwAnAC8AMwAvADIAJwA0ABgAMwA0ACcANAAXABgANQAzADIAMwA2ADQANQA2ADMANgA3ADQANAA3ABcANQAoADYANQAyACUAJQAyADEAOAAXADcAOQA1ACUAOQAoADUAOAAWABcAJQAxADoAMAA6ADEAOQAlACQAJAAlADoAMAA7ADoAHQA7ADAAHQACADsAOwAjADoAJAA6ACMAAgAiADsAOwAiACMAAgALACIACwA8ACIACwAJADwACQAAADwACQAKAAAAPAAAAAEAIgA8AD0APAABAD0AIgA9ACMAAwA9AAEAPgAjAD0AAwA+AD0APgAkACMABAA+AAMAPwAkAD4ABAA/AD4APwA5ACQABABAAD8APwAmADkAPwBAACYABAAFAEAAOQAmACgABQBBAEAABQAGAEEABwBBAAYAQABBACoAQAAqACYABwArAEEAKwAqAEEACAArAAcAJgAqAEIAJgBCACgAKwBDACoAQwBCACoACABEACsARABDACsADABEAAgAKABCACkAKAApADYANgApADcARQApAEIAQwBFAEIARgA3ACkARQBGACkARgA4ADcARwBFAEMARABHAEMALABGAEUARwAsAEUASAA4AEYALABIAEYASABJADgASQAWADgASQAVABYASgBHAEQADABKAEQADQBKAAwADQAOAEoASgAtAEcADgAtAEoALQAsAEcADgAPAC0ALQAuACwADwAuAC0ALgBIACwADwAQAC4ALgBLAEgAEABLAC4ASwBJAEgAEAARAEsASwBMAEkAEQBMAEsATAAVAEkAEQATAEwATAASABUAEwASAEwAEwAUABIA"),
+"lods": [7.4684735e-06, PackedByteArray("GgAbACAAHAAgABsAHAAhACAAHwAhABwAHwAeACEAHgAdACEAHQAiACEAHQACACIAAgALACIAIQAiACMAIQAjACAACwAAACIAIgAAACMACwAJAAAACQAKAAAAAAABACMAAwAjAAEAAwAkACMABAAkAAMAJAAlACMABAAlACQAJQAgACMAJQAaACAABAAmACUABAAFACYAJwAaACUAJwAZABoAJwAYABkAJQAoACcAJwAoABgAJQAmACgAKAAXABgAKAApABcAJgApACgAKQAWABcABQAqACYAJgAqACkABQAGACoABwAqAAYABwArACoAKwApACoACAArAAcADAArAAgALAAWACkAKwAsACkALAAVABYADAAtACsALQAsACsADQAtAAwADQAOAC0ADgAPAC0ALQAuACwALgAVACwADwAuAC0ADwAQAC4ALgASABUAEAARAC4AEQASAC4AEQATABIAEwAUABIA"), 3.7095004e-05, PackedByteArray("AAABAAIAAwACAAEABAACAAMABAAFAAIABQAGAAIABwACAAYACAACAAcACQAKAAAACwAJAAAACwAAAAIADAACAAgADQAOAAwADgAPAAwADwAQAAwAEAARAAwAEQASAAwAEQATABIAEwAUABIADAASABUADAAVABYADAAWAAIAAgAWABcAAgAXABgAGQACABgAGQAaAAIAAgAaABsAHAACABsAHQACABwAHgAdABwAHwAeABwA")],
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("ZeYAAP//AADLzAAA//8AAP//AAD/fwAAMrMAAP//AACZmQAA//8AAP9/AAD//wAAZmYAAP//AADMTAAA//8AADMzAAD//wAA//8AAFTVAAD//wAA//8AAP//AACqqgAAmRkAAP//AAAAAAAA//8AAAAAAABU1QAAAAAAAKqqAAAAAAAA/38AAAAAAABVVQAAmRkAAAAAAAAAAAAAqioAAAAAAAAAAAAAMjMAAAAAAADMTAAAAAAAAGVmAAAAAAAA/38AAAAAAACYmQAAAAAAADKzAAAAAAAAy8wAAAAAAABl5gAAAAAAAP//AABVVQAA//8AAKoqAAD//wAAAAAAAMvMAACqKgAAZeYAAKoqAABl5gAAqqoAAMvMAACqqgAAMrMAAKqqAAAyswAA/38AAP9/AACqqgAAmZkAAKoqAAD/fwAA/38AAGVmAABVVQAAZWYAAKqqAADMTAAAVNUAADMzAAD/fwAAmRkAAKqqAACZGQAA/38AADKzAACqKgAAZeYAAFVVAADLzAAAVVUAADKzAABVVQAAmZkAAFVVAAD/fwAAqioAAJmZAAD/fwAA/38AAFVVAABlZgAAqioAAMxMAACqKgAAmZkAAKqqAADLzAAA/38AAGXmAAD/fwAAZeYAAFTVAADLzAAAVNUAADKzAABU1QAAmZkAAFTVAAD/fwAAVNUAAGZmAABU1QAAZWYAAP9/AADMTAAAqqoAADMzAABU1QAAzEwAAP9/AADMTAAAVVUAADMzAACqqgAAMzMAAFVVAAAzMwAAqioAAJkZAABU1QAAmRkAAFVVAACZGQAAqioAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_edoh8"]
+resource_name = "office_notepads_1k_Plane_005"
+_surfaces = [{
+"aabb": AABB(-0.09779001, 0, -0.05616748, 0.19558002, 1e-05, 0.11233496),
+"attribute_data": PackedByteArray("4e5aZuHueWxM3Ttg4e6ZcuHuuHjh7td+4e72hOHuFovh7jWRBek7YOHuO2Ap4ztg4e5Ul+HudJ0F6XSdKeN0nUzddJ1w13Sdt8tUl5TRdJ23y3Sdt8s1kbfLFou3y/aEt8vXfrfLuHi3y5lyt8t5bLfLWmZw1ztglNE7YLfLO2CU0XlslNFaZinjWmYp43lsKeOZckzdmXIp49d+lNG4eEzd135w1/aEKeP2hAXpFotM3TWRKeNUl0zdVJeU0ZlycNdaZnDXeWxw15lycNe4eJTR135M3bh4cNfXfpTR9oSU0RaLKeO4eEzdeWxM3VpmBelaZgXpeWwF6ZlyBem4eAXp134F6faETN32hCnjFosF6TWRTN0Wi3DXFosp4zWRcNc1kZTRNZEF6VSXcNdUl5TRVJc="),
+"format": 34896613399,
+"index_count": 360,
+"index_data": PackedByteArray("LwAbACAAHAAgABsALwAaABsAHAAhACAAHwAhABwAHwAeACEAHgAwACEAHgAdADAAIQAxACAAIQAwADEAMgAvACAAMgAgADEAJwAaAC8AJwAZABoAJwAYABkAMwAnAC8AMwAvADIAJwA0ABgAMwA0ACcANAAXABgANQAzADIAMwA2ADQANQA2ADMANgA3ADQANAA3ABcANQAoADYANQAyACUAJQAyADEAOAAXADcAOQA1ACUAOQAoADUAOAAWABcAJQAxADoAMAA6ADEAOQAlACQAJAAlADoAMAA7ADoAHQA7ADAAHQACADsAOwAjADoAJAA6ACMAAgAiADsAOwAiACMAAgALACIACwA8ACIACwAJADwACQAAADwACQAKAAAAPAAAAAEAIgA8AD0APAABAD0AIgA9ACMAAwA9AAEAPgAjAD0AAwA+AD0APgAkACMABAA+AAMAPwAkAD4ABAA/AD4APwA5ACQABABAAD8APwAmADkAPwBAACYABAAFAEAAOQAmACgABQBBAEAABQAGAEEABwBBAAYAQABBACoAQAAqACYABwArAEEAKwAqAEEACAArAAcAJgAqAEIAJgBCACgAKwBDACoAQwBCACoACABEACsARABDACsADABEAAgAKABCACkAKAApADYANgApADcARQApAEIAQwBFAEIARgA3ACkARQBGACkARgA4ADcARwBFAEMARABHAEMALABGAEUARwAsAEUASAA4AEYALABIAEYASABJADgASQAWADgASQAVABYASgBHAEQADABKAEQADQBKAAwADQAOAEoASgAtAEcADgAtAEoALQAsAEcADgAPAC0ALQAuACwADwAuAC0ALgBIACwADwAQAC4ALgBLAEgAEABLAC4ASwBJAEgAEAARAEsASwBMAEkAEQBMAEsATAAVAEkAEQATAEwATAASABUAEwASAEwAEwAUABIA"),
+"lods": [7.4684735e-06, PackedByteArray("GgAbACAAHAAgABsAHAAhACAAHwAhABwAHwAeACEAHgAdACEAHQAiACEAHQACACIAAgALACIAIQAiACMAIQAjACAACwAAACIAIgAAACMACwAJAAAACQAKAAAAAAABACMAAwAjAAEAAwAkACMABAAkAAMAJAAlACMABAAlACQAJQAgACMAJQAaACAABAAmACUABAAFACYAJwAaACUAJwAZABoAJwAYABkAJQAoACcAJwAoABgAJQAmACgAKAAXABgAKAApABcAJgApACgAKQAWABcABQAqACYAJgAqACkABQAGACoABwAqAAYABwArACoAKwApACoACAArAAcADAArAAgALAAWACkAKwAsACkALAAVABYADAAtACsALQAsACsADQAtAAwADQAOAC0ADgAPAC0ALQAuACwALgAVACwADwAuAC0ADwAQAC4ALgASABUAEAARAC4AEQASAC4AEQATABIAEwAUABIA"), 3.7095004e-05, PackedByteArray("AAABAAIAAwACAAEABAACAAMABAAFAAIABQAGAAIABwACAAYACAACAAcACQAKAAAACwAJAAAACwAAAAIADAACAAgADQAOAAwADgAPAAwADwAQAAwAEAARAAwAEQASAAwAEQATABIAEwAUABIADAASABUADAAVABYADAAWAAIAAgAWABcAAgAXABgAGQACABgAGQAaAAIAAgAaABsAHAACABsAHQACABwAHgAdABwAHwAeABwA")],
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("ZeYAAP//VNXLzAAA//9U1f//AAD/f1TVMrMAAP//VNWZmQAA//9U1f9/AAD//1TVZmYAAP//VNXMTAAA//9U1TMzAAD//1TV//8AAFTVVNX//wAA//9U1f//AACqqlTVmRkAAP//VNUAAAAA//9U1QAAAABU1VTVAAAAAKqqVNUAAAAA/39U1QAAAABVVVTVmRkAAAAAVNUAAAAAqipU1QAAAAAAAFTVMjMAAAAAVNXMTAAAAABU1WVmAAAAAFTV/38AAAAAVNWYmQAAAABU1TKzAAAAAFTVy8wAAAAAVNVl5gAAAABU1f//AABVVVTV//8AAKoqVNX//wAAAABU1cvMAACqKlTVZeYAAKoqVNVl5gAAqqpU1cvMAACqqlTVMrMAAKqqVNUyswAA/39U1f9/AACqqlTVmZkAAKoqVNX/fwAA/39U1WVmAABVVVTVZWYAAKqqVNXMTAAAVNVU1TMzAAD/f1TVmRkAAKqqVNWZGQAA/39U1TKzAACqKlTVZeYAAFVVVNXLzAAAVVVU1TKzAABVVVTVmZkAAFVVVNX/fwAAqipU1ZmZAAD/f1TV/38AAFVVVNVlZgAAqipU1cxMAACqKlTVmZkAAKqqVNXLzAAA/39U1WXmAAD/f1TVZeYAAFTVVNXLzAAAVNVU1TKzAABU1VTVmZkAAFTVVNX/fwAAVNVU1WZmAABU1VTVZWYAAP9/VNXMTAAAqqpU1TMzAABU1VTVzEwAAP9/VNXMTAAAVVVU1TMzAACqqlTVMzMAAFVVVNUzMwAAqipU1ZkZAABU1VTVmRkAAFVVVNWZGQAAqipU1aqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqaqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqaqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqpqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqqqqqq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_icoxg")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_k1n52"]
+_surfaces = [{
+"aabb": AABB(-0.11166887, 0, -0.15367, 0.22333774, 0.01, 0.30734),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAAAEAAEAAgADAAUAAgAFAAAAAAAGAAQAAAAFAAYABAAHAAEAAQAHAAMABAAGAAcABQADAAcABQAHAAYA"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAD/////AAD/////AAAAAP///////wAA//8AAP//AAAAAP//AAAAAAAAAAD//wAAAAAAAAAAAAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_i6amb"]
+resource_name = "office_notepads_1k_Plane_002"
+_surfaces = [{
+"aabb": AABB(-0.11166887, 0, -0.15367, 0.22333774, 0.01, 0.30734),
+"attribute_data": PackedByteArray("1EJapUUD0PxFA1ql1ELQ/NRCgqJFAwxL1EIMS0UDgqLUQlqlrEXQ/NRC0PysRVqlRQNapdRCgqLUQlqlRQOCokUD0PxtAFqlRQNapW0A0PzUQtD8RQOp/0UD0PzUQqn/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAD/////////////AAD/////////////AAD//wAA//8AAAAA////////AAAAAP//AAAAAAAA/////wAA/////wAA/////1TVAAAAAAAAVNUAAP//AABU1QAAAAD//1TV//////////8AAAAA/////wAA//////////8AAP//////////AABU1f//AAD//1TV////////VNX//wAAAABU1QAA//8AAP////8AAAAA////////AAD//wAAAAAAAP///3//v/9//7//f/+//3//v/9//z//f/8//3//P/9//z9UVaqqVFWqqlRVqqpUVaqq/3//f/9//3//f/9//3//f6oqqiqqKqoqqiqqKqoqqir/f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_k1n52")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_sruv6"]
+_surfaces = [{
+"aabb": AABB(-0.11166887, 0, -0.15367, 0.22333774, 1e-05, 0.30734),
+"format": 34896613377,
+"index_count": 360,
+"index_data": PackedByteArray("LwABAAIALwAAAAEAMAAvAAIAMAACAAMAMQAAAC8AMQAEAAAAIQAvADAAIQAxAC8AMgAwAAMAMgADAAcAMwAhADAAMwAwADIANAAEADEANAAGAAQANQAxACEANQA0ADEAIgAhADMAIgA1ACEANgAGADQANgAIAAYANwA0ADUANwA2ADQAJAA1ACIAJAA3ADUAOAAIADYAOAAMAAgAHwAMADgAHwAgAAwAHgAfADgAJgA4ADYAHgA4ACYAJgA2ADcAHQAeACYAOQAmADcAHQAmADkAOQA3ACQAHAAdADkAHAA5ACgAKAA5ACQAGwAcACgAKAAkACcAGwAoADoAOgAoACcAJwAkACIAGgAbADoAJwAiACUAJQAiADMAOgAnADsAOwAnACUAGgA6ACkAKQA6ADsAGQAaACkAJQAzADwAPAAzADIAOwAlAD0APQAlADwAKQA7AD4APgA7AD0AGQApAD8APwApAD4AGAAZAD8APAAyAEAAQAAyAAcAQAAHAAkABQA8AEAAPQA8AAUAIwBAAAkABQBAACMAIwAJAAoAQQA9AAUAPgA9AEEAQgAFACMAQQAFAEIAQwAjAAoAQgAjAEMAQwAKAAsAKgA+AEEAPwA+ACoARABBAEIAKgBBAEQALABCAEMARABCACwARQBDAAsALABDAEUARQALAA4ARgA/ACoAGAA/AEYAFwAYAEYARgAqACsAKwAqAEQAFwBGAEcARwBGACsAFgAXAEcAFgBHABUAFQBHAEgARwArAEgAFQBIABQAKwBEAC0ASAArAC0ALQBEACwAFABIAEkASAAtAEkAFABJABMALQAsAEoASQAtAEoASgAsAEUAEwBJAEsASQBKAEsAEwBLABIASgBFAEwASwBKAEwATABFAA4ATAAOAA8ASwBMAC4AEgBLAC4ALgBMAA8AEgAuAA0ALgAPABAADQAuABAADQAQABEA"),
+"lods": [1.3630266e-05, PackedByteArray("AAABAAIAAwAAAAIAIQAAAAMAIQAEAAAABgAEACEAIgAhAAMAIgAGACEAIgADACMAIwADAAcAIwAHAAkAIwAJAAoACwAjAAoABQAjAAsABQAiACMAJAAGACIAJAAIAAYAJQAiAAUAJgAIACQAJgAMAAgAJwAkACIAJwAiACUAKAAkACcAKAAmACQAHwAgAAwAHgAfAAwAHgAMACYAHQAeACYAHAAdACYAHAAmACgAGwAcACgAGgAbACgAGgAoACkAKQAoACcAGQAaACkAGAAZACkAGAApABcAKQAnACoAFwApACoAKgAnACUAFgAXABUAFQAXACsAFwAqACsAFQArABQAKgAlACwAKwAqACwALAAlAAUAFAArAC0AKwAsAC0AFAAtABMAEwAtABIALQAsABIALAAFAAsAEgAsAC4ALAALAC4ALgALAA4ALgAOAA8AEgAuAA0ALgAPABAADQAuABAADQAQABEA"), 3.0701904e-05, PackedByteArray("AAABAAIAAwAAAAIABAAAAAMABQAEAAMABQAGAAQABQADAAcABQAIAAYABQAHAAkABQAJAAoACwAFAAoADAAIAAUABQALAA0ADQALAA4ADQAOAA8ADQAPABAADQAQABEAEgAFAA0AEwAFABIAFAAFABMAFQAFABQAFgAXABUAFQAXAAUAGAAFABcAGAAZAAUAGQAaAAUAGgAbAAUAGwAMAAUAHAAMABsAHAAdAAwAHQAeAAwAHgAfAAwAHwAgAAwA")],
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("VNUAAAAAAAD//wAAAAAAAP//AACZGQAA//8AADIzAACpqgAAAAAAAKmqAAD/fwAA/38AAAAAAAD//wAAzEwAAFVVAAAAAAAA//8AAGVmAAD//wAA/38AAP//AACZmQAAqioAAAAAAABU1QAA//8AAP//AAAyswAA//8AAMvMAAD//wAAZeYAAP//AAD//wAAqaoAAP//AAD/fwAA//8AAFVVAAD//wAAqioAAP//AAAAAAAA//8AAAAAAABl5gAAAAAAAMvMAAAAAAAAMrMAAAAAAACZmQAAAAAAAP9/AAAAAAAAZWYAAAAAAADMTAAAAAAAADIzAAAAAAAAmRkAAAAAAAAAAAAAqaoAADIzAAD/fwAAzEwAAFTVAAD/fwAAVVUAAMxMAAD/fwAAZWYAAKoqAAAyMwAAVVUAAGVmAACqKgAAZWYAAKoqAACZmQAAVVUAADKzAABVVQAAy8wAAKmqAAAyswAA/38AAMvMAABU1QAAZeYAAFTVAACZGQAAVNUAADIzAACpqgAAmRkAAFTVAADMTAAAqaoAAMxMAAD/fwAAmRkAAP9/AAAyMwAAVVUAAJkZAABVVQAAMjMAAKoqAACZGQAAqioAAMxMAACqKgAA/38AAFVVAAD/fwAAqaoAAGVmAAD/fwAA/38AAFVVAACZmQAAqioAADKzAABU1QAAZWYAAP9/AACZmQAAqaoAAJmZAABU1QAAmZkAAP9/AAAyswAAVNUAADKzAACqKgAAy8wAAKoqAABl5gAAVVUAAGXmAAD/fwAAZeYAAKmqAADLzAAAqaoAAGXmAABU1QAAy8wAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_uws0b"]
+resource_name = "office_notepads_1k_Plane"
+_surfaces = [{
+"aabb": AABB(-0.11166887, 0, -0.15367, 0.22333774, 1e-05, 0.30734),
+"attribute_data": PackedByteArray("EsMDn7nOA5+5zqKouc5Bsmu3A59rtx7PxKsDn7nO4LsdoAOfuc5/xbnOHs+5zr3Yd5QDnxLDOP+5zlviuc7667nOmfW5zjj/a7c4/8SrOP8doDj/d5Q4/9CIOP/QiJn10Ij669CIW+LQiL3Y0Igez9CIf8XQiOC70IhBstCIoqjQiAOfa7dBssSr4LsSwx7PHaDgu8Srf8V3lEGyHaB/xXeUf8V3lL3YHaBb4h2g+utrt1vixKv66xLDmfUSw6KoEsNBsmu3oqgSw+C7a7fgu8SroqjEq0GyHaCiqB2gQbJ3lKKod5Tgu3eUHs8doB7Pa7d/xcSrHs8doL3Yd5Rb4hLDf8XEq73Ya7e92BLDvdjEq1viEsNb4neU+ut3lJn1HaCZ9cSrmfVrt/rra7eZ9RLD+us="),
+"format": 34896613399,
+"index_count": 360,
+"index_data": PackedByteArray("LwABAAIALwAAAAEAMAAvAAIAMAACAAMAMQAAAC8AMQAEAAAAIQAvADAAIQAxAC8AMgAwAAMAMgADAAcAMwAhADAAMwAwADIANAAEADEANAAGAAQANQAxACEANQA0ADEAIgAhADMAIgA1ACEANgAGADQANgAIAAYANwA0ADUANwA2ADQAJAA1ACIAJAA3ADUAOAAIADYAOAAMAAgAHwAMADgAHwAgAAwAHgAfADgAJgA4ADYAHgA4ACYAJgA2ADcAHQAeACYAOQAmADcAHQAmADkAOQA3ACQAHAAdADkAHAA5ACgAKAA5ACQAGwAcACgAKAAkACcAGwAoADoAOgAoACcAJwAkACIAGgAbADoAJwAiACUAJQAiADMAOgAnADsAOwAnACUAGgA6ACkAKQA6ADsAGQAaACkAJQAzADwAPAAzADIAOwAlAD0APQAlADwAKQA7AD4APgA7AD0AGQApAD8APwApAD4AGAAZAD8APAAyAEAAQAAyAAcAQAAHAAkABQA8AEAAPQA8AAUAIwBAAAkABQBAACMAIwAJAAoAQQA9AAUAPgA9AEEAQgAFACMAQQAFAEIAQwAjAAoAQgAjAEMAQwAKAAsAKgA+AEEAPwA+ACoARABBAEIAKgBBAEQALABCAEMARABCACwARQBDAAsALABDAEUARQALAA4ARgA/ACoAGAA/AEYAFwAYAEYARgAqACsAKwAqAEQAFwBGAEcARwBGACsAFgAXAEcAFgBHABUAFQBHAEgARwArAEgAFQBIABQAKwBEAC0ASAArAC0ALQBEACwAFABIAEkASAAtAEkAFABJABMALQAsAEoASQAtAEoASgAsAEUAEwBJAEsASQBKAEsAEwBLABIASgBFAEwASwBKAEwATABFAA4ATAAOAA8ASwBMAC4AEgBLAC4ALgBMAA8AEgAuAA0ALgAPABAADQAuABAADQAQABEA"),
+"lods": [1.3630266e-05, PackedByteArray("AAABAAIAAwAAAAIAIQAAAAMAIQAEAAAABgAEACEAIgAhAAMAIgAGACEAIgADACMAIwADAAcAIwAHAAkAIwAJAAoACwAjAAoABQAjAAsABQAiACMAJAAGACIAJAAIAAYAJQAiAAUAJgAIACQAJgAMAAgAJwAkACIAJwAiACUAKAAkACcAKAAmACQAHwAgAAwAHgAfAAwAHgAMACYAHQAeACYAHAAdACYAHAAmACgAGwAcACgAGgAbACgAGgAoACkAKQAoACcAGQAaACkAGAAZACkAGAApABcAKQAnACoAFwApACoAKgAnACUAFgAXABUAFQAXACsAFwAqACsAFQArABQAKgAlACwAKwAqACwALAAlAAUAFAArAC0AKwAsAC0AFAAtABMAEwAtABIALQAsABIALAAFAAsAEgAsAC4ALAALAC4ALgALAA4ALgAOAA8AEgAuAA0ALgAPABAADQAuABAADQAQABEA"), 3.0701904e-05, PackedByteArray("AAABAAIAAwAAAAIABAAAAAMABQAEAAMABQAGAAQABQADAAcABQAIAAYABQAHAAkABQAJAAoACwAFAAoADAAIAAUABQALAA0ADQALAA4ADQAOAA8ADQAPABAADQAQABEAEgAFAA0AEwAFABIAFAAFABMAFQAFABQAFgAXABUAFQAXAAUAGAAFABcAGAAZAAUAGQAaAAUAGgAbAAUAGwAMAAUAHAAMABsAHAAdAAwAHQAeAAwAHgAfAAwAHwAgAAwA")],
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("VNUAAAAA/7///wAAAAD/v///AACZGf+///8AADIz/7+pqgAAAAD/v6mqAAD/f/+//38AAAAA/7///wAAzEz/v1VVAAAAAP+///8AAGVm/7///wAA/3//v///AACZmf+/qioAAAAA/79U1QAA////v///AAAys/+///8AAMvM/7///wAAZeb/v///AAD///+/qaoAAP///7//fwAA////v1VVAAD///+/qioAAP///78AAAAA////vwAAAABl5v+/AAAAAMvM/78AAAAAMrP/vwAAAACZmf+/AAAAAP9//78AAAAAZWb/vwAAAADMTP+/AAAAADIz/78AAAAAmRn/vwAAAAAAAP+/qaoAADIz/7//fwAAzEz/v1TVAAD/f/+/VVUAAMxM/7//fwAAZWb/v6oqAAAyM/+/VVUAAGVm/7+qKgAAZWb/v6oqAACZmf+/VVUAADKz/79VVQAAy8z/v6mqAAAys/+//38AAMvM/79U1QAAZeb/v1TVAACZGf+/VNUAADIz/7+pqgAAmRn/v1TVAADMTP+/qaoAAMxM/7//fwAAmRn/v/9/AAAyM/+/VVUAAJkZ/79VVQAAMjP/v6oqAACZGf+/qioAAMxM/7+qKgAA/3//v1VVAAD/f/+/qaoAAGVm/7//fwAA/3//v1VVAACZmf+/qioAADKz/79U1QAAZWb/v/9/AACZmf+/qaoAAJmZ/79U1QAAmZn/v/9/AAAys/+/VNUAADKz/7+qKgAAy8z/v6oqAABl5v+/VVUAAGXm/7//fwAAZeb/v6mqAADLzP+/qaoAAGXm/79U1QAAy8z/v/7//3////9//v//f/7//3/+//9/////f/7//3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9//v//f/7//3////9/////f////3////9/////f////3////9/////f////3////9/////f/7//3////9/////f////3/+//9/////f////3////9/////f/7//3////9/////f////3////9//v//f/7//3/+//9/////f/7//3/+//9/////f////3////9/////f////3////9/////f/7//3/+//9//v//f/7//3////9/////f////3////9/////f////3/+//9/////f/7//3////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_sruv6")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lsex0"]
+_surfaces = [{
+"aabb": AABB(-0.035885345, 0, -0.035885345, 0.07177069, 0.022, 0.07177069),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIAAwAAAAUABAAGAAIABQACAAYAAwAHAAQAAwAFAAcABwAGAAQABwAFAAYA"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP//AAAAAAAA/////wAAAAAAAAAAAAD/////AAAAAP//AAD//wAA////////AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_m3b1u"]
+resource_name = "office_notepads_1k_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.035885345, 0, -0.035885345, 0.07177069, 0.022, 0.07177069),
+"attribute_data": PackedByteArray("ss9Y4VzUINJc1Fjhss8g0lzUds2U4yDSXNQg0pTjds0/6CDSlONY4ZTjINI/6FjhlOMD5lzUWOGU41jhXNQD5lzUO/WU4wPmlOM79VzUA+aU4yDSXNRY4VzUINKU41jh"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_hhnmq"),
+"name": "office_notepads",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAP//VNUAAP//AABU1QAA/////1TVAAAAAAAAVNUAAAAAAAD///////8AAP//AAD//wAA/////wAAAAD/////AAAAAFTV////////VNX/////AABU1f//AAD//1TV//8AAP//AIAAAP////8AgP///////wCAAAAAAP//AIAAAAAAAAD/v///AAD///+///8AAAAA/78AAAAA////v/////8AAP+/AAD//////78AAP//AAD/v/////////+/VNVU1VTVVNVU1VTVVNVU1f///3////9/////f////3+qqlRVqqpUVaqqVFWqqlRV/3////9/////f////3///wAA/38AAP9/AAD/fwAA/3////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_lsex0")
+
+[node name="DeskSetup" type="Node3D" unique_id=907504952]
+
+[node name="placeholder" type="Node3D" parent="." unique_id=1731720074]
+
+[node name="ComputerMonitor" type="Node3D" parent="placeholder" unique_id=91620697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0.2)
+
+[node name="Casing" type="CSGBox3D" parent="placeholder/ComputerMonitor" unique_id=55683007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3339924, -0.15)
+use_collision = true
+size = Vector3(0.5, 0.4, 0.35)
+material = SubResource("StandardMaterial3D_hlte0")
+
+[node name="Screen" type="MeshInstance3D" parent="placeholder/ComputerMonitor" unique_id=537184410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3350096, 0.027)
+mesh = SubResource("QuadMesh_0aqei")
+surface_material_override/0 = SubResource("StandardMaterial3D_cxmlp")
+
+[node name="ScreenInteractable" type="StaticBody3D" parent="placeholder/ComputerMonitor/Screen" unique_id=1317682807]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/ComputerMonitor/Screen/ScreenInteractable" unique_id=78732863]
+shape = SubResource("BoxShape3D_y33b3")
+
+[node name="WifiRouter" type="CSGBox3D" parent="placeholder" unique_id=1034697675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.57, 0.963, 0)
+use_collision = true
+size = Vector3(0.16, 0.03, 0.12)
+material = SubResource("StandardMaterial3D_c6e7y")
+
+[node name="Antenna" type="CSGCylinder3D" parent="placeholder/WifiRouter" unique_id=936847960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.07, -0.04)
+radius = 0.005
+height = 0.12
+material = SubResource("StandardMaterial3D_c6e7y")
+
+[node name="WifiButton" type="MeshInstance3D" parent="placeholder/WifiRouter" unique_id=612195492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.015, 0.04)
+mesh = SubResource("SphereMesh_hw8yg")
+surface_material_override/0 = SubResource("StandardMaterial3D_00gq5")
+
+[node name="SwitchInteractable" type="StaticBody3D" parent="placeholder/WifiRouter/WifiButton" unique_id=1972470430]
+script = ExtResource("1_o0rpj")
+target_node_path = NodePath("/root/Game3D")
+target_method = "toggle_wifi"
+interact_name = "Wifi Router Power Button"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/WifiRouter/WifiButton/SwitchInteractable" unique_id=1572952256]
+shape = SubResource("BoxShape3D_lu60s")
+
+[node name="office_notepads_1k" type="Node3D" parent="." unique_id=2000989188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.946, 0.227)
+
+[node name="sticky_notes" type="Node3D" parent="office_notepads_1k" unique_id=479521196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.179, 0, 0)
+
+[node name="office_notepads_sticky_sheet2" type="MeshInstance3D" parent="office_notepads_1k/sticky_notes" unique_id=1921659416]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0.13407266, -3.7456235e-08, -0.9909715, -0.9909715, -4.9177242e-08, -0.13407266, 0, -0.1140818, 0)
+mesh = SubResource("ArrayMesh_gdbfx")
+
+[node name="office_notepads_sticky_sheet3" type="MeshInstance3D" parent="office_notepads_1k/sticky_notes" unique_id=162965714]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, -0.10053542, -4.7884463e-08, -0.9949335, -0.9949335, -3.9095386e-08, 0.10053542, 0, -0.18099856, -0.17218246)
+mesh = SubResource("ArrayMesh_gdbfx")
+
+[node name="office_notepads_sticky_sheet4" type="MeshInstance3D" parent="office_notepads_1k/sticky_notes" unique_id=1270713928]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0.1518991, -3.6564437e-08, -0.98839605, -0.98839605, -4.984389e-08, -0.1518991, 0, -0.31662232, 0.008314908)
+mesh = SubResource("ArrayMesh_gdbfx")
+
+[node name="office_notepads_sticky_sheet5" type="MeshInstance3D" parent="office_notepads_1k/sticky_notes" unique_id=798410627]
+transform = Transform3D(-4.371139e-08, 1, -4.3711385e-08, -0.15943325, -5.012131e-08, -0.9872087, -0.9872087, -3.6183224e-08, 0.15943325, 0, -0.3131212, -0.33270174)
+mesh = SubResource("ArrayMesh_gdbfx")
+
+[node name="office_notepads_sticky_sheet6" type="MeshInstance3D" parent="office_notepads_1k/sticky_notes" unique_id=2113290496]
+transform = Transform3D(-4.371139e-08, 1, -4.3711385e-08, -0.020994788, -4.4619465e-08, -0.9997796, -0.9997796, -4.2784055e-08, 0.020994788, 0, -0.4183967, -0.16910245)
+mesh = SubResource("ArrayMesh_gdbfx")
+
+[node name="left_paper_pile" type="Node3D" parent="office_notepads_1k" unique_id=1432595158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.704, 0, 0)
+
+[node name="office_notepads_a4_stack" type="MeshInstance3D" parent="office_notepads_1k/left_paper_pile" unique_id=692958994]
+transform = Transform3D(0.99411696, 0, 0.108311675, 0, 1, 0, -0.108311675, 0, 0.99411696, 0, 0, 0.002)
+mesh = SubResource("ArrayMesh_jry7k")
+
+[node name="office_notepads_a4_a" type="MeshInstance3D" parent="office_notepads_1k/left_paper_pile" unique_id=1815927941]
+transform = Transform3D(0.3114229, 0, -0.9502714, 0, 1, 0, 0.9502714, 0, 0.3114229, -0.11, 0, -0.007)
+mesh = SubResource("ArrayMesh_q8xjg")
+
+[node name="office_notepads_a4_a2" type="MeshInstance3D" parent="office_notepads_1k/left_paper_pile" unique_id=52192094]
+transform = Transform3D(0.8180293, 0, 0.5751766, 0, 1, 0, -0.5751766, 0, 0.8180293, 0.027, 0, 0.034)
+mesh = SubResource("ArrayMesh_q8xjg")
+
+[node name="office_notepads_note_sheet" type="MeshInstance3D" parent="office_notepads_1k/left_paper_pile" unique_id=1440564492]
+transform = Transform3D(0.99146765, 0, 0.13035315, 0, 1, 0, -0.13035315, 0, 0.99146765, 0.238, 0, -0.196)
+mesh = SubResource("ArrayMesh_edoh8")
+
+[node name="right_paper_pile" type="Node3D" parent="office_notepads_1k" unique_id=2083331098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623, 0, 0)
+
+[node name="office_notepads_yellow_pad" type="MeshInstance3D" parent="office_notepads_1k/right_paper_pile" unique_id=1599866311]
+transform = Transform3D(0.9909153, 0, -0.13448778, 0, 1, 0, 0.13448778, 0, 0.9909153, 0, 0, 0.076)
+mesh = SubResource("ArrayMesh_i6amb")
+
+[node name="office_notepads_yellow_sheet" type="MeshInstance3D" parent="office_notepads_1k/right_paper_pile" unique_id=2080732420]
+transform = Transform3D(0.96777946, 0, -0.25179923, 0, 1, 0, 0.25179923, 0, 0.96777946, 0.0031991005, 0, 0.09422454)
+mesh = SubResource("ArrayMesh_uws0b")
+
+[node name="office_notepads_sticky_stack2" type="MeshInstance3D" parent="office_notepads_1k" unique_id=527455775]
+transform = Transform3D(0.9035074, 0, -0.42857242, 0, 1, 0, 0.42857242, 0, 0.9035074, 0.954, 0, 0.116)
+mesh = SubResource("ArrayMesh_m3b1u")
+
+[node name="metal_office_desk_1k" parent="." unique_id=42804426 instance=ExtResource("1_2ahxm")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="standing_picture_frame_01_1k" parent="." unique_id=1845434425 instance=ExtResource("3_0aqei")]
+transform = Transform3D(0.07492883, -0.3854753, -0.91967076, -0.9816271, -0.19080904, -1.2874394e-08, -0.17548144, 0.9027736, -0.39269033, 0.9384546, 0.98602235, -0.098965794)
+
+[node name="cigarette_pack_1k" parent="." unique_id=1718781149 instance=ExtResource("4_utein")]
+transform = Transform3D(-1.1126207, 0.44781724, -0.039178956, 0, 0.10458697, 1.1954337, 0.4495278, 1.108387, -0.096971355, -0.45149377, 0.943755, 0.23170123)
+
+[node name="cardboard_box_01_1k" parent="." unique_id=1326655262 instance=ExtResource("8_lu60s")]
+transform = Transform3D(-0.32358715, 0, 0.9461984, 0, 1, 0, -0.9461984, 0, -0.32358715, -0.77976686, 0.94674426, -0.18299538)
