@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://jeghoqt1s4wf"]
+
+[ext_resource type="Texture2D" uid="uid://dl6fu2ynfq6on" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_diff_1k.jpg" id="1_05xh2"]
+[ext_resource type="Texture2D" uid="uid://c7oy3suk3xg1y" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_nor_gl_1k.jpg" id="2_84iwm"]
+[ext_resource type="Texture2D" uid="uid://cf3kls2l2ud7v" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_rough_1k.jpg" id="3_d4863"]
+
+[resource]
+albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+albedo_texture = ExtResource("1_05xh2")
+roughness_texture = ExtResource("3_d4863")
+normal_enabled = true
+normal_texture = ExtResource("2_84iwm")

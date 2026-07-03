@@ -2,20 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bip8ew85g0dse" path="res://Scripts/game3d.gd" id="1_game3d"]
 [ext_resource type="PackedScene" uid="uid://lr6ecx4umycn" path="res://Scenes/Game.tscn" id="2_game"]
-[ext_resource type="Texture2D" uid="uid://dmnijqr3tiaq8" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_diff_1k.jpg" id="3_nyna6"]
+[ext_resource type="Material" uid="uid://bwy3qauu7tk22" path="res://materials/office_floor.tres" id="3_5wfhr"]
 [ext_resource type="Script" uid="uid://bwioa3l565go3" path="res://Scripts/player.gd" id="3_player"]
-[ext_resource type="Texture2D" uid="uid://bly0dnfebubvp" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_nor_gl_1k.jpg" id="4_ds5qe"]
+[ext_resource type="Material" uid="uid://bghp0mv66hvu3" path="res://materials/office_ceiling.tres" id="4_ds5qe"]
 [ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
-[ext_resource type="Texture2D" uid="uid://hhgnfiisiie1" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_rough_1k.jpg" id="5_ds5qe"]
 [ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
-[ext_resource type="Texture2D" uid="uid://bjjnsf8mc3cx1" path="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_diff_1k.jpg" id="6_bdicf"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
-[ext_resource type="Texture2D" uid="uid://lyr6p4q5ajlj" path="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_nor_gl_1k.jpg" id="7_cu4db"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
-[ext_resource type="Texture2D" uid="uid://wt4tbcyt3c30" path="res://assets/Ceiling/concrete_layers_02_1k.gltf/textures/concrete_layers_02_arm_1k.jpg" id="8_47omi"]
-[ext_resource type="Texture2D" uid="uid://dl6fu2ynfq6on" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_diff_1k.jpg" id="9_bdicf"]
-[ext_resource type="Texture2D" uid="uid://c7oy3suk3xg1y" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_nor_gl_1k.jpg" id="10_cu4db"]
-[ext_resource type="Texture2D" uid="uid://cf3kls2l2ud7v" path="res://assets/Wall/white_plaster_02_1k.gltf/textures/white_plaster_02_rough_1k.jpg" id="11_47omi"]
+[ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
@@ -52,32 +46,6 @@ emission_enabled = true
 emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lubl"]
-albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
-albedo_texture = ExtResource("3_nyna6")
-roughness_texture = ExtResource("5_ds5qe")
-normal_enabled = true
-normal_texture = ExtResource("4_ds5qe")
-uv1_scale = Vector3(3.03, 3.03, 3.03)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
-albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
-albedo_texture = ExtResource("6_bdicf")
-metallic = 1.0
-metallic_texture = ExtResource("8_47omi")
-metallic_texture_channel = 2
-roughness_texture = ExtResource("8_47omi")
-roughness_texture_channel = 1
-normal_enabled = true
-normal_texture = ExtResource("7_cu4db")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls"]
-albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
-albedo_texture = ExtResource("9_bdicf")
-roughness_texture = ExtResource("11_47omi")
-normal_enabled = true
-normal_texture = ExtResource("10_cu4db")
-
 [sub_resource type="QuadMesh" id="QuadMesh_glass"]
 size = Vector2(1.6, 1)
 
@@ -101,6 +69,11 @@ roughness = 0.75
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
 albedo_color = Color(0.22, 0.2, 0.18, 1)
 roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
+albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+metallic = 1.0
+normal_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
 size = Vector3(0.15, 0.15, 0.15)
@@ -232,61 +205,67 @@ surface_material_override/0 = SubResource("StandardMaterial3D_door_light")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 1.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
-material = SubResource("StandardMaterial3D_8lubl")
+material = ExtResource("3_5wfhr")
 
 [node name="Ceiling" type="CSGBox3D" parent="Office" unique_id=272765307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 1.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
-material = SubResource("StandardMaterial3D_floor")
+material = ExtResource("4_ds5qe")
 
 [node name="LeftWall_Back" type="CSGBox3D" parent="Office" unique_id=1627625243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, -0.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 2)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="LeftWall_Front" type="CSGBox3D" parent="Office" unique_id=1646054487]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, 3.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 2)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="LeftWall_Top" type="CSGBox3D" parent="Office" unique_id=2111334837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 2.35, 1.5)
 use_collision = true
 size = Vector3(0.1, 0.4, 2)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="RightWall" type="CSGBox3D" parent="Office" unique_id=1975533488]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 1.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 6)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="BackWall_Bottom" type="CSGBox3D" parent="Office" unique_id=848312036]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -1.55)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="BackWall_Top" type="CSGBox3D" parent="Office" unique_id=847237108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, -1.55)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="BackWall_Left" type="CSGBox3D" parent="Office" unique_id=1575880598]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.3, -1.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.275, -1.55)
 use_collision = true
-size = Vector3(2.2, 1, 0.1)
-material = SubResource("StandardMaterial3D_walls")
+size = Vector3(2.2, 0.95, 0.1)
+material = ExtResource("10_r4ocn")
 
 [node name="BackWall_Right" type="CSGBox3D" parent="Office" unique_id=1186311686]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.3, -1.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.275, -1.55)
 use_collision = true
-size = Vector3(2.2, 1, 0.1)
-material = SubResource("StandardMaterial3D_walls")
+size = Vector3(2.2, 0.95, 0.1)
+material = ExtResource("10_r4ocn")
+
+[node name="FrontWall" type="CSGBox3D" parent="Office" unique_id=265883917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.55)
+use_collision = true
+size = Vector3(6, 2.6, 0.1)
+material = ExtResource("10_r4ocn")
 
 [node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1.54)
@@ -414,12 +393,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0)
 mesh = SubResource("SphereMesh_bulb")
 surface_material_override/0 = SubResource("StandardMaterial3D_bulb_glow")
 
-[node name="FrontWall" type="CSGBox3D" parent="Office" unique_id=265883917]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.55)
-use_collision = true
-size = Vector3(6, 2.6, 0.1)
-material = SubResource("StandardMaterial3D_walls")
-
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
 transform = Transform3D(-0.027991377, 0, 0.99960816, 0, 1, 0, -0.99960816, 0, -0.027991377, -2.9693189, 1.25, 0.07474077)
 
@@ -508,31 +481,31 @@ texture = ExtResource("6_hunter_sprite")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -3.5)
 use_collision = true
 size = Vector3(4, 0.1, 4)
-material = SubResource("StandardMaterial3D_floor")
+material = ExtResource("4_ds5qe")
 
 [node name="ChamberCeiling" type="CSGBox3D" parent="RobotChamber" unique_id=2062247221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, -3.5)
 use_collision = true
 size = Vector3(4, 0.1, 4)
-material = SubResource("StandardMaterial3D_floor")
+material = ExtResource("4_ds5qe")
 
 [node name="ChamberBackWall" type="CSGBox3D" parent="RobotChamber" unique_id=1316252060]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -5.55)
 use_collision = true
 size = Vector3(4, 2.6, 0.1)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="ChamberLeftWall" type="CSGBox3D" parent="RobotChamber" unique_id=817384724]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05, 1.25, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05, 1.25, -3.525)
 use_collision = true
 size = Vector3(0.1, 2.6, 4)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="ChamberRightWall" type="CSGBox3D" parent="RobotChamber" unique_id=1206405157]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 1.25, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 1.25, -3.525)
 use_collision = true
 size = Vector3(0.1, 2.6, 4)
-material = SubResource("StandardMaterial3D_walls")
+material = ExtResource("10_r4ocn")
 
 [node name="RobotSprite3D" type="Sprite3D" parent="RobotChamber" unique_id=980507438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -3)

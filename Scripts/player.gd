@@ -289,7 +289,3 @@ func handle_settings_shortcut():
 				pause_menu.visible = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				get_tree().paused = true
-
-
-
-
