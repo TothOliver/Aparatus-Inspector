@@ -1,6 +1,9 @@
 extends HunterBase
 class_name HunterPhase4
 
+@export_group("Phase 4 References")
+@export var phase2_robot: CharacterBody3D
+
 enum State {
 	INACTIVE,
 	BREAKING_IN
@@ -14,8 +17,12 @@ func _ready():
 	super._ready()
 	$Sprite3D.visible = false
 	set_physics_process(false)
+	
+	if not phase2_robot:
+		phase2_robot = get_node_or_null("../HunterPhase2")
 
 func activate():
+	print("[Phase 4 Debug] activate() called!")
 	current_state = State.BREAKING_IN
 	global_position = get_door_pos()
 	
@@ -51,8 +58,10 @@ func _physics_process(delta):
 		GameStats.power_level = max(0.0, GameStats.power_level - 15.0)
 		bang_count += 1
 		
-		# Check if we trip the breaker or break in
-		if bang_count >= 3 or GameStats.power_level <= 0:
+		# Check if we successfully defended the door (failed break-in) or ran out of power
+		if bang_count >= 3:
+			retreat_to_phase2()
+		elif GameStats.power_level <= 0:
 			var game_3d = get_parent_node_3d()
 			if game_3d and game_3d.has_method("trigger_breaker_outage"):
 				game_3d.trigger_breaker_outage() # This automatically sets door_locked to false
@@ -61,7 +70,17 @@ func _physics_process(delta):
 			# Schedule next bang
 			state_timer = randf_range(1.5, 3.5)
 
+func retreat_to_phase2():
+	print("[Phase 4 Debug] Retreating back to Phase 2 due to failed break-in!")
+	$Sprite3D.visible = false
+	current_state = State.INACTIVE
+	set_physics_process(false)
+	
+	if phase2_robot:
+		phase2_robot.activate()
+
 func kill_player():
+	print("[Phase 4 Debug] kill_player() called!")
 	current_state = State.INACTIVE
 	set_physics_process(false)
 	

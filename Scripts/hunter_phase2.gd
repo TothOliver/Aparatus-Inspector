@@ -19,6 +19,11 @@ func _ready():
 	super._ready()
 	$Sprite3D.visible = false
 	set_physics_process(false)
+	
+	if not phase1_robot:
+		phase1_robot = get_node_or_null("../HunterPhase1")
+	if not phase3_robot:
+		phase3_robot = get_node_or_null("../HunterPhase3")
 
 func activate():
 	current_state = State.SPAWNED
@@ -47,8 +52,8 @@ func activate():
 	ap.pitch_scale = randf_range(0.7, 0.9)
 	ap.play()
 	
-	# Random duration to stare before advancing (12 to 20 seconds)
-	stare_duration_timer = randf_range(12.0, 20.0)
+	# Duration to stare before advancing (exactly 10 seconds)
+	stare_duration_timer = 10.0
 	
 	set_physics_process(true)
 
@@ -65,7 +70,12 @@ func _physics_process(delta):
 	else:
 		look_duration = 0.0
 
-	stare_duration_timer -= delta
+	var game_3d = get_parent_node_3d()
+	var speed_mult = 1.0
+	if game_3d and not game_3d.is_curtain_closed and game_3d.is_monitor_on:
+		speed_mult = 2.0
+		
+	stare_duration_timer -= delta * speed_mult
 	if stare_duration_timer <= 0:
 		advance_to_phase3()
 
@@ -78,14 +88,7 @@ func check_if_player_sees_hunter() -> bool:
 	if not player:
 		return false
 		
-	# 1. Check if player is viewing CCTV Camera app on computer
-	var seen_on_cctv = false
-	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
-		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
-		if cctv_win and cctv_win.visible:
-			seen_on_cctv = true
-			
-	# 2. Check if player is looking directly at the hunter in 3D
+	# Check if player is looking directly at the hunter in 3D and has flashlight on
 	var seen_in_3d = false
 	if player.current_state != player.State.COMPUTER_VIEW:
 		var camera = player.get_node_or_null("Camera3D")
@@ -94,9 +97,17 @@ func check_if_player_sees_hunter() -> bool:
 			var camera_forward = -camera.global_transform.basis.z.normalized()
 			var dot = camera_forward.dot(dir_to_hunter)
 			if dot > 0.7:
-				seen_in_3d = true
+				# If monster is outside the window, curtain must be open
+				var blocks_sight = false
+				if global_position.z < -1.0 and game_3d.is_curtain_closed:
+					blocks_sight = true
+					
+				if not blocks_sight:
+					var flashlight_on = player.flashlight and player.flashlight.visible
+					if flashlight_on:
+						seen_in_3d = true
 				
-	return seen_on_cctv or seen_in_3d
+	return seen_in_3d
 
 func retreat_and_reset():
 	$Sprite3D.visible = false

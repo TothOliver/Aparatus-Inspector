@@ -6,7 +6,7 @@ extends Node3D
 @onready var game_2d = $SubViewportContainer/SubViewport/Control2
 
 @onready var desk_light = $Lighting/DeskLight
-@onready var screen_mesh = $ComputerMonitor/Screen
+@export var screen_mesh: MeshInstance3D
 @onready var corridor_light = $Lighting/CorridorLight
 @onready var door_light = $Office/DoorLight
 @onready var door_mesh = $Office/LeftDoor
@@ -41,6 +41,9 @@ var is_breaker_tripped: bool = false
 @onready var breaker_lever = get_node_or_null("Office/BreakerBox/BreakerLever") as MeshInstance3D
 
 func _ready():
+	if not screen_mesh:
+		screen_mesh = get_node_or_null("ComputerMonitor/Screen") as MeshInstance3D
+		
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	

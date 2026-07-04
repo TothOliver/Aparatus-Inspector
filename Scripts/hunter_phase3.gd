@@ -24,6 +24,11 @@ func _ready():
 	super._ready()
 	$Sprite3D.visible = false
 	set_physics_process(false)
+	
+	if not phase1_robot:
+		phase1_robot = get_node_or_null("../HunterPhase1")
+	if not phase4_robot:
+		phase4_robot = get_node_or_null("../HunterPhase4")
 
 func activate(peek_loc: PeekLocation):
 	current_state = State.DOOR_RATTLE
@@ -71,6 +76,7 @@ func _physics_process(delta):
 		current_state = State.INACTIVE
 		set_physics_process(false)
 		
+		print("[Phase 3 Debug] Timer expired! door_locked: ", GameStats.door_locked, " phase4_robot: ", phase4_robot)
 		if GameStats.door_locked:
 			if phase4_robot:
 				phase4_robot.activate()
@@ -108,12 +114,16 @@ func check_if_player_sees_hunter() -> bool:
 					seen_through_window = true
 					
 	# Match based on chosen peek location
+	var result = false
 	if active_peek_location == PeekLocation.WINDOW:
-		return seen_through_window
+		result = seen_through_window
 	elif active_peek_location == PeekLocation.CAMERA:
-		return seen_on_cctv
+		result = seen_on_cctv
 	else:
-		return seen_on_cctv or seen_through_window
+		result = seen_on_cctv or seen_through_window
+		
+	print("[Phase 3 Debug] location: ", active_peek_location, " curtain_closed: ", game_3d.is_curtain_closed, " cctv: ", seen_on_cctv, " window: ", seen_through_window, " RETREAT: ", result)
+	return result
 
 func retreat_and_reset():
 	$Sprite3D.visible = false
