@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
+[ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
@@ -392,6 +393,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_casing_gray")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0)
 mesh = SubResource("SphereMesh_bulb")
 surface_material_override/0 = SubResource("StandardMaterial3D_bulb_glow")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Office/CeilingFixture" unique_id=270516414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1784904, 0)
+stream = ExtResource("7_ynh6o")
+volume_db = -12.0
+autoplay = true
+max_distance = 5.0
 
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
 transform = Transform3D(-0.027991377, 0, 0.99960816, 0, 1, 0, -0.99960816, 0, -0.027991377, -2.9693189, 1.25, 0.07474077)
