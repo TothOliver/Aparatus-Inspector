@@ -24,6 +24,17 @@ func _ready():
 		
 	super._ready()
 
+	# Ensure the Hunter has a sprite texture to use
+	if GameStats.let_through_bad_sprites.is_empty():
+		var fallback_tex = load("res://Sprites/robot1.png")
+		if fallback_tex:
+			GameStats.let_through_bad_sprites.append(fallback_tex)
+			
+	# Close the office curtain initially so the player doesn't instantly spot the Hunter on spawn
+	is_curtain_closed = true
+	target_curtain_scale_x = 1.0
+	target_curtain_pos_x = 0.0
+
 func _process(delta):
 	super._process(delta)
 	

@@ -25,6 +25,11 @@ func _ready():
 	$Sprite3D.visible = false
 	current_state = State.PATROLLING
 	is_active = false
+	
+	if not phase2_robot:
+		phase2_robot = get_node_or_null("../HunterPhase2")
+	if not phase3_robot:
+		phase3_robot = get_node_or_null("../HunterPhase3")
 
 func _physics_process(delta):
 	# Hunter is completely inactive on Day 1 no matter what
@@ -134,13 +139,13 @@ func spawn_and_stare():
 	ap.pitch_scale = randf_range(0.9, 1.1)
 	ap.play()
 	
-	# Set random duration to stare before advancing to Phase 2 (15 to 25 seconds)
-	stare_duration_timer = randf_range(15.0, 25.0)
+	# Set duration to stare before advancing to Phase 2 (exactly 10 seconds)
+	stare_duration_timer = 10.0
 	look_duration = 0.0
 
 func handle_spawned(delta):
-	# Check if player looks at it on CCTV
-	if check_if_player_looks_at_cctv():
+	# Check if player sees the hunter (CCTV or 3D + flashlight)
+	if check_if_player_sees_hunter():
 		look_duration += delta
 		if look_duration >= 1.0:
 			disappear_and_reset()
@@ -149,10 +154,49 @@ func handle_spawned(delta):
 		# Reset continuous look requirement
 		look_duration = 0.0
 
-	stare_duration_timer -= delta
+	var game_3d = get_parent_node_3d()
+	var speed_mult = 1.0
+	if game_3d and not game_3d.is_curtain_closed and game_3d.is_monitor_on:
+		speed_mult = 2.0
+		
+	stare_duration_timer -= delta * speed_mult
 	if stare_duration_timer <= 0:
 		# Player ignored the robot. Advance to Phase 2!
 		advance_to_phase2()
+
+func check_if_player_sees_hunter() -> bool:
+	# 1. Check if player looks at it on CCTV
+	if check_if_player_looks_at_cctv():
+		return true
+		
+	# 2. Check if player is looking directly at it in 3D and has flashlight on
+	var game_3d = get_parent_node_3d()
+	if not game_3d:
+		return false
+		
+	var player = game_3d.get_node_or_null("Player")
+	if not player:
+		return false
+		
+	var seen_in_3d = false
+	if player.current_state != player.State.COMPUTER_VIEW:
+		var camera = player.get_node_or_null("Camera3D")
+		if camera:
+			var dir_to_hunter = (global_position - camera.global_position).normalized()
+			var camera_forward = -camera.global_transform.basis.z.normalized()
+			var dot = camera_forward.dot(dir_to_hunter)
+			if dot > 0.7:
+				# If monster is outside the window, curtain must be open
+				var blocks_sight = false
+				if global_position.z < -1.0 and game_3d.is_curtain_closed:
+					blocks_sight = true
+					
+				if not blocks_sight:
+					var flashlight_on = player.flashlight and player.flashlight.visible
+					if flashlight_on:
+						seen_in_3d = true
+						
+	return seen_in_3d
 
 func check_if_player_looks_at_cctv() -> bool:
 	var game_3d = get_parent_node_3d()
