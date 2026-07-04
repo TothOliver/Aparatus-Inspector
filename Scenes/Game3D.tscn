@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://mytfkbsyyays" path="res://Scripts/hunter_robot.gd" id="5_hunter"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
+[ext_resource type="PackedScene" uid="uid://jadxrpu615rl" path="res://Scenes/deskSetup.tscn" id="7_upeov"]
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
@@ -63,10 +64,6 @@ roughness = 0.9
 [sub_resource type="BoxShape3D" id="BoxShape3D_curtain"]
 size = Vector3(1.7, 1.1, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_desk"]
-albedo_color = Color(0.18, 0.12, 0.09, 1)
-roughness = 0.75
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
 albedo_color = Color(0.22, 0.2, 0.18, 1)
 roughness = 0.8
@@ -82,17 +79,6 @@ size = Vector3(0.15, 0.15, 0.15)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing_gray"]
 albedo_color = Color(0.15, 0.15, 0.15, 1)
 roughness = 0.8
-
-[sub_resource type="SphereMesh" id="SphereMesh_wifi_led"]
-radius = 0.012
-height = 0.024
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wifi_led"]
-resource_local_to_scene = true
-albedo_color = Color(0, 1, 0, 1)
-emission_enabled = true
-emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 1.5
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_casing"]
 top_radius = 0.08
@@ -126,25 +112,6 @@ albedo_color = Color(0.8, 0.1, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_breaker_col"]
 size = Vector3(0.18, 0.25, 0.08)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing"]
-albedo_color = Color(0.42, 0.42, 0.39, 1)
-roughness = 0.65
-
-[sub_resource type="QuadMesh" id="QuadMesh_screen"]
-size = Vector2(0.44, 0.33)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_monitor"]
-viewport_path = NodePath("SubViewportContainer/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_screen"]
-resource_local_to_scene = true
-shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_monitor")
-texture_filter = 0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_screen"]
-size = Vector3(0.5, 0.4, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_corridor"]
 albedo_color = Color(0.18, 0.18, 0.18, 1)
@@ -288,35 +255,8 @@ interact_name = "Window Curtain"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/CurtainInteractable" unique_id=629384712]
 shape = SubResource("BoxShape3D_curtain")
 
-[node name="Desk" type="CSGBox3D" parent="Office" unique_id=1164375303]
-transform = Transform3D(1, 0, 0, 0, 0.15977067, 0, 0, 0, 1, 0, 1.0740737, -0.1)
-use_collision = true
-size = Vector3(1.6, 0.7, 0.7)
-material = SubResource("StandardMaterial3D_desk")
-
-[node name="Chair2" type="CSGBox3D" parent="Office" unique_id=1635630162]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7281116, 0.5119291, -0.35145512)
-use_collision = true
-size = Vector3(0.14376831, 1.0302734, 0.14111328)
-material = SubResource("StandardMaterial3D_desk")
-
-[node name="Chair3" type="CSGBox3D" parent="Office" unique_id=1308681229]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7281116, 0.53341347, 0.17082152)
-use_collision = true
-size = Vector3(0.14376831, 0.9873047, 0.14111328)
-material = SubResource("StandardMaterial3D_desk")
-
-[node name="Chair4" type="CSGBox3D" parent="Office" unique_id=613078180]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7115612, 0.5192533, -0.35145512)
-use_collision = true
-size = Vector3(0.14376831, 1.015625, 0.14111328)
-material = SubResource("StandardMaterial3D_desk")
-
-[node name="Chair5" type="CSGBox3D" parent="Office" unique_id=1377863246]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7115612, 0.51827675, 0.17082152)
-use_collision = true
-size = Vector3(0.14376831, 1.0175781, 0.14111328)
-material = SubResource("StandardMaterial3D_desk")
+[node name="DeskSetup" parent="Office" unique_id=907504952 instance=ExtResource("7_upeov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 
 [node name="LeftDoor" type="Node3D" parent="Office" unique_id=409843211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 2.5)
@@ -355,32 +295,6 @@ interact_name = "Door Lock Switch"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/DoorSwitch/SwitchInteractable" unique_id=384729104]
 shape = SubResource("BoxShape3D_switch")
 
-[node name="WifiRouter" type="CSGBox3D" parent="Office" unique_id=2085543169]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.1504805, -0.2)
-use_collision = true
-size = Vector3(0.16, 0.03, 0.12)
-material = SubResource("StandardMaterial3D_casing_gray")
-
-[node name="Antenna" type="CSGCylinder3D" parent="Office/WifiRouter" unique_id=2085543170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.07, -0.04)
-radius = 0.005
-height = 0.12
-material = SubResource("StandardMaterial3D_casing_gray")
-
-[node name="WifiButton" type="MeshInstance3D" parent="Office/WifiRouter" unique_id=2085543171]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.015, 0.04)
-mesh = SubResource("SphereMesh_wifi_led")
-surface_material_override/0 = SubResource("StandardMaterial3D_wifi_led")
-
-[node name="SwitchInteractable" type="StaticBody3D" parent="Office/WifiRouter/WifiButton" unique_id=2085543172]
-script = ExtResource("4_switch")
-target_node_path = NodePath("/root/Game3D")
-target_method = "toggle_wifi"
-interact_name = "Wifi Router Power Button"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/WifiRouter/WifiButton/SwitchInteractable" unique_id=2085543173]
-shape = SubResource("BoxShape3D_switch")
-
 [node name="CeilingFixture" type="Node3D" parent="Office" unique_id=80498322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.1)
 
@@ -415,24 +329,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_breaker_lever")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/BreakerBox" unique_id=237491292]
 shape = SubResource("BoxShape3D_breaker_col")
-
-[node name="ComputerMonitor" type="Node3D" parent="." unique_id=1637242882]
-
-[node name="Casing" type="CSGBox3D" parent="ComputerMonitor" unique_id=879704546]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3339924, -0.15)
-use_collision = true
-size = Vector3(0.5, 0.4, 0.35)
-material = SubResource("StandardMaterial3D_casing")
-
-[node name="Screen" type="MeshInstance3D" parent="ComputerMonitor" unique_id=1456098325]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3350096, 0.027)
-mesh = SubResource("QuadMesh_screen")
-surface_material_override/0 = SubResource("StandardMaterial3D_screen")
-
-[node name="ScreenInteractable" type="StaticBody3D" parent="ComputerMonitor/Screen" unique_id=683158066]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ComputerMonitor/Screen/ScreenInteractable" unique_id=633049555]
-shape = SubResource("BoxShape3D_screen")
 
 [node name="Corridor" type="CSGBox3D" parent="." unique_id=635068787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.049998, 1.2999938, 1.4999995)
