@@ -61,7 +61,7 @@ func _process(delta: float) -> void:
 	# Only transition once the loading is complete AND the minimum time has elapsed
 	if load_status == ResourceLoader.THREAD_LOAD_LOADED and elapsed_time >= min_load_time:
 		var loaded_res = ResourceLoader.load_threaded_get(target_path)
-		get_tree().change_scene_to_packed(loaded_res)
+		get_tree().change_scene_to_packed.call_deferred(loaded_res)
 	elif load_status == ResourceLoader.THREAD_LOAD_FAILED or load_status == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		status_label.text = "Error: Failed to load target scene."
 		set_process(false)

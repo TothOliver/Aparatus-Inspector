@@ -111,6 +111,8 @@ func _on_resume_pressed():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event):
+	if not is_inside_tree():
+		return
 	if not is_pause_menu:
 		return
 		

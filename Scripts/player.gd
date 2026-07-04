@@ -69,7 +69,7 @@ func _physics_process(delta):
 		is_crouching = false
 		handle_computer_view(delta)
 
-func _process(delta):
+func _process(_delta):
 	# Check for interaction raycasts
 	check_interaction()
 	

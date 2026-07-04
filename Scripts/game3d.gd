@@ -197,7 +197,7 @@ func _process(delta):
 
 func _input(event):
 	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
-	if viewport_container and viewport_container.visible:
+	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible:
 		if event is InputEventKey:
 			sub_viewport.push_input(event)
 			if event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER):
@@ -375,8 +375,15 @@ func _on_interact_prompt_changed(text: String):
 	$HUD/PromptLabel.text = text
 
 func _double_trigger_enter():
+	if not is_inside_tree():
+		return
+	var tree = get_tree()
+	if not tree:
+		return
 	# Wait a tiny bit to let the first submission finish executing
-	await get_tree().create_timer(0.04).timeout
+	await tree.create_timer(0.04).timeout
+	if not is_inside_tree() or not is_instance_valid(sub_viewport) or not sub_viewport.is_inside_tree():
+		return
 	if viewport_container and viewport_container.visible:
 		# Create simulated Enter pressed event
 		var press_event = InputEventKey.new()

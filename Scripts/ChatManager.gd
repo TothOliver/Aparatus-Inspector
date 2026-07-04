@@ -4,14 +4,14 @@ extends Control
 var bubble_scene = preload("res://Scenes/ChatBubble.tscn")
 var chatCount = -1
 	
-func add_message(text: String, name: String):
+func add_message(text: String, sender_name: String):
 	if text.is_empty():
 		return
 	if not is_inside_tree() or not dialogue_panel:
 		return
 	var bubble = bubble_scene.instantiate()
 	dialogue_panel.add_child(bubble)
-	bubble.set_message(name + ": " + text)
+	bubble.set_message(sender_name + ": " + text)
 	chatCount += 1
 	
 	# Auto-scroll to bottom on the next frame

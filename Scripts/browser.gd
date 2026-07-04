@@ -475,7 +475,7 @@ func navigate_to(url: String, record_history: bool = true):
 	current_url = target
 	_load_current_page(record_history)
 
-func _load_current_page(update_history_buttons: bool = true):
+func _load_current_page(_update_history_buttons: bool = true):
 	if url_field:
 		url_field.text = current_url
 		

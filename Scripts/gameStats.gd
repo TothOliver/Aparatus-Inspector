@@ -114,14 +114,16 @@ func quit_or_menu(tree: SceneTree):
 	else:
 		reset_game_state()
 		tree.paused = false
-		tree.change_scene_to_file("res://Scenes/MainMenu.tscn")
+		tree.change_scene_to_file.call_deferred("res://Scenes/MainMenu.tscn")
 
 func change_scene_with_loading(tree: SceneTree, target_path: String):
 	target_scene_path = target_path
 	tree.paused = false
-	tree.change_scene_to_file("res://Scenes/LoadingScreen.tscn")
+	tree.change_scene_to_file.call_deferred("res://Scenes/LoadingScreen.tscn")
 
 func _input(event):
+	if not is_inside_tree():
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		var is_f11 = event.keycode == KEY_F11
 		var is_enter = event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER

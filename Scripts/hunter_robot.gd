@@ -168,7 +168,7 @@ func _physics_process(delta):
 	# Handle footstep audio timing
 	handle_footsteps(delta)
 
-func handle_patrol(delta):
+func handle_patrol(_delta):
 	# Remain stationary at the starting point in the far corridor
 	global_position = get_start_pos()
 	

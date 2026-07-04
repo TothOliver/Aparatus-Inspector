@@ -33,4 +33,4 @@ func _ready():
 func _on_proceed_pressed():
 	GameStats.current_day += 1
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Scenes/Game3D.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/Game3D.tscn")

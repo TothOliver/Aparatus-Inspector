@@ -382,8 +382,8 @@ func _update_tab_state(tab: Button, active: bool):
 			tab.add_theme_stylebox_override("pressed", pressed_style)
 			tab.add_theme_stylebox_override("focus", hover_style)
 
-func _get_window_by_name(name: String) -> Control:
-	match name:
+func _get_window_by_name(window_name: String) -> Control:
+	match window_name:
 		"Inspector": return inspector_window
 		"Notepad": return notepad_window
 		"Terminal": return terminal_window
@@ -417,8 +417,8 @@ func toggle_window_from_tab(app_name: String):
 		else:
 			window.restore()
 
-func _get_tab_by_name(name: String) -> Button:
-	match name:
+func _get_tab_by_name(tab_name: String) -> Button:
+	match tab_name:
 		"Inspector": return inspector_tab
 		"Notepad": return notepad_tab
 		"Terminal": return terminal_tab

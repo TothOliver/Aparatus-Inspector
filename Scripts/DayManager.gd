@@ -92,8 +92,8 @@ func start_new_day():
 		door.rotation.y = 0.0
 		
 	# Load persisted health/sanity
-	sanity = GameStats.player_sanity
-	health = GameStats.player_health
+	sanity = int(GameStats.player_sanity)
+	health = int(GameStats.player_health)
 		
 	var config = day_configs[current_day]
 	print("--- DAY ", current_day, " START ---")
