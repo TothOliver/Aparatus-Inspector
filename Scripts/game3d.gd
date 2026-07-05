@@ -12,7 +12,7 @@ extends Node3D
 @onready var door_mesh = $Office/LeftDoor
 @onready var reticle = $HUD/Reticle
 @onready var ceiling_bulb = $Office/CeilingFixture/Bulb
-@onready var wifi_led = $Office/WifiRouter/WifiButton
+@export var wifi_led: MeshInstance3D
 @onready var curtain_node = $Office/Curtain
 
 var aspect_overlay: Control
@@ -42,7 +42,23 @@ var is_breaker_tripped: bool = false
 
 func _ready():
 	if not screen_mesh:
+		screen_mesh = get_node_or_null("Office/DeskSetup/placeholder/ComputerMonitor/Screen") as MeshInstance3D
+	if not screen_mesh:
 		screen_mesh = get_node_or_null("ComputerMonitor/Screen") as MeshInstance3D
+		
+	if not wifi_led:
+		wifi_led = get_node_or_null("Office/DeskSetup/placeholder/WifiRouter/WifiButton") as MeshInstance3D
+	if not wifi_led:
+		wifi_led = get_node_or_null("Office/WifiRouter/WifiButton") as MeshInstance3D
+		
+	if screen_mesh and sub_viewport:
+		var material = screen_mesh.get_active_material(0) as StandardMaterial3D
+		if not material:
+			material = screen_mesh.get_surface_override_material(0) as StandardMaterial3D
+		if not material and screen_mesh.mesh:
+			material = screen_mesh.mesh.material as StandardMaterial3D
+		if material:
+			material.albedo_texture = sub_viewport.get_texture()
 		
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
