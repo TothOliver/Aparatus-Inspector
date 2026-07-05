@@ -29,26 +29,10 @@ roughness = 0.9
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdu5l"]
 resource_local_to_scene = true
-albedo_color = Color(0, 1, 0, 1)
-emission_enabled = true
-emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 1.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjgni"]
-resource_local_to_scene = true
 albedo_color = Color(1, 1, 0.9, 1)
 emission_enabled = true
 emission = Color(1, 0.95, 0.85, 1)
 emission_energy_multiplier = 2.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_wn8fx"]
-viewport_path = NodePath("SubViewportContainer/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgfyk"]
-resource_local_to_scene = true
-shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_wn8fx")
-texture_filter = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.4
@@ -87,67 +71,50 @@ script = ExtResource("2_script")
 [node name="DoorLight" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="0" unique_id=1542004563]
 surface_material_override/0 = SubResource("StandardMaterial3D_w11a4")
 
-[node name="RightWall" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="6" unique_id=1975533488]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, -0.40283203)
-size = Vector3(0.1, 2.6, 2.194336)
-
-[node name="RightWall2" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="7" unique_id=1810526683]
+[node name="RightWall3" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="7" unique_id=1810526683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 3.447176)
 use_collision = true
 size = Vector3(0.1, 2.6, 2.194336)
 material = SubResource("StandardMaterial3D_walls")
 
-[node name="Curtain2" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="14" unique_id=1709281139]
+[node name="Curtain4" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="14" unique_id=1709281139]
 transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23683, 1.27984, -1.4393517)
 size = Vector3(1.7, 0.94437253, 0.04)
 material = SubResource("StandardMaterial3D_curtain")
 
-[node name="Curtain3" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="15" unique_id=1090749948]
+[node name="Curtain5" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="15" unique_id=1090749948]
 transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7487085, 1.27984, 10.433812)
 size = Vector3(1.7, 0.94437253, 0.04)
 material = SubResource("StandardMaterial3D_curtain")
 
-[node name="WifiButton" parent="Office/WifiRouter" parent_id_path=PackedInt32Array(2085543169) index="1" unique_id=2085543171]
+[node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="1" unique_id=1047560640]
 surface_material_override/0 = SubResource("StandardMaterial3D_kdu5l")
 
-[node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="1" unique_id=1047560640]
-surface_material_override/0 = SubResource("StandardMaterial3D_rjgni")
-
-[node name="FrontWall" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="27" unique_id=265883917]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8343825, 1.25, 4.55)
-size = Vector3(2.5830078, 2.6, 0.1)
-
-[node name="FrontWall2" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="28" unique_id=878981214]
+[node name="FrontWall3" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="28" unique_id=878981214]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8228774, 1.25, 4.55)
 use_collision = true
 size = Vector3(2.5830078, 2.6, 0.1)
 material = SubResource("StandardMaterial3D_walls")
 
-[node name="Screen" parent="ComputerMonitor" parent_id_path=PackedInt32Array(1637242882) index="1" unique_id=1456098325]
-surface_material_override/0 = SubResource("StandardMaterial3D_pgfyk")
-
-[node name="Corridor" parent="." index="5" unique_id=635068787]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.050266, 1.2995325, 1.4994271)
-
-[node name="Phase1Spawn1" type="Marker3D" parent="." index="16" unique_id=1136143014]
+[node name="Phase1Spawn4" type="Marker3D" parent="." index="16" unique_id=1136143014]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 1, -4.8296156)
 
-[node name="Phase1Spawn2" type="Marker3D" parent="." index="17" unique_id=873404773]
+[node name="Phase1Spawn5" type="Marker3D" parent="." index="17" unique_id=873404773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3115807, 1, -16.328611)
 
-[node name="Phase1Spawn3" type="Marker3D" parent="." index="18" unique_id=1721085230]
+[node name="Phase1Spawn6" type="Marker3D" parent="." index="18" unique_id=1721085230]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, 1, 15.279053)
 
-[node name="Phase2Spawn1" type="Marker3D" parent="." index="19" unique_id=121111111]
+[node name="Phase2Spawn4" type="Marker3D" parent="." index="19" unique_id=121111111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.1)
 
-[node name="Phase2Spawn2" type="Marker3D" parent="." index="20" unique_id=121111112]
+[node name="Phase2Spawn5" type="Marker3D" parent="." index="20" unique_id=121111112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.130946, 1, -1.974645)
 
-[node name="Phase2Spawn3" type="Marker3D" parent="." index="21" unique_id=121111113]
+[node name="Phase2Spawn6" type="Marker3D" parent="." index="21" unique_id=121111113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10306537, 1, 11.188381)
 
-[node name="HunterPhase1" type="CharacterBody3D" parent="." index="22" unique_id=500476820]
+[node name="HunterPhase5" type="CharacterBody3D" parent="." index="22" unique_id=500476820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("3_hunter_p1")
 phase2_robot = NodePath("../HunterPhase2")
@@ -160,19 +127,7 @@ window_peek_marker = NodePath("../WindowPeekMarker")
 camera_peek_marker = NodePath("../CameraPeekMarker")
 jumpscare_marker = NodePath("../JumpscareMarker")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase1" index="0" unique_id=1734543744]
-shape = SubResource("CapsuleShape3D_player")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase1" index="1" unique_id=703376037]
-
-[node name="Sprite3D" type="Sprite3D" parent="HunterPhase1" index="2" unique_id=1439095790]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-pixel_size = 0.006
-billboard = 1
-double_sided = false
-texture = ExtResource("6_hunter_sprite")
-
-[node name="HunterPhase2" type="CharacterBody3D" parent="." index="23" unique_id=1703336048]
+[node name="HunterPhase6" type="CharacterBody3D" parent="." index="23" unique_id=1703336048]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("4_hunter_p2")
 phase1_robot = NodePath("../HunterPhase1")
@@ -185,19 +140,7 @@ window_peek_marker = NodePath("../WindowPeekMarker")
 camera_peek_marker = NodePath("../CameraPeekMarker")
 jumpscare_marker = NodePath("../JumpscareMarker")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase2" index="0" unique_id=969227919]
-shape = SubResource("CapsuleShape3D_player")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase2" index="1" unique_id=1068180620]
-
-[node name="Sprite3D" type="Sprite3D" parent="HunterPhase2" index="2" unique_id=1686748764]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-pixel_size = 0.006
-billboard = 1
-double_sided = false
-texture = ExtResource("6_hunter_sprite")
-
-[node name="HunterPhase3" type="CharacterBody3D" parent="." index="24" unique_id=734618851]
+[node name="HunterPhase7" type="CharacterBody3D" parent="." index="24" unique_id=734618851]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("5_hunter_p3")
 phase1_robot = NodePath("../HunterPhase1")
@@ -209,19 +152,7 @@ window_peek_marker = NodePath("../WindowPeekMarker")
 camera_peek_marker = NodePath("../CameraPeekMarker")
 jumpscare_marker = NodePath("../JumpscareMarker")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase3" index="0" unique_id=1428885652]
-shape = SubResource("CapsuleShape3D_player")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase3" index="1" unique_id=14583762]
-
-[node name="Sprite3D" type="Sprite3D" parent="HunterPhase3" index="2" unique_id=2137436410]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-pixel_size = 0.006
-billboard = 1
-double_sided = false
-texture = ExtResource("6_hunter_sprite")
-
-[node name="HunterPhase4" type="CharacterBody3D" parent="." index="25" unique_id=74488888]
+[node name="HunterPhase8" type="CharacterBody3D" parent="." index="25" unique_id=74488888]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("11_hunter_p4")
 start_marker = NodePath("../StartMarker")
@@ -231,172 +162,208 @@ window_peek_marker = NodePath("../WindowPeekMarker")
 camera_peek_marker = NodePath("../CameraPeekMarker")
 jumpscare_marker = NodePath("../JumpscareMarker")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase4" index="0" unique_id=1428885653]
+[node name="Room4" type="Node3D" parent="." index="26" unique_id=1588998239]
+
+[node name="Room5" type="Node3D" parent="." index="27" unique_id=2071024996]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="0" unique_id=1734543744]
 shape = SubResource("CapsuleShape3D_player")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase4" index="1" unique_id=14583763]
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="1" unique_id=703376037]
 
-[node name="Sprite3D" type="Sprite3D" parent="HunterPhase4" index="2" unique_id=2137436411]
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="2" unique_id=1439095790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 pixel_size = 0.006
 billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
-[node name="Room2" type="Node3D" parent="." index="26" unique_id=1588998239]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="0" unique_id=969227919]
+shape = SubResource("CapsuleShape3D_player")
 
-[node name="Floor" type="CSGBox3D" parent="Room2" index="0" unique_id=1907307179]
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="1" unique_id=1068180620]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="2" unique_id=1686748764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="0" unique_id=1428885652]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="1" unique_id=14583762]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="2" unique_id=2137436410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="0" unique_id=1428885653]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="1" unique_id=14583763]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="2" unique_id=2137436411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="Floor2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="0" unique_id=1907307179]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -0.05, 1.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
 material = SubResource("StandardMaterial3D_floor_tiled")
 
-[node name="Ceiling" type="CSGBox3D" parent="Room2" index="1" unique_id=1902898497]
+[node name="Ceiling2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="1" unique_id=1902898497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, 1.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
 material = SubResource("StandardMaterial3D_ceiling_dark")
 
-[node name="RightWall" type="CSGBox3D" parent="Room2" index="2" unique_id=207609147]
+[node name="RightWall2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="2" unique_id=207609147]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05, 1.25, 1.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 6)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="FrontWall" type="CSGBox3D" parent="Room2" index="3" unique_id=1223432380]
+[node name="FrontWall2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="3" unique_id=1223432380]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.25, 4.55)
 use_collision = true
 size = Vector3(6, 2.6, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="BackWall_Bottom" type="CSGBox3D" parent="Room2" index="4" unique_id=832031471]
+[node name="BackWall_Bottom2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="4" unique_id=832031471]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, -1.55)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="BackWall_Top" type="CSGBox3D" parent="Room2" index="5" unique_id=2049056237]
+[node name="BackWall_Top2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="5" unique_id=2049056237]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.15, -1.55)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="BackWall_Left" type="CSGBox3D" parent="Room2" index="6" unique_id=1801655747]
+[node name="BackWall_Left2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="6" unique_id=1801655747]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3, -1.55)
 use_collision = true
 size = Vector3(2.2, 1, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="BackWall_Right" type="CSGBox3D" parent="Room2" index="7" unique_id=149357665]
+[node name="BackWall_Right2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="7" unique_id=149357665]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, 1.3, -1.55)
 use_collision = true
 size = Vector3(2.2, 1, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="GlassWindow2" type="MeshInstance3D" parent="Room2" index="8" unique_id=1649990895]
+[node name="GlassWindow3" type="MeshInstance3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="8" unique_id=1649990895]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.54)
 mesh = SubResource("QuadMesh_glass_window")
 surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
 
-[node name="Curtain2Interactable" type="StaticBody3D" parent="Room2" index="9" unique_id=359624791]
+[node name="Curtain2Interactable2" type="StaticBody3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="9" unique_id=359624791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.52)
 script = ExtResource("7_switch")
 target_method = "toggle_curtain2"
 interact_name = "Window Curtain"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room2/Curtain2Interactable" index="0" unique_id=1416336689]
-shape = SubResource("BoxShape3D_blinds_hitbox")
-
-[node name="CeilingLight2" type="OmniLight3D" parent="Room2" index="10" unique_id=1503816982]
+[node name="CeilingLight3" type="OmniLight3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="10" unique_id=1503816982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.2, 1.5)
 omni_range = 10.0
 
-[node name="CeilingFixture2" type="CSGBox3D" parent="Room2" index="11" unique_id=769463408]
+[node name="CeilingFixture3" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="11" unique_id=769463408]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.5, 1.5)
 size = Vector3(0.6, 0.1, 0.6)
 material = SubResource("StandardMaterial3D_ceiling_dark")
 
-[node name="LightSwitch2" type="StaticBody3D" parent="Room2" index="12" unique_id=2030006293]
+[node name="LightSwitch3" type="StaticBody3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="12" unique_id=2030006293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.2, 1.5)
 script = ExtResource("7_switch")
 target_method = "toggle_room2_lights"
 interact_name = "Light Switch"
 
-[node name="Room3" type="Node3D" parent="." index="27" unique_id=2071024996]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Room2/Curtain2Interactable" parent_id_path=PackedInt32Array(359624791) index="0" unique_id=1416336689]
+shape = SubResource("BoxShape3D_blinds_hitbox")
 
-[node name="Floor" type="CSGBox3D" parent="Room3" index="0" unique_id=1410169754]
+[node name="Floor2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="0" unique_id=1410169754]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 7.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
 material = SubResource("StandardMaterial3D_floor_tiled")
 
-[node name="Ceiling" type="CSGBox3D" parent="Room3" index="1" unique_id=1129455547]
+[node name="Ceiling2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="1" unique_id=1129455547]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 7.5)
 use_collision = true
 size = Vector3(6, 0.1, 6)
 material = SubResource("StandardMaterial3D_ceiling_dark")
 
-[node name="LeftWall" type="CSGBox3D" parent="Room3" index="2" unique_id=1625937224]
+[node name="LeftWall2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="2" unique_id=1625937224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, 7.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 6)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="RightWall" type="CSGBox3D" parent="Room3" index="3" unique_id=2011980420]
+[node name="RightWall2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="3" unique_id=2011980420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 7.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 6)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="FrontWall_Bottom" type="CSGBox3D" parent="Room3" index="4" unique_id=644761672]
+[node name="FrontWall_Bottom2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="4" unique_id=644761672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 10.55)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="FrontWall_Top" type="CSGBox3D" parent="Room3" index="5" unique_id=1890438299]
+[node name="FrontWall_Top2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="5" unique_id=1890438299]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 10.55)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="FrontWall_Left" type="CSGBox3D" parent="Room3" index="6" unique_id=1626865520]
+[node name="FrontWall_Left2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="6" unique_id=1626865520]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.3, 10.55)
 use_collision = true
 size = Vector3(2.2, 1, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="FrontWall_Right" type="CSGBox3D" parent="Room3" index="7" unique_id=1239310532]
+[node name="FrontWall_Right2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="7" unique_id=1239310532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.3, 10.55)
 use_collision = true
 size = Vector3(2.2, 1, 0.1)
 material = SubResource("StandardMaterial3D_walls_dark")
 
-[node name="GlassWindow3" type="MeshInstance3D" parent="Room3" index="8" unique_id=427664318]
+[node name="GlassWindow4" type="MeshInstance3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="8" unique_id=427664318]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 10.54)
 mesh = SubResource("QuadMesh_glass_window")
 surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
 
-[node name="Curtain3Interactable" type="StaticBody3D" parent="Room3" index="9" unique_id=1357860376]
+[node name="Curtain3Interactable2" type="StaticBody3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="9" unique_id=1357860376]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 10.52)
 script = ExtResource("7_switch")
 target_method = "toggle_curtain3"
 interact_name = "Window Curtain"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room3/Curtain3Interactable" index="0" unique_id=395686372]
-shape = SubResource("BoxShape3D_blinds_hitbox")
-
-[node name="CeilingLight3" type="OmniLight3D" parent="Room3" index="10" unique_id=1525582118]
+[node name="CeilingLight4" type="OmniLight3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="10" unique_id=1525582118]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 7.5)
 omni_range = 10.0
 
-[node name="CeilingFixture3" type="CSGBox3D" parent="Room3" index="11" unique_id=1628120167]
+[node name="CeilingFixture4" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="11" unique_id=1628120167]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 7.5)
 size = Vector3(0.6, 0.1, 0.6)
 material = SubResource("StandardMaterial3D_ceiling_dark")
 
-[node name="LightSwitch3" type="StaticBody3D" parent="Room3" index="12" unique_id=178953809]
+[node name="LightSwitch4" type="StaticBody3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="12" unique_id=178953809]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4.7)
 script = ExtResource("7_switch")
 target_method = "toggle_room3_lights"
 interact_name = "Light Switch"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Room3/Curtain3Interactable" parent_id_path=PackedInt32Array(1357860376) index="0" unique_id=395686372]
+shape = SubResource("BoxShape3D_blinds_hitbox")

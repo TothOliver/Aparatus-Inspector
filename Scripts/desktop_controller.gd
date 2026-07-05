@@ -499,3 +499,45 @@ func _on_gui_focus_changed(control: Control):
 				p.focused.emit()
 			break
 		p = p.get_parent()
+
+func _on_cam1_pressed():
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	if cam1:
+		cam1.current = true
+	if cam2:
+		cam2.current = false
+	if cam3:
+		cam3.current = false
+	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
+	if label:
+		label.text = "Camera: Corridor"
+
+func _on_cam2_pressed():
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	if cam1:
+		cam1.current = false
+	if cam2:
+		cam2.current = true
+	if cam3:
+		cam3.current = false
+	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
+	if label:
+		label.text = "Camera: Room 2"
+
+func _on_cam3_pressed():
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	if cam1:
+		cam1.current = false
+	if cam2:
+		cam2.current = false
+	if cam3:
+		cam3.current = true
+	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
+	if label:
+		label.text = "Camera: Room 3"

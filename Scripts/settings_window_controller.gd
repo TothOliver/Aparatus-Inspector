@@ -52,42 +52,16 @@ func _ready():
 	visibility_changed.connect(update_ui_from_stats)
 	update_ui_from_stats()
 	
+	if quit_button:
+		quit_button.pressed.connect(_on_quit_pressed)
+
 	if is_pause_menu:
-		# Reposition Exit Game button dynamically to make space for Resume button
-		if quit_button:
-			quit_button.pressed.connect(_on_quit_pressed)
-			quit_button.position = Vector2(246, 360)
-			quit_button.size = Vector2(120, 30)
-
-		# Dynamically instantiate the Resume button
-		var resume_button = Button.new()
-		resume_button.name = "ResumeButton"
-		resume_button.text = "Resume"
-		resume_button.add_theme_font_override("font", preload("res://RetroWindowsGUI/windows-bold[1].ttf"))
-		resume_button.add_theme_font_size_override("font_size", 12)
-		resume_button.add_theme_color_override("font_color", Color(0, 0, 0, 1))
-		resume_button.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
-		resume_button.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
-		resume_button.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
-		resume_button.add_theme_stylebox_override("normal", preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres"))
-		resume_button.add_theme_stylebox_override("hover", preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres"))
-		resume_button.add_theme_stylebox_override("pressed", preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres"))
-		resume_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-		resume_button.position = Vector2(60, 360)
-		resume_button.size = Vector2(120, 30)
-		resume_button.pressed.connect(_on_resume_pressed)
-		add_child(resume_button)
-
 		# Divert TitleBar CloseButton (x) to unpause the tree
 		var close_button = get_node_or_null("../TitleBar/CloseButton")
 		if close_button:
 			for conn in close_button.pressed.get_connections():
 				close_button.pressed.disconnect(conn.callable)
 			close_button.pressed.connect(_on_resume_pressed)
-	else:
-		# 2D OS Settings Menu: Just connect the quit button normally (don't move it)
-		if quit_button:
-			quit_button.pressed.connect(_on_quit_pressed)
 
 func _process(_delta):
 	if not is_pause_menu:
@@ -161,7 +135,7 @@ func _on_crt_toggled(toggled_on: bool):
 func _on_volume_changed(value: float):
 	GameStats.master_volume = value
 	if volume_value_label:
-		volume_value_label.text = str(round(value)) + "%"
+		volume_value_label.text = str(int(round(value))) + "%"
 	
 	var bus_idx = AudioServer.get_bus_index("Master")
 	if value <= 0.0:

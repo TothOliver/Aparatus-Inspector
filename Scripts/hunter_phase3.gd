@@ -98,7 +98,9 @@ func check_if_player_sees_hunter() -> bool:
 	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
-			seen_on_cctv = true
+			var cam1 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera1")
+			if cam1 and cam1.current:
+				seen_on_cctv = true
 			
 	# 2. Check if player is looking directly at the glass window in 3D
 	var seen_through_window = false

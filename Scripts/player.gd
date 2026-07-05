@@ -61,8 +61,9 @@ func _physics_process(delta):
 func _process(_delta):
 	# Check for interaction raycasts
 	check_interaction()
-	
-	if Input.is_action_just_pressed("ui_cancel"):
+
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
 		handle_settings_shortcut()
 
 func handle_walking_movement(delta):

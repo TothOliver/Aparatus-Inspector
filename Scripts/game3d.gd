@@ -23,6 +23,17 @@ var os_mask_overlay: Control
 var os_left_mask: ColorRect
 var os_right_mask: ColorRect
 
+var is_curtain2_closed: bool = false
+var target_curtain2_scale_x: float = 0.1
+var target_curtain2_pos_x: float = 5.25 # Open is 5.25, closed is 6.0
+
+var is_curtain3_closed: bool = false
+var target_curtain3_scale_x: float = 0.1
+var target_curtain3_pos_x: float = -0.75 # Open is -0.75, closed is 0.0
+
+var is_room2_light_on: bool = true
+var is_room3_light_on: bool = true
+
 # Office States (monitored by roaming hunter AI)
 var is_ceiling_light_on: bool = true
 var is_monitor_on: bool = true
@@ -41,6 +52,9 @@ var is_breaker_tripped: bool = false
 @onready var breaker_lever = get_node_or_null("Office/BreakerBox/BreakerLever") as MeshInstance3D
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	if sprite_3d:
+		sprite_3d.visible = false
 	if not screen_mesh:
 		screen_mesh = get_node_or_null("Office/DeskSetup/placeholder/ComputerMonitor/Screen") as MeshInstance3D
 	if not screen_mesh:
@@ -214,7 +228,28 @@ func _process(delta):
 		curtain_node.scale.x = lerp(curtain_node.scale.x, target_curtain_scale_x, 8.0 * delta)
 		curtain_node.position.x = lerp(curtain_node.position.x, target_curtain_pos_x, 8.0 * delta)
 
+	# Interpolate Curtain 2 scale and position
+	var curtain2 = get_node_or_null("Office/Curtain2")
+	if curtain2:
+		curtain2.scale.x = lerp(curtain2.scale.x, target_curtain2_scale_x, 8.0 * delta)
+		curtain2.position.x = lerp(curtain2.position.x, target_curtain2_pos_x, 8.0 * delta)
+
+	# Interpolate Curtain 3 scale and position
+	var curtain3 = get_node_or_null("Office/Curtain3")
+	if curtain3:
+		curtain3.scale.x = lerp(curtain3.scale.x, target_curtain3_scale_x, 8.0 * delta)
+		curtain3.position.x = lerp(curtain3.position.x, target_curtain3_pos_x, 8.0 * delta)
+
 func _input(event):
+	# Handle closing settings/pause menu when pressing Escape and the menu is open
+	var pause_menu = get_node_or_null("HUD/PauseMenu")
+	if pause_menu and pause_menu.visible and event.is_action_pressed("ui_cancel"):
+		pause_menu.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().paused = false
+		get_viewport().set_input_as_handled()
+		return
+
 	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
 	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible:
 		if event is InputEventKey:
@@ -253,10 +288,7 @@ func exit_computer_view():
 
 func _on_robot_spawned(robot_data: RobotData):
 	if sprite_3d:
-		if robot_data and robot_data.sprite:
-			sprite_3d.texture = robot_data.sprite
-		else:
-			sprite_3d.texture = null
+		sprite_3d.visible = false
 
 # Light controls (can be called by light switches or the MS-DOS terminal)
 func toggle_ceiling_lights():
@@ -515,3 +547,33 @@ func _on_viewport_container_resized():
 			os_right_mask.position = Vector2(0, pos_y + height)
 			os_right_mask.size = Vector2(W, H - (pos_y + height))
 			os_right_mask.visible = true
+
+func toggle_room2_lights():
+	is_room2_light_on = not is_room2_light_on
+	var light = get_node_or_null("Room2/CeilingLight2")
+	if light:
+		light.visible = is_room2_light_on
+
+func toggle_room3_lights():
+	is_room3_light_on = not is_room3_light_on
+	var light = get_node_or_null("Room3/CeilingLight3")
+	if light:
+		light.visible = is_room3_light_on
+
+func toggle_curtain2():
+	is_curtain2_closed = not is_curtain2_closed
+	if is_curtain2_closed:
+		target_curtain2_scale_x = 1.0
+		target_curtain2_pos_x = 6.0
+	else:
+		target_curtain2_scale_x = 0.1
+		target_curtain2_pos_x = 5.25
+
+func toggle_curtain3():
+	is_curtain3_closed = not is_curtain3_closed
+	if is_curtain3_closed:
+		target_curtain3_scale_x = 1.0
+		target_curtain3_pos_x = 0.0
+	else:
+		target_curtain3_scale_x = 0.1
+		target_curtain3_pos_x = -0.75

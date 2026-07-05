@@ -210,7 +210,16 @@ func check_if_player_looks_at_cctv() -> bool:
 	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
-			return true
+			var cam1 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera1")
+			var cam2 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera2")
+			var cam3 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera3")
+			if global_position.x < 3.0:
+				if global_position.z < 0.0:
+					return cam1 and cam1.current
+				else:
+					return cam3 and cam3.current
+			else:
+				return cam2 and cam2.current
 	return false
 
 func disappear_and_reset():
