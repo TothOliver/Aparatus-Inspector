@@ -88,20 +88,37 @@ func _ready():
 				call_deferred("grab_input_focus")
 		)
 
+func can_grab_focus() -> bool:
+	var game_3d = get_tree().current_scene
+	if game_3d and game_3d.name == "Game3D":
+		var player = game_3d.get_node_or_null("Player")
+		if player:
+			if "current_state" in player and "State" in player and player.current_state != player.State.COMPUTER_VIEW:
+				return false
+		if "is_monitor_on" in game_3d and not game_3d.is_monitor_on:
+			return false
+		if "is_blackout" in game_3d and game_3d.is_blackout:
+			return false
+	return true
+
 func _process(delta):
 	# Keep focus on input field whenever this terminal body is visible and it is the top window
 	var parent_window = get_parent()
 	if parent_window and parent_window.visible and input_field:
-		if not input_field.has_focus():
-			var is_top = is_top_window()
-			var viewport = get_viewport()
-			var focused_node = viewport.gui_get_focus_owner() if viewport else null
-			var focused_name = focused_node.name if focused_node else "null"
-			log_debug("Process check: has_focus=false is_top=" + str(is_top) + " focused=" + focused_name)
-			if is_top:
-				if focused_node == null or not (focused_node is Button):
-					log_debug("Process calling grab_input_focus")
-					grab_input_focus()
+		if not can_grab_focus():
+			if input_field.has_focus():
+				input_field.release_focus()
+		else:
+			if not input_field.has_focus():
+				var is_top = is_top_window()
+				var viewport = get_viewport()
+				var focused_node = viewport.gui_get_focus_owner() if viewport else null
+				var focused_name = focused_node.name if focused_node else "null"
+				log_debug("Process check: has_focus=false is_top=" + str(is_top) + " focused=" + focused_name)
+				if is_top:
+					if focused_node == null or not (focused_node is Button):
+						log_debug("Process calling grab_input_focus")
+						grab_input_focus()
 	
 	# Ensure prompt prefix is always present
 	if input_field and not system_locked_out:
@@ -188,6 +205,10 @@ func _on_input_field_focus_exited():
 	_check_and_restore_focus.call_deferred()
 
 func _check_and_restore_focus():
+	if not can_grab_focus():
+		if input_field and input_field.has_focus():
+			input_field.release_focus()
+		return
 	var is_top = is_top_window()
 	var viewport = get_viewport()
 	var focused_node = viewport.gui_get_focus_owner() if viewport else null
@@ -200,6 +221,10 @@ func _check_and_restore_focus():
 			grab_input_focus()
 
 func grab_input_focus():
+	if not can_grab_focus():
+		if input_field and input_field.has_focus():
+			input_field.release_focus()
+		return
 	if input_field and is_inside_tree():
 		log_debug("grab_input_focus called. Current text=" + input_field.text)
 		input_field.grab_focus()

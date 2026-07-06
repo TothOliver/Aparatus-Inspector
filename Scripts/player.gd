@@ -159,12 +159,19 @@ func _input(event):
 					if collider.has_method("interact"):
 						collider.interact(self)
 					elif collider.name.contains("Screen") or collider.name.contains("Computer") or collider.name.contains("Monitor"):
-						interact_with_computer()
+						if not is_power_off():
+							interact_with_computer()
 
 					elif collider.name.contains("Breaker") or collider.name.contains("Fuse"):
 						var parent = get_parent()
 						if parent and parent.has_method("reset_breaker"):
 							parent.reset_breaker()
+
+func is_power_off() -> bool:
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_blackout" in game_3d:
+		return game_3d.is_blackout
+	return false
 
 func is_interactable(collider) -> bool:
 	if not collider:
@@ -172,7 +179,9 @@ func is_interactable(collider) -> bool:
 	if collider.has_method("interact"):
 		return true
 	var name_lower = collider.name.to_lower()
-	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor") or name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse"):
+	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor"):
+		return not is_power_off()
+	if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse"):
 		return true
 	return false
 
@@ -197,6 +206,8 @@ func check_interaction():
 		interact_prompt_changed.emit("")
 
 func interact_with_computer():
+	if is_power_off():
+		return
 	var game_3d = get_tree().current_scene
 	if game_3d and "is_blackout" in game_3d:
 		if not game_3d.is_monitor_on and not game_3d.is_blackout:
