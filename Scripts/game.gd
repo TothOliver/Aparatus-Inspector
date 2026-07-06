@@ -43,6 +43,50 @@ func _ready():
 	health_bar.value = GameStats.player_health
 	sanity_bar.value = GameStats.player_sanity
 
+	# Handle Day 1 Database offline panel
+	var current_day = day_manager.current_day
+	var database_panel = get_node_or_null("ApparatusInspectorWindow/Model")
+	if database_panel:
+		if current_day == 1:
+			# Hide all sub-controls of Model except InfoPanel
+			for child in database_panel.get_children():
+				if child.name != "InfoPanel":
+					child.visible = false
+			
+			# Create/ensure offline placeholder label
+			var offline_label = database_panel.get_node_or_null("OfflineLabel") as Label
+			if not offline_label:
+				offline_label = Label.new()
+				offline_label.name = "OfflineLabel"
+				offline_label.add_theme_font_override("font", preload("res://RetroWindowsGUI/M 8pt.ttf"))
+				offline_label.add_theme_font_size_override("font_size", 14)
+				offline_label.add_theme_color_override("font_color", Color(0.8, 0, 0, 1)) # red text
+				offline_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				offline_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+				offline_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+				offline_label.text = "\n\nDATABASE OFFLINE\n-----------------\nShift 1:\nCalibration Mode\n\nNo telemetry data\navailable.\n\nInspect via dialogue\ntells only."
+				
+				# Position label cleanly inside InfoPanel
+				offline_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+				offline_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
+				offline_label.grow_vertical = Control.GROW_DIRECTION_BOTH
+				offline_label.offset_left = 15
+				offline_label.offset_top = 15
+				offline_label.offset_right = -15
+				offline_label.offset_bottom = -15
+				database_panel.add_child(offline_label)
+			offline_label.visible = true
+		else:
+			# Restore all sub-controls of Model to visible
+			for child in database_panel.get_children():
+				if child.name != "OfflineLabel":
+					child.visible = true
+			var offline_label = database_panel.get_node_or_null("OfflineLabel")
+			if offline_label:
+				offline_label.visible = false
+
+
+
 func spawn_next_robot():
 	if not is_inside_tree():
 		return

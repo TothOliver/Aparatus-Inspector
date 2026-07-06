@@ -329,19 +329,22 @@ func _on_command_submitted(new_text: String):
 			else:
 				print_to_terminal("Error: Office control interface connection lost.")
 		"scan":
-			var game_3d = null
-			if is_inside_tree() and get_tree():
-				game_3d = get_tree().current_scene
-			if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
-				var robot = game_3d.game_2d.current_robot
-				print_to_terminal("Scanning active unit in test chamber...\n" +
-					"  NAME:         " + robot.name + "\n" +
-					"  MODEL:        " + robot.model + "\n" +
-					"  MANUFACTURER: " + robot.manufacturer + "\n" +
-					"  STATUS:       " + robot.status + "\n" +
-					"  CORE SIGNATURE: " + (robot.core_hash if "core_hash" in robot and robot.core_hash else "UNKNOWN_CORE_ERR"))
+			if GameStats.current_day == 1:
+				print_to_terminal("ERROR: 'scan' diagnostic utility is LOCKED during Day 1 calibration protocols.")
 			else:
-				print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
+				var game_3d = null
+				if is_inside_tree() and get_tree():
+					game_3d = get_tree().current_scene
+				if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
+					var robot = game_3d.game_2d.current_robot
+					print_to_terminal("Scanning active unit in test chamber...\n" +
+						"  NAME:         " + robot.name + "\n" +
+						"  MODEL:        " + robot.model + "\n" +
+						"  MANUFACTURER: " + robot.manufacturer + "\n" +
+						"  STATUS:       " + robot.status + "\n" +
+						"  CORE SIGNATURE: " + (robot.core_hash if "core_hash" in robot and robot.core_hash else "UNKNOWN_CORE_ERR"))
+				else:
+					print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
 		"lock":
 			GameStats.door_locked = true
 			print_to_terminal("Door lock engaged. Power grid under load.")

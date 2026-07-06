@@ -77,8 +77,8 @@ func _ready():
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	# Initialize first outage timer to 10 seconds for testing
-	outage_timer = 10.0
+	# Initialize first outage timer randomly between 45.0 and 90.0 seconds
+	outage_timer = randf_range(45.0, 90.0)
 			
 	# Connect to the 2D game's robot spawning signal
 	if game_2d:
@@ -388,8 +388,7 @@ func reset_breaker():
 		_restore_power()
 		if breaker_lever:
 			breaker_lever.rotation.z = 0.0
-		# Set outage timer to 10 seconds for testing
-		outage_timer = 10.0
+		outage_timer = randf_range(45.0, 90.0)
 		var prompt = get_node_or_null("HUD/PromptLabel") as Label
 		if prompt:
 			prompt.text = "SYSTEM POWER RESTORED."
