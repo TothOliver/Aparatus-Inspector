@@ -13,9 +13,6 @@
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
 [ext_resource type="PackedScene" uid="uid://jadxrpu615rl" path="res://Scenes/deskSetup.tscn" id="7_upeov"]
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
-[ext_resource type="Texture2D" uid="uid://dmnijqr3tiaq8" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_diff_1k.jpg" id="8_floor_diff"]
-[ext_resource type="Texture2D" uid="uid://hhgnfiisiie1" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_rough_1k.jpg" id="9_floor_arm"]
-[ext_resource type="Texture2D" uid="uid://bly0dnfebubvp" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_nor_gl_1k.jpg" id="10_floor_nor"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
@@ -119,10 +116,6 @@ albedo_color = Color(0.8, 0.1, 0.1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_breaker_col"]
 size = Vector3(0.18, 0.25, 0.08)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls"]
-albedo_color = Color(0.24, 0.25, 0.25, 1)
-roughness = 0.9
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_corridor"]
 albedo_color = Color(0.18, 0.18, 0.18, 1)
 roughness = 0.9
@@ -142,21 +135,6 @@ texture_margin_right = 2.0
 texture_margin_bottom = 1.0
 expand_margin_top = 3.0
 expand_margin_bottom = 3.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor_tiled"]
-albedo_color = Color(0.28, 0.28, 0.28, 1)
-albedo_texture = ExtResource("8_floor_diff")
-roughness_texture = ExtResource("9_floor_arm")
-normal_enabled = true
-normal_texture = ExtResource("10_floor_nor")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceiling_dark"]
-albedo_color = Color(0.28, 0.28, 0.28, 1)
-roughness = 0.85
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls_dark"]
-albedo_color = Color(0.24, 0.25, 0.25, 1)
-roughness = 0.9
 
 [sub_resource type="QuadMesh" id="QuadMesh_glass_window"]
 size = Vector2(1.6, 1)

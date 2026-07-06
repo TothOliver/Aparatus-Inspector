@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3khqv0yos43a"
+uid="uid://cwurk1w3t1u6p"
 path.s3tc="res://.godot/imported/CoffeeCart_01_props_nor_gl_1k.jpg-544fc70d0d93f4ba6f6bfab9778bf6c9.s3tc.ctex"
 path.etc2="res://.godot/imported/CoffeeCart_01_props_nor_gl_1k.jpg-544fc70d0d93f4ba6f6bfab9778bf6c9.etc2.ctex"
 metadata={
@@ -27,8 +27,8 @@ compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://assets/officeAmbience/CoffeeCart_01_1k.gltf/textures/CoffeeCart_01_props_nor_gl_1k.jpg"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
