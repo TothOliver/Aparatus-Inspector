@@ -77,7 +77,7 @@ func retreat_to_phase2():
 	set_physics_process(false)
 	
 	if phase2_robot:
-		phase2_robot.activate()
+		phase2_robot.activate(true)
 
 func kill_player():
 	print("[Phase 4 Debug] kill_player() called!")

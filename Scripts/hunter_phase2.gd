@@ -25,7 +25,7 @@ func _ready():
 	if not phase3_robot:
 		phase3_robot = get_node_or_null("../HunterPhase3")
 
-func activate():
+func activate(is_door_retreat: bool = false):
 	current_state = State.SPAWNED
 	look_duration = 0.0
 	
@@ -52,8 +52,11 @@ func activate():
 	ap.pitch_scale = randf_range(0.7, 0.9)
 	ap.play()
 	
-	# Duration to stare before advancing (exactly 10 seconds)
-	stare_duration_timer = 10.0
+	# Duration to stare before advancing (longer if retreating from door to prevent instant respawn)
+	if is_door_retreat:
+		stare_duration_timer = randf_range(30.0, 50.0)
+	else:
+		stare_duration_timer = 20.0
 	
 	set_physics_process(true)
 

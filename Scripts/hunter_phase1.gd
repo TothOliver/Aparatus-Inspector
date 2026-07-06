@@ -139,8 +139,8 @@ func spawn_and_stare():
 	ap.pitch_scale = randf_range(0.9, 1.1)
 	ap.play()
 	
-	# Set duration to stare before advancing to Phase 2 (exactly 10 seconds)
-	stare_duration_timer = 10.0
+	# Set duration to stare before advancing to Phase 2 (exactly 30 seconds)
+	stare_duration_timer = 30.0
 	look_duration = 0.0
 
 func handle_spawned(delta):

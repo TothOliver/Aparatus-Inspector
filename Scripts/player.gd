@@ -197,14 +197,15 @@ func check_interaction():
 		interact_prompt_changed.emit("")
 
 func interact_with_computer():
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
-	if game_3d and not game_3d.is_monitor_on and not game_3d.is_blackout:
-		game_3d.toggle_monitor_power()
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_blackout" in game_3d:
+		if not game_3d.is_monitor_on and not game_3d.is_blackout:
+			game_3d.toggle_monitor_power()
 	
 	# Transition directly to computer view
 	current_state = State.COMPUTER_VIEW
 	# Tell Game3D to zoom in and release mouse
-	if game_3d:
+	if game_3d and game_3d.has_method("enter_computer_view"):
 		game_3d.enter_computer_view()
 
 func exit_computer_view():
@@ -215,12 +216,12 @@ func exit_computer_view():
 	camera.transform.basis = Basis.IDENTITY
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
-	if game_3d:
+	var game_3d = get_tree().current_scene
+	if game_3d and game_3d.has_method("exit_computer_view"):
 		game_3d.exit_computer_view()
 
 func handle_settings_shortcut():
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
+	var game_3d = get_tree().current_scene
 	if not game_3d:
 		return
 		
@@ -233,7 +234,9 @@ func handle_settings_shortcut():
 				pause_menu.visible = false
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				get_tree().paused = false
+				get_viewport().set_input_as_handled()
 			else:
 				pause_menu.visible = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				get_tree().paused = true
+				get_viewport().set_input_as_handled()

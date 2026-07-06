@@ -293,8 +293,8 @@ func _on_command_submitted(new_text: String):
 		"lights":
 			var game_3d = null
 			if is_inside_tree() and get_tree():
-				game_3d = get_tree().root.get_node_or_null("Game3D")
-			if game_3d:
+				game_3d = get_tree().current_scene
+			if game_3d and "is_ceiling_light_on" in game_3d:
 				if args.size() >= 2 and args[1].to_lower() == "toggle":
 					game_3d.toggle_ceiling_lights()
 					print_to_terminal("Command sent to OEC: Toggled ceiling lights.")
@@ -306,8 +306,8 @@ func _on_command_submitted(new_text: String):
 		"scan":
 			var game_3d = null
 			if is_inside_tree() and get_tree():
-				game_3d = get_tree().root.get_node_or_null("Game3D")
-			if game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
+				game_3d = get_tree().current_scene
+			if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
 				var robot = game_3d.game_2d.current_robot
 				print_to_terminal("Scanning active unit in test chamber...\n" +
 					"  NAME:         " + robot.name + "\n" +
