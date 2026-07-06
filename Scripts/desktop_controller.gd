@@ -116,28 +116,26 @@ func _ready():
 	if active_tabs_container:
 		active_tabs_container.add_child(mail_tab)
 	
-	var tab_icon = create_envelope_icon(Vector2(20, 15))
-	tab_icon.set_anchors_preset(Control.PRESET_CENTER)
-	tab_icon.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	tab_icon.grow_vertical = Control.GROW_DIRECTION_BOTH
-	mail_tab.add_child(tab_icon)
+	var center_container = CenterContainer.new()
+	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	mail_tab.add_child(center_container)
+	
+	var tab_icon = create_envelope_icon(Vector2(20, 20))
+	center_container.add_child(tab_icon)
 
-	# Taskbar notification badge for Mail
+	# Taskbar notification badge for Mail placed on the icon itself
 	var tab_badge = Panel.new()
 	tab_badge.name = "TabNotificationBadge"
+	tab_badge.size = Vector2(8, 8)
+	tab_badge.position = Vector2(14, -2)
+	
 	var tab_badge_style = StyleBoxFlat.new()
 	tab_badge_style.bg_color = Color(0.8, 0, 0, 1)
-	tab_badge_style.set_corner_radius_all(6)
+	tab_badge_style.set_corner_radius_all(4)
 	tab_badge.add_theme_stylebox_override("panel", tab_badge_style)
 	tab_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	tab_badge.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	tab_badge.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	tab_badge.grow_vertical = Control.GROW_DIRECTION_BOTH
-	tab_badge.offset_left = -16
-	tab_badge.offset_top = 4
-	tab_badge.offset_right = -4
-	tab_badge.offset_bottom = 16
-	mail_tab.add_child(tab_badge)
+	
+	tab_icon.add_child(tab_badge)
 
 	# Instantiate Shift Verify Tab Button (Disabled)
 	# shift_verify_tab = Button.new()

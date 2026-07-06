@@ -34,6 +34,122 @@ var was_wifi_on: bool = true
 var robots_picked_count: int = 0
 
 func _ready():
+	# Resize and reposition ApparatusInspectorWindow to be smaller (920x660 instead of 1060x800) and scalable
+	var inspector = get_node_or_null("ApparatusInspectorWindow") as NinePatchRect
+	if inspector:
+		inspector.custom_minimum_size = Vector2(850, 620)
+		inspector.size = Vector2(920, 660)
+		inspector.position = Vector2(200, 50)
+		
+		var title_bar_node = inspector.get_node_or_null("TitleBar") as Control
+		if title_bar_node:
+			title_bar_node.size.x = 908
+			var close_btn = title_bar_node.get_node_or_null("CloseButton") as Button
+			if close_btn:
+				close_btn.position.x = 883
+		
+		# Compact left side: Picture stays Y=45, H=280.
+		# AcceptTerminate panel starts at Y=335, H=310.
+		var accept_term = inspector.get_node_or_null("AcceptTerminate") as Control
+		if accept_term:
+			accept_term.position.y = 335
+			accept_term.size = Vector2(250, 310)
+			
+			var btn_panel = accept_term.get_node_or_null("ButtonPanel") as Panel
+			if btn_panel:
+				btn_panel.size = Vector2(250, 310)
+				
+			var app_info = accept_term.get_node_or_null("ApproveInfo") as Label
+			if app_info:
+				app_info.text = "APPROVE:\nPass to grid service."
+				app_info.position = Vector2(15, 40)
+				app_info.size = Vector2(220, 36)
+				
+			var good_btn = accept_term.get_node_or_null("ButtonPanel/GoodButton") as Button
+			if good_btn:
+				good_btn.position = Vector2(15, 88)
+				good_btn.size = Vector2(220, 50)
+				
+			var ext_info = accept_term.get_node_or_null("ExterminateInfo") as Label
+			if ext_info:
+				ext_info.text = "EXTERMINATE:\nFlag for disposal."
+				ext_info.position = Vector2(15, 167)
+				ext_info.size = Vector2(220, 36)
+				
+			var bad_btn = accept_term.get_node_or_null("ButtonPanel/BadButton") as Button
+			if bad_btn:
+				bad_btn.position = Vector2(15, 217)
+				bad_btn.size = Vector2(220, 50)
+
+		# Compact middle side: ChatManager and Option
+		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
+		if chat_manager_node:
+			chat_manager_node.position.y = 45
+			chat_manager_node.size = Vector2(385, 380) # H=380 instead of 460
+			
+		var option_node = inspector.get_node_or_null("Option") as Control
+		if option_node:
+			option_node.position.y = 440 # starts immediately after ChatManager
+			option_node.size = Vector2(385, 205) # H=205 instead of 235
+			
+			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
+			if ans_panel:
+				ans_panel.size = Vector2(385, 205)
+				
+			var btn1 = option_node.get_node_or_null("Button1") as Button
+			if btn1:
+				btn1.position = Vector2(15, 20)
+				btn1.size = Vector2(355, 75)
+				btn1.anchor_right = 1.0
+				btn1.offset_right = -15
+				
+			var btn2 = option_node.get_node_or_null("Button2") as Button
+			if btn2:
+				btn2.position = Vector2(15, 110)
+				btn2.size = Vector2(355, 75)
+				btn2.anchor_right = 1.0
+				btn2.offset_right = -15
+
+		# Compact right side: Model (Database Specs)
+		var model_node = inspector.get_node_or_null("Model") as Control
+		if model_node:
+			model_node.position = Vector2(664, 45) # X=664, aligned to right
+			model_node.size = Vector2(244, 600)
+			
+			var info_panel = model_node.get_node_or_null("InfoPanel") as Panel
+			if info_panel:
+				info_panel.size = Vector2(244, 600)
+				
+			# Compact the fields inside Model
+			var fields = {
+				"NameFieldLabel": 15,
+				"NamePanel": 31,
+				"ModelFieldLabel": 70,
+				"ModelPanel": 86,
+				"StatusFieldLabel": 125,
+				"StatusPanel": 141,
+				"ManuFieldLabel": 180,
+				"ManuPanel": 196,
+				"QuotaFieldLabel": 235,
+				"QuotaPanel": 251,
+				"DiagSpecsTitle": 310,
+				"DiagSpecsDetails": 330
+			}
+			
+			for f_name in fields.keys():
+				var f_node = model_node.get_node_or_null(f_name) as Control
+				if f_node:
+					f_node.position.y = fields[f_name]
+					if f_name == "DiagSpecsDetails":
+						var lbl = f_node as Label
+						if lbl:
+							lbl.text = "INTEGRITY: NOMINAL\nEMPATHY: 98.4%\nTEMP: 37.4C (STABLE)\nOEC LINK: ONLINE\nLOCK: SECURE\n\n-----------------\nAPPARATUS OS v4.98\nSYSTEM READY."
+							lbl.size = Vector2(220, 180)
+						
+		# Now re-register all child margins so dragging scales properly
+		if inspector.has_method("register_child_margins"):
+			inspector.register_child_margins()
+
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
 		crt.add_to_group("CRTOverlays")
