@@ -416,6 +416,27 @@ func _ready():
 	# Initialize tab focus states
 	_update_top_window_focus()
 	
+	# Hide CCTV (Security Feed) and Terminal (MS-DOS Prompt) on Day 1
+	if GameStats.current_day == 1:
+		var cctv_icon = get_node_or_null("DesktopIcons/CCTVIcon")
+		if cctv_icon:
+			cctv_icon.visible = false
+		var terminal_icon = get_node_or_null("DesktopIcons/TerminalIcon")
+		if terminal_icon:
+			terminal_icon.visible = false
+		
+		if cctv_tab:
+			cctv_tab.visible = false
+		if terminal_tab:
+			terminal_tab.visible = false
+			
+		var start_cctv_btn = get_node_or_null("StartMenu/HBox/ProgramList/CCTVBtn")
+		if start_cctv_btn:
+			start_cctv_btn.visible = false
+		var start_terminal_btn = get_node_or_null("StartMenu/HBox/ProgramList/TerminalBtn")
+		if start_terminal_btn:
+			start_terminal_btn.visible = false
+	
 	_adjust_start_menu_height()
 	
 	# Close start menu initially
