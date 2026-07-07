@@ -13,6 +13,8 @@
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
 [ext_resource type="PackedScene" uid="uid://jadxrpu615rl" path="res://Scenes/deskSetup.tscn" id="7_upeov"]
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
+[ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="8_bdicf"]
+[ext_resource type="PackedScene" uid="uid://bb8l0glb4umiu" path="res://Scenes/boxRubble.tscn" id="9_cu4db"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
@@ -207,58 +209,64 @@ use_collision = true
 size = Vector3(6, 0.1, 6)
 material = ExtResource("4_ds5qe")
 
-[node name="LeftWall_Back" type="CSGBox3D" parent="Office" unique_id=1627625243]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, -0.5)
+[node name="LeftWall" type="CSGCombiner3D" parent="Office" unique_id=715774430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 1.5)
+
+[node name="LeftWall_Back" type="CSGBox3D" parent="Office/LeftWall" unique_id=1627625243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -2)
 use_collision = true
 size = Vector3(0.1, 2.6, 2)
 material = ExtResource("10_r4ocn")
 
-[node name="LeftWall_Front" type="CSGBox3D" parent="Office" unique_id=1646054487]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, 3.5)
+[node name="LeftWall_Front" type="CSGBox3D" parent="Office/LeftWall" unique_id=1646054487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 2)
 use_collision = true
 size = Vector3(0.1, 2.6, 2)
 material = ExtResource("10_r4ocn")
 
-[node name="LeftWall_Top" type="CSGBox3D" parent="Office" unique_id=2111334837]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 2.35, 1.5)
+[node name="LeftWall_Top" type="CSGBox3D" parent="Office/LeftWall" unique_id=2111334837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
 use_collision = true
 size = Vector3(0.1, 0.4, 2)
 material = ExtResource("10_r4ocn")
 
 [node name="RightWall" type="CSGBox3D" parent="Office" unique_id=1975533488]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, -0.40283203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 1.5)
 use_collision = true
-size = Vector3(0.1, 2.6, 2.194336)
+size = Vector3(0.1, 2.6, 6)
 material = ExtResource("10_r4ocn")
 
-[node name="BackWall_Bottom" type="CSGBox3D" parent="Office" unique_id=848312036]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -1.55)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
+[node name="BackWall" type="CSGCombiner3D" parent="Office" unique_id=1844276375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.55)
 
-[node name="BackWall_Top" type="CSGBox3D" parent="Office" unique_id=847237108]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, -1.55)
+[node name="BackWall_Bottom" type="CSGBox3D" parent="Office/BackWall" unique_id=848312036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 use_collision = true
 size = Vector3(6, 0.8, 0.1)
 material = ExtResource("10_r4ocn")
 
-[node name="BackWall_Left" type="CSGBox3D" parent="Office" unique_id=1575880598]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.275, -1.55)
+[node name="BackWall_Top" type="CSGBox3D" parent="Office/BackWall" unique_id=847237108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = ExtResource("10_r4ocn")
+
+[node name="BackWall_Left" type="CSGBox3D" parent="Office/BackWall" unique_id=1575880598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.275, 0)
 use_collision = true
 size = Vector3(2.2, 0.95, 0.1)
 material = ExtResource("10_r4ocn")
 
-[node name="BackWall_Right" type="CSGBox3D" parent="Office" unique_id=1186311686]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.275, -1.55)
+[node name="BackWall_Right" type="CSGBox3D" parent="Office/BackWall" unique_id=1186311686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.275, 0)
 use_collision = true
 size = Vector3(2.2, 0.95, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="FrontWall" type="CSGBox3D" parent="Office" unique_id=265883917]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8343825, 1.25, 4.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.55)
 use_collision = true
-size = Vector3(2.5830078, 2.6, 0.1)
+size = Vector3(6, 2.6, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
@@ -283,6 +291,12 @@ shape = SubResource("BoxShape3D_curtain")
 
 [node name="DeskSetup" parent="Office" unique_id=907504952 instance=ExtResource("7_upeov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+
+[node name="MetalRack" parent="Office" unique_id=744250992 instance=ExtResource("8_bdicf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6509933, 0, 0.9378439)
+
+[node name="BoxRubble" parent="Office" unique_id=895906964 instance=ExtResource("9_cu4db")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.678174, 0, 4.095018)
 
 [node name="LeftDoor" type="Node3D" parent="Office" unique_id=409843211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 2.5)
@@ -356,12 +370,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_breaker_lever")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/BreakerBox" unique_id=237491292]
 shape = SubResource("BoxShape3D_breaker_col")
 
-[node name="RightWall2" type="CSGBox3D" parent="Office" unique_id=1810526683]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 3.447176)
-use_collision = true
-size = Vector3(0.1, 2.6, 2.194336)
-material = ExtResource("10_r4ocn")
-
 [node name="Curtain2" type="CSGBox3D" parent="Office" unique_id=1709281139]
 transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23683, 1.27984, -1.4393517)
 size = Vector3(1.7, 0.94437253, 0.04)
@@ -371,12 +379,6 @@ material = SubResource("StandardMaterial3D_curtain")
 transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7487085, 1.27984, 10.433812)
 size = Vector3(1.7, 0.94437253, 0.04)
 material = SubResource("StandardMaterial3D_curtain")
-
-[node name="FrontWall2" type="CSGBox3D" parent="Office" unique_id=878981214]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8228774, 1.25, 4.55)
-use_collision = true
-size = Vector3(2.5830078, 2.6, 0.1)
-material = ExtResource("10_r4ocn")
 
 [node name="Corridor" type="CSGBox3D" parent="." unique_id=635068787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.050266, 1.2995325, 1.4994271)
