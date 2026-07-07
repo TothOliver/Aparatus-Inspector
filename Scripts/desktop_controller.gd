@@ -18,6 +18,8 @@ class_name DesktopController
 @onready var cctv_tab = %CCTVTab
 @onready var slots_tab = %SlotsTab
 @onready var settings_tab = %SettingsTab
+@onready var browser_tab = %BrowserTab
+@onready var mail_tab = %MailTab
 
 @onready var cctv_texture = %CCTVTexture
 @onready var power_bar = %PowerBar
@@ -30,11 +32,9 @@ var last_hack_active: bool = false
 var hacker_alert_dismissed: bool = false
 var active_window: Control = null
 var browser_window: Control = null
-var browser_tab: Button = null
 var shift_verify_window: Control = null
 var shift_verify_tab: Button = null
 var mail_window: Control = null
-var mail_tab: Button = null
 
 func _ready():
 	if start_menu:
@@ -78,19 +78,14 @@ func _ready():
 	# get_parent().call_deferred("add_child", shift_verify_window)
 	# shift_verify_window.visible = false
 
-	# Instantiate Browser Tab Button
-	var active_tabs_container = get_node_or_null("Taskbar/ActiveTabs")
-	browser_tab = Button.new()
-	browser_tab.name = "BrowserTab"
-	browser_tab.custom_minimum_size = Vector2(40, 0)
-	browser_tab.icon = load("res://Sprites/icon_browser.png")
-	browser_tab.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	browser_tab.expand_icon = true
-	browser_tab.pressed.connect(func():
-		toggle_window_from_tab("Browser")
-	)
-	if active_tabs_container:
-		active_tabs_container.add_child(browser_tab)
+	# Configure Browser Tab Button
+	if browser_tab:
+		browser_tab.icon = load("res://Sprites/icon_browser.png")
+		browser_tab.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		browser_tab.expand_icon = true
+		browser_tab.pressed.connect(func():
+			toggle_window_from_tab("Browser")
+		)
 
 	# Instantiate Mail Window
 	var mail_script = preload("res://Scripts/mail_app.gd")
@@ -106,36 +101,33 @@ func _ready():
 	get_parent().call_deferred("add_child", mail_window)
 	mail_window.visible = false
 
-	# Instantiate Mail Tab Button
-	mail_tab = Button.new()
-	mail_tab.name = "MailTab"
-	mail_tab.custom_minimum_size = Vector2(40, 0)
-	mail_tab.pressed.connect(func():
-		toggle_window_from_tab("Mail")
-	)
-	if active_tabs_container:
-		active_tabs_container.add_child(mail_tab)
-	
-	var center_container = CenterContainer.new()
-	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	mail_tab.add_child(center_container)
-	
-	var tab_icon = create_envelope_icon(Vector2(20, 20))
-	center_container.add_child(tab_icon)
+	# Configure Mail Tab Button
+	if mail_tab:
+		mail_tab.icon = null # Clear static icon to use procedural drawing
+		mail_tab.pressed.connect(func():
+			toggle_window_from_tab("Mail")
+		)
+		
+		var center_container = CenterContainer.new()
+		center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+		mail_tab.add_child(center_container)
+		
+		var tab_icon = create_envelope_icon(Vector2(20, 20))
+		center_container.add_child(tab_icon)
 
-	# Taskbar notification badge for Mail placed on the icon itself
-	var tab_badge = Panel.new()
-	tab_badge.name = "TabNotificationBadge"
-	tab_badge.size = Vector2(8, 8)
-	tab_badge.position = Vector2(14, -2)
-	
-	var tab_badge_style = StyleBoxFlat.new()
-	tab_badge_style.bg_color = Color(0.8, 0, 0, 1)
-	tab_badge_style.set_corner_radius_all(4)
-	tab_badge.add_theme_stylebox_override("panel", tab_badge_style)
-	tab_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	tab_icon.add_child(tab_badge)
+		# Taskbar notification badge for Mail placed on the icon itself
+		var tab_badge = Panel.new()
+		tab_badge.name = "TabNotificationBadge"
+		tab_badge.size = Vector2(8, 8)
+		tab_badge.position = Vector2(14, -2)
+		
+		var tab_badge_style = StyleBoxFlat.new()
+		tab_badge_style.bg_color = Color(0.8, 0, 0, 1)
+		tab_badge_style.set_corner_radius_all(4)
+		tab_badge.add_theme_stylebox_override("panel", tab_badge_style)
+		tab_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		tab_icon.add_child(tab_badge)
 
 	# Instantiate Shift Verify Tab Button (Disabled)
 	# shift_verify_tab = Button.new()
@@ -403,6 +395,8 @@ func _ready():
 		apps.append([browser_window, browser_tab])
 	if shift_verify_window and shift_verify_tab:
 		apps.append([shift_verify_window, shift_verify_tab])
+	if mail_window and mail_tab:
+		apps.append([mail_window, mail_tab])
 		
 	for app in apps:
 		var window = app[0]
@@ -698,6 +692,15 @@ func refresh_mail_notifications():
 		var tab_badge = mail_tab.find_child("TabNotificationBadge", true, false)
 		if tab_badge:
 			tab_badge.visible = has_unread
+
+func on_power_outage():
+	if start_menu:
+		start_menu.visible = false
+	
+	# Release focus from any focused control inside this viewport
+	var focus_owner = get_viewport().gui_get_focus_owner()
+	if focus_owner:
+		focus_owner.release_focus()
 
 func create_envelope_icon(icon_size: Vector2) -> Control:
 	var c = Control.new()

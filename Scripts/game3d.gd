@@ -77,8 +77,8 @@ func _ready():
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	# Initialize first outage timer randomly between 45.0 and 90.0 seconds
-	outage_timer = randf_range(45.0, 90.0)
+	# Initialize first outage timer randomly between 45.0 and 90.0 seconds (Set to 15.0 for testing)
+	outage_timer = 15.0
 			
 	# Connect to the 2D game's robot spawning signal
 	if game_2d:
@@ -251,7 +251,7 @@ func _input(event):
 		return
 
 	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
-	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible:
+	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible and not is_blackout and is_monitor_on:
 		if event is InputEventKey:
 			sub_viewport.push_input(event)
 			if event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER):
@@ -337,6 +337,12 @@ func _trigger_power_outage():
 		
 	_update_lights_visibility()
 	_update_wifi_led_material()
+	
+	# Close computer apps and release input focus
+	if sub_viewport:
+		var desktop = sub_viewport.get_node_or_null("Control2/DesktopOS")
+		if desktop and desktop.has_method("on_power_outage"):
+			desktop.on_power_outage()
 		
 	# Force player out of computer screen
 	var player = $Player
@@ -388,7 +394,7 @@ func reset_breaker():
 		_restore_power()
 		if breaker_lever:
 			breaker_lever.rotation.z = 0.0
-		outage_timer = randf_range(45.0, 90.0)
+		outage_timer = 15.0
 		var prompt = get_node_or_null("HUD/PromptLabel") as Label
 		if prompt:
 			prompt.text = "SYSTEM POWER RESTORED."
@@ -435,7 +441,7 @@ func _double_trigger_enter():
 	await tree.create_timer(0.04).timeout
 	if not is_inside_tree() or not is_instance_valid(sub_viewport) or not sub_viewport.is_inside_tree():
 		return
-	if viewport_container and viewport_container.visible:
+	if viewport_container and viewport_container.visible and not is_blackout and is_monitor_on:
 		# Create simulated Enter pressed event
 		var press_event = InputEventKey.new()
 		press_event.pressed = true

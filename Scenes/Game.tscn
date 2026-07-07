@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://7a0yx5pae6vo" path="res://Scripts/minesweeper.gd" id="14_minesweeper"]
 [ext_resource type="Script" uid="uid://b0de4yioj2eoe" path="res://Scripts/snake.gd" id="15_snake"]
 [ext_resource type="Shader" uid="uid://25kefcn6ewtw" path="res://crt_filter.gdshader" id="CRT_Shader"]
+[ext_resource type="Texture2D" uid="uid://te4jtm8yhb5h" path="res://Sprites/icon_browser.png" id="Icon_Browser"]
 [ext_resource type="Texture2D" uid="uid://cchlh357w21kw" path="res://Sprites/icon_cctv.png" id="Icon_CCTV"]
 [ext_resource type="Texture2D" uid="uid://bth675els8x8v" path="res://Sprites/icon_inspector.png" id="Icon_Inspector"]
 [ext_resource type="Texture2D" uid="uid://d2m5xw1srajxm" path="res://Sprites/icon_minesweeper.png" id="Icon_Minesweeper"]
@@ -715,6 +716,21 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 icon = ExtResource("Icon_Settings")
+icon_alignment = 1
+expand_icon = true
+
+[node name="BrowserTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs" unique_id=2040480061]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_Browser")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MailTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs" unique_id=2040480062]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
 icon_alignment = 1
 expand_icon = true
 
