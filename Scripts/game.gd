@@ -95,26 +95,49 @@ func _ready():
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
 		if option_node:
-			option_node.position.y = 440 # starts immediately after ChatManager
-			option_node.size = Vector2(385, 205) # H=205 instead of 235
-			
+			option_node.position = Vector2(277, 440)
+			option_node.size = Vector2(385, 205)
+
 			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
 			if ans_panel:
-				ans_panel.size = Vector2(385, 205)
-				
+				ans_panel.position = Vector2.ZERO
+				ans_panel.size = option_node.size
+
+			var label = option_node.get_node_or_null("OptionGroupLabel") as Label
+			if label:
+				label.position = Vector2(20, -8)
+				label.size = Vector2(160, 16)
+
 			var btn1 = option_node.get_node_or_null("Button1") as Button
 			if btn1:
-				btn1.position = Vector2(15, 20)
-				btn1.size = Vector2(355, 75)
-				btn1.anchor_right = 1.0
-				btn1.offset_right = -15
-				
+				btn1.visible = true
+				btn1.position = Vector2(15, 22)
+				btn1.size = Vector2(355, 55)
+
 			var btn2 = option_node.get_node_or_null("Button2") as Button
 			if btn2:
-				btn2.position = Vector2(15, 110)
-				btn2.size = Vector2(355, 75)
-				btn2.anchor_right = 1.0
-				btn2.offset_right = -15
+				btn2.visible = true
+				btn2.position = Vector2(15, 87)
+				btn2.size = Vector2(355, 55)
+
+			var btn3 = option_node.get_node_or_null("Button3") as Button
+			if btn3:
+				btn3.visible = false
+				btn3.disabled = true
+
+			var input = option_node.get_node_or_null("QuestionInput") as LineEdit
+			if input:
+				input.visible = true
+				input.position = Vector2(15, 155)
+				input.size = Vector2(300, 34)
+				input.placeholder_text = "..."
+
+			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
+			if submit:
+				submit.visible = true
+				submit.position = Vector2(325, 155)
+				submit.size = Vector2(45, 34)
+				submit.text = ">"
 
 		# Compact right side: Model (Database Specs)
 		var model_node = inspector.get_node_or_null("Model") as Control
