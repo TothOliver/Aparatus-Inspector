@@ -60,14 +60,14 @@ func _process(delta):
 					# Trigger system breach!
 					GameStats.hack_active = true
 					GameStats.hack_progress = 0.0
-					# Day 2 hacks: ~35-55s, Day 3 hacks: ~18-35s
-					var min_time = 35.0 if current_day == 2 else 18.0
-					var max_time = 55.0 if current_day == 2 else 35.0
+					# Day 2 hacks: ~52.5-82.5s, Day 3 hacks: ~27-52.5s (50% longer than original)
+					var min_time = 52.5 if current_day == 2 else 27.0
+					var max_time = 82.5 if current_day == 2 else 52.5
 					hack_timer = randf_range(min_time, max_time)
 
 	# Slow sanity drain when lights are not on
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
-	if game_3d:
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_ceiling_light_on" in game_3d:
 		var lights_are_off = not game_3d.is_ceiling_light_on or game_3d.is_blackout
 		if lights_are_off:
 			sanity_drain_accumulator += delta * 0.4 # ~1 sanity per 2.5 seconds
@@ -92,16 +92,16 @@ func start_new_day():
 		door.rotation.y = 0.0
 		
 	# Load persisted health/sanity
-	sanity = GameStats.player_sanity
-	health = GameStats.player_health
+	sanity = int(GameStats.player_sanity)
+	health = int(GameStats.player_health)
 		
 	var config = day_configs[current_day]
 	print("--- DAY ", current_day, " START ---")
 	print("Quota: ", config.quota, " | Difficulty Level: ", config.difficulty)
 	
-	# Start hack timer shortly after day start on Day 2/3
+	# Start hack timer shortly after day start on Day 2/3 (50% longer initial delay)
 	if current_day >= 2:
-		hack_timer = randf_range(15.0, 30.0)
+		hack_timer = randf_range(22.5, 45.0)
 
 func process_robot(robot: RobotData, player_choice_pass: bool):
 	var is_good_robot = robot.is_good

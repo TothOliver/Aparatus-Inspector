@@ -6,8 +6,8 @@ extends Control
 @onready var passcode_input = get_node_or_null("%PasscodeInput")
 
 var stories = {
-	1: "=== SHIFT 1 COMPLETE ===\n\nYour first day at Apparatus Robotics has concluded.\n\nLOG REPORT: The testing chamber has successfully calibrated its neural integrity matrices. However, local system logs contain warning signs: Walter, a heavy security chassis, has gone offline and escaped containment in the lower warehouse.\n\nAlert level has been raised. Sensor reports suggest high-level acoustic patterns roaming the hallway outside Sector B.\n\nKeep your ceiling lights off and sit beneath the desk if safety is compromised.",
-	2: "=== SHIFT 2 COMPLETE ===\n\nFacility quarantine status: CRITICAL.\n\nLOG REPORT: Walter has breached Sector B corridor and is actively hunting. The terminal system has been targeted by remote integrity anomalies, causing frequent system override hacks.\n\nGeneral evacuation has been ordered. The rescue shuttle is scheduled to arrive at Sector B landing deck in 24 hours. You must hold your station for one final shift to secure the remaining data archives.\n\nRemember to lock the door manually or cover the glass window if the unit approaches."
+	1: "=== SHIFT 1 COMPLETE ===\n\nYour first day at Apparatus Robotics has concluded.\n\nLOG REPORT: The testing chamber calibration is complete. However, the facility's security integrity has been compromised: Walter, a heavy security chassis, has escaped containment and is roaming Sector B.\n\nFor Shift 2, alert levels are raised:\n1. ANOMALY DETECTION: Walter will approach the office. Use the PC monitor's CCTV application or search the outer area in 3D using your flashlight (F). Spotting him for 1 second forces a retreat.\n2. CLOSER APPROACH: If ignored, Walter will advance near the glass window. Look out the window and flash your light to scare him away.\n3. DOOR DEFENSE: If Walter reaches the door, he will rattle the handle. You must lock the door using the button on the wall or through the terminal. Lock usage drains power, so unlock it to recharge when safe.\n4. SYSTEM INTRUSIONS: Remote override hacks will now target your PC. Use the terminal to purge them before system files are corrupted.",
+	2: "=== SHIFT 2 COMPLETE ===\n\nFacility quarantine status: CRITICAL.\n\nLOG REPORT: The remote intrusions are accelerating, and Walter's behavior has grown highly aggressive. Emergency evacuation protocols have been initiated. The rescue shuttle will arrive at the Sector B landing deck at the end of your next shift.\n\nYou must hold your station for one final shift to secure the remaining robot data:\n1. INCREASED AGGRESSION: Walter will hunt with much shorter cooldowns. Watch the CCTV and the window closely.\n2. FREQUENT HACKS: Remote integrity anomalies will target the PC at a significantly higher rate. Maintain WiFi power controls and purge intrusions immediately.\n3. CRITICAL QUOTA: Meet your final quota of 5 inspected units to secure the archives and initiate shuttle launch."
 }
 
 func _ready():
@@ -33,4 +33,4 @@ func _ready():
 func _on_proceed_pressed():
 	GameStats.current_day += 1
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Scenes/Game3D.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/Game3D.tscn")

@@ -18,6 +18,8 @@ class_name DesktopController
 @onready var cctv_tab = %CCTVTab
 @onready var slots_tab = %SlotsTab
 @onready var settings_tab = %SettingsTab
+@onready var browser_tab = %BrowserTab
+@onready var mail_tab = %MailTab
 
 @onready var cctv_texture = %CCTVTexture
 @onready var power_bar = %PowerBar
@@ -30,9 +32,9 @@ var last_hack_active: bool = false
 var hacker_alert_dismissed: bool = false
 var active_window: Control = null
 var browser_window: Control = null
-var browser_tab: Button = null
 var shift_verify_window: Control = null
 var shift_verify_tab: Button = null
+var mail_window: Control = null
 
 func _ready():
 	if start_menu:
@@ -41,8 +43,8 @@ func _ready():
 	if taskbar:
 		taskbar.z_index = 9
 
-	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Slots; show Inspector
-	inspector_window.visible = true
+	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Slots, Inspector
+	inspector_window.visible = false
 	notepad_window.visible = false
 	terminal_window.visible = false
 	minesweeper_window.visible = false
@@ -76,19 +78,56 @@ func _ready():
 	# get_parent().call_deferred("add_child", shift_verify_window)
 	# shift_verify_window.visible = false
 
-	# Instantiate Browser Tab Button
-	var active_tabs_container = get_node_or_null("Taskbar/ActiveTabs")
-	browser_tab = Button.new()
-	browser_tab.name = "BrowserTab"
-	browser_tab.custom_minimum_size = Vector2(40, 0)
-	browser_tab.icon = load("res://Sprites/icon_browser.png")
-	browser_tab.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	browser_tab.expand_icon = true
-	browser_tab.pressed.connect(func():
-		toggle_window_from_tab("Browser")
-	)
-	if active_tabs_container:
-		active_tabs_container.add_child(browser_tab)
+	# Configure Browser Tab Button
+	if browser_tab:
+		browser_tab.icon = load("res://Sprites/icon_browser.png")
+		browser_tab.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		browser_tab.expand_icon = true
+		browser_tab.pressed.connect(func():
+			toggle_window_from_tab("Browser")
+		)
+
+	# Instantiate Mail Window
+	var mail_script = preload("res://Scripts/mail_app.gd")
+	mail_window = NinePatchRect.new()
+	mail_window.name = "MailWindow"
+	mail_window.set_script(mail_script)
+	mail_window.texture = preload("res://RetroWindowsGUI/Window_Base.png")
+	mail_window.patch_margin_left = 12
+	mail_window.patch_margin_top = 12
+	mail_window.patch_margin_right = 12
+	mail_window.patch_margin_bottom = 12
+	mail_window.position = Vector2(300, 120)
+	get_parent().call_deferred("add_child", mail_window)
+	mail_window.visible = false
+
+	# Configure Mail Tab Button
+	if mail_tab:
+		mail_tab.icon = null # Clear static icon to use procedural drawing
+		mail_tab.pressed.connect(func():
+			toggle_window_from_tab("Mail")
+		)
+		
+		var center_container = CenterContainer.new()
+		center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+		mail_tab.add_child(center_container)
+		
+		var tab_icon = create_envelope_icon(Vector2(20, 20))
+		center_container.add_child(tab_icon)
+
+		# Taskbar notification badge for Mail placed on the icon itself
+		var tab_badge = Panel.new()
+		tab_badge.name = "TabNotificationBadge"
+		tab_badge.size = Vector2(8, 8)
+		tab_badge.position = Vector2(14, -2)
+		
+		var tab_badge_style = StyleBoxFlat.new()
+		tab_badge_style.bg_color = Color(0.8, 0, 0, 1)
+		tab_badge_style.set_corner_radius_all(4)
+		tab_badge.add_theme_stylebox_override("panel", tab_badge_style)
+		tab_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		tab_icon.add_child(tab_badge)
 
 	# Instantiate Shift Verify Tab Button (Disabled)
 	# shift_verify_tab = Button.new()
@@ -147,6 +186,68 @@ func _ready():
 			open_app("Browser")
 		)
 		desktop_icons_container.add_child(browser_icon_btn)
+
+		# Dynamic Mail Desktop Shortcut
+		var mail_icon_btn = Button.new()
+		mail_icon_btn.name = "MailIcon"
+		mail_icon_btn.layout_mode = 0
+		mail_icon_btn.position = Vector2(160, 150)
+		mail_icon_btn.size = Vector2(110, 90)
+		mail_icon_btn.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
+		if other_btn:
+			mail_icon_btn.add_theme_stylebox_override("hover", other_btn.get_theme_stylebox("hover"))
+			mail_icon_btn.add_theme_stylebox_override("pressed", other_btn.get_theme_stylebox("pressed"))
+			mail_icon_btn.add_theme_stylebox_override("focus", other_btn.get_theme_stylebox("focus"))
+		
+		var mail_vbox = VBoxContainer.new()
+		mail_vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		mail_vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		mail_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+		mail_vbox.add_theme_constant_override("separation", 2)
+		mail_icon_btn.add_child(mail_vbox)
+		
+		var mail_icon_rect = create_envelope_icon(Vector2(48, 48))
+		mail_vbox.add_child(mail_icon_rect)
+		
+		var mail_lbl = Label.new()
+		mail_lbl.text = "Inbox Mail"
+		mail_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		mail_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		mail_lbl.add_theme_color_override("font_color", Color(1,1,1,1))
+		mail_lbl.add_theme_font_override("font", preload("res://RetroWindowsGUI/M 8pt.ttf"))
+		mail_lbl.add_theme_font_size_override("font_size", 12)
+		mail_vbox.add_child(mail_lbl)
+		
+		mail_icon_btn.pressed.connect(func():
+			open_app("Mail")
+		)
+		desktop_icons_container.add_child(mail_icon_btn)
+		
+		# Create the notification badge on desktop icon envelope
+		var mail_notification_badge = Panel.new()
+		mail_notification_badge.name = "NotificationBadge"
+		mail_notification_badge.size = Vector2(14, 14)
+		mail_notification_badge.position = Vector2(32, 4)
+		
+		var badge_style = StyleBoxFlat.new()
+		badge_style.bg_color = Color(0.8, 0, 0, 1)
+		badge_style.set_corner_radius_all(7)
+		mail_notification_badge.add_theme_stylebox_override("panel", badge_style)
+		
+		var badge_label = Label.new()
+		badge_label.text = "!"
+		badge_label.add_theme_font_override("font", preload("res://RetroWindowsGUI/windows-bold[1].ttf"))
+		badge_label.add_theme_font_size_override("font_size", 9)
+		badge_label.add_theme_color_override("font_color", Color(1,1,1,1))
+		badge_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		badge_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		badge_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+		mail_notification_badge.add_child(badge_label)
+		
+		mail_icon_rect.add_child(mail_notification_badge)
+		
+		# Initial refresh of notifications
+		call_deferred("refresh_mail_notifications")
 
 	# Dynamic Shift Verify Desktop Shortcut (Disabled)
 	# if desktop_icons_container:
@@ -222,6 +323,34 @@ func _ready():
 		if divider_node:
 			program_list.move_child(browser_btn, divider_node.get_index())
 
+		# Dynamic Mail Start Menu Button
+		var mail_btn = Button.new()
+		mail_btn.name = "MailBtn"
+		mail_btn.text = "      Inbox Mail"
+		mail_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		mail_btn.custom_minimum_size = Vector2(0, 36)
+		mail_btn.add_theme_color_override("font_color", Color(0,0,0,1))
+		mail_btn.add_theme_color_override("font_hover_color", Color(1,1,1,1))
+		mail_btn.add_theme_color_override("font_focus_color", Color(1,1,1,1))
+		mail_btn.add_theme_font_override("font", preload("res://RetroWindowsGUI/M 8pt.ttf"))
+		mail_btn.add_theme_font_size_override("font_size", 12)
+		
+		if ref_btn:
+			mail_btn.add_theme_stylebox_override("normal", ref_btn.get_theme_stylebox("normal"))
+			mail_btn.add_theme_stylebox_override("hover", ref_btn.get_theme_stylebox("hover"))
+			mail_btn.add_theme_stylebox_override("focus", ref_btn.get_theme_stylebox("focus"))
+		
+		var start_menu_icon = create_envelope_icon(Vector2(20, 15))
+		start_menu_icon.position = Vector2(8, 10)
+		mail_btn.add_child(start_menu_icon)
+		
+		mail_btn.pressed.connect(func():
+			_on_start_menu_app_selected("Mail")
+		)
+		program_list.add_child(mail_btn)
+		if divider_node:
+			program_list.move_child(mail_btn, divider_node.get_index())
+
 	# Dynamic Shift Verify Start Menu Button (Disabled)
 	# if program_list:
 	# 	var verify_btn = Button.new()
@@ -266,6 +395,8 @@ func _ready():
 		apps.append([browser_window, browser_tab])
 	if shift_verify_window and shift_verify_tab:
 		apps.append([shift_verify_window, shift_verify_tab])
+	if mail_window and mail_tab:
+		apps.append([mail_window, mail_tab])
 		
 	for app in apps:
 		var window = app[0]
@@ -284,6 +415,27 @@ func _ready():
 	
 	# Initialize tab focus states
 	_update_top_window_focus()
+	
+	# Hide CCTV (Security Feed) and Terminal (MS-DOS Prompt) on Day 1
+	if GameStats.current_day == 1:
+		var cctv_icon = get_node_or_null("DesktopIcons/CCTVIcon")
+		if cctv_icon:
+			cctv_icon.visible = false
+		var terminal_icon = get_node_or_null("DesktopIcons/TerminalIcon")
+		if terminal_icon:
+			terminal_icon.visible = false
+		
+		if cctv_tab:
+			cctv_tab.visible = false
+		if terminal_tab:
+			terminal_tab.visible = false
+			
+		var start_cctv_btn = get_node_or_null("StartMenu/HBox/ProgramList/CCTVBtn")
+		if start_cctv_btn:
+			start_cctv_btn.visible = false
+		var start_terminal_btn = get_node_or_null("StartMenu/HBox/ProgramList/TerminalBtn")
+		if start_terminal_btn:
+			start_terminal_btn.visible = false
 	
 	_adjust_start_menu_height()
 	
@@ -382,8 +534,8 @@ func _update_tab_state(tab: Button, active: bool):
 			tab.add_theme_stylebox_override("pressed", pressed_style)
 			tab.add_theme_stylebox_override("focus", hover_style)
 
-func _get_window_by_name(name: String) -> Control:
-	match name:
+func _get_window_by_name(window_name: String) -> Control:
+	match window_name:
 		"Inspector": return inspector_window
 		"Notepad": return notepad_window
 		"Terminal": return terminal_window
@@ -394,6 +546,7 @@ func _get_window_by_name(name: String) -> Control:
 		"Settings": return settings_window
 		"Browser": return browser_window
 		"ShiftVerify": return shift_verify_window
+		"Mail": return mail_window
 	return null
 
 func shutdown_computer():
@@ -417,8 +570,8 @@ func toggle_window_from_tab(app_name: String):
 		else:
 			window.restore()
 
-func _get_tab_by_name(name: String) -> Button:
-	match name:
+func _get_tab_by_name(tab_name: String) -> Button:
+	match tab_name:
 		"Inspector": return inspector_tab
 		"Notepad": return notepad_tab
 		"Terminal": return terminal_tab
@@ -429,6 +582,7 @@ func _get_tab_by_name(name: String) -> Button:
 		"Settings": return settings_tab
 		"Browser": return browser_tab
 		"ShiftVerify": return shift_verify_tab
+		"Mail": return mail_tab
 	return null
 
 func _on_start_button_pressed():
@@ -447,7 +601,7 @@ func _update_top_window_focus():
 	var highest_index = -1
 	var top_window_node = null
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail"]:
 		var window = _get_window_by_name(app_name)
 		if window and window.visible:
 			var idx = window.get_index()
@@ -459,7 +613,7 @@ func _update_top_window_focus():
 	active_window = top_window_node
 	_update_window_focus_visuals(top_window_name)
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail"]:
 		var tab = _get_tab_by_name(app_name)
 		_update_tab_state(tab, app_name == top_window_name)
 
@@ -467,7 +621,7 @@ func _update_window_focus_visuals(active_app_name: String):
 	var active_header = preload("res://RetroWindowsGUI/Window_Header.png")
 	var inactive_header = preload("res://RetroWindowsGUI/Window_Header_Inactive.png")
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail"]:
 		var window = _get_window_by_name(app_name)
 		if window:
 			var title_bar = window.get_node_or_null("TitleBar") as NinePatchRect
@@ -499,3 +653,152 @@ func _on_gui_focus_changed(control: Control):
 				p.focused.emit()
 			break
 		p = p.get_parent()
+
+func _on_cam1_pressed():
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	if cam1:
+		cam1.current = true
+	if cam2:
+		cam2.current = false
+	if cam3:
+		cam3.current = false
+	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
+	if label:
+		label.text = "Camera: Corridor"
+
+func _on_cam2_pressed():
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	if cam1:
+		cam1.current = false
+	if cam2:
+		cam2.current = true
+	if cam3:
+		cam3.current = false
+	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
+	if label:
+		label.text = "Camera: Room 2"
+
+func _on_cam3_pressed():
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	if cam1:
+		cam1.current = false
+	if cam2:
+		cam2.current = false
+	if cam3:
+		cam3.current = true
+	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
+	if label:
+		label.text = "Camera: Room 3"
+
+func refresh_mail_notifications():
+	var has_unread = GameStats.has_unread_mail()
+	
+	# Update desktop icon badge
+	var desktop_icons = get_node_or_null("DesktopIcons")
+	if desktop_icons:
+		var icon_btn = desktop_icons.get_node_or_null("MailIcon")
+		if icon_btn:
+			var badge = icon_btn.find_child("NotificationBadge", true, false)
+			if badge:
+				badge.visible = has_unread
+				
+	# Update taskbar tab badge
+	if mail_tab:
+		var tab_badge = mail_tab.find_child("TabNotificationBadge", true, false)
+		if tab_badge:
+			tab_badge.visible = has_unread
+
+func on_power_outage():
+	if start_menu:
+		start_menu.visible = false
+	
+	# Release focus from any focused control inside this viewport
+	var focus_owner = get_viewport().gui_get_focus_owner()
+	if focus_owner:
+		focus_owner.release_focus()
+
+func create_envelope_icon(icon_size: Vector2) -> Control:
+	var c = Control.new()
+	c.custom_minimum_size = icon_size
+	c.size = icon_size
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.draw.connect(func():
+		var w = c.size.x
+		var h = c.size.y
+		
+		# Determine icon box size (32x32 for desktop, full size for small icons)
+		var size_icon = min(w, h)
+		if size_icon > 32:
+			size_icon = 32
+			
+		var ox = (w - size_icon) / 2.0
+		var oy = (h - size_icon) / 2.0
+		
+		var line_color = Color(0.15, 0.15, 0.15)
+		var shadow_color = Color(0.4, 0.4, 0.4)
+		var paper_color = Color(1.0, 1.0, 1.0)
+		var text_line_color = Color(0.6, 0.75, 0.9)
+		var env_color = Color(0.96, 0.93, 0.78)
+		
+		var fold_offset = max(2.0, size_icon * 0.18)
+		
+		# 1. Draw Document Shadow
+		var doc_pts_shadow = PackedVector2Array([
+			Vector2(ox + 2, oy + 2),
+			Vector2(ox + size_icon - fold_offset + 2, oy + 2),
+			Vector2(ox + size_icon + 2, oy + fold_offset + 2),
+			Vector2(ox + size_icon + 2, oy + size_icon + 2),
+			Vector2(ox + 2, oy + size_icon + 2)
+		])
+		c.draw_polygon(doc_pts_shadow, PackedColorArray([shadow_color]))
+		
+		# 2. Draw Document Page (White Sheet with folded corner)
+		var doc_pts = PackedVector2Array([
+			Vector2(ox, oy),
+			Vector2(ox + size_icon - fold_offset, oy),
+			Vector2(ox + size_icon, oy + fold_offset),
+			Vector2(ox + size_icon, oy + size_icon),
+			Vector2(ox, oy + size_icon)
+		])
+		c.draw_polygon(doc_pts, PackedColorArray([paper_color]))
+		c.draw_polyline(doc_pts, line_color, 1.0, true)
+		
+		# Fold corner lines
+		c.draw_line(Vector2(ox + size_icon - fold_offset, oy), Vector2(ox + size_icon - fold_offset, oy + fold_offset), line_color, 1.0)
+		c.draw_line(Vector2(ox + size_icon - fold_offset, oy + fold_offset), Vector2(ox + size_icon, oy + fold_offset), line_color, 1.0)
+		
+		# Draw horizontal text lines
+		var line_y_start = oy + fold_offset + 2.0
+		var line_gap = max(3.0, (size_icon - line_y_start) / 5.0)
+		for i in range(3):
+			var ly = line_y_start + i * line_gap
+			if ly < oy + size_icon - 4:
+				c.draw_line(Vector2(ox + 4, ly), Vector2(ox + size_icon - 4, ly), text_line_color, 1.0)
+				
+		# 3. Draw a Small Yellow Envelope overlapping the bottom-right of the paper
+		var ew = size_icon * 0.7
+		var eh = size_icon * 0.45
+		var ex = ox + size_icon * 0.25
+		var ey = oy + size_icon * 0.5
+		
+		# Envelope Shadow
+		c.draw_rect(Rect2(ex + 1, ey + 1, ew - 1, eh - 1), shadow_color, true)
+		
+		# Envelope Body
+		c.draw_rect(Rect2(ex, ey, ew - 1, eh - 1), env_color, true)
+		c.draw_rect(Rect2(ex, ey, ew - 1, eh - 1), line_color, false, 1.0)
+		
+		# Envelope Folds
+		var center = Vector2(ex + (ew - 1) / 2.0, ey + (eh - 1) / 2.0 + 0.5)
+		c.draw_line(Vector2(ex, ey), center, line_color, 1.0)
+		c.draw_line(Vector2(ex + ew - 1, ey), center, line_color, 1.0)
+		c.draw_line(Vector2(ex, ey + eh - 1), center, line_color, 1.0)
+		c.draw_line(Vector2(ex + ew - 1, ey + eh - 1), center, line_color, 1.0)
+	)
+	return c

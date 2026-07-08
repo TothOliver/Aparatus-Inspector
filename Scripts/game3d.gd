@@ -6,13 +6,13 @@ extends Node3D
 @onready var game_2d = $SubViewportContainer/SubViewport/Control2
 
 @onready var desk_light = $Lighting/DeskLight
-@onready var screen_mesh = $ComputerMonitor/Screen
+@export var screen_mesh: MeshInstance3D
 @onready var corridor_light = $Lighting/CorridorLight
 @onready var door_light = $Office/DoorLight
 @onready var door_mesh = $Office/LeftDoor
 @onready var reticle = $HUD/Reticle
 @onready var ceiling_bulb = $Office/CeilingFixture/Bulb
-@onready var wifi_led = $Office/WifiRouter/WifiButton
+@export var wifi_led: MeshInstance3D
 @onready var curtain_node = $Office/Curtain
 
 var aspect_overlay: Control
@@ -22,6 +22,17 @@ var right_bar: ColorRect
 var os_mask_overlay: Control
 var os_left_mask: ColorRect
 var os_right_mask: ColorRect
+
+var is_curtain2_closed: bool = false
+var target_curtain2_scale_x: float = 0.1
+var target_curtain2_pos_x: float = 5.25 # Open is 5.25, closed is 6.0
+
+var is_curtain3_closed: bool = false
+var target_curtain3_scale_x: float = 0.1
+var target_curtain3_pos_x: float = -0.75 # Open is -0.75, closed is 0.0
+
+var is_room2_light_on: bool = true
+var is_room3_light_on: bool = true
 
 # Office States (monitored by roaming hunter AI)
 var is_ceiling_light_on: bool = true
@@ -41,11 +52,33 @@ var is_breaker_tripped: bool = false
 @onready var breaker_lever = get_node_or_null("Office/BreakerBox/BreakerLever") as MeshInstance3D
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	if sprite_3d:
+		sprite_3d.visible = false
+	if not screen_mesh:
+		screen_mesh = get_node_or_null("Office/DeskSetup/placeholder/ComputerMonitor/Screen") as MeshInstance3D
+	if not screen_mesh:
+		screen_mesh = get_node_or_null("ComputerMonitor/Screen") as MeshInstance3D
+		
+	if not wifi_led:
+		wifi_led = get_node_or_null("Office/DeskSetup/placeholder/WifiRouter/WifiButton") as MeshInstance3D
+	if not wifi_led:
+		wifi_led = get_node_or_null("Office/WifiRouter/WifiButton") as MeshInstance3D
+		
+	if screen_mesh and sub_viewport:
+		var material = screen_mesh.get_active_material(0) as StandardMaterial3D
+		if not material:
+			material = screen_mesh.get_surface_override_material(0) as StandardMaterial3D
+		if not material and screen_mesh.mesh:
+			material = screen_mesh.mesh.material as StandardMaterial3D
+		if material:
+			material.albedo_texture = sub_viewport.get_texture()
+		
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	# Initialize first outage timer randomly between 45.0 and 90.0 seconds
-	outage_timer = randf_range(45.0, 90.0)
+	# Initialize first outage timer randomly between 135.0 and 270.0 seconds (3x the original 45.0 - 90.0 range)
+	outage_timer = randf_range(135.0, 270.0)
 			
 	# Connect to the 2D game's robot spawning signal
 	if game_2d:
@@ -195,9 +228,30 @@ func _process(delta):
 		curtain_node.scale.x = lerp(curtain_node.scale.x, target_curtain_scale_x, 8.0 * delta)
 		curtain_node.position.x = lerp(curtain_node.position.x, target_curtain_pos_x, 8.0 * delta)
 
+	# Interpolate Curtain 2 scale and position
+	var curtain2 = get_node_or_null("Office/Curtain2")
+	if curtain2:
+		curtain2.scale.x = lerp(curtain2.scale.x, target_curtain2_scale_x, 8.0 * delta)
+		curtain2.position.x = lerp(curtain2.position.x, target_curtain2_pos_x, 8.0 * delta)
+
+	# Interpolate Curtain 3 scale and position
+	var curtain3 = get_node_or_null("Office/Curtain3")
+	if curtain3:
+		curtain3.scale.x = lerp(curtain3.scale.x, target_curtain3_scale_x, 8.0 * delta)
+		curtain3.position.x = lerp(curtain3.position.x, target_curtain3_pos_x, 8.0 * delta)
+
 func _input(event):
+	# Handle closing settings/pause menu when pressing Escape and the menu is open
+	var pause_menu = get_node_or_null("HUD/PauseMenu")
+	if pause_menu and pause_menu.visible and event.is_action_pressed("ui_cancel"):
+		pause_menu.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().paused = false
+		get_viewport().set_input_as_handled()
+		return
+
 	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
-	if viewport_container and viewport_container.visible:
+	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible and not is_blackout and is_monitor_on:
 		if event is InputEventKey:
 			sub_viewport.push_input(event)
 			if event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER):
@@ -234,10 +288,7 @@ func exit_computer_view():
 
 func _on_robot_spawned(robot_data: RobotData):
 	if sprite_3d:
-		if robot_data and robot_data.sprite:
-			sprite_3d.texture = robot_data.sprite
-		else:
-			sprite_3d.texture = null
+		sprite_3d.visible = false
 
 # Light controls (can be called by light switches or the MS-DOS terminal)
 func toggle_ceiling_lights():
@@ -286,6 +337,12 @@ func _trigger_power_outage():
 		
 	_update_lights_visibility()
 	_update_wifi_led_material()
+	
+	# Close computer apps and release input focus
+	if sub_viewport:
+		var desktop = sub_viewport.get_node_or_null("Control2/DesktopOS")
+		if desktop and desktop.has_method("on_power_outage"):
+			desktop.on_power_outage()
 		
 	# Force player out of computer screen
 	var player = $Player
@@ -337,7 +394,7 @@ func reset_breaker():
 		_restore_power()
 		if breaker_lever:
 			breaker_lever.rotation.z = 0.0
-		outage_timer = randf_range(45.0, 90.0)
+		outage_timer = randf_range(135.0, 270.0)
 		var prompt = get_node_or_null("HUD/PromptLabel") as Label
 		if prompt:
 			prompt.text = "SYSTEM POWER RESTORED."
@@ -375,9 +432,16 @@ func _on_interact_prompt_changed(text: String):
 	$HUD/PromptLabel.text = text
 
 func _double_trigger_enter():
+	if not is_inside_tree():
+		return
+	var tree = get_tree()
+	if not tree:
+		return
 	# Wait a tiny bit to let the first submission finish executing
-	await get_tree().create_timer(0.04).timeout
-	if viewport_container and viewport_container.visible:
+	await tree.create_timer(0.04).timeout
+	if not is_inside_tree() or not is_instance_valid(sub_viewport) or not sub_viewport.is_inside_tree():
+		return
+	if viewport_container and viewport_container.visible and not is_blackout and is_monitor_on:
 		# Create simulated Enter pressed event
 		var press_event = InputEventKey.new()
 		press_event.pressed = true
@@ -489,3 +553,33 @@ func _on_viewport_container_resized():
 			os_right_mask.position = Vector2(0, pos_y + height)
 			os_right_mask.size = Vector2(W, H - (pos_y + height))
 			os_right_mask.visible = true
+
+func toggle_room2_lights():
+	is_room2_light_on = not is_room2_light_on
+	var light = get_node_or_null("Room2/CeilingLight2")
+	if light:
+		light.visible = is_room2_light_on
+
+func toggle_room3_lights():
+	is_room3_light_on = not is_room3_light_on
+	var light = get_node_or_null("Room3/CeilingLight3")
+	if light:
+		light.visible = is_room3_light_on
+
+func toggle_curtain2():
+	is_curtain2_closed = not is_curtain2_closed
+	if is_curtain2_closed:
+		target_curtain2_scale_x = 1.0
+		target_curtain2_pos_x = 6.0
+	else:
+		target_curtain2_scale_x = 0.1
+		target_curtain2_pos_x = 5.25
+
+func toggle_curtain3():
+	is_curtain3_closed = not is_curtain3_closed
+	if is_curtain3_closed:
+		target_curtain3_scale_x = 1.0
+		target_curtain3_pos_x = 0.0
+	else:
+		target_curtain3_scale_x = 0.1
+		target_curtain3_pos_x = -0.75

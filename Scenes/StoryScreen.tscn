@@ -9,7 +9,7 @@
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_ButtonHover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_ButtonPressed"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_InnerFrame"]
-[ext_resource type="Shader" uid="uid://crt_shader_uid" path="res://crt_filter.gdshader" id="CRT_Shader"]
+[ext_resource type="Shader" uid="uid://25kefcn6ewtw" path="res://crt_filter.gdshader" id="CRT_Shader"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
@@ -47,10 +47,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -250.0
-offset_right = 225.0
-offset_bottom = 250.0
+offset_left = -280.0
+offset_top = -320.0
+offset_right = 280.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("Icon_WindowBase")
@@ -63,7 +63,7 @@ patch_margin_bottom = 12
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 444.0
+offset_right = 554.0
 offset_bottom = 36.0
 mouse_filter = 0
 texture = ExtResource("Icon_WindowHeader")
@@ -78,7 +78,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
-offset_right = 400.0
+offset_right = 500.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("Font_Bold")
 theme_override_font_sizes/font_size = 14
@@ -88,8 +88,8 @@ text = "SHIFT COMPLETED"
 layout_mode = 0
 offset_left = 12.0
 offset_top = 42.0
-offset_right = 438.0
-offset_bottom = 430.0
+offset_right = 548.0
+offset_bottom = 570.0
 theme_override_styles/panel = ExtResource("StyleBox_InnerFrame")
 
 [node name="StoryLabel" type="Label" parent="Window/StatsPanel" unique_id=1048202957]
@@ -97,8 +97,8 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
-offset_right = 411.0
-offset_bottom = 373.0
+offset_right = 521.0
+offset_bottom = 513.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 12
@@ -109,9 +109,9 @@ text = "Loading shift log..."
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 40.0
-offset_top = 445.0
+offset_top = 585.0
 offset_right = 200.0
-offset_bottom = 475.0
+offset_bottom = 615.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_fonts/font = ExtResource("7_font")
@@ -124,10 +124,10 @@ max_length = 6
 [node name="ProceedButton" type="Button" parent="Window" unique_id=1857837205]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 130.0
-offset_top = 445.0
-offset_right = 320.0
-offset_bottom = 475.0
+offset_left = 185.0
+offset_top = 585.0
+offset_right = 375.0
+offset_bottom = 615.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)

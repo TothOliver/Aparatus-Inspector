@@ -399,7 +399,9 @@ func calculate_win(r1: String, r2: String, r3: String):
 				# Instantly trigger Hunter Robot chase!
 				var hunter = null
 				if is_inside_tree() and get_tree():
-					hunter = get_tree().root.find_child("HunterRobot", true, false)
+					hunter = get_tree().root.find_child("HunterPhase1", true, false)
+					if not hunter:
+						hunter = get_tree().root.find_child("HunterRobot", true, false)
 				if hunter:
 					if GameStats.let_through_bad_sprites.is_empty():
 						var robot_tex = load("res://Sprites/robot2.png")

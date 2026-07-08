@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/soundreality-wrong-place-129242.mp3-fa365475e
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
 bpm=0
 beat_count=0

@@ -115,7 +115,7 @@ func update_child_positions():
 			var m = child_margins[child]
 			
 			# Horizontal resizing
-			var should_stretch_h = child.name in ["TitleBar", "TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "addr_container", "content_panel", "ColorRect", "TerminalBorder", "Panel"] \
+			var should_stretch_h = child.name in ["TitleBar", "TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "addr_container", "content_panel", "ColorRect", "TerminalBorder", "Panel", "ChatManager", "Option"] \
 				or (m.orig_width / m.orig_parent_width > 0.45) \
 				or (m.left < 80 and m.right < 80)
 			
@@ -243,8 +243,8 @@ func _process(_delta):
 		var delta_mouse = current_mouse_pos - resize_start_mouse_pos
 		var new_size = resize_start_size
 		
-		var min_w = 200.0
-		var min_h = 100.0
+		var min_w = custom_minimum_size.x if custom_minimum_size.x > 0.0 else 200.0
+		var min_h = custom_minimum_size.y if custom_minimum_size.y > 0.0 else 100.0
 		
 		if resizing_right or resizing_corner:
 			new_size.x = max(min_w, resize_start_size.x + delta_mouse.x)

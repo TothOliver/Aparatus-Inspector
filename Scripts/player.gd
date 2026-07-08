@@ -11,7 +11,6 @@ class_name PlayerController
 
 enum State {
 	WALKING,
-	SITTING,
 	COMPUTER_VIEW
 }
 
@@ -25,40 +24,46 @@ var rotation_y: float = 0.0
 # Camera heights
 var stand_cam_y: float = 1.55
 var crouch_cam_y: float = 0.75
-var sit_cam_y: float = 1.05
 
 # Sit positions
 var sit_pos: Vector3 = Vector3(0, 0, 0.48)
 var stand_exit_pos: Vector3 = Vector3(0, 0.05, 1.45)
 
-# Clamped mouse variables for SITTING state
-var sit_yaw: float = 0.0
-var sit_pitch: float = 0.0
-var max_sit_yaw: float = 65.0
-var max_sit_pitch: float = 30.0
-
 # Interaction prompt
 signal interact_prompt_changed(text: String)
+
+# Flashlight variables
+var flashlight: SpotLight3D
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.position.y = stand_cam_y
+	
+	# Create flashlight dynamically
+	flashlight = SpotLight3D.new()
+	flashlight.name = "Flashlight"
+	flashlight.visible = false
+	flashlight.light_energy = 2.5
+	flashlight.spot_range = 15.0
+	flashlight.spot_angle = 35.0
+	flashlight.shadow_enabled = true
+	flashlight.position = Vector3(0, 0, 0)
+	flashlight.rotation = Vector3(0, 0, 0)
+	camera.add_child(flashlight)
 
 func _physics_process(delta):
 	if current_state == State.WALKING:
 		handle_walking_movement(delta)
-	elif current_state == State.SITTING:
-		is_crouching = false
-		handle_sitting_camera(delta)
 	elif current_state == State.COMPUTER_VIEW:
 		is_crouching = false
 		handle_computer_view(delta)
 
-func _process(delta):
+func _process(_delta):
 	# Check for interaction raycasts
 	check_interaction()
-	
-	if Input.is_action_just_pressed("ui_cancel"):
+
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
 		handle_settings_shortcut()
 
 func handle_walking_movement(delta):
@@ -112,23 +117,7 @@ func handle_walking_movement(delta):
 		
 	move_and_slide()
 
-func handle_sitting_camera(delta):
-	# Smoothly interpolate player position and rotation to the chair
-	global_position = global_position.lerp(sit_pos, lerp_speed * delta)
-	rotation.y = lerp_angle(rotation.y, 0.0, lerp_speed * delta)
-	camera.position.y = lerp(camera.position.y, sit_cam_y, lerp_speed * delta)
-	camera.position.x = lerp(camera.position.x, 0.0, lerp_speed * delta)
-	camera.position.z = lerp(camera.position.z, 0.0, lerp_speed * delta)
-	
-	# Let player look around but keep head rotation clamped
-	var rot_target = Basis.IDENTITY
-	rot_target = rot_target.rotated(Vector3.UP, deg_to_rad(sit_yaw))
-	rot_target = rot_target.rotated(Vector3.RIGHT, deg_to_rad(sit_pitch))
-	camera.transform.basis = camera.transform.basis.slerp(rot_target, lerp_speed * delta)
-	
-	# Check for standing up
-	if Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN) or Input.is_action_just_pressed("ui_cancel"):
-		stand_up()
+
 
 func handle_computer_view(delta):
 	# Smoothly position player at chair, zoom camera into screen
@@ -138,6 +127,11 @@ func handle_computer_view(delta):
 	camera.transform.basis = camera.transform.basis.slerp(Basis.IDENTITY, lerp_speed * delta)
 
 func _input(event):
+	# Toggle flashlight on F press
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
+		if flashlight:
+			flashlight.visible = not flashlight.visible
+
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
 		if current_state == State.WALKING:
@@ -146,13 +140,7 @@ func _input(event):
 			camera.rotate_x(deg_to_rad(-event.relative.y * active_sens))
 			# Clamp camera pitch to look straight down / straight up
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
-		elif current_state == State.SITTING:
-			# Accumulate sitting look angles
-			sit_yaw -= event.relative.x * active_sens
-			sit_pitch -= event.relative.y * active_sens
-			
-			sit_yaw = clamp(sit_yaw, -max_sit_yaw, max_sit_yaw)
-			sit_pitch = clamp(sit_pitch, -max_sit_pitch, max_sit_pitch)
+
 
 	# Handle interaction trigger exactly once when key/button is pressed
 	if current_state != State.COMPUTER_VIEW and event.is_pressed():
@@ -171,13 +159,19 @@ func _input(event):
 					if collider.has_method("interact"):
 						collider.interact(self)
 					elif collider.name.contains("Screen") or collider.name.contains("Computer") or collider.name.contains("Monitor"):
-						interact_with_computer()
-					elif collider.name.contains("Chair"):
-						sit_down()
+						if not is_power_off():
+							interact_with_computer()
+
 					elif collider.name.contains("Breaker") or collider.name.contains("Fuse"):
 						var parent = get_parent()
 						if parent and parent.has_method("reset_breaker"):
 							parent.reset_breaker()
+
+func is_power_off() -> bool:
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_blackout" in game_3d:
+		return game_3d.is_blackout
+	return false
 
 func is_interactable(collider) -> bool:
 	if not collider:
@@ -185,7 +179,9 @@ func is_interactable(collider) -> bool:
 	if collider.has_method("interact"):
 		return true
 	var name_lower = collider.name.to_lower()
-	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor") or name_lower.contains("chair") or name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse"):
+	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor"):
+		return not is_power_off()
+	if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse"):
 		return true
 	return false
 
@@ -209,34 +205,18 @@ func check_interaction():
 	else:
 		interact_prompt_changed.emit("")
 
-func sit_down():
-	if current_state == State.WALKING:
-		current_state = State.SITTING
-		sit_yaw = 0.0
-		sit_pitch = 0.0
-		# Lock mouse
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-func stand_up():
-	if current_state == State.SITTING:
-		current_state = State.WALKING
-		global_position = stand_exit_pos
-		velocity = Vector3.ZERO
-		camera.position = Vector3(0, stand_cam_y, 0)
-		camera.transform.basis = Basis.IDENTITY
-
 func interact_with_computer():
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
-	if game_3d and not game_3d.is_monitor_on and not game_3d.is_blackout:
-		game_3d.toggle_monitor_power()
-
-	if current_state == State.WALKING:
-		sit_down()
+	if is_power_off():
+		return
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_blackout" in game_3d:
+		if not game_3d.is_monitor_on and not game_3d.is_blackout:
+			game_3d.toggle_monitor_power()
 	
 	# Transition directly to computer view
 	current_state = State.COMPUTER_VIEW
 	# Tell Game3D to zoom in and release mouse
-	if game_3d:
+	if game_3d and game_3d.has_method("enter_computer_view"):
 		game_3d.enter_computer_view()
 
 func exit_computer_view():
@@ -247,12 +227,12 @@ func exit_computer_view():
 	camera.transform.basis = Basis.IDENTITY
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
-	if game_3d:
+	var game_3d = get_tree().current_scene
+	if game_3d and game_3d.has_method("exit_computer_view"):
 		game_3d.exit_computer_view()
 
 func handle_settings_shortcut():
-	var game_3d = get_tree().root.get_node_or_null("Game3D")
+	var game_3d = get_tree().current_scene
 	if not game_3d:
 		return
 		
@@ -265,7 +245,9 @@ func handle_settings_shortcut():
 				pause_menu.visible = false
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				get_tree().paused = false
+				get_viewport().set_input_as_handled()
 			else:
 				pause_menu.visible = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				get_tree().paused = true
+				get_viewport().set_input_as_handled()

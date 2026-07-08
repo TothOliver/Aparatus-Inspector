@@ -1,0 +1,369 @@
+[gd_scene format=3 uid="uid://cpompt0m35ptf"]
+
+[ext_resource type="PackedScene" uid="uid://dkaju7y2nila5" path="res://Scenes/Game3D.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://bwvyua2rd4457" path="res://Scripts/johan_test.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://fsth5elb032r" path="res://Scripts/hunter_phase1.gd" id="3_hunter_p1"]
+[ext_resource type="Script" uid="uid://5iluofeujj8v" path="res://Scripts/hunter_phase2.gd" id="4_hunter_p2"]
+[ext_resource type="Script" uid="uid://ccs7up3i88hne" path="res://Scripts/hunter_phase3.gd" id="5_hunter_p3"]
+[ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
+[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="7_switch"]
+[ext_resource type="Texture2D" uid="uid://dmnijqr3tiaq8" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_diff_1k.jpg" id="8_floor_diff"]
+[ext_resource type="Texture2D" uid="uid://hhgnfiisiie1" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_rough_1k.jpg" id="9_floor_arm"]
+[ext_resource type="Texture2D" uid="uid://bly0dnfebubvp" path="res://assets/Floor/floor_tiles_06_1k.gltf/textures/floor_tiles_06_nor_gl_1k.jpg" id="10_floor_nor"]
+[ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w11a4"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls"]
+albedo_color = Color(0.24, 0.25, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_curtain"]
+albedo_color = Color(0.35, 0.05, 0.05, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdu5l"]
+resource_local_to_scene = true
+albedo_color = Color(1, 1, 0.9, 1)
+emission_enabled = true
+emission = Color(1, 0.95, 0.85, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor_tiled"]
+albedo_color = Color(0.28, 0.28, 0.28, 1)
+albedo_texture = ExtResource("8_floor_diff")
+roughness_texture = ExtResource("9_floor_arm")
+normal_enabled = true
+normal_texture = ExtResource("10_floor_nor")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceiling_dark"]
+albedo_color = Color(0.28, 0.28, 0.28, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_walls_dark"]
+albedo_color = Color(0.24, 0.25, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="QuadMesh" id="QuadMesh_glass_window"]
+size = Vector2(1.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass_tint"]
+transparency = 1
+albedo_color = Color(0.65, 0.85, 0.95, 0.12)
+metallic = 0.4
+roughness = 0.15
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_blinds_hitbox"]
+size = Vector3(1.7, 1, 0.1)
+
+[node name="Game3D" unique_id=926972559 instance=ExtResource("1_base")]
+script = ExtResource("2_script")
+
+[node name="DoorLight" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="0" unique_id=1542004563]
+surface_material_override/0 = SubResource("StandardMaterial3D_w11a4")
+
+[node name="RightWall3" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="7" unique_id=1810526683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 3.447176)
+use_collision = true
+size = Vector3(0.1, 2.6, 2.194336)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Curtain4" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="14" unique_id=1709281139]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23683, 1.27984, -1.4393517)
+size = Vector3(1.7, 0.94437253, 0.04)
+material = SubResource("StandardMaterial3D_curtain")
+
+[node name="Curtain5" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="15" unique_id=1090749948]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7487085, 1.27984, 10.433812)
+size = Vector3(1.7, 0.94437253, 0.04)
+material = SubResource("StandardMaterial3D_curtain")
+
+[node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="1" unique_id=1047560640]
+surface_material_override/0 = SubResource("StandardMaterial3D_kdu5l")
+
+[node name="FrontWall3" type="CSGBox3D" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="28" unique_id=878981214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8228774, 1.25, 4.55)
+use_collision = true
+size = Vector3(2.5830078, 2.6, 0.1)
+material = SubResource("StandardMaterial3D_walls")
+
+[node name="Phase1Spawn4" type="Marker3D" parent="." index="16" unique_id=1136143014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 1, -4.8296156)
+
+[node name="Phase1Spawn5" type="Marker3D" parent="." index="17" unique_id=873404773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3115807, 1, -16.328611)
+
+[node name="Phase1Spawn6" type="Marker3D" parent="." index="18" unique_id=1721085230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, 1, 15.279053)
+
+[node name="Phase2Spawn4" type="Marker3D" parent="." index="19" unique_id=121111111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.1)
+
+[node name="Phase2Spawn5" type="Marker3D" parent="." index="20" unique_id=121111112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.130946, 1, -1.974645)
+
+[node name="Phase2Spawn6" type="Marker3D" parent="." index="21" unique_id=121111113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10306537, 1, 11.188381)
+
+[node name="HunterPhase5" type="CharacterBody3D" parent="." index="22" unique_id=500476820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
+script = ExtResource("3_hunter_p1")
+phase2_robot = NodePath("../HunterPhase2")
+phase3_robot = NodePath("../HunterPhase3")
+spawn_markers = [NodePath("../Phase1Spawn1"), NodePath("../Phase1Spawn2"), NodePath("../Phase1Spawn3")]
+start_marker = NodePath("../StartMarker")
+door_marker = NodePath("../DoorMarker")
+window_marker = NodePath("../Office/GlassWindow")
+window_peek_marker = NodePath("../WindowPeekMarker")
+camera_peek_marker = NodePath("../CameraPeekMarker")
+jumpscare_marker = NodePath("../JumpscareMarker")
+
+[node name="HunterPhase6" type="CharacterBody3D" parent="." index="23" unique_id=1703336048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
+script = ExtResource("4_hunter_p2")
+phase1_robot = NodePath("../HunterPhase1")
+phase3_robot = NodePath("../HunterPhase3")
+phase2_spawn_markers = [NodePath("../Phase2Spawn1"), NodePath("../Phase2Spawn2"), NodePath("../Phase2Spawn3")]
+start_marker = NodePath("../StartMarker")
+door_marker = NodePath("../DoorMarker")
+window_marker = NodePath("../Office/GlassWindow")
+window_peek_marker = NodePath("../WindowPeekMarker")
+camera_peek_marker = NodePath("../CameraPeekMarker")
+jumpscare_marker = NodePath("../JumpscareMarker")
+
+[node name="HunterPhase7" type="CharacterBody3D" parent="." index="24" unique_id=734618851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
+script = ExtResource("5_hunter_p3")
+phase1_robot = NodePath("../HunterPhase1")
+phase4_robot = NodePath("../HunterPhase4")
+start_marker = NodePath("../StartMarker")
+door_marker = NodePath("../DoorMarker")
+window_marker = NodePath("../Office/GlassWindow")
+window_peek_marker = NodePath("../WindowPeekMarker")
+camera_peek_marker = NodePath("../CameraPeekMarker")
+jumpscare_marker = NodePath("../JumpscareMarker")
+
+[node name="HunterPhase8" type="CharacterBody3D" parent="." index="25" unique_id=74488888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
+script = ExtResource("11_hunter_p4")
+start_marker = NodePath("../StartMarker")
+door_marker = NodePath("../DoorMarker")
+window_marker = NodePath("../Office/GlassWindow")
+window_peek_marker = NodePath("../WindowPeekMarker")
+camera_peek_marker = NodePath("../CameraPeekMarker")
+jumpscare_marker = NodePath("../JumpscareMarker")
+
+[node name="Room4" type="Node3D" parent="." index="26" unique_id=1588998239]
+
+[node name="Room5" type="Node3D" parent="." index="27" unique_id=2071024996]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="0" unique_id=1734543744]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="1" unique_id=703376037]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="2" unique_id=1439095790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="0" unique_id=969227919]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="1" unique_id=1068180620]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="2" unique_id=1686748764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="0" unique_id=1428885652]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="1" unique_id=14583762]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="2" unique_id=2137436410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="0" unique_id=1428885653]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="1" unique_id=14583763]
+
+[node name="Sprite3D2" type="Sprite3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="2" unique_id=2137436411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.006
+billboard = 1
+double_sided = false
+texture = ExtResource("6_hunter_sprite")
+
+[node name="Floor2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="0" unique_id=1907307179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -0.05, 1.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = SubResource("StandardMaterial3D_floor_tiled")
+
+[node name="Ceiling2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="1" unique_id=1902898497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, 1.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = SubResource("StandardMaterial3D_ceiling_dark")
+
+[node name="RightWall2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="2" unique_id=207609147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05, 1.25, 1.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 6)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="FrontWall2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="3" unique_id=1223432380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.25, 4.55)
+use_collision = true
+size = Vector3(6, 2.6, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="BackWall_Bottom2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="4" unique_id=832031471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, -1.55)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="BackWall_Top2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="5" unique_id=2049056237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.15, -1.55)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="BackWall_Left2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="6" unique_id=1801655747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3, -1.55)
+use_collision = true
+size = Vector3(2.2, 1, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="BackWall_Right2" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="7" unique_id=149357665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, 1.3, -1.55)
+use_collision = true
+size = Vector3(2.2, 1, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="GlassWindow3" type="MeshInstance3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="8" unique_id=1649990895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.54)
+mesh = SubResource("QuadMesh_glass_window")
+surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
+
+[node name="Curtain2Interactable2" type="StaticBody3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="9" unique_id=359624791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.52)
+script = ExtResource("7_switch")
+target_method = "toggle_curtain2"
+interact_name = "Window Curtain"
+
+[node name="CeilingLight3" type="OmniLight3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="10" unique_id=1503816982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.2, 1.5)
+omni_range = 10.0
+
+[node name="CeilingFixture3" type="CSGBox3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="11" unique_id=769463408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.5, 1.5)
+size = Vector3(0.6, 0.1, 0.6)
+material = SubResource("StandardMaterial3D_ceiling_dark")
+
+[node name="LightSwitch3" type="StaticBody3D" parent="Room2" parent_id_path=PackedInt32Array(1588998239) index="12" unique_id=2030006293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.2, 1.5)
+script = ExtResource("7_switch")
+target_method = "toggle_room2_lights"
+interact_name = "Light Switch"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Room2/Curtain2Interactable" parent_id_path=PackedInt32Array(359624791) index="0" unique_id=1416336689]
+shape = SubResource("BoxShape3D_blinds_hitbox")
+
+[node name="Floor2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="0" unique_id=1410169754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 7.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = SubResource("StandardMaterial3D_floor_tiled")
+
+[node name="Ceiling2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="1" unique_id=1129455547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 7.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = SubResource("StandardMaterial3D_ceiling_dark")
+
+[node name="LeftWall2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="2" unique_id=1625937224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, 7.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 6)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="RightWall2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="3" unique_id=2011980420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 7.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 6)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="FrontWall_Bottom2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="4" unique_id=644761672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 10.55)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="FrontWall_Top2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="5" unique_id=1890438299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 10.55)
+use_collision = true
+size = Vector3(6, 0.8, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="FrontWall_Left2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="6" unique_id=1626865520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.3, 10.55)
+use_collision = true
+size = Vector3(2.2, 1, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="FrontWall_Right2" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="7" unique_id=1239310532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.3, 10.55)
+use_collision = true
+size = Vector3(2.2, 1, 0.1)
+material = SubResource("StandardMaterial3D_walls_dark")
+
+[node name="GlassWindow4" type="MeshInstance3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="8" unique_id=427664318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 10.54)
+mesh = SubResource("QuadMesh_glass_window")
+surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
+
+[node name="Curtain3Interactable2" type="StaticBody3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="9" unique_id=1357860376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 10.52)
+script = ExtResource("7_switch")
+target_method = "toggle_curtain3"
+interact_name = "Window Curtain"
+
+[node name="CeilingLight4" type="OmniLight3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="10" unique_id=1525582118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 7.5)
+omni_range = 10.0
+
+[node name="CeilingFixture4" type="CSGBox3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="11" unique_id=1628120167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 7.5)
+size = Vector3(0.6, 0.1, 0.6)
+material = SubResource("StandardMaterial3D_ceiling_dark")
+
+[node name="LightSwitch4" type="StaticBody3D" parent="Room3" parent_id_path=PackedInt32Array(2071024996) index="12" unique_id=178953809]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4.7)
+script = ExtResource("7_switch")
+target_method = "toggle_room3_lights"
+interact_name = "Light Switch"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Room3/Curtain3Interactable" parent_id_path=PackedInt32Array(1357860376) index="0" unique_id=395686372]
+shape = SubResource("BoxShape3D_blinds_hitbox")

@@ -1,15 +1,14 @@
-extends "res://Scripts/game3d.gd"
+extends "res://Scripts/johan_test.gd"
+
+func _init():
+	GameStats.current_day = 2
 
 func _ready():
 	super._ready()
 	GameStats.current_day = 2
-	GameStats.door_locked = true # Lock door initially
 	
-	# Find hunter and force Phase 3 (Breaking In) start instantly
-	var hunter = get_node_or_null("HunterRobot")
+	# Find hunter and force Phase 3 (Office Peeking / Door Rattle) start instantly
+	var hunter = get_node_or_null("HunterPhase3")
 	if hunter:
-		hunter.is_active = true
-		hunter.current_state = hunter.State.BREAKING_IN
-		hunter.global_position = hunter.get_door_pos()
-		hunter.bang_count = 0
-		hunter.state_timer = 0.01 # Bangs instantly on load
+		hunter.activate(hunter.PeekLocation.DOOR)
+		hunter.wait_at_door_timer = 5.0

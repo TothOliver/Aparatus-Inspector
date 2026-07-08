@@ -19,6 +19,8 @@ var wifi_on: bool = true
 var player_health: float = 100.0
 var player_sanity: float = 100.0
 
+var read_emails: Dictionary = {1: false, 2: false, 3: false}
+
 # User System Settings
 var mouse_sensitivity: float = 0.15
 var crt_effect_enabled: bool = true
@@ -35,6 +37,7 @@ var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
 
 func _ready():
+	randomize()
 	button_click_player = AudioStreamPlayer.new()
 	button_click_player.volume_db = -10.0
 	add_child(button_click_player)
@@ -106,6 +109,7 @@ func reset_game_state():
 	wifi_on = true
 	player_health = 100.0
 	player_sanity = 100.0
+	read_emails = {1: false, 2: false, 3: false}
 
 func quit_or_menu(tree: SceneTree):
 	if tree.current_scene and (tree.current_scene.scene_file_path == "res://Scenes/MainMenu.tscn" or tree.current_scene.name == "MainMenu"):
@@ -113,14 +117,16 @@ func quit_or_menu(tree: SceneTree):
 	else:
 		reset_game_state()
 		tree.paused = false
-		tree.change_scene_to_file("res://Scenes/MainMenu.tscn")
+		tree.change_scene_to_file.call_deferred("res://Scenes/MainMenu.tscn")
 
 func change_scene_with_loading(tree: SceneTree, target_path: String):
 	target_scene_path = target_path
 	tree.paused = false
-	tree.change_scene_to_file("res://Scenes/LoadingScreen.tscn")
+	tree.change_scene_to_file.call_deferred("res://Scenes/LoadingScreen.tscn")
 
 func _input(event):
+	if not is_inside_tree():
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		var is_f11 = event.keycode == KEY_F11
 		var is_enter = event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER
@@ -135,3 +141,9 @@ func _input(event):
 				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 				fullscreen_enabled = true
 			fullscreen_toggled.emit(fullscreen_enabled)
+
+func has_unread_mail() -> bool:
+	for d in range(1, current_day + 1):
+		if d in read_emails and not read_emails[d]:
+			return true
+	return false

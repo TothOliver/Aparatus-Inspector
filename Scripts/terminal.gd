@@ -11,6 +11,7 @@ var lockout_timer: float = 0.0
 var prompt_prefix: String = "C:\\> "
 
 var files = {
+	"manual.txt": "=== AETHELGARD OS & DESKTOP USER MANUAL ===\n\n1. HOW TO USE THE WEB BROWSER (Apparatus Explorer):\n  * Navigation Buttons: Use 'Back', 'Forward', and 'Home' at the top left of\n    the browser window to traverse your browsing history.\n  * Address Bar: Click the text field next to 'Go', type any valid URL,\n    and press Enter or click 'Go' to navigate.\n  * Hyperlinks: Underlined blue text links are clickable and will redirect you\n    to other local intranet and public web pages.\n\n2. WHAT IS ON THE INTRANET WEB:\n  * www.inspections-database.org/behavior\n    - Behavioral Profiler logs. Crucial Day 1+ to identify infected units\n      using dialogue anomalies, threats, or suspicious bribery offers.\n  * www.robot-factory.corp/registry\n    - Core database registry. Lists official names, models, manufacturers,\n      status settings, and core hash signatures for all clean units.\n  * www.robot-factory.corp\n    - General corporate homepage and chassis product logs.\n  * www.walter-files.com / www.larry-shrine.fans\n    - Whistleblower blog files and fan club pages containing decryption keys,\n      anomalous logs, and structural blacklists.\n\n3. DESKTOP APPLICATIONS & BUTTON CONTROLS:\n  * Apparatus Inspector: Shows metadata of the unit loaded in the testing chamber.\n                         Use it to verify model name/status. (Online Day 2+).\n  * Inbox Mail:          Your primary messaging client. Displays daily shift\n                         checklists and instructions from Supervisor Donald.\n  * CCTV Feed:           Monitors facility corridors. Click CAM1, CAM2, CAM3\n                         buttons to switch cameras and watch for movement.\n  * system_settings:     Adjust mouse sensitivity, CRT monitor display, master\n                         audio volume, and fullscreen mode.\n  * Minesweeper / Snake: Installed retro games to pass the time.\n  * Slots:               Casino simulator software (check web for payout tips).\n\n4. SYSTEM TERMINAL INTERFACES:\n  * help                 - List all terminal shell commands.\n  * ls / dir             - List files in current directory.\n  * cat <file>           - View contents of text files.\n  * scan                 - Query active robot telemetry (Day 2+).\n  * lights toggle        - Flip the ceiling light switch.\n  * lock / unlock        - Toggle office door pneumatics (drains grid power).\n  * purge <code>         - Disinfect grid intrusion events (Day 2+).",
 	"safety_guide.txt": "=== APPARATUS INSPECTOR SAFETY PROTOCOLS ===\n\n1. SENSORY THREATS: Roaming test units hunt via audio and visual cues.\n2. WINDOW CURTAIN: Keep the window curtain closed when a unit is nearby. If open, the Hunter can spot you through the window if lights are on or the monitor is glowing.\n3. CEILING LIGHTS: Turn off the office ceiling lights if a unit is nearby to avoid detection.\n4. MONITOR GLOW: The computer screen is bright. If footsteps are close, press ESC to exit computer view, turn off monitor power, and hide.\n5. PHYSICAL SURVIVAL: If a unit breaches the office door, you MUST turn off the ceiling lights and crouch (Ctrl) under the desk. This is the only blind spot in its sensors (monitor can stay on).\n6. TELEMETRY VERIFICATION: For each loaded unit, verify its Name, Model, Manufacturer, and Core Signature against the Intranet Database registry (www.robot-factory.corp/registry) or via the terminal 'scan' utility.",
 	"diary_log.txt": "=== INSPECTOR LOG - ENTRY #12 ===\n\nThey think the units are just programs, but I know they hear us. Unit 'Larry' offered me money today. He offered 14 dollars. Why 14? Is it a code? \nI rejected Walter. He was too calm. My sanity is slipping. If I make one more wrong call, the terminal says I will be decommissioned. I keep hearing clanking in the vents...",
 	"system_info.txt": "=== APPARATUS SYSTEM OS v4.98 ===\n\nCPU: Core-Quantum X1\nRAM: 64 KB (58 KB free)\nGPU: RetroDraw II\nSTATUS: ONLINE\n\nConnected to Office Environment Control (OEC v1.2)",
@@ -88,20 +89,37 @@ func _ready():
 				call_deferred("grab_input_focus")
 		)
 
+func can_grab_focus() -> bool:
+	var game_3d = get_tree().current_scene
+	if game_3d and game_3d.name == "Game3D":
+		var player = game_3d.get_node_or_null("Player")
+		if player:
+			if "current_state" in player and "State" in player and player.current_state != player.State.COMPUTER_VIEW:
+				return false
+		if "is_monitor_on" in game_3d and not game_3d.is_monitor_on:
+			return false
+		if "is_blackout" in game_3d and game_3d.is_blackout:
+			return false
+	return true
+
 func _process(delta):
 	# Keep focus on input field whenever this terminal body is visible and it is the top window
 	var parent_window = get_parent()
 	if parent_window and parent_window.visible and input_field:
-		if not input_field.has_focus():
-			var is_top = is_top_window()
-			var viewport = get_viewport()
-			var focused_node = viewport.gui_get_focus_owner() if viewport else null
-			var focused_name = focused_node.name if focused_node else "null"
-			log_debug("Process check: has_focus=false is_top=" + str(is_top) + " focused=" + focused_name)
-			if is_top:
-				if focused_node == null or not (focused_node is Button):
-					log_debug("Process calling grab_input_focus")
-					grab_input_focus()
+		if not can_grab_focus():
+			if input_field.has_focus():
+				input_field.release_focus()
+		else:
+			if not input_field.has_focus():
+				var is_top = is_top_window()
+				var viewport = get_viewport()
+				var focused_node = viewport.gui_get_focus_owner() if viewport else null
+				var focused_name = focused_node.name if focused_node else "null"
+				log_debug("Process check: has_focus=false is_top=" + str(is_top) + " focused=" + focused_name)
+				if is_top:
+					if focused_node == null or not (focused_node is Button):
+						log_debug("Process calling grab_input_focus")
+						grab_input_focus()
 	
 	# Ensure prompt prefix is always present
 	if input_field and not system_locked_out:
@@ -188,6 +206,10 @@ func _on_input_field_focus_exited():
 	_check_and_restore_focus.call_deferred()
 
 func _check_and_restore_focus():
+	if not can_grab_focus():
+		if input_field and input_field.has_focus():
+			input_field.release_focus()
+		return
 	var is_top = is_top_window()
 	var viewport = get_viewport()
 	var focused_node = viewport.gui_get_focus_owner() if viewport else null
@@ -200,6 +222,10 @@ func _check_and_restore_focus():
 			grab_input_focus()
 
 func grab_input_focus():
+	if not can_grab_focus():
+		if input_field and input_field.has_focus():
+			input_field.release_focus()
+		return
 	if input_field and is_inside_tree():
 		log_debug("grab_input_focus called. Current text=" + input_field.text)
 		input_field.grab_focus()
@@ -293,8 +319,8 @@ func _on_command_submitted(new_text: String):
 		"lights":
 			var game_3d = null
 			if is_inside_tree() and get_tree():
-				game_3d = get_tree().root.get_node_or_null("Game3D")
-			if game_3d:
+				game_3d = get_tree().current_scene
+			if game_3d and "is_ceiling_light_on" in game_3d:
 				if args.size() >= 2 and args[1].to_lower() == "toggle":
 					game_3d.toggle_ceiling_lights()
 					print_to_terminal("Command sent to OEC: Toggled ceiling lights.")
@@ -304,19 +330,22 @@ func _on_command_submitted(new_text: String):
 			else:
 				print_to_terminal("Error: Office control interface connection lost.")
 		"scan":
-			var game_3d = null
-			if is_inside_tree() and get_tree():
-				game_3d = get_tree().root.get_node_or_null("Game3D")
-			if game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
-				var robot = game_3d.game_2d.current_robot
-				print_to_terminal("Scanning active unit in test chamber...\n" +
-					"  NAME:         " + robot.name + "\n" +
-					"  MODEL:        " + robot.model + "\n" +
-					"  MANUFACTURER: " + robot.manufacturer + "\n" +
-					"  STATUS:       " + robot.status + "\n" +
-					"  CORE SIGNATURE: " + (robot.core_hash if "core_hash" in robot and robot.core_hash else "UNKNOWN_CORE_ERR"))
+			if GameStats.current_day == 1:
+				print_to_terminal("ERROR: 'scan' diagnostic utility is LOCKED during Day 1 calibration protocols.")
 			else:
-				print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
+				var game_3d = null
+				if is_inside_tree() and get_tree():
+					game_3d = get_tree().current_scene
+				if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
+					var robot = game_3d.game_2d.current_robot
+					print_to_terminal("Scanning active unit in test chamber...\n" +
+						"  NAME:         " + robot.name + "\n" +
+						"  MODEL:        " + robot.model + "\n" +
+						"  MANUFACTURER: " + robot.manufacturer + "\n" +
+						"  STATUS:       " + robot.status + "\n" +
+						"  CORE SIGNATURE: " + (robot.core_hash if "core_hash" in robot and robot.core_hash else "UNKNOWN_CORE_ERR"))
+				else:
+					print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
 		"lock":
 			GameStats.door_locked = true
 			print_to_terminal("Door lock engaged. Power grid under load.")
