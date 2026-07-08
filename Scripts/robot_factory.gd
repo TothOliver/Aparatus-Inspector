@@ -292,6 +292,9 @@ static func create_robots() -> Array[RobotData]:
 		robots.append(generate_random_robot(true)) # Clean
 		robots.append(generate_random_robot(false)) # Infected
 	
+	for robot in robots:
+		_ensure_dialogue_profile_from_legacy(robot)
+	
 	return robots
 
 static func generate_random_robot(is_good_unit: bool) -> RobotData:
@@ -517,6 +520,67 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String):
 			"I think it's better if all you just die...", "Can you pay my taxes for me?"
 		]
 
+static func _ensure_dialogue_profile_from_legacy(r: RobotData) -> void:
+	if r == null:
+		return
+
+	if r.greeting.strip_edges().is_empty():
+		r.greeting = _safe_robot_chat(r, 0, "...")
+
+	if not r.common_responses.has("purpose"):
+		r.common_responses["purpose"] = _safe_robot_chat(
+			r,
+			1,
+			"My primary purpose is to complete this inspection protocol."
+		)
+
+	if not r.common_responses.has("humans"):
+		r.common_responses["humans"] = _find_legacy_response_by_question_keywords(
+			r,
+			["human", "humans", "animal", "animals"],
+			4,
+			"Humans are central to my operating context."
+		)
+
+	if not r.common_responses.has("inspection"):
+		r.common_responses["inspection"] = _find_legacy_response_by_question_keywords(
+			r,
+			["inspection", "inspected", "judge", "judged", "here"],
+			3,
+			"I understand that I am being inspected for safety."
+		)
+
+
+static func _safe_robot_chat(r: RobotData, index: int, fallback: String) -> String:
+	if index >= 0 and index < r.robotChat.size():
+		var value := str(r.robotChat[index])
+		if not value.strip_edges().is_empty():
+			return value
+
+	return fallback
+
+
+static func _find_legacy_response_by_question_keywords(
+	r: RobotData,
+	keywords: Array,
+	fallback_robot_chat_index: int,
+	fallback: String
+) -> String:
+	for i in range(r.humanChat.size()):
+		var question := str(r.humanChat[i]).to_lower()
+
+		for keyword in keywords:
+			if question.contains(str(keyword).to_lower()):
+				var response_index := i + 1
+
+				if response_index >= 0 and response_index < r.robotChat.size():
+					var response := str(r.robotChat[response_index])
+
+					if not response.strip_edges().is_empty():
+						return response
+
+	return _safe_robot_chat(r, fallback_robot_chat_index, fallback)
+	
 
 static func _apply_dialogue_profile(
 	r: RobotData,

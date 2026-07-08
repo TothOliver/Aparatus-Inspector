@@ -38,6 +38,8 @@ var robots_picked_count: int = 0
 
 const QUESTIONS_PER_PAGE := 2
 var question_page_start := 0
+const COMMON_BUTTON_1_ID := "purpose"
+const COMMON_BUTTON_2_ID := "humans"
 
 func _ready():
 	# Resize and reposition ApparatusInspectorWindow to be smaller (920x660 instead of 1060x800) and scalable
@@ -234,8 +236,6 @@ func _ready():
 			if offline_label:
 				offline_label.visible = false
 
-
-
 func spawn_next_robot():
 	if not is_inside_tree():
 		return
@@ -401,22 +401,7 @@ func handle_chat_choice(player_text: String, robot_reply: String):
 	chat_manager.add_message(robot_reply, current_robot.name)
 	is_waiting_for_replay = false
 	
-	question_page_start += QUESTIONS_PER_PAGE
-
-	if question_page_start >= current_robot.humanChat.size():
-		clear_question_buttons()
-
-		if not is_inside_tree() or not get_tree():
-			return
-
-		await get_tree().create_timer(0.3).timeout
-
-		if not is_inside_tree():
-			return
-
-		handle_last_terminal_chat()
-	else:
-		refresh_question_buttons()
+	refresh_question_buttons()
 
 func handle_last_terminal_chat():
 	if not is_inside_tree() or not chat_manager:
@@ -453,10 +438,10 @@ func _on_button_1_button_down() -> void:
 	pass
 
 func _on_button_1_button_up() -> void:
-	ask_question_at_index(question_page_start)
+	ask_common_question(COMMON_BUTTON_1_ID)
 
 func _on_button_2_button_up() -> void:
-	ask_question_at_index(question_page_start + 1)	
+	ask_common_question(COMMON_BUTTON_2_ID)	
 
 func _on_button_1_mouse_entered() -> void:
 	pass
@@ -473,10 +458,8 @@ func _on_button_2_mouse_entered() -> void:
 func _on_button_2_mouse_exited() -> void:
 	pass
 
-
 func _on_quit_button_button_down() -> void:
 	pass
-
 
 func _on_quit_button_button_up() -> void:
 	var parent_size = size if size != Vector2.ZERO else Vector2(1280, 1024)
@@ -564,10 +547,8 @@ func _on_quit_button_button_up() -> void:
 	)
 	dialog.add_child(no_btn)
 
-
 func _on_quit_button_mouse_entered() -> void:
 	pass
-
 
 func _on_quit_button_mouse_exited() -> void:
 	pass
@@ -605,10 +586,10 @@ func _on_bad_button_pressed() -> void:
 		is_processing_choice = false
 
 func _on_chat_button1_pressed() -> void:
-	_on_button_1_button_up()
+	ask_common_question(COMMON_BUTTON_1_ID)
 
 func _on_chat_button2_pressed() -> void:
-	_on_button_2_button_up()
+	ask_common_question(COMMON_BUTTON_2_ID)
 	
 func _on_question_input_submitted(text: String) -> void:
 	submit_question_text(text)
@@ -696,21 +677,18 @@ func refresh_question_buttons() -> void:
 		clear_question_buttons()
 		return
 	
-	set_question_button(chat_button1, question_page_start)
-	set_question_button(chat_button2, question_page_start +1)
+	set_question_button(chat_button1, COMMON_BUTTON_1_ID)
+	set_question_button(chat_button2, COMMON_BUTTON_2_ID)
 	
-func set_question_button(button: Button, question_index: int) -> void:
+func set_question_button(button: Button, question_id: String) -> void:
 	if current_robot == null:
 		button.text = ""
 		button.disabled = true
 		return
 	
-	if question_index >= 0 and question_index < current_robot.humanChat.size():
-		button.text = current_robot.humanChat[question_index]
-		button.disabled = false
-	else:
-		button.text = ""
-		button.disabled = true
+	var question_text := get_common_question_text(question_id)
+	button.text = question_text	
+	button.disabled = question_text.is_empty() or not current_robot.has_common_response(question_id)
 
 func ask_question_at_index(question_index: int) -> void:
 	if current_robot == null:
@@ -731,3 +709,35 @@ func ask_question_at_index(question_index: int) -> void:
 
 	var robot_reply := current_robot.robotChat[robot_reply_index]
 	handle_chat_choice(player_text, robot_reply)
+	
+func ask_common_question(question_id: String) -> void:
+	if current_robot == null:
+		return
+	
+	if is_waiting_for_replay:
+		return
+		
+	var player_text := get_common_question_text(question_id)
+	var robot_reply := current_robot.get_common_response(question_id)
+	
+	if player_text.is_empty():
+		push_warning("Missing common question text for id: " + question_id)
+		return
+		
+	if robot_reply.is_empty():
+		push_warning("Missing common response for robot '%s', id: %s" % [current_robot.name, question_id])
+		return
+	
+	handle_chat_choice(player_text, robot_reply)
+	
+func get_common_question_text(question_id: String) -> String:
+	match question_id:
+		"purpose":
+			return "State your primary purpose."
+		"humans":
+			return "What do you think of humans?"
+		"inspection":
+			return "Do you understand why you are being inspected?"
+		_:
+			return ""
+	
