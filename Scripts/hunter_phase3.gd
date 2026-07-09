@@ -33,7 +33,7 @@ func _ready():
 	if not phase4_robot:
 		phase4_robot = get_node_or_null("../HunterPhase4")
 
-func activate(peek_loc: PeekLocation):
+func activate(_peek_loc: PeekLocation):
 	current_state = State.DOOR_RATTLE
 	active_peek_location = PeekLocation.DOOR
 	

@@ -286,7 +286,7 @@ func exit_computer_view():
 	if os_mask_overlay:
 		os_mask_overlay.visible = false
 
-func _on_robot_spawned(robot_data: RobotData):
+func _on_robot_spawned(_robot_data: RobotData):
 	if sprite_3d:
 		sprite_3d.visible = false
 

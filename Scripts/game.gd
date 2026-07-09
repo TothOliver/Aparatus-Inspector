@@ -55,10 +55,6 @@ func _ready():
 			accept_term.position.y = 335
 			accept_term.size = Vector2(250, 310)
 			
-			var btn_panel = accept_term.get_node_or_null("ButtonPanel") as Panel
-			if btn_panel:
-				btn_panel.size = Vector2(250, 310)
-				
 			var app_info = accept_term.get_node_or_null("ApproveInfo") as Label
 			if app_info:
 				app_info.text = "APPROVE:\nPass to grid service."
@@ -92,10 +88,6 @@ func _ready():
 			option_node.position.y = 440 # starts immediately after ChatManager
 			option_node.size = Vector2(385, 205) # H=205 instead of 235
 			
-			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
-			if ans_panel:
-				ans_panel.size = Vector2(385, 205)
-				
 			var btn1 = option_node.get_node_or_null("Button1") as Button
 			if btn1:
 				btn1.position = Vector2(15, 20)
@@ -116,10 +108,6 @@ func _ready():
 			model_node.position = Vector2(664, 45) # X=664, aligned to right
 			model_node.size = Vector2(244, 600)
 			
-			var info_panel = model_node.get_node_or_null("InfoPanel") as Panel
-			if info_panel:
-				info_panel.size = Vector2(244, 600)
-				
 			# Compact the fields inside Model
 			var fields = {
 				"NameFieldLabel": 15,
