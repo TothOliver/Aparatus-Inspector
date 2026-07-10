@@ -1,0 +1,228 @@
+[gd_scene format=3 uid="uid://dwrxey6o1bjen"]
+
+[ext_resource type="Material" uid="uid://bghp0mv66hvu3" path="res://materials/office_ceiling.tres" id="1_7kgwr"]
+[ext_resource type="Script" uid="uid://cwxajpw8fm5xi" path="res://Scripts/garbage_chute.gd" id="2_kw4t6"]
+[ext_resource type="Script" uid="uid://10nbcpv1gjfj" path="res://Scripts/chute_robot.gd" id="3_kw4t6"]
+[ext_resource type="AudioStream" uid="uid://cjfqsywm1kwmo" path="res://sound/waowrobot.mp3" id="3_nie1d"]
+[ext_resource type="AudioStream" uid="uid://r6qouiempler" path="res://sound/doinking.mp3" id="4_jwtqd"]
+[ext_resource type="PackedScene" uid="uid://cgb03xh2e5dkr" path="res://assets/officeAmbience/CoffeeCart_01_1k.gltf/CoffeeCart_01_1k.gltf" id="4_wyhq6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nie1d"]
+material = ExtResource("1_7kgwr")
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nr5sq"]
+material = ExtResource("1_7kgwr")
+size = Vector3(1, 0.1, 5.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qyc34"]
+material = ExtResource("1_7kgwr")
+size = Vector3(0.98, 0.1, 5.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7kgwr"]
+material = ExtResource("1_7kgwr")
+size = Vector3(1, 0.1, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kw4t6"]
+material = ExtResource("1_7kgwr")
+size = Vector3(1, 0.1, 5.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nie1d"]
+metallic = 0.8
+roughness = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nr5sq"]
+material = SubResource("StandardMaterial3D_nie1d")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jwtqd"]
+metallic = 1.0
+metallic_specular = 0.74
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.6355537, 1.4559553e-06, 4.813075e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wyhq6"]
+material = SubResource("StandardMaterial3D_jwtqd")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="Curve3D" id="Curve3D_nie1d"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 1.5, 7.3, 0, 0, 0, 0, 0, 0, 0, -0.2, 5.8, 0, 0, 0, 0, 0, 0, 0, 0.25043595, 0.00347834, 0, 0, 0, 0, 0, 0, 0, 0.25, -0.257),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nie1d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jwtqd"]
+size = Vector3(0.98, 0.98, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wyhq6"]
+albedo_color = Color(0.1923692, 0.2383804, 0.26440766, 1)
+
+[sub_resource type="Animation" id="Animation_qyc34"]
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.7, 1, 0.999048, 0, 0, 0.043619, 1, 1, 1, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kw4t6"]
+_data = {
+&"open_hatch": SubResource("Animation_qyc34")
+}
+
+[node name="GarbageChute" type="Node3D" unique_id=1420048848]
+
+[node name="ChuteTop" type="Node3D" parent="." unique_id=90714834]
+transform = Transform3D(1, 0, 0, 0, -0.65788805, -1.2205199, 0, 0.75311565, -1.0661914, 0, 1.0495596, 6.178719)
+
+[node name="ChuteOpeningBottom" type="MeshInstance3D" parent="ChuteTop" unique_id=310190628]
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningRight" type="MeshInstance3D" parent="ChuteTop" unique_id=973429598]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.45, 0.5, 0)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningTop" type="MeshInstance3D" parent="ChuteTop" unique_id=1426720760]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1.3302011, 0, 1, 0.16753232)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningLeft" type="MeshInstance3D" parent="ChuteTop" unique_id=1544963815]
+transform = Transform3D(1.3113416e-07, -1, 0, 1, 1.3113416e-07, 0, 0, 0, 1, 0.45, 0.45, 0)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningTop2" type="MeshInstance3D" parent="ChuteTop" unique_id=2086082047]
+transform = Transform3D(1, 1.7484555e-07, 0, 7.642742e-15, -4.371139e-08, 1, 1.0788757e-07, -0.617045, -2.6971893e-08, 7.979661e-07, 0.5050216, -0.48125672)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="Chute" type="Node3D" parent="." unique_id=1170112624]
+transform = Transform3D(1, 0, 0, 0, 0.8164904, -0.57735896, 0, 0.57735896, 0.8164904, 0, 0.31239665, -0.26058674)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Chute" unique_id=1549432768]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.56472397, 0, -0.5, 0.9781306, 0, 1.6989298, 3.437708)
+mesh = SubResource("BoxMesh_nr5sq")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Chute" unique_id=1822130376]
+transform = Transform3D(-4.371139e-08, 1, 0, -0.8660254, -2.2351738e-08, 0.5900296, 0.5, 1.2904781e-08, 1.0219612, -0.45, 2, 2.9)
+mesh = SubResource("BoxMesh_qyc34")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Chute" unique_id=1621773975]
+transform = Transform3D(-1, -6.952095e-08, 0, 6.0206915e-08, -0.8660254, 0.54733735, -3.476047e-08, 0.5, 0.948016, 6.0298397e-09, 2.2235901, 2.3807883)
+mesh = SubResource("BoxMesh_7kgwr")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Chute" unique_id=1172730571]
+transform = Transform3D(-2.5809566e-08, 1, 0, -0.8660254, -2.2351742e-08, 0.5696915, 0.5, 1.2904778e-08, 0.98673457, 0.45, 2, 2.9)
+mesh = SubResource("BoxMesh_kw4t6")
+
+[node name="ChuteOpening" type="Node3D" parent="." unique_id=1869404132]
+
+[node name="ChuteOpeningBottom" type="MeshInstance3D" parent="ChuteOpening" unique_id=17521862]
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningRight" type="MeshInstance3D" parent="ChuteOpening" unique_id=969984212]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.45, 0.5, 0)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningTop" type="MeshInstance3D" parent="ChuteOpening" unique_id=1047344082]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="ChuteOpeningLeft" type="MeshInstance3D" parent="ChuteOpening" unique_id=573486428]
+transform = Transform3D(1.3113416e-07, -1, 0, 1, 1.3113416e-07, 0, 0, 0, 1, 0.45, 0.45, 0)
+mesh = SubResource("BoxMesh_nie1d")
+
+[node name="Hinges" type="Node3D" parent="." unique_id=1568748967]
+
+[node name="Hinge 1" type="MeshInstance3D" parent="Hinges" unique_id=1750866526]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.35, 1.05, -0.5)
+mesh = SubResource("CylinderMesh_nr5sq")
+
+[node name="Hinge 2" type="MeshInstance3D" parent="Hinges" unique_id=1122991622]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.25, 1.05, -0.5)
+mesh = SubResource("CylinderMesh_nr5sq")
+
+[node name="Hinge 3" type="MeshInstance3D" parent="Hinges" unique_id=1150388039]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.25, 1.05, -0.5)
+mesh = SubResource("CylinderMesh_nr5sq")
+
+[node name="Hinge 4" type="MeshInstance3D" parent="Hinges" unique_id=929375441]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.35, 1.05, -0.5)
+mesh = SubResource("CylinderMesh_nr5sq")
+
+[node name="JumpscareRobot" type="Node3D" parent="." unique_id=1826312675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 8)
+
+[node name="Robot" type="Node3D" parent="JumpscareRobot" unique_id=1703179363]
+
+[node name="TempRobot" type="MeshInstance3D" parent="JumpscareRobot/Robot" unique_id=1796023335]
+mesh = SubResource("SphereMesh_wyhq6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="JumpscareRobot/Robot" unique_id=559159119]
+light_color = Color(0.7770407, 0.3078202, 0.34185162, 1)
+omni_range = 0.67
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="JumpscareRobot/Robot" unique_id=891335718]
+stream = ExtResource("3_nie1d")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=412353123]
+curve = SubResource("Curve3D_nie1d")
+debug_custom_color = Color(0.60324824, 0.6032482, 0.6032482, 1)
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1610749610]
+transform = Transform3D(0.9999994, 0, 0, 0, 0.6616148, 0.74983025, 0, -0.74983025, 0.6616148, 0, 1.5, 7.3)
+loop = false
+script = ExtResource("3_kw4t6")
+
+[node name="Robot" type="Node3D" parent="Path3D/PathFollow3D" unique_id=500564383]
+
+[node name="EvilCoffeeCart" parent="Path3D/PathFollow3D/Robot" unique_id=1403159093 instance=ExtResource("4_wyhq6")]
+transform = Transform3D(-2.1855694e-08, 0, 0.5, 1.4901161e-08, 0.5, 0, -0.5, 1.4901161e-08, -2.1855694e-08, 0, -0.6336603, -4.7683716e-07)
+
+[node name="TempRobot" type="MeshInstance3D" parent="Path3D/PathFollow3D/Robot" unique_id=1400234174]
+visible = false
+mesh = SubResource("SphereMesh_wyhq6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Path3D/PathFollow3D/Robot" unique_id=1235777332]
+light_color = Color(0.7770407, 0.3078202, 0.34185162, 1)
+shadow_enabled = true
+omni_range = 0.67
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Path3D/PathFollow3D/Robot" unique_id=316920196]
+stream = ExtResource("4_jwtqd")
+volume_db = 5.0
+max_db = 5.0
+autoplay = true
+max_distance = 6.0
+parameters/looping = true
+
+[node name="HatchObject" type="Node3D" parent="." unique_id=1311400592]
+
+[node name="Hatch" type="StaticBody3D" parent="HatchObject" unique_id=357265279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.5)
+script = ExtResource("2_kw4t6")
+target_node_path = NodePath("../FlapPivot")
+metadata/_custom_type_script = "uid://du8ijcubylv2i"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HatchObject/Hatch" unique_id=1185417468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.5)
+shape = SubResource("BoxShape3D_nie1d")
+
+[node name="FlapPivot" type="Node3D" parent="HatchObject" unique_id=2090803192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.5)
+
+[node name="ChuteFlap" type="MeshInstance3D" parent="HatchObject/FlapPivot" unique_id=2136040077]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742277e-08, 0, -8.742277e-08, -1, 0, -0.50999993, 1.1920929e-07)
+rotation_edit_mode = 1
+mesh = SubResource("BoxMesh_jwtqd")
+surface_material_override/0 = SubResource("StandardMaterial3D_wyhq6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HatchObject/FlapPivot" unique_id=857242925]
+root_node = NodePath("../ChuteFlap")
+libraries/ = SubResource("AnimationLibrary_kw4t6")

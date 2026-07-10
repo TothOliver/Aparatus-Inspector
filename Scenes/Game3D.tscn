@@ -16,7 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="8_bdicf"]
 [ext_resource type="PackedScene" uid="uid://bb8l0glb4umiu" path="res://Scenes/boxRubble.tscn" id="9_cu4db"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
+[ext_resource type="PackedScene" uid="uid://dwrxey6o1bjen" path="res://Scenes/GarbageBot.tscn" id="11_47omi"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
+[ext_resource type="Texture2D" uid="uid://bbdaon14ddqxq" path="res://Sprites/rule1.jpg" id="12_3uorb"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
@@ -37,6 +39,11 @@ background_color = Color(0.01, 0.01, 0.01, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.32, 0.32, 0.34, 1)
 glow_enabled = true
+fog_enabled = true
+fog_density = 0.0025
+fog_height = 0.2
+fog_height_density = 0.1
+volumetric_fog_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.35
@@ -117,6 +124,20 @@ albedo_color = Color(0.8, 0.1, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_breaker_col"]
 size = Vector3(0.18, 0.25, 0.08)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5e1l5"]
+albedo_color = Color(0.30144536, 0.20808226, 0.08138531, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wyuoe"]
+material = SubResource("StandardMaterial3D_5e1l5")
+size = Vector3(0.85, 0.65, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkqiv"]
+albedo_texture = ExtResource("12_3uorb")
+
+[sub_resource type="QuadMesh" id="QuadMesh_5ixxh"]
+material = SubResource("StandardMaterial3D_pkqiv")
+size = Vector2(0.8, 0.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_corridor"]
 albedo_color = Color(0.18, 0.18, 0.18, 1)
@@ -203,12 +224,6 @@ use_collision = true
 size = Vector3(6, 0.1, 6)
 material = ExtResource("3_5wfhr")
 
-[node name="Ceiling" type="CSGBox3D" parent="Office" unique_id=272765307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 1.5)
-use_collision = true
-size = Vector3(6, 0.1, 6)
-material = ExtResource("4_ds5qe")
-
 [node name="LeftWall" type="CSGCombiner3D" parent="Office" unique_id=715774430]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 1.5)
 use_collision = true
@@ -229,12 +244,6 @@ material = ExtResource("10_r4ocn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
 use_collision = true
 size = Vector3(0.1, 0.4, 2)
-material = ExtResource("10_r4ocn")
-
-[node name="RightWall" type="CSGBox3D" parent="Office" unique_id=1975533488]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 1.5)
-use_collision = true
-size = Vector3(0.1, 2.6, 6)
 material = ExtResource("10_r4ocn")
 
 [node name="BackWall" type="CSGCombiner3D" parent="Office" unique_id=1844276375]
@@ -265,11 +274,30 @@ use_collision = true
 size = Vector3(2.2, 0.95, 0.1)
 material = ExtResource("10_r4ocn")
 
-[node name="FrontWall" type="CSGBox3D" parent="Office" unique_id=265883917]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.55)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Office" unique_id=1088213209]
+
+[node name="RightWall" type="CSGBox3D" parent="Office/CSGCombiner3D" unique_id=1975533488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 1.5)
+use_collision = true
+size = Vector3(0.1, 2.6, 6)
+material = ExtResource("10_r4ocn")
+
+[node name="FrontWall" type="CSGBox3D" parent="Office/CSGCombiner3D" unique_id=265883917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.5)
 use_collision = true
 size = Vector3(6, 2.6, 0.1)
 material = ExtResource("10_r4ocn")
+
+[node name="Ceiling" type="CSGBox3D" parent="Office/CSGCombiner3D" unique_id=272765307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 1.5)
+use_collision = true
+size = Vector3(6, 0.1, 6)
+material = ExtResource("4_ds5qe")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Office/CSGCombiner3D" unique_id=2116162680]
+transform = Transform3D(0.7303799, -0.4357887, 0.5259596, 0.0062359944, 0.7742485, 0.6328509, -0.6830128, -0.45894185, 0.5682131, 2.9283533, 2.703247, 4.4312286)
+operation = 2
+size = Vector3(0.5505322, 0.5738547, 1.6239235)
 
 [node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1.54)
@@ -359,6 +387,7 @@ max_distance = 5.0
 
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
 transform = Transform3D(-0.027991377, 0, 0.99960816, 0, 1, 0, -0.99960816, 0, -0.027991377, -2.9693189, 1.25, 0.07474077)
+script = ExtResource("4_switch")
 
 [node name="Casing" type="MeshInstance3D" parent="Office/BreakerBox" unique_id=237491290]
 mesh = SubResource("BoxMesh_breaker_body")
@@ -381,6 +410,19 @@ material = SubResource("StandardMaterial3D_curtain")
 transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7487085, 1.27984, 10.433812)
 size = Vector3(1.7, 0.94437253, 0.04)
 material = SubResource("StandardMaterial3D_curtain")
+
+[node name="GarbageChute" parent="Office" unique_id=1420048848 instance=ExtResource("11_47omi")]
+transform = Transform3D(0.4242639, -0.30065376, 0.29934478, -7.450581e-09, 0.4233375, 0.42518842, -0.42426395, -0.3006537, 0.2993447, 2.5594277, 1.861654, 4.059427)
+
+[node name="RuleSign" type="Node3D" parent="Office" unique_id=1657299218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0452325, 1.5042353, -1.5079417)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Office/RuleSign" unique_id=1072593299]
+mesh = SubResource("BoxMesh_wyuoe")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Office/RuleSign" unique_id=2074866522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.026)
+mesh = SubResource("QuadMesh_5ixxh")
 
 [node name="Corridor" type="CSGBox3D" parent="." unique_id=635068787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.050266, 1.2995325, 1.4994271)
@@ -456,6 +498,7 @@ pixel_size = 0.0055
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.2, 0.1)
 light_color = Color(1, 0.95, 0.85, 1)
 light_energy = 3.5
+shadow_enabled = true
 spot_angle = 80.0
 
 [node name="ChamberLight" type="SpotLight3D" parent="Lighting" unique_id=444097396]
@@ -465,7 +508,7 @@ light_energy = 3.5
 spot_angle = 35.0
 
 [node name="AmbientLight" type="OmniLight3D" parent="Lighting" unique_id=651361840]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 16.778439)
 light_color = Color(0.65, 0.65, 0.72, 1)
 light_energy = 2.0
 omni_range = 10.0
@@ -474,6 +517,7 @@ omni_range = 10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 1.5)
 light_color = Color(0.65, 0.65, 0.55, 1)
 light_energy = 2.2
+shadow_enabled = true
 omni_range = 15.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1744836067]
@@ -877,9 +921,9 @@ size = Vector3(6, 0.1, 6)
 material = ExtResource("3_5wfhr")
 
 [node name="Ceiling" type="CSGBox3D" parent="Room2" unique_id=1902898497]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, 1.3222046)
 use_collision = true
-size = Vector3(6, 0.1, 6)
+size = Vector3(6, 0.1, 5.644409)
 material = ExtResource("4_ds5qe")
 
 [node name="RightWall" type="CSGBox3D" parent="Room2" unique_id=207609147]
@@ -889,9 +933,9 @@ size = Vector3(0.1, 2.6, 6)
 material = ExtResource("10_r4ocn")
 
 [node name="FrontWall" type="CSGBox3D" parent="Room2" unique_id=1223432380]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.25, 4.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3931885, 1.25, 4.55)
 use_collision = true
-size = Vector3(6, 2.6, 0.1)
+size = Vector3(5.26709, 2.6, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="BackWall_Bottom" type="CSGBox3D" parent="Room2" unique_id=832031471]
@@ -935,6 +979,7 @@ shape = SubResource("BoxShape3D_blinds_hitbox")
 
 [node name="CeilingLight2" type="OmniLight3D" parent="Room2" unique_id=1503816982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.2, 1.5)
+shadow_enabled = true
 omni_range = 10.0
 
 [node name="CeilingFixture2" type="CSGBox3D" parent="Room2" unique_id=769463408]
@@ -957,9 +1002,9 @@ size = Vector3(6, 0.1, 6)
 material = ExtResource("3_5wfhr")
 
 [node name="Ceiling" type="CSGBox3D" parent="Room3" unique_id=1129455547]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17175293, 2.55, 7.5)
 use_collision = true
-size = Vector3(6, 0.1, 6)
+size = Vector3(5.656494, 0.1, 6)
 material = ExtResource("4_ds5qe")
 
 [node name="LeftWall" type="CSGBox3D" parent="Room3" unique_id=1625937224]
@@ -969,9 +1014,9 @@ size = Vector3(0.1, 2.6, 6)
 material = ExtResource("10_r4ocn")
 
 [node name="RightWall" type="CSGBox3D" parent="Room3" unique_id=2011980420]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.25, 7.8496094)
 use_collision = true
-size = Vector3(0.1, 2.6, 6)
+size = Vector3(0.1, 2.6, 5.3007813)
 material = ExtResource("10_r4ocn")
 
 [node name="FrontWall_Bottom" type="CSGBox3D" parent="Room3" unique_id=644761672]
@@ -1015,6 +1060,7 @@ shape = SubResource("BoxShape3D_blinds_hitbox")
 
 [node name="CeilingLight3" type="OmniLight3D" parent="Room3" unique_id=1525582118]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 7.5)
+shadow_enabled = true
 omni_range = 10.0
 
 [node name="CeilingFixture3" type="CSGBox3D" parent="Room3" unique_id=1628120167]

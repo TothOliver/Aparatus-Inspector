@@ -100,8 +100,8 @@ func _ready():
 
 	if has_node("/root/BGMusic"):
 		var bg_music = get_node("/root/BGMusic")
-		if bg_music is AudioStreamPlayer and not bg_music.playing:
-			bg_music.play()
+		if bg_music is AudioStreamPlayer and bg_music.playing:
+			bg_music.stop()
 
 	# Create 16:9 aspect ratio overlay for first person view
 	aspect_overlay = Control.new()
