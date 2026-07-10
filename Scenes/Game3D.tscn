@@ -211,6 +211,7 @@ material = ExtResource("4_ds5qe")
 
 [node name="LeftWall" type="CSGCombiner3D" parent="Office" unique_id=715774430]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 1.5)
+use_collision = true
 
 [node name="LeftWall_Back" type="CSGBox3D" parent="Office/LeftWall" unique_id=1627625243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -2)
@@ -238,6 +239,7 @@ material = ExtResource("10_r4ocn")
 
 [node name="BackWall" type="CSGCombiner3D" parent="Office" unique_id=1844276375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.55)
+use_collision = true
 
 [node name="BackWall_Bottom" type="CSGBox3D" parent="Office/BackWall" unique_id=848312036]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
