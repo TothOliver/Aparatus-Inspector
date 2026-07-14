@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://snojlrgtckbd" path="res://assets/deskSetup/stationery_supplies_1k.gltf/textures/stationery_supplies_nor_gl_1k.jpg" id="7_yty5h"]
 [ext_resource type="PackedScene" uid="uid://ddi0805nt6t1c" path="res://assets/deskSetup/cardboard_box_01_1k.gltf/cardboard_box_01_1k.gltf" id="8_lu60s"]
 [ext_resource type="PackedScene" uid="uid://cjhwwxnawq7pr" path="res://assets/deskSetup/industrial_pipe_lamp_1k.gltf/industrial_pipe_lamp_1k.gltf" id="9_hw8yg"]
+[ext_resource type="PackedScene" uid="uid://cyiyahfkq5oto" path="res://assets/deskSetup/plastic_monobloc_chair_01_1k.gltf/plastic_monobloc_chair_01_1k.gltf" id="13_an31x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlte0"]
 albedo_color = Color(0.42, 0.42, 0.39, 1)
@@ -554,3 +555,6 @@ shape = SubResource("BoxShape3D_desk")
 
 [node name="industrial_pipe_lamp_1k" parent="." unique_id=450576964 instance=ExtResource("9_hw8yg")]
 transform = Transform3D(0.94215107, 0, -0.33518848, 0, 1, 0, 0.33518848, 0, 0.94215107, 0.74264026, 0.9400002, -0.20300585)
+
+[node name="plastic_monobloc_chair_01_1k" parent="." unique_id=1334574025 instance=ExtResource("13_an31x")]
+transform = Transform3D(-0.9386733, 0, -0.7475911, 0, 1.1999999, 0, 0.7475911, 0, -0.9386733, 0.5085864, -1.1920929e-07, 1.1228027)

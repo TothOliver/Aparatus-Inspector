@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="8_bdicf"]
 [ext_resource type="PackedScene" uid="uid://bb8l0glb4umiu" path="res://Scenes/boxRubble.tscn" id="9_cu4db"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
+[ext_resource type="PackedScene" uid="uid://fh5mshlhk12l" path="res://Scenes/breakerCloset.tscn" id="11_47omi"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
@@ -168,7 +169,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9848078, 0.17364796, 0, -0.17364796, 0.984
 fov = 65.0
 
 [node name="CCTVCamera3" type="Camera3D" parent="CCTVViewport" unique_id=98721499]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 0, 2.2, 6.5)
+transform = Transform3D(-1, 1.518079e-08, -8.609465e-08, 0, 0.9848078, 0.17364796, 8.74228e-08, 0.17364796, -0.9848078, 0, 1.5478749, 9.224833)
 fov = 65.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1196134443]
@@ -265,10 +266,25 @@ use_collision = true
 size = Vector3(6, 0.1, 6)
 material = ExtResource("4_ds5qe")
 
-[node name="FrontWall" type="CSGBox3D" parent="Office" unique_id=67314724]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4.55)
+[node name="FrontWall" type="CSGCombiner3D" parent="Office" unique_id=1953089843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.55)
+
+[node name="FrontWall_Left" type="CSGBox3D" parent="Office/FrontWall" unique_id=96908341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.25, 0)
 use_collision = true
-size = Vector3(6, 2.6, 0.1)
+size = Vector3(2.4, 2.6, 0.1)
+material = ExtResource("10_r4ocn")
+
+[node name="FrontWall_Right" type="CSGBox3D" parent="Office/FrontWall" unique_id=461388211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.25, 0)
+use_collision = true
+size = Vector3(2.4, 2.6, 0.1)
+material = ExtResource("10_r4ocn")
+
+[node name="LeftWall_Top" type="CSGBox3D" parent="Office/FrontWall" unique_id=1701210090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
+use_collision = true
+size = Vector3(1.2, 0.4, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
@@ -381,6 +397,9 @@ material = SubResource("StandardMaterial3D_curtain")
 transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7487085, 1.27984, 10.433812)
 size = Vector3(1.7, 0.94437253, 0.04)
 material = SubResource("StandardMaterial3D_curtain")
+
+[node name="BreakerCloset" parent="." unique_id=1619679942 instance=ExtResource("11_47omi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="Corridor" type="CSGBox3D" parent="." unique_id=635068787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.050266, 1.2995325, 1.4994271)
@@ -950,30 +969,6 @@ interact_name = "Light Switch"
 
 [node name="Room3" type="Node3D" parent="." unique_id=2071024996]
 
-[node name="Floor" type="CSGBox3D" parent="Room3" unique_id=1410169754]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 7.5)
-use_collision = true
-size = Vector3(6, 0.1, 6)
-material = ExtResource("3_5wfhr")
-
-[node name="Ceiling" type="CSGBox3D" parent="Room3" unique_id=1129455547]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 7.5)
-use_collision = true
-size = Vector3(6, 0.1, 6)
-material = ExtResource("4_ds5qe")
-
-[node name="LeftWall" type="CSGBox3D" parent="Room3" unique_id=1625937224]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 1.25, 7.5)
-use_collision = true
-size = Vector3(0.1, 2.6, 6)
-material = ExtResource("10_r4ocn")
-
-[node name="RightWall" type="CSGBox3D" parent="Room3" unique_id=2011980420]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 7.5)
-use_collision = true
-size = Vector3(0.1, 2.6, 6)
-material = ExtResource("10_r4ocn")
-
 [node name="FrontWall_Bottom" type="CSGBox3D" parent="Room3" unique_id=644761672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 10.55)
 use_collision = true
@@ -1012,15 +1007,6 @@ interact_name = "Window Curtain"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room3/Curtain3Interactable" unique_id=395686372]
 shape = SubResource("BoxShape3D_blinds_hitbox")
-
-[node name="CeilingLight3" type="OmniLight3D" parent="Room3" unique_id=1525582118]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 7.5)
-omni_range = 10.0
-
-[node name="CeilingFixture3" type="CSGBox3D" parent="Room3" unique_id=1628120167]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 7.5)
-size = Vector3(0.6, 0.1, 0.6)
-material = ExtResource("4_ds5qe")
 
 [node name="LightSwitch3" type="StaticBody3D" parent="Room3" unique_id=178953809]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4.7)
