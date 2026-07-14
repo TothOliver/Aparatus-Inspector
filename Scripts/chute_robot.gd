@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	if ($"../../HatchObject/Hatch".open):
 		progress_ratio -= delta / 2
 	else:
-		progress_ratio += delta / 5
+		progress_ratio += delta / 60
 	
 	#Adding delta will make the robot reach the hatch in one second -> /60 -> 1 minute
 	

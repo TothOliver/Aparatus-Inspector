@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="8_bdicf"]
 [ext_resource type="PackedScene" uid="uid://bb8l0glb4umiu" path="res://Scenes/boxRubble.tscn" id="9_cu4db"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
-[ext_resource type="PackedScene" uid="uid://dwrxey6o1bjen" path="res://Scenes/GarbageBot.tscn" id="11_47omi"]
+[ext_resource type="PackedScene" path="res://Scenes/GarbageBot.tscn" id="11_47omi"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
 [ext_resource type="Texture2D" uid="uid://bbdaon14ddqxq" path="res://Sprites/rule1.jpg" id="12_3uorb"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
