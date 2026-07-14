@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnt1y0n3wgwy8"
+uid="uid://cw8i5cmqfi8f"
 path.s3tc="res://.godot/imported/power_box_01_nor_gl_1k.jpg-14a831b92807ade1675963d52023a336.s3tc.ctex"
 path.etc2="res://.godot/imported/power_box_01_nor_gl_1k.jpg-14a831b92807ade1675963d52023a336.etc2.ctex"
 metadata={
@@ -28,7 +28,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://assets/officeAmbience/power_box_01_1k.gltf/textures/power_box_01_nor_gl_1k.jpg"
+roughness/src_normal="res://assets/Closet/power_box_01_1k.gltf/textures/power_box_01_nor_gl_1k.jpg"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
