@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
 [ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="8_bdicf"]
 [ext_resource type="PackedScene" uid="uid://bb8l0glb4umiu" path="res://Scenes/boxRubble.tscn" id="9_cu4db"]
+[ext_resource type="PackedScene" uid="uid://bw0ck34pu3164" path="res://assets/officeAmbience/trashbag_1k.gltf/trashbag_1k.gltf" id="10_3uorb"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="PackedScene" uid="uid://fh5mshlhk12l" path="res://Scenes/breakerCloset.tscn" id="11_47omi"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
@@ -315,6 +316,9 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.65
 
 [node name="BoxRubble" parent="Office" unique_id=895906964 instance=ExtResource("9_cu4db")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.678174, 0, 4.095018)
+
+[node name="trashbag_1k" parent="Office" unique_id=1250868738 instance=ExtResource("10_3uorb")]
+transform = Transform3D(0.88302135, 0, -0.46933287, 0, 1, 0, 0.46933287, 0, 0.88302135, 2.6953888, 0.0014541671, -1.2155142)
 
 [node name="LeftDoor" type="Node3D" parent="Office" unique_id=409843211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 2.5)

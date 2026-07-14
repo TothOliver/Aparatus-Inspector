@@ -3,6 +3,7 @@
 [ext_resource type="Material" uid="uid://bwy3qauu7tk22" path="res://materials/office_floor.tres" id="1_88kyc"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="2_or50e"]
 [ext_resource type="Material" uid="uid://bghp0mv66hvu3" path="res://materials/office_ceiling.tres" id="3_kccob"]
+[ext_resource type="PackedScene" uid="uid://x43yo8lg4cgd" path="res://Scenes/closetRack1.tscn" id="4_nvjib"]
 [ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="5_addfr"]
 [ext_resource type="PackedScene" uid="uid://cwtrwwipw4gal" path="res://assets/Closet/plastic_broom_1k.gltf/plastic_broom_1k.gltf" id="6_u7gpx"]
 [ext_resource type="PackedScene" uid="uid://bcttwe0xshx6q" path="res://assets/metalRack/Closet/dustpan_1k.gltf/dustpan_1k.gltf" id="7_7xq6k"]
@@ -18,6 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://bowwh66e6ju4d" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_arm_1k.jpg" id="17_mqfek"]
 [ext_resource type="Texture2D" uid="uid://bkoej6weosujf" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_nor_gl_1k.jpg" id="18_ecrpm"]
 [ext_resource type="PackedScene" uid="uid://bjywfc6mupv7l" path="res://assets/Closet/power_box_01_1k.gltf/power_box_01_1k.gltf" id="18_u7gpx"]
+[ext_resource type="PackedScene" uid="uid://bw0ck34pu3164" path="res://assets/officeAmbience/trashbag_1k.gltf/trashbag_1k.gltf" id="19_7xq6k"]
+[ext_resource type="PackedScene" uid="uid://dx8ltn3aflh6w" path="res://assets/metalRack/Closet/bleach_bottle_1k.gltf/bleach_bottle_1k.gltf" id="20_mp0fl"]
+[ext_resource type="PackedScene" uid="uid://cnfn3c6ylabln" path="res://assets/metalRack/Closet/leather_cleaner_can_1k.gltf/leather_cleaner_can_1k.gltf" id="21_nvjib"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_u7gpx"]
 _surfaces = [{
@@ -201,8 +205,8 @@ shape = SubResource("ConcavePolygonShape3D_7xq6k")
 
 [node name="Metalracks" type="Node3D" parent="." unique_id=150024310]
 
-[node name="MetalRackLeft1" parent="Metalracks" unique_id=744250992 instance=ExtResource("5_addfr")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.1461186, 0, -0.804)
+[node name="ClosetRack1" parent="Metalracks" unique_id=1737296042 instance=ExtResource("4_nvjib")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.146, 0, -0.804)
 
 [node name="MetalRackRight1" parent="Metalracks" unique_id=1090729179 instance=ExtResource("5_addfr")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.146, 0, -0.804)
@@ -242,6 +246,21 @@ mesh = SubResource("ArrayMesh_el0nb")
 [node name="office_notepads_a4_a" type="MeshInstance3D" parent="Handtruck" unique_id=976562041]
 transform = Transform3D(1, 0, 0, 0, 0.9989298, -0.046252172, 0, 0.046252172, 0.9989298, -0.49446398, 0.68853134, -0.14815354)
 mesh = SubResource("ArrayMesh_q8xjg")
+
+[node name="Trashbags" type="Node3D" parent="." unique_id=557789836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3549638, 0.14772555, 1.1973358)
+
+[node name="trashbag_1k" parent="Trashbags" unique_id=1250868738 instance=ExtResource("19_7xq6k")]
+transform = Transform3D(-0.084790826, 0.9963988, -4.3553975e-08, 0, -4.371139e-08, -1, -0.9963988, -0.084790826, 3.706325e-09, 0, 0, 0)
+
+[node name="trashbag_1k2" parent="Trashbags" unique_id=1270170910 instance=ExtResource("19_7xq6k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16183484, -0.1462717, -0.44814104)
+
+[node name="bleach_bottle" parent="Trashbags" unique_id=1665052738 instance=ExtResource("20_mp0fl")]
+transform = Transform3D(0.70856154, 0.705649, 3.0844898e-08, 0, -4.371139e-08, 1, 0.705649, -0.70856154, -3.097221e-08, 0.15538168, -0.14772603, -0.13705742)
+
+[node name="leather_cleaner" parent="Trashbags" unique_id=1996386057 instance=ExtResource("21_nvjib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39093024, -0.14772597, 0.18113363)
 
 [node name="power_box_01_1k" parent="." unique_id=1572422188 instance=ExtResource("18_u7gpx")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.5, 1.3988423)
