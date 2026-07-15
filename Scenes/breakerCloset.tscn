@@ -4,7 +4,8 @@
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="2_or50e"]
 [ext_resource type="Material" uid="uid://bghp0mv66hvu3" path="res://materials/office_ceiling.tres" id="3_kccob"]
 [ext_resource type="PackedScene" uid="uid://x43yo8lg4cgd" path="res://Scenes/closetRack1.tscn" id="4_nvjib"]
-[ext_resource type="PackedScene" uid="uid://dxqyebxt84t2" path="res://Scenes/metalRack.tscn" id="5_addfr"]
+[ext_resource type="PackedScene" uid="uid://b1tnrx4na8ell" path="res://Scenes/closetRack2.tscn" id="5_mu3xp"]
+[ext_resource type="PackedScene" uid="uid://b0nkh81cq0cdu" path="res://Scenes/closetRack3.tscn" id="6_02fsa"]
 [ext_resource type="PackedScene" uid="uid://cwtrwwipw4gal" path="res://assets/Closet/plastic_broom_1k.gltf/plastic_broom_1k.gltf" id="6_u7gpx"]
 [ext_resource type="PackedScene" uid="uid://bcttwe0xshx6q" path="res://assets/metalRack/Closet/dustpan_1k.gltf/dustpan_1k.gltf" id="7_7xq6k"]
 [ext_resource type="Texture2D" uid="uid://co3w13rk7nwka" path="res://assets/metalRack/Closet/spray_paint_bottles_1k.gltf/textures/spray_paint_bottles_dirty_diff_1k.jpg" id="8_1vytt"]
@@ -22,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bw0ck34pu3164" path="res://assets/officeAmbience/trashbag_1k.gltf/trashbag_1k.gltf" id="19_7xq6k"]
 [ext_resource type="PackedScene" uid="uid://dx8ltn3aflh6w" path="res://assets/metalRack/Closet/bleach_bottle_1k.gltf/bleach_bottle_1k.gltf" id="20_mp0fl"]
 [ext_resource type="PackedScene" uid="uid://cnfn3c6ylabln" path="res://assets/metalRack/Closet/leather_cleaner_can_1k.gltf/leather_cleaner_can_1k.gltf" id="21_nvjib"]
+[ext_resource type="PackedScene" uid="uid://0u8sibukikbl" path="res://assets/Closet/portable_welding_cart_1k.gltf/portable_welding_cart_1k.gltf" id="23_31oij"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_u7gpx"]
 _surfaces = [{
@@ -193,6 +195,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ynwqv")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_mu3xp"]
+size = Vector3(0.80292284, 1.2961752, 0.5494751)
+
 [node name="BreakerCloset" type="Node3D" unique_id=1619679942]
 
 [node name="Closet" type="MeshInstance3D" parent="." unique_id=672271106]
@@ -208,11 +213,11 @@ shape = SubResource("ConcavePolygonShape3D_7xq6k")
 [node name="ClosetRack1" parent="Metalracks" unique_id=1737296042 instance=ExtResource("4_nvjib")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.146, 0, -0.804)
 
-[node name="MetalRackRight1" parent="Metalracks" unique_id=1090729179 instance=ExtResource("5_addfr")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.146, 0, -0.804)
-
-[node name="MetalRackRight2" parent="Metalracks" unique_id=1788528269 instance=ExtResource("5_addfr")]
+[node name="ClosetRack2" parent="Metalracks" unique_id=449541635 instance=ExtResource("5_mu3xp")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.146, 0, 0.12)
+
+[node name="ClosetRack3" parent="Metalracks" unique_id=292342442 instance=ExtResource("6_02fsa")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.146, 0, -0.804)
 
 [node name="BroomAndTrash" type="Node3D" parent="." unique_id=795481675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987, 0, 1.179)
@@ -247,8 +252,14 @@ mesh = SubResource("ArrayMesh_el0nb")
 transform = Transform3D(1, 0, 0, 0, 0.9989298, -0.046252172, 0, 0.046252172, 0.9989298, -0.49446398, 0.68853134, -0.14815354)
 mesh = SubResource("ArrayMesh_q8xjg")
 
+[node name="HandTruckCollision" type="StaticBody3D" parent="Handtruck" unique_id=41618175]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Handtruck/HandTruckCollision" unique_id=831127799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029604673, 0.5028162, 0.0043884516)
+shape = SubResource("BoxShape3D_mu3xp")
+
 [node name="Trashbags" type="Node3D" parent="." unique_id=557789836]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3549638, 0.14772555, 1.1973358)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.19790632, 0.14772555, 1.3287753)
 
 [node name="trashbag_1k" parent="Trashbags" unique_id=1250868738 instance=ExtResource("19_7xq6k")]
 transform = Transform3D(-0.084790826, 0.9963988, -4.3553975e-08, 0, -4.371139e-08, -1, -0.9963988, -0.084790826, 3.706325e-09, 0, 0, 0)
@@ -261,6 +272,15 @@ transform = Transform3D(0.70856154, 0.705649, 3.0844898e-08, 0, -4.371139e-08, 1
 
 [node name="leather_cleaner" parent="Trashbags" unique_id=1996386057 instance=ExtResource("21_nvjib")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39093024, -0.14772597, 0.18113363)
+
+[node name="portable_welding_cart_1k" parent="." unique_id=182786542 instance=ExtResource("23_31oij")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -0.9896203, -1.1920929e-07, 1.0221126)
+
+[node name="WeldCartCollision" type="StaticBody3D" parent="portable_welding_cart_1k" unique_id=1048535812]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="portable_welding_cart_1k/WeldCartCollision" unique_id=1156459467]
+transform = Transform3D(0.99999154, 0, -1.3500312e-13, 0, 1, 0, 1.3500312e-13, 0, 0.99999154, -0.0059615374, 0.68209004, 0.0043884516)
+shape = SubResource("BoxShape3D_mu3xp")
 
 [node name="power_box_01_1k" parent="." unique_id=1572422188 instance=ExtResource("18_u7gpx")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.5, 1.3988423)

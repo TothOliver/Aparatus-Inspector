@@ -269,6 +269,7 @@ material = ExtResource("4_ds5qe")
 
 [node name="FrontWall" type="CSGCombiner3D" parent="Office" unique_id=1953089843]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.55)
+use_collision = true
 
 [node name="FrontWall_Left" type="CSGBox3D" parent="Office/FrontWall" unique_id=96908341]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.25, 0)
