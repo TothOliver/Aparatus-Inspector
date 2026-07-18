@@ -111,9 +111,12 @@ func handle_walking_movement(delta):
 	if dir:
 		velocity.x = dir.x * speed
 		velocity.z = dir.z * speed
+		if !$AudioStreamPlayer3D.playing:
+			$AudioStreamPlayer3D.play();
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
+		
 		
 	move_and_slide()
 

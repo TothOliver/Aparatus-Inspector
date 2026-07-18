@@ -2,14 +2,18 @@
 
 [ext_resource type="Script" uid="uid://bip8ew85g0dse" path="res://Scripts/game3d.gd" id="1_game3d"]
 [ext_resource type="PackedScene" uid="uid://lr6ecx4umycn" path="res://Scenes/Game.tscn" id="2_game"]
+[ext_resource type="AudioStream" uid="uid://1nfufcqr7p7j" path="res://sound/step1.mp3" id="3_5ixxh"]
 [ext_resource type="Material" uid="uid://bwy3qauu7tk22" path="res://materials/office_floor.tres" id="3_5wfhr"]
 [ext_resource type="Script" uid="uid://fsth5elb032r" path="res://Scripts/hunter_phase1.gd" id="3_hunter_p1"]
 [ext_resource type="Script" uid="uid://bwioa3l565go3" path="res://Scripts/player.gd" id="3_player"]
 [ext_resource type="Material" uid="uid://bghp0mv66hvu3" path="res://materials/office_ceiling.tres" id="4_ds5qe"]
 [ext_resource type="Script" uid="uid://5iluofeujj8v" path="res://Scripts/hunter_phase2.gd" id="4_hunter_p2"]
+[ext_resource type="AudioStream" uid="uid://c8hm6cy51yy0x" path="res://sound/step2.mp3" id="4_rjwxw"]
 [ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
 [ext_resource type="Script" uid="uid://ccs7up3i88hne" path="res://Scripts/hunter_phase3.gd" id="5_hunter_p3"]
+[ext_resource type="AudioStream" uid="uid://c2u2wjwihtygn" path="res://sound/step3.mp3" id="5_mpkvh"]
 [ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
+[ext_resource type="AudioStream" uid="uid://fcmo71da11ko" path="res://sound/step4.mp3" id="6_i78fe"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
 [ext_resource type="PackedScene" uid="uid://jadxrpu615rl" path="res://Scenes/deskSetup.tscn" id="7_upeov"]
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
@@ -48,6 +52,15 @@ volumetric_fog_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.35
 height = 1.8
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3pykc"]
+random_pitch = 1.1247336
+random_volume_offset_db = 1.17
+streams_count = 4
+stream_0/stream = ExtResource("3_5ixxh")
+stream_1/stream = ExtResource("4_rjwxw")
+stream_2/stream = ExtResource("5_mpkvh")
+stream_3/stream = ExtResource("6_i78fe")
 
 [sub_resource type="SphereMesh" id="SphereMesh_door_light"]
 radius = 0.04
@@ -210,6 +223,9 @@ fov = 70.0
 
 [node name="InteractionRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1002061143]
 target_position = Vector3(0, 0, -1.8)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Player" unique_id=1268428195]
+stream = SubResource("AudioStreamRandomizer_3pykc")
 
 [node name="Office" type="Node3D" parent="." unique_id=1729367864]
 
