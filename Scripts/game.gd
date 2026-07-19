@@ -189,7 +189,13 @@ func _ready():
 			if offline_label:
 				offline_label.visible = false
 
-
+	# Show Scribble tutorial assistant automatically on Day 1 start
+	if day_manager.current_day == 1:
+		var scribble = get_node_or_null("ScribbleWindow")
+		if scribble:
+			scribble.visible = true
+			if scribble.has_method("move_to_front"):
+				scribble.move_to_front()
 
 func spawn_next_robot():
 	if not is_inside_tree():
