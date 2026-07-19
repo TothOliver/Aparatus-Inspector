@@ -1,11 +1,18 @@
 extends Control
 
-@onready var crt_checkbox = $CRTCheckbox
-@onready var volume_slider = $VolumeSlider
-@onready var volume_value_label = $VolumeValueLabel
-@onready var sensitivity_slider = $SensitivitySlider
-@onready var sensitivity_value_label = $SensitivityValueLabel
+@onready var crt_checkbox = $GeneralContainer/CRTCheckbox
+@onready var volume_slider = $GeneralContainer/VolumeSlider
+@onready var volume_value_label = $GeneralContainer/VolumeValueLabel
+@onready var sensitivity_slider = $GeneralContainer/SensitivitySlider
+@onready var sensitivity_value_label = $GeneralContainer/SensitivityValueLabel
 @onready var quit_button = get_node_or_null("QuitButton")
+
+@onready var general_tab_btn = $GeneralTabBtn
+@onready var controls_tab_btn = $ControlsTabBtn
+@onready var general_container = $GeneralContainer
+@onready var controls_container = $ControlsContainer
+@onready var controls_group = $ControlsContainer/ControlsGroup
+@onready var controls_label = $ControlsContainer/ControlsGroupLabel
 
 var is_pause_menu: bool = false
 var was_visible: bool = false
@@ -13,10 +20,6 @@ var opened_frame: int = -1
 
 # Tab layout variables
 var current_tab: String = "General"
-var general_tab_btn: Button
-var controls_tab_btn: Button
-var general_container: Control
-var controls_container: Control
 
 # Rebinding variables
 var listening_action: String = ""
@@ -78,7 +81,6 @@ func _ready():
 	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
 	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
 	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
-	var inner_frame = preload("res://RetroWindowsGUI/StyleBox_Inner_Frame.tres")
 
 	# Dynamic resize and positioning of parent settings window
 	var parent = get_parent()
@@ -105,67 +107,6 @@ func _ready():
 	# Position QuitButton down if it exists
 	if quit_button:
 		quit_button.position = Vector2(153, 400)
-
-	# Create General Container
-	general_container = Control.new()
-	general_container.name = "GeneralContainer"
-	general_container.position = Vector2.ZERO
-	general_container.size = Vector2(426, 380)
-	add_child(general_container)
-
-	# Reparent original settings nodes to general_container and shift them down by 45px explicitly to avoid overlaps
-	var nodes_to_reparent = [
-		get_node_or_null("DisplayGroup"),
-		get_node_or_null("DisplayGroupLabel"),
-		get_node_or_null("CRTCheckbox"),
-		get_node_or_null("AudioGroup"),
-		get_node_or_null("AudioGroupLabel"),
-		get_node_or_null("VolumeLabel"),
-		get_node_or_null("VolumeValueLabel"),
-		get_node_or_null("VolumeSlider"),
-		get_node_or_null("MouseGroup"),
-		get_node_or_null("MouseGroupLabel"),
-		get_node_or_null("SensitivityLabel"),
-		get_node_or_null("SensitivityValueLabel"),
-		get_node_or_null("SensitivitySlider")
-	]
-	
-	for n in nodes_to_reparent:
-		if n:
-			n.reparent(general_container, false)
-			n.position.y += 45
-
-	# Create Controls Container
-	controls_container = Control.new()
-	controls_container.name = "ControlsContainer"
-	controls_container.position = Vector2.ZERO
-	controls_container.size = Vector2(426, 380)
-	add_child(controls_container)
-
-	# Create Controls Group Panel inside Controls Container (shifted down by 55px to match GeneralContainer)
-	var controls_group = Panel.new()
-	controls_group.name = "ControlsGroup"
-	controls_group.position = Vector2(10, 55)
-	controls_group.size = Vector2(406, 330)
-	controls_group.add_theme_stylebox_override("panel", inner_frame)
-	controls_container.add_child(controls_group)
-
-	# Create Controls Group Label
-	var controls_label = Label.new()
-	controls_label.name = "ControlsGroupLabel"
-	controls_label.position = Vector2(20, 47)
-	controls_label.size = Vector2(130, 16)
-	controls_label.text = "Keyboard Controls"
-	controls_label.add_theme_font_override("font", font_regular)
-	controls_label.add_theme_font_size_override("font_size", 12)
-	controls_label.add_theme_color_override("font_color", Color(0, 0, 0, 1))
-
-	var style_lbl = StyleBoxFlat.new()
-	style_lbl.bg_color = Color(0.83137, 0.81568, 0.78431, 1)
-	style_lbl.expand_margin_left = 4.0
-	style_lbl.expand_margin_right = 4.0
-	controls_label.add_theme_stylebox_override("normal", style_lbl)
-	controls_container.add_child(controls_label)
 
 	# Add binding rows to Controls Group
 	var idx = 0
@@ -218,35 +159,9 @@ func _ready():
 	reset_btn.pressed.connect(_on_reset_keybinds_pressed)
 	controls_group.add_child(reset_btn)
 
-	# Tab button: General Settings
-	general_tab_btn = Button.new()
-	general_tab_btn.text = "General Settings"
-	general_tab_btn.add_theme_font_override("font", font_bold)
-	general_tab_btn.add_theme_font_size_override("font_size", 12)
-	general_tab_btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
-	general_tab_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
-	general_tab_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
-	general_tab_btn.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
-	general_tab_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	general_tab_btn.position = Vector2(10, 10)
-	general_tab_btn.size = Vector2(140, 25)
+	# Configure tab buttons pressed callbacks
 	general_tab_btn.pressed.connect(func(): _on_tab_changed("General"))
-	add_child(general_tab_btn)
-
-	# Tab button: Controls
-	controls_tab_btn = Button.new()
-	controls_tab_btn.text = "Controls"
-	controls_tab_btn.add_theme_font_override("font", font_bold)
-	controls_tab_btn.add_theme_font_size_override("font_size", 12)
-	controls_tab_btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
-	controls_tab_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
-	controls_tab_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
-	controls_tab_btn.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
-	controls_tab_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	controls_tab_btn.position = Vector2(155, 10)
-	controls_tab_btn.size = Vector2(100, 25)
 	controls_tab_btn.pressed.connect(func(): _on_tab_changed("Controls"))
-	add_child(controls_tab_btn)
 
 	# Connect visibility signals & initialize tabs
 	visibility_changed.connect(update_ui_from_stats)
