@@ -37,6 +37,7 @@ var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	randomize()
 	button_click_player = AudioStreamPlayer.new()
 	button_click_player.volume_db = -10.0
@@ -55,6 +56,11 @@ func _ready():
 	
 	# Recursively connect to all buttons currently in the tree
 	_connect_buttons_recursive(get_tree().root)
+	
+	# Connect Steam overlay signals
+	if Engine.has_singleton("Steam"):
+		var steam = Engine.get_singleton("Steam")
+		steam.overlay_toggled.connect(_on_overlay_toggled)
 
 func _on_node_added(node: Node):
 	if node is Button:
@@ -147,3 +153,22 @@ func has_unread_mail() -> bool:
 		if d in read_emails and not read_emails[d]:
 			return true
 	return false
+
+func _process(_delta: float) -> void:
+	if Engine.has_singleton("Steam"):
+		Engine.get_singleton("Steam").run_callbacks()
+
+func _on_overlay_toggled(active: bool) -> void:
+	if active:
+		get_tree().paused = true
+	else:
+		# Only unpause if the in-game pause menu isn't open
+		var current_scene = get_tree().current_scene
+		var is_pause_menu_open = false
+		if current_scene:
+			var pause_menu = current_scene.get_node_or_null("HUD/PauseMenu")
+			if pause_menu and pause_menu.visible:
+				is_pause_menu_open = true
+		
+		if not is_pause_menu_open:
+			get_tree().paused = false

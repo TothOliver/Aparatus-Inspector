@@ -416,7 +416,7 @@ func _ready():
 	# Initialize tab focus states
 	_update_top_window_focus()
 	
-	# Hide CCTV (Security Feed) and Terminal (MS-DOS Prompt) on Day 1
+	# Hide CCTV (Security Feed) and Terminal (AE-DOS Prompt) on Day 1
 	if GameStats.current_day == 1:
 		var cctv_icon = get_node_or_null("DesktopIcons/CCTVIcon")
 		if cctv_icon:

@@ -290,7 +290,7 @@ func _on_robot_spawned(_robot_data: RobotData):
 	if sprite_3d:
 		sprite_3d.visible = false
 
-# Light controls (can be called by light switches or the MS-DOS terminal)
+# Light controls (can be called by light switches or the AE-DOS terminal)
 func toggle_ceiling_lights():
 	if is_blackout:
 		return

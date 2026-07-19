@@ -245,7 +245,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
-text = "MS-DOS
+text = "AE-DOS
 Prompt"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -788,7 +788,7 @@ rotation = -1.5708
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
-text = "Windows 98"
+text = "Aethelgard 98"
 vertical_alignment = 2
 
 [node name="ProgramList" type="VBoxContainer" parent="DesktopOS/StartMenu/HBox" unique_id=1822009663]
@@ -839,7 +839,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
-text = " MS-DOS Prompt"
+text = " AE-DOS Prompt"
 icon = ExtResource("Icon_Terminal")
 alignment = 0
 expand_icon = true
@@ -1704,7 +1704,7 @@ offset_right = 200.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
-text = "MS-DOS Prompt"
+text = "AE-DOS Prompt"
 
 [node name="CloseButton" type="Button" parent="TerminalWindow/TitleBar" unique_id=436880867]
 layout_mode = 0

@@ -15,7 +15,7 @@
 Simultaneously, the player must manage room-level physical survival threats: locking/unlocking the security door, tracking the hallway patrolling "Hunter" robot on live CCTV, purging system hacking events, and maintaining the building's volatile power grid.
 
 ### 1.2 Core Pillars
-*   **Tactile Retro Simulation**: A fully realized Windows 95/98 inspired OS layout containing draggable and resizable windows, clock and WiFi status tray indicator, dynamic Start Menu height wrapping, and monospaced diagnostic command lines.
+*   **Tactile Retro Simulation**: A fully realized Aethelgard OS v4.98 inspired layout containing draggable and resizable windows, clock and WiFi status tray indicator, dynamic Start Menu height wrapping, and monospaced diagnostic command lines.
 *   **Survival Resource Loop**: An emergency power budget that depletes rapidly when the office door is locked. The player must actively coordinate system power with door security to survive.
 *   **Analog Tension**: Decrypting lore records using clues gathered from conversations, typing manual commands, and managing sanity under acoustic and psychological attacks.
 *   **Risk/Reward Economy**: A virtual slot machine game ("Casino Slots") that lets players bet cash to purchase battery/sanity boosters, balanced against sanity damage and instant Hunter chases triggered by matching bad robot sprites.
@@ -51,7 +51,7 @@ The Hunter is a physical, heavy-duty mechanical disposal drone patrolling the co
 flowchart TD
     subgraph 2D OS (Aethelgard OS)
         Browser[Apparatus Explorer]
-        Terminal[MS-DOS Terminal]
+        Terminal[AE-DOS Terminal]
         Inspector[Apparatus Inspector]
         Slots[Casino Slots / Shop]
         CCTV[Live CCTV Feed]
@@ -73,7 +73,7 @@ flowchart TD
 ### 3.1 The Daily Evaluation Loop & Multi-Layered Verification
 The player must process a specific quota of robots per shift. To stop the player from "speedrunning" diagnostics, direct pass/fail telemetry is removed. Instead, the player must perform detective work:
 *   **Apparatus Inspector Application**: Redesigned to utilize a wide aspect ratio format (`1060x800`). The left panel manages conversational dialogue options and verdict logs. The right panel houses the live CRT viewport camera feed (`CAM 01 - FEED: LIVE`) displaying the robot's physical model, and a database-themed spec card with read-only monospaced telemetry fields (Unit Name, Model Designation, Chassis Status, Manufacturer Code).
-*   **Core Signature Verification**: Running the `scan` command in the MS-DOS terminal returns the unit's **Core Signature Hash** (e.g., `0xFA82`). The player must cross-reference this hash against the intranet database.
+*   **Core Signature Verification**: Running the `scan` command in the AE-DOS terminal returns the unit's **Core Signature Hash** (e.g., `0xFA82`). The player must cross-reference this hash against the intranet database.
 *   **Procedural Anomaly Scaling (Daily Difficulty)**:
     *   **Day 1 (3 Anomalies)**: Rogues have 3 indicators (e.g. Model typo + Manufacturer typo + dialogue tell). Easy to identify.
     *   **Day 2 (2 Anomalies)**: Rogues have 2 indicators (e.g. telemetry typo, but dialogue is clean and honest).
@@ -87,7 +87,7 @@ The player must process a specific quota of robots per shift. To stop the player
     *   `www.funny-monkey.meme`: A joke website featuring a dithered monkey graphic (`hehe.jpg`), linked from the cryptid forum.
     *   `www.hunter-origin.spec`: Classified specs details for the H-198 Hunter chassis (revealing its blindness in complete darkness and under-desk sensor limitations), linked from the Archivist's Diary.
     *   `www.system-backdoor.hack`: A glitched administrative page detailing telemetry loops, lights controls, and manual system overrides, linked from the Walter Conspiracy blog.
-2.  **MS-DOS Prompt (Terminal)**: Command line tool used to navigate directory files, toggle office light states, lock/unlock doors, decrypt classified lore databases, and purge network intrusions. Formatted using the `rpad()` method to display files and folders in clean vertical aligned columns.
+2.  **AE-DOS Prompt (Terminal)**: Command line tool used to navigate directory files, toggle office light states, lock/unlock doors, decrypt classified lore databases, and purge network intrusions. Formatted using the `rpad()` method to display files and folders in clean vertical aligned columns.
 3.  **Minesweeper & Snake**: Draggable retro mini-games. Features fully synthesized 8-bit procedural sound effects (ticks, eat food, flag toggle, explosion, and victory chimes) and local scoring.
 4.  **CCTV Security Monitor**: Real-time viewport feed displaying the outer corridor to track the Hunter robot's physical distance.
 5.  **Casino Slots**: A retro slot machine where players bet cash to spin. Contains a virtual utility shop to buy emergency battery refills and sanity boosters. Features a 5% predetermined chance to hit a glitched `[ROBOT][ROBOT][ROBOT]` result, which triggers a major payout but instantly deploys the Hunter robot to hunt the player.
