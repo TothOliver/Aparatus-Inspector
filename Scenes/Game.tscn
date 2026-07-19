@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="9_71axn"]
 [ext_resource type="Script" uid="uid://bgf1j7g7pud2b" path="res://Scripts/desktop_window.gd" id="11_window"]
 [ext_resource type="Script" uid="uid://cqahvpj01sjgl" path="res://Scripts/desktop_controller.gd" id="12_desktop"]
+[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="Script" uid="uid://bsgbdadcjiar6" path="res://Scripts/terminal.gd" id="13_terminal"]
 [ext_resource type="Script" uid="uid://7a0yx5pae6vo" path="res://Scripts/minesweeper.gd" id="14_minesweeper"]
 [ext_resource type="Script" uid="uid://b0de4yioj2eoe" path="res://Scripts/snake.gd" id="15_snake"]
@@ -20,16 +21,11 @@
 [ext_resource type="Texture2D" uid="uid://d2m5xw1srajxm" path="res://Sprites/icon_minesweeper.png" id="Icon_Minesweeper"]
 [ext_resource type="Texture2D" uid="uid://bygw03hvek5il" path="res://Sprites/icon_notepad.png" id="Icon_Notepad"]
 [ext_resource type="Texture2D" uid="uid://bngxjt5tmmnxl" path="res://Sprites/icon_settings.png" id="Icon_Settings"]
-[ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
-[ext_resource type="Texture2D" uid="uid://bbw7onsjn6kf2" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
 [ext_resource type="Texture2D" uid="uid://cvrd4ikgp4inr" path="res://Sprites/icon_slots.png" id="Icon_Slots"]
 [ext_resource type="Texture2D" uid="uid://ddbweqgeyt4w4" path="res://Sprites/icon_snake.png" id="Icon_Snake"]
 [ext_resource type="Texture2D" uid="uid://cleddp5u7r572" path="res://Sprites/icon_terminal.png" id="Icon_Terminal"]
-[ext_resource type="Texture2D" uid="uid://c0ttjlxtyl1cj" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
-[ext_resource type="Texture2D" uid="uid://dx3a0jbw8cavi" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
 [ext_resource type="Texture2D" uid="uid://25t5jfpxhhqa" path="res://RetroWindowsGUI/win_flag.png" id="Icon_WinFlag"]
 [ext_resource type="Script" uid="uid://dnj20u5tp0byf" path="res://Scripts/slot_machine.gd" id="Script_Slots"]
-[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="Texture2D" uid="uid://5mv4cirwk1if" path="res://RetroWindowsGUI/Windows_SideBar_Underside.png" id="Sidebar_Texture"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
@@ -71,13 +67,6 @@ expand_margin_left = 4.0
 expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxFlat_terminal_bg"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
-texture = ExtResource("Icon_SliderBG")
-texture_margin_left = 2.0
-texture_margin_top = 1.0
-texture_margin_right = 2.0
-texture_margin_bottom = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
 shader = ExtResource("CRT_Shader")
@@ -2603,7 +2592,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("7_2irst")
 icon_alignment = 1
 
-[node name="SettingsBody" parent="SettingsWindow" instance=ExtResource("12_settings_body")]
+[node name="SettingsBody" parent="SettingsWindow" unique_id=765543776 instance=ExtResource("12_settings_body")]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 42.0

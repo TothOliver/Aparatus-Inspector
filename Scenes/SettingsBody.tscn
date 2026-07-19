@@ -188,6 +188,7 @@ theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 30.0
 
 [node name="ControlsContainer" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 426.0
