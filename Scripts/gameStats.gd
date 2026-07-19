@@ -27,14 +27,107 @@ var crt_effect_enabled: bool = true
 var master_volume: float = 80.0
 var fullscreen_enabled: bool = true
 
+const SAVE_PATH = "user://settings.cfg"
+
+const DEFAULT_BINDS = {
+	"move_forward": KEY_W,
+	"move_backward": KEY_S,
+	"move_left": KEY_A,
+	"move_right": KEY_D,
+	"crouch": KEY_CTRL,
+	"interact": KEY_E,
+	"toggle_flashlight": KEY_F
+}
+
+var custom_keybinds: Dictionary = {}
+
 signal fullscreen_toggled(is_fullscreen: bool)
 
 var target_scene_path: String = ""
 
-
-
 var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
+
+func save_settings():
+	var config = ConfigFile.new()
+	config.set_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+	config.set_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+	config.set_value("Settings", "master_volume", master_volume)
+	config.set_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+	
+	for action in custom_keybinds.keys():
+		config.set_value("Keybinds", action, custom_keybinds[action])
+		
+	var err = config.save(SAVE_PATH)
+	if err != OK:
+		print("Error saving settings: ", err)
+
+func load_settings():
+	var config = ConfigFile.new()
+	var err = config.load(SAVE_PATH)
+	if err == OK:
+		mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+		crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+		master_volume = config.get_value("Settings", "master_volume", master_volume)
+		fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+		
+		if config.has_section("Keybinds"):
+			for action in config.get_section_keys("Keybinds"):
+				custom_keybinds[action] = config.get_value("Keybinds", action)
+	
+	apply_all_settings()
+
+func apply_all_settings():
+	if fullscreen_enabled:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		
+	var bus_idx = AudioServer.get_bus_index("Master")
+	if master_volume <= 0.0:
+		AudioServer.set_bus_mute(bus_idx, true)
+	else:
+		AudioServer.set_bus_mute(bus_idx, false)
+		var db = -40.0 * (1.0 - (master_volume / 100.0))
+		if master_volume <= 5.0:
+			db = -80.0
+		AudioServer.set_bus_volume_db(bus_idx, db)
+		
+	setup_input_map()
+
+func setup_input_map():
+	for action in DEFAULT_BINDS.keys():
+		if not InputMap.has_action(action):
+			InputMap.add_action(action)
+		else:
+			InputMap.action_erase_events(action)
+			
+		var keycode = DEFAULT_BINDS[action]
+		if action in custom_keybinds:
+			keycode = custom_keybinds[action]
+			
+		var event = InputEventKey.new()
+		event.keycode = keycode
+		InputMap.action_add_event(action, event)
+		
+		# Add default alternative keys (Arrow keys for WASD movement) if not rebound
+		if not (action in custom_keybinds):
+			if action == "move_forward":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_UP
+				InputMap.action_add_event(action, alt)
+			elif action == "move_backward":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_DOWN
+				InputMap.action_add_event(action, alt)
+			elif action == "move_left":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_LEFT
+				InputMap.action_add_event(action, alt)
+			elif action == "move_right":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_RIGHT
+				InputMap.action_add_event(action, alt)
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -45,11 +138,7 @@ func _ready():
 	
 	button_click_stream = _generate_button_click_sound()
 	
-	# Initialize fullscreen mode based on setting
-	if fullscreen_enabled:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	load_settings()
 	
 	# Listen to new nodes added to the tree dynamically
 	get_tree().node_added.connect(_on_node_added)
