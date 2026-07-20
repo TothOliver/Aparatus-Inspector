@@ -52,10 +52,15 @@ func calculate_grade(score: int) -> String:
 		return "F"
 
 func _on_restart_pressed() -> void:
-	GameStats.reset_game_state()
+	if GameStats.has_save_file():
+		GameStats.load_game()
+	else:
+		GameStats.player_health = 100.0
+		GameStats.player_sanity = 100.0
+		GameStats.current_day = 1
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
+
 func _on_main_menu_pressed() -> void:
-	GameStats.reset_game_state()
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/MainMenu.tscn")
 
 func _on_quit_pressed() -> void:

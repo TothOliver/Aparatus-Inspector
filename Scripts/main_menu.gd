@@ -25,9 +25,18 @@ func _ready() -> void:
 	_on_viewport_size_changed()
 	
 	# Connect main menu buttons
+	var continue_btn = get_node_or_null("MenuButtons/ContinueButton")
 	var play_btn = get_node_or_null("MenuButtons/PlayButton")
+	var has_save = GameStats.has_save_file()
+	
+	if continue_btn:
+		continue_btn.visible = has_save
+		if has_save:
+			continue_btn.pressed.connect(_on_continue_pressed)
+			
 	if play_btn:
-		play_btn.pressed.connect(_on_play_pressed)
+		play_btn.text = "Start New Game"
+		play_btn.pressed.connect(_on_new_game_pressed)
 		
 	var settings_btn = get_node_or_null("MenuButtons/SettingsButton")
 	if settings_btn:
@@ -63,7 +72,15 @@ func _on_viewport_size_changed() -> void:
 	if settings_popup:
 		settings_popup.position.x = (viewport_size.x - settings_popup.size.x) / 2.0
 
-func _on_play_pressed() -> void:
+func _on_continue_pressed() -> void:
+	if GameStats.load_game():
+		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
+	else:
+		_on_new_game_pressed()
+
+func _on_new_game_pressed() -> void:
+	GameStats.reset_game_state()
+	GameStats.delete_save_game()
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 
 func _on_settings_pressed() -> void:

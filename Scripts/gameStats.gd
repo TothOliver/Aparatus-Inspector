@@ -28,6 +28,7 @@ var master_volume: float = 80.0
 var fullscreen_enabled: bool = true
 
 const SAVE_PATH = "user://settings.cfg"
+const SAVE_GAME_PATH = "user://savegame.cfg"
 
 const DEFAULT_BINDS = {
 	"move_forward": KEY_W,
@@ -186,6 +187,72 @@ func _generate_button_click_sound() -> AudioStreamWAV:
 	stream.data = data
 	return stream
 
+func save_game():
+	var config = ConfigFile.new()
+	config.set_value("Game", "current_day", current_day)
+	config.set_value("Game", "casino_balance", casino_balance)
+	config.set_value("Game", "player_health", player_health)
+	config.set_value("Game", "player_sanity", player_sanity)
+	config.set_value("Game", "total_security_breaches", total_security_breaches)
+	config.set_value("Game", "innocent_robots_killed", innocent_robots_killed)
+	config.set_value("Game", "good_robots_through", good_robots_through)
+	config.set_value("Game", "bad_robots_terminated", bad_robots_terminated)
+	config.set_value("Game", "final_missed_score", final_missed_score)
+	
+	for day in read_emails.keys():
+		config.set_value("Emails", str(day), read_emails[day])
+		
+	var err = config.save(SAVE_GAME_PATH)
+	if err != OK:
+		print("Error saving game: ", err)
+	else:
+		print("Game autosaved successfully for Day ", current_day)
+
+func has_save_file() -> bool:
+	return FileAccess.file_exists(SAVE_GAME_PATH)
+
+func load_game() -> bool:
+	if not has_save_file():
+		return false
+	var config = ConfigFile.new()
+	var err = config.load(SAVE_GAME_PATH)
+	if err != OK:
+		print("Error loading save game: ", err)
+		return false
+		
+	current_day = config.get_value("Game", "current_day", 1)
+	casino_balance = config.get_value("Game", "casino_balance", 100.0)
+	player_health = config.get_value("Game", "player_health", 100.0)
+	player_sanity = config.get_value("Game", "player_sanity", 100.0)
+	total_security_breaches = config.get_value("Game", "total_security_breaches", 0)
+	innocent_robots_killed = config.get_value("Game", "innocent_robots_killed", 0)
+	good_robots_through = config.get_value("Game", "good_robots_through", 0)
+	bad_robots_terminated = config.get_value("Game", "bad_robots_terminated", 0)
+	final_missed_score = config.get_value("Game", "final_missed_score", 0)
+	
+	if config.has_section("Emails"):
+		for day_str in config.get_section_keys("Emails"):
+			var d = int(day_str)
+			read_emails[d] = config.get_value("Emails", day_str, false)
+			
+	# Reset transient per-day state
+	power_level = 100.0
+	door_locked = false
+	hack_active = false
+	hack_progress = 0.0
+	wifi_on = true
+	let_through_bad_sprites.clear()
+	
+	print("Game loaded successfully. Resuming Day ", current_day)
+	return true
+
+func delete_save_game():
+	if has_save_file():
+		var dir = DirAccess.open("user://")
+		if dir:
+			dir.remove("savegame.cfg")
+			print("Save game deleted.")
+
 func reset_game_state():
 	final_missed_score = 0
 	total_security_breaches = 0
@@ -210,7 +277,6 @@ func quit_or_menu(tree: SceneTree):
 	if tree.current_scene and (tree.current_scene.scene_file_path == "res://Scenes/MainMenu.tscn" or tree.current_scene.name == "MainMenu"):
 		tree.quit()
 	else:
-		reset_game_state()
 		tree.paused = false
 		tree.change_scene_to_file.call_deferred("res://Scenes/MainMenu.tscn")
 
