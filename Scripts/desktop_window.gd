@@ -129,7 +129,7 @@ func update_child_positions():
 			
 			# Horizontal resizing
 			var should_stretch_h = child.name in ["TitleBar", "TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "addr_container", "content_panel", "ColorRect", "TerminalBorder", "Panel", "ChatManager", "Option"] \
-				or (m.orig_width / m.orig_parent_width > 0.45) \
+				or (float(m.orig_width) / float(m.orig_parent_width) > 0.45) \
 				or (m.left < 80 and m.right < 80)
 			
 			if should_stretch_h:
@@ -144,7 +144,7 @@ func update_child_positions():
 			
 			# Vertical resizing
 			var should_stretch_v = child.name in ["TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "content_panel", "ColorRect", "TerminalBorder", "Panel"] \
-				or (m.orig_height / m.orig_parent_height > 0.45) \
+				or (float(m.orig_height) / float(m.orig_parent_height) > 0.45) \
 				or (m.top < 80 and m.bottom < 80)
 			
 			if should_stretch_v:

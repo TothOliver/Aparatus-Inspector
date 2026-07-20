@@ -143,6 +143,7 @@ func _ready():
 	
 	# Dynamically center and scale the 2D computer viewport container in 5:4 ratio
 	if viewport_container:
+		viewport_container.stretch = false
 		viewport_container.anchor_left = 0
 		viewport_container.anchor_top = 0
 		viewport_container.anchor_right = 0
@@ -506,8 +507,9 @@ func _on_viewport_container_resized():
 		
 	# ALWAYS keep SubViewport fixed at its native 1280x1024 design resolution
 	# to prevent internal UI/font scaling distortion
-	if sub_viewport:
-		sub_viewport.size = Vector2i(1280, 1024)
+	if sub_viewport and not viewport_container.stretch:
+		if sub_viewport.size != Vector2i(1280, 1024):
+			sub_viewport.size = Vector2i(1280, 1024)
 
 	var target_w = 1280.0
 	var target_h = 1024.0

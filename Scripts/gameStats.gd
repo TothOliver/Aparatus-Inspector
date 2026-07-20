@@ -158,7 +158,7 @@ func apply_all_settings():
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		DisplayServer.window_set_size(Vector2i(resolution_width, resolution_height))
 		var screen_size = DisplayServer.screen_get_size()
-		var pos = (screen_size - Vector2i(resolution_width, resolution_height)) / 2
+		var pos = Vector2i((Vector2(screen_size - Vector2i(resolution_width, resolution_height)) / 2.0).round())
 		DisplayServer.window_set_position(pos)
 		fullscreen_enabled = false
 	elif display_mode == 1: # Borderless
