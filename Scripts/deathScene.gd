@@ -56,7 +56,6 @@ func _on_restart_pressed() -> void:
 		GameStats.load_game()
 	else:
 		GameStats.player_health = 100.0
-		GameStats.player_sanity = 100.0
 		GameStats.current_day = 1
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 

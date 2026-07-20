@@ -157,15 +157,12 @@ func _process(delta):
 			system_locked_out = true
 			lockout_timer = 20.0 # 20 seconds lockout
 			GameStats.power_level = 0.0 # Blackout!
-			var dm = get_tree().root.find_child("DayManager", true, false)
-			if dm:
-				dm.sanity = max(0, dm.sanity - 40)
 			if input_field:
 				input_field.editable = false
 				input_field.text = "SYSTEM LOCKED OUT - AWAIT RESTORE"
 			print_to_terminal("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" +
 				"SYSTEM CRITICAL FAILURE! INTRUSION SUCCESSFUL.\n" +
-				"BLACKOUT INITIATED. SANITY COMPROMISED (-40%).\n" +
+				"BLACKOUT INITIATED. POWER GRID FAULTED.\n" +
 				"TERMINAL TERMINATED. SYSTEM LOCKOUT IN PROGRESS...\n" +
 				"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
 	else:
@@ -291,7 +288,7 @@ func _on_command_submitted(new_text: String):
 			var passed = GameStats.good_robots_through
 			var killed = GameStats.bad_robots_terminated
 			print_to_terminal("=== SYSTEM DIAGNOSTICS ===\n" +
-				"Security Breaches (Bad AI admitted): " + str(breaches) + " / 2 (CRITICAL LIMIT)\n" +
+				"Security Breaches (Bad AI admitted): " + str(breaches) + " / 4 (CRITICAL LIMIT)\n" +
 				"Innocent AIs Terminated: " + str(innocents) + "\n" +
 				"Good AIs Admitted: " + str(passed) + "\n" +
 				"Bad AIs Exterminated: " + str(killed) + "\n" +

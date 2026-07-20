@@ -11,7 +11,7 @@ signal robot_spawned(robot: RobotData)
 @onready var day_manager = %DayManager
 @onready var chat_manager = %ChatManager
 @onready var health_bar = %HealthBar
-@onready var sanity_bar = %SanityBar
+@onready var sanity_bar = get_node_or_null("%SanityBar")
 
 #info tab stuff
 @onready var nameInfo = %NameLabel
@@ -145,8 +145,10 @@ func _ready():
 	robots = RobotFactory.create_robots()
 	was_wifi_on = GameStats.wifi_on
 	spawn_next_robot()
-	health_bar.value = GameStats.player_health
-	sanity_bar.value = GameStats.player_sanity
+	if health_bar:
+		if "breaches" in health_bar:
+			health_bar.breaches = GameStats.total_security_breaches
+		health_bar.value = GameStats.player_health
 
 	# Handle Day 1 Database offline panel
 	var current_day = day_manager.current_day

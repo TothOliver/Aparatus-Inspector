@@ -1,7 +1,7 @@
 extends Node
 
 @onready var health_bar = %HealthBar
-@onready var sanity_bar = %SanityBar
+var sanity_bar = null
 
 # Scoring
 var missed_robots_score: int = 0
@@ -13,20 +13,17 @@ var max_days: int = 3
 # BAD AI let in
 var bad_ai_let_in_count: int = 0
 var bad_ai_killed: int = 0
-var sanity: int = 100:
-	set(value):
-		sanity = value
-		GameStats.player_sanity = value
-		if sanity_bar:
-			sanity_bar.value = value
+var sanity: int = 100
 
 var health: int = 100:
 	set(value):
 		health = value
 		GameStats.player_health = value
 		if health_bar:
+			if "breaches" in health_bar:
+				health_bar.breaches = bad_ai_let_in_count
 			health_bar.value = value
-const MAX_ALLOWED_BAD_AI = 2
+const MAX_ALLOWED_BAD_AI = 4
 
 # Day Configurations: [Quota, Difficulty Level]
 var day_configs = {
@@ -36,7 +33,6 @@ var day_configs = {
 }
 
 var hack_timer: float = 0.0
-var sanity_drain_accumulator: float = 0.0
 
 func _ready():
 	current_day = GameStats.current_day
@@ -65,19 +61,6 @@ func _process(delta):
 					var max_time = 82.5 if current_day == 2 else 52.5
 					hack_timer = randf_range(min_time, max_time)
 
-	# Slow sanity drain when lights are not on
-	var game_3d = get_tree().current_scene
-	if game_3d and "is_ceiling_light_on" in game_3d:
-		var lights_are_off = not game_3d.is_ceiling_light_on or game_3d.is_blackout
-		if lights_are_off:
-			sanity_drain_accumulator += delta * 0.4 # ~1 sanity per 2.5 seconds
-			if sanity_drain_accumulator >= 1.0:
-				var amount = int(sanity_drain_accumulator)
-				sanity = max(0, sanity - amount)
-				sanity_drain_accumulator -= amount
-				if sanity == 0:
-					game_over_death()
-
 func start_new_day():
 	processed_today = 0
 	GameStats.current_day = current_day
@@ -91,9 +74,13 @@ func start_new_day():
 	if door:
 		door.rotation.y = 0.0
 		
-	# Load persisted health/sanity
-	sanity = int(GameStats.player_sanity)
+	# Load persisted health
 	health = int(GameStats.player_health)
+	bad_ai_let_in_count = GameStats.total_security_breaches
+	if health_bar:
+		if "breaches" in health_bar:
+			health_bar.breaches = bad_ai_let_in_count
+		health_bar.value = health
 		
 	var config = day_configs[current_day]
 	print("--- DAY ", current_day, " START ---")
@@ -116,7 +103,9 @@ func process_robot(robot: RobotData, player_choice_pass: bool):
 			print("Fail! You let a bad robot in.")
 			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 			health = max(0, health - 25)
-			if health == 0:
+			if health_bar and "breaches" in health_bar:
+				health_bar.breaches = bad_ai_let_in_count
+			if health == 0 or bad_ai_let_in_count >= MAX_ALLOWED_BAD_AI:
 				game_over_death()
 				return
 		else:
@@ -126,12 +115,6 @@ func process_robot(robot: RobotData, player_choice_pass: bool):
 	else:
 		if is_good_robot:
 			GameStats.innocent_robots_killed += 1
-			sanity = max(0, sanity - 25)
-			if sanity == 0:
-				game_over_death()
-				return
-			if sanity_bar:
-				sanity_bar.value = sanity
 			print("Fail! You rejected a perfectly good robot.")
 			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 		else:
@@ -170,4 +153,3 @@ func end_day():
 		GameStats.is_victory = true
 		GameStats.delete_save_game()
 		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
-		

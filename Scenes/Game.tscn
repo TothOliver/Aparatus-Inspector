@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://7a0yx5pae6vo" path="res://Scripts/minesweeper.gd" id="14_minesweeper"]
 [ext_resource type="Script" uid="uid://b0de4yioj2eoe" path="res://Scripts/snake.gd" id="15_snake"]
 [ext_resource type="Shader" uid="uid://25kefcn6ewtw" path="res://crt_filter.gdshader" id="CRT_Shader"]
+[ext_resource type="Script" uid="uid://bd0xih86j0fqp" path="res://Scripts/health_bar_counter.gd" id="HealthBar_Script"]
 [ext_resource type="Texture2D" uid="uid://te4jtm8yhb5h" path="res://Sprites/icon_browser.png" id="Icon_Browser"]
 [ext_resource type="Texture2D" uid="uid://cchlh357w21kw" path="res://Sprites/icon_cctv.png" id="Icon_CCTV"]
 [ext_resource type="Texture2D" uid="uid://bth675els8x8v" path="res://Sprites/icon_inspector.png" id="Icon_Inspector"]
@@ -43,14 +44,6 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0.501961, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgofq"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0, 0, 0.501961, 1)
-corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71axn"]
 content_margin_left = 2.0
@@ -502,7 +495,7 @@ layout_mode = 0
 offset_left = 1040.0
 offset_top = 30.0
 offset_right = 1250.0
-offset_bottom = 320.0
+offset_bottom = 219.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -545,49 +538,27 @@ offset_bottom = 70.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 14
-text = "Security Health:"
+text = "Security Breaches:"
 
-[node name="HealthBar" type="ProgressBar" parent="DesktopOS/SystemMonitor/Health" unique_id=1602687783]
+[node name="HealthBar" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=1602687783]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
-offset_top = 70.0
+offset_top = 68.0
 offset_right = 195.0
-offset_bottom = 95.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
-theme_override_styles/fill = SubResource("StyleBoxFlat_fgofq")
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+text = "0 / 4"
+script = ExtResource("HealthBar_Script")
 
-[node name="SanityLabel" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=1531452417]
+[node name="PowerLabel" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=144926720]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 115.0
 offset_right = 195.0
 offset_bottom = 140.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Mental Sanity:"
-
-[node name="SanityBar" type="ProgressBar" parent="DesktopOS/SystemMonitor/Health" unique_id=601489287]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 15.0
-offset_top = 140.0
-offset_right = 195.0
-offset_bottom = 165.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
-theme_override_styles/fill = SubResource("StyleBoxFlat_71axn")
-
-[node name="PowerLabel" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=144926720]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 185.0
-offset_right = 195.0
-offset_bottom = 210.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 14
@@ -597,9 +568,9 @@ text = "Power Grid:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
-offset_top = 210.0
+offset_top = 140.0
 offset_right = 195.0
-offset_bottom = 235.0
+offset_bottom = 165.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
@@ -2654,7 +2625,6 @@ offset_bottom = 448.0
 
 [node name="ScribbleWindow" type="NinePatchRect" parent="." unique_id=987654320]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
 offset_left = 750.0
 offset_top = 380.0
@@ -2676,7 +2646,6 @@ offset_bottom = 36.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ScribbleHeader")
 
 [node name="Title" type="Label" parent="ScribbleWindow/TitleBar" unique_id=987654322]
-texture_filter = 0
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
@@ -2701,7 +2670,7 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 
 [node name="ScribbleBody" type="Control" parent="ScribbleWindow" unique_id=987654324]
-layout_mode = 0
+anchors_preset = 0
 offset_left = 6.0
 offset_top = 42.0
 offset_right = 194.0
@@ -2726,7 +2695,6 @@ offset_bottom = 210.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_SpeechBubble")
 
 [node name="DialogLabel" type="Label" parent="ScribbleWindow/SpeechBubble" unique_id=987654327]
-texture_filter = 0
 layout_mode = 0
 offset_left = 12.0
 offset_top = 12.0
@@ -2739,7 +2707,6 @@ text = "Welcome Inspector, this is how your computer works."
 autowrap_mode = 2
 
 [node name="NextButton" type="Button" parent="ScribbleWindow/SpeechBubble" unique_id=987654328]
-texture_filter = 0
 layout_mode = 0
 offset_left = 178.0
 offset_top = 142.0
@@ -2758,7 +2725,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "Next"
 
 [node name="CloseBubbleButton" type="Button" parent="ScribbleWindow/SpeechBubble" unique_id=987654329]
-texture_filter = 0
 layout_mode = 0
 offset_left = 242.0
 offset_top = 6.0
@@ -2783,7 +2749,6 @@ default_color = Color(0, 0, 0, 1)
 
 [node name="HackerAlert" type="NinePatchRect" parent="." unique_id=202610210]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

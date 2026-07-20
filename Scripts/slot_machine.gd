@@ -9,14 +9,14 @@ extends Control
 @onready var balance_label = %BalanceLabel
 @onready var bet_label = %BetLabel
 @onready var win_label = %WinLabel
-@onready var sanity_status_label = %SanityStatusLabel
+@onready var sanity_status_label = get_node_or_null("%SanityStatusLabel")
 
 # Buttons
 @onready var spin_button = %SpinButton
 @onready var bet_plus_btn = %BetPlusBtn
 @onready var bet_minus_btn = %BetMinusBtn
 @onready var loan_button = %LoanButton
-@onready var buy_sanity_btn = %BuySanityBtn
+@onready var buy_sanity_btn = get_node_or_null("%BuySanityBtn")
 @onready var buy_battery_btn = %BuyBatteryBtn
 
 # Variables
@@ -80,7 +80,7 @@ func _ready():
 		loan_button.pressed.connect(_on_loan_pressed)
 	if buy_sanity_btn:
 		buy_sanity_btn.pressed.connect(_on_buy_sanity_pressed)
-		buy_sanity_btn.text = "Buy Medkit & Sanity ($50)\n[+25 HP / +25 Sanity]"
+		buy_sanity_btn.text = "Repair Security ($50)\n[-1 Breach]"
 	if buy_battery_btn:
 		buy_battery_btn.pressed.connect(_on_buy_battery_pressed)
 
@@ -199,10 +199,10 @@ func _generate_glitch_sound() -> AudioStreamWAV:
 	return stream
 
 func _process(_delta):
-	# Keep sanity display updated if DayManager exists
+	# Keep status display updated if DayManager exists
 	var dm = get_day_manager()
 	if dm and sanity_status_label:
-		sanity_status_label.text = "Sanity: %d%%" % dm.sanity
+		sanity_status_label.text = "Status: OK"
 		
 	# Keep balance label updated in real time if modified by other games
 	if GameStats.casino_balance != last_displayed_balance:
@@ -385,16 +385,6 @@ func calculate_win(r1: String, r2: String, r3: String):
 				win_amount = 0.0
 				text_outcome = "ROBOT GLITCH! RUN!"
 				_play_sfx(glitch_stream)
-				
-				# Drain player sanity as horror punishment!
-				var dm = get_day_manager()
-				if dm:
-					dm.sanity = max(0, dm.sanity - 15)
-					if dm.sanity_bar:
-						dm.sanity_bar.value = dm.sanity
-					if dm.sanity == 0:
-						dm.game_over_death()
-						return
 						
 				# Instantly trigger Hunter Robot chase!
 				var hunter = null
@@ -430,15 +420,16 @@ func _on_buy_sanity_pressed():
 	if balance >= 50.0:
 		var dm = get_day_manager()
 		if dm:
-			if dm.sanity >= 100 and dm.health >= 100:
+			if dm.bad_ai_let_in_count <= 0:
 				if win_label:
-					win_label.text = "Health & Sanity already full!"
+					win_label.text = "No breaches to repair!"
 				return
 			balance -= 50.0
-			dm.sanity = min(100, dm.sanity + 25)
+			dm.bad_ai_let_in_count = max(0, dm.bad_ai_let_in_count - 1)
+			GameStats.total_security_breaches = dm.bad_ai_let_in_count
 			dm.health = min(100, dm.health + 25)
 			if win_label:
-				win_label.text = "Bought Medkit & Sanity (+25)"
+				win_label.text = "Repaired 1 Security Breach!"
 			_play_sfx(win_stream)
 			update_ui()
 
