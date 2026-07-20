@@ -185,6 +185,7 @@ func apply_all_settings():
 	apply_bus_volume("Ambient", ambient_volume)
 		
 	setup_input_map()
+	update_crt_overlays()
 
 func apply_bus_volume(bus_name: String, value: float):
 	var bus_idx = AudioServer.get_bus_index(bus_name)
@@ -258,6 +259,17 @@ func _ready():
 func _on_node_added(node: Node):
 	if node is Button:
 		_connect_button(node)
+	if node is CanvasItem and (node.name == "CRTOverlay" or node.name == "PauseCRTOverlay" or node.is_in_group("CRTOverlays")):
+		if not node.is_in_group("CRTOverlays"):
+			node.add_to_group("CRTOverlays")
+		node.visible = crt_effect_enabled
+
+func update_crt_overlays():
+	if not is_inside_tree():
+		return
+	for crt in get_tree().get_nodes_in_group("CRTOverlays"):
+		if crt is CanvasItem:
+			crt.visible = crt_effect_enabled
 
 func _connect_buttons_recursive(node: Node):
 	if node is Button:

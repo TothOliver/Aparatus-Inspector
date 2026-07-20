@@ -501,7 +501,7 @@ light_energy = 2.2
 omni_range = 15.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1744836067]
-texture_filter = 1
+texture_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -561,7 +561,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.4)
 
 [node name="PauseWindow" type="NinePatchRect" parent="HUD/PauseMenu" unique_id=1019341208]
-texture_filter = 1
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

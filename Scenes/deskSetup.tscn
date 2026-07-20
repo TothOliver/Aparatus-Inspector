@@ -28,7 +28,7 @@ viewport_path = NodePath("/root")
 resource_local_to_scene = true
 shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_utein")
-texture_filter = 0
+texture_filter = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y33b3"]
 size = Vector3(0.5, 0.4, 0.1)

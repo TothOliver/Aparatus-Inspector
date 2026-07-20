@@ -421,9 +421,7 @@ func _on_vsync_toggled(toggled_on: bool):
 func _on_crt_toggled(toggled_on: bool):
 	GameStats.crt_effect_enabled = toggled_on
 	GameStats.save_settings()
-	if is_inside_tree():
-		for crt in get_tree().get_nodes_in_group("CRTOverlays"):
-			crt.visible = toggled_on
+	GameStats.update_crt_overlays()
 
 func _on_volume_changed(bus_name: String, value: float):
 	if bus_name == "Master":

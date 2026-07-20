@@ -504,54 +504,56 @@ func _on_viewport_container_resized():
 	if H <= 0 or W <= 0:
 		return
 		
-	var target_aspect = 1.25 # 5:4 aspect ratio (1280x1024)
-	var current_aspect = W / H
+	# ALWAYS keep SubViewport fixed at its native 1280x1024 design resolution
+	# to prevent internal UI/font scaling distortion
+	if sub_viewport:
+		sub_viewport.size = Vector2i(1280, 1024)
+
+	var target_w = 1280.0
+	var target_h = 1024.0
 	
-	var pos_x = 0.0
-	var pos_y = 0.0
-	var width = W
-	var height = H
-	
-	if current_aspect > target_aspect:
-		# Screen is wider than 5:4 (pillarbox Aethelgard OS)
-		var target_w = H * target_aspect
-		var side_w = (W - target_w) / 2.0
-		viewport_container.position = Vector2(side_w, 0)
-		viewport_container.size = Vector2(target_w, H)
-		
-		pos_x = side_w
-		width = target_w
+	if W >= 1280.0 and H >= 1024.0:
+		# Native 1:1 pixel mapping (unscaled 100% size centered on screen)
+		target_w = 1280.0
+		target_h = 1024.0
 	else:
-		# Screen is taller than 5:4 (letterbox Aethelgard OS)
-		var target_h = W / target_aspect
-		var side_h = (H - target_h) / 2.0
-		viewport_container.position = Vector2(0, side_h)
-		viewport_container.size = Vector2(W, target_h)
-		
-		pos_y = side_h
-		height = target_h
+		# Scale to fit smaller screens while preserving 5:4 aspect ratio
+		var target_aspect = 1.25
+		var current_aspect = W / H
+		if current_aspect > target_aspect:
+			target_h = H
+			target_w = H * target_aspect
+		else:
+			target_w = W
+			target_h = W / target_aspect
+			
+	var pos_x = (W - target_w) / 2.0
+	var pos_y = (H - target_h) / 2.0
+	
+	viewport_container.position = Vector2(pos_x, pos_y)
+	viewport_container.size = Vector2(target_w, target_h)
 		
 	# Update the black mask positions to cover areas outside viewport_container
 	if os_mask_overlay and os_left_mask and os_right_mask:
-		if current_aspect > target_aspect:
-			# Left mask covers left side
+		if pos_x > 0:
+			# Left mask
 			os_left_mask.position = Vector2.ZERO
 			os_left_mask.size = Vector2(pos_x, H)
 			os_left_mask.visible = true
 			
-			# Right mask covers right side
-			os_right_mask.position = Vector2(pos_x + width, 0)
-			os_right_mask.size = Vector2(W - (pos_x + width), H)
+			# Right mask
+			os_right_mask.position = Vector2(pos_x + target_w, 0)
+			os_right_mask.size = Vector2(W - (pos_x + target_w), H)
 			os_right_mask.visible = true
 		else:
-			# Top mask covers top side
+			# Top mask
 			os_left_mask.position = Vector2.ZERO
 			os_left_mask.size = Vector2(W, pos_y)
 			os_left_mask.visible = true
 			
-			# Bottom mask covers bottom side
-			os_right_mask.position = Vector2(0, pos_y + height)
-			os_right_mask.size = Vector2(W, H - (pos_y + height))
+			# Bottom mask
+			os_right_mask.position = Vector2(0, pos_y + target_h)
+			os_right_mask.size = Vector2(W, H - (pos_y + target_h))
 			os_right_mask.visible = true
 
 func toggle_room2_lights():

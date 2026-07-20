@@ -141,6 +141,7 @@ func _ready():
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
 		crt.add_to_group("CRTOverlays")
+		crt.visible = GameStats.crt_effect_enabled
 	robots = RobotFactory.create_robots()
 	was_wifi_on = GameStats.wifi_on
 	spawn_next_robot()
