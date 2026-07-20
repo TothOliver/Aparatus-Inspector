@@ -59,7 +59,7 @@ func _ready():
 
 	input_field.text_submitted.connect(_on_command_submitted)
 	input_field.focus_exited.connect(_on_input_field_focus_exited)
-	print_to_terminal("Microsoft(R) MS-DOS(R) Version 4.98\n(C)Copyright Microsoft Corp 1981-1998.\n\nType 'help' for a list of available commands.\n")
+	print_to_terminal("Aethelgard(R) AE-DOS(R) Version 4.98\n(C)Copyright Aethelgard Corp 1981-1998.\n\nType 'help' for a list of available commands.\n")
 	_set_prompt()
 	call_deferred("grab_input_focus")
 	

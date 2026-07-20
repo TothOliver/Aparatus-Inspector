@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="9_71axn"]
 [ext_resource type="Script" uid="uid://bgf1j7g7pud2b" path="res://Scripts/desktop_window.gd" id="11_window"]
 [ext_resource type="Script" uid="uid://cqahvpj01sjgl" path="res://Scripts/desktop_controller.gd" id="12_desktop"]
+[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="Script" uid="uid://bsgbdadcjiar6" path="res://Scripts/terminal.gd" id="13_terminal"]
 [ext_resource type="Script" uid="uid://7a0yx5pae6vo" path="res://Scripts/minesweeper.gd" id="14_minesweeper"]
 [ext_resource type="Script" uid="uid://b0de4yioj2eoe" path="res://Scripts/snake.gd" id="15_snake"]
@@ -19,17 +20,14 @@
 [ext_resource type="Texture2D" uid="uid://bth675els8x8v" path="res://Sprites/icon_inspector.png" id="Icon_Inspector"]
 [ext_resource type="Texture2D" uid="uid://d2m5xw1srajxm" path="res://Sprites/icon_minesweeper.png" id="Icon_Minesweeper"]
 [ext_resource type="Texture2D" uid="uid://bygw03hvek5il" path="res://Sprites/icon_notepad.png" id="Icon_Notepad"]
+[ext_resource type="Texture2D" uid="uid://c2i7t3dkl3gqy" path="res://Sprites/scribble_assistant.png" id="Icon_ScribbleAssistant"]
 [ext_resource type="Texture2D" uid="uid://bngxjt5tmmnxl" path="res://Sprites/icon_settings.png" id="Icon_Settings"]
-[ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
-[ext_resource type="Texture2D" uid="uid://bbw7onsjn6kf2" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
 [ext_resource type="Texture2D" uid="uid://cvrd4ikgp4inr" path="res://Sprites/icon_slots.png" id="Icon_Slots"]
 [ext_resource type="Texture2D" uid="uid://ddbweqgeyt4w4" path="res://Sprites/icon_snake.png" id="Icon_Snake"]
 [ext_resource type="Texture2D" uid="uid://cleddp5u7r572" path="res://Sprites/icon_terminal.png" id="Icon_Terminal"]
-[ext_resource type="Texture2D" uid="uid://c0ttjlxtyl1cj" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
-[ext_resource type="Texture2D" uid="uid://dx3a0jbw8cavi" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
 [ext_resource type="Texture2D" uid="uid://25t5jfpxhhqa" path="res://RetroWindowsGUI/win_flag.png" id="Icon_WinFlag"]
+[ext_resource type="Script" uid="uid://diq7o0og5jjjl" path="res://Scripts/scribble_controller.gd" id="Scribble_Controller_Script"]
 [ext_resource type="Script" uid="uid://dnj20u5tp0byf" path="res://Scripts/slot_machine.gd" id="Script_Slots"]
-[ext_resource type="Script" uid="uid://c1f17kywvwsiw" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
 [ext_resource type="Texture2D" uid="uid://5mv4cirwk1if" path="res://RetroWindowsGUI/Windows_SideBar_Underside.png" id="Sidebar_Texture"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
@@ -72,24 +70,68 @@ expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxFlat_terminal_bg"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
-texture = ExtResource("Icon_SliderBG")
-texture_margin_left = 2.0
-texture_margin_top = 1.0
-texture_margin_right = 2.0
-texture_margin_bottom = 1.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ScribbleHeader"]
+bg_color = Color(0.784314, 0, 0.392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SpeechBubble"]
+bg_color = Color(1, 1, 0.882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BubbleButtonNormal"]
+bg_color = Color(1, 1, 0.882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BubbleButtonPressed"]
+bg_color = Color(0.901961, 0.901961, 0.784314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BubbleButtonHover"]
+bg_color = Color(1, 1, 0.941176, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
 shader = ExtResource("CRT_Shader")
 shader_parameter/scanline_count = 320.0
 shader_parameter/scanline_intensity = 0.08
-shader_parameter/curvature = 0.025
+shader_parameter/curvature = 0.0
 shader_parameter/vignette_intensity = 0.08
-shader_parameter/grr_intensity = 0.03
-shader_parameter/aberration = 0.001
+shader_parameter/grr_intensity = 0.0
+shader_parameter/aberration = 0.0
 
 [node name="Control2" type="Control" unique_id=1345712339]
-texture_filter = 1
+texture_filter = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -245,7 +287,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
-text = "MS-DOS
+text = "AE-DOS
 Prompt"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -790,7 +832,7 @@ rotation = -1.5708
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
-text = "Windows 98"
+text = "Aethelgard 98"
 vertical_alignment = 2
 
 [node name="ProgramList" type="VBoxContainer" parent="DesktopOS/StartMenu/HBox" unique_id=1822009663]
@@ -841,7 +883,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
-text = " MS-DOS Prompt"
+text = " AE-DOS Prompt"
 icon = ExtResource("Icon_Terminal")
 alignment = 0
 expand_icon = true
@@ -1158,7 +1200,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 277.0
 offset_top = 45.0
-offset_right = 792.0
+offset_right = 652.0
 offset_bottom = 505.0
 grow_horizontal = 1
 grow_vertical = 1
@@ -1219,7 +1261,7 @@ theme_override_constants/separation = 4
 anchors_preset = 0
 offset_left = 277.0
 offset_top = 520.0
-offset_right = 792.0
+offset_right = 652.0
 offset_bottom = 755.0
 
 [node name="AnswerPanel" type="Panel" parent="ApparatusInspectorWindow/Option" unique_id=131471417]
@@ -1742,7 +1784,7 @@ offset_right = 200.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
-text = "MS-DOS Prompt"
+text = "AE-DOS Prompt"
 
 [node name="CloseButton" type="Button" parent="TerminalWindow/TitleBar" unique_id=436880867]
 layout_mode = 0
@@ -2644,182 +2686,141 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("7_2irst")
 icon_alignment = 1
 
-[node name="SettingsBody" type="Control" parent="SettingsWindow" unique_id=1099433563]
-anchors_preset = 0
+[node name="SettingsBody" parent="SettingsWindow" unique_id=765543776 instance=ExtResource("12_settings_body")]
+layout_mode = 0
 offset_left = 12.0
 offset_top = 42.0
 offset_right = 438.0
 offset_bottom = 448.0
-script = ExtResource("Settings_Controller_Script")
 
-[node name="DisplayGroup" type="Panel" parent="SettingsWindow/SettingsBody" unique_id=370472852]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 416.0
-offset_bottom = 90.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="DisplayGroupLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=566523636]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 2.0
-offset_right = 120.0
-offset_bottom = 18.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
-text = "Display"
-
-[node name="CRTCheckbox" type="CheckBox" parent="SettingsWindow/SettingsBody" unique_id=1241655375]
+[node name="ScribbleWindow" type="NinePatchRect" parent="." unique_id=987654320]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
-offset_left = 25.0
-offset_top = 35.0
-offset_right = 350.0
-offset_bottom = 65.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-theme_override_icons/checked = ExtResource("Icon_ToggleActive")
-theme_override_icons/unchecked = ExtResource("Icon_ToggleInactive")
-text = " Enable CRT Screen Filter"
+offset_left = 750.0
+offset_top = 380.0
+offset_right = 950.0
+offset_bottom = 640.0
+texture = ExtResource("2_b2bpf")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+script = ExtResource("11_window")
 
-[node name="AudioGroup" type="Panel" parent="SettingsWindow/SettingsBody" unique_id=587271828]
+[node name="TitleBar" type="Panel" parent="ScribbleWindow" unique_id=987654321]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 105.0
-offset_right = 416.0
-offset_bottom = 215.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 194.0
+offset_bottom = 36.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ScribbleHeader")
 
-[node name="AudioGroupLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=1602387242]
+[node name="Title" type="Label" parent="ScribbleWindow/TitleBar" unique_id=987654322]
+texture_filter = 0
 layout_mode = 0
-offset_left = 20.0
-offset_top = 97.0
-offset_right = 120.0
-offset_bottom = 113.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
-text = "Audio"
-
-[node name="VolumeLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=220243776]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 125.0
+offset_left = 8.0
+offset_top = 6.0
 offset_right = 150.0
-offset_bottom = 145.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 12
+text = "Scribble"
+
+[node name="CloseButton" type="Button" parent="ScribbleWindow/TitleBar" unique_id=987654323]
+layout_mode = 0
+offset_left = 162.0
+offset_top = 5.0
+offset_right = 182.0
+offset_bottom = 25.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("7_2irst")
+icon_alignment = 1
+
+[node name="ScribbleBody" type="Control" parent="ScribbleWindow" unique_id=987654324]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 42.0
+offset_right = 194.0
+offset_bottom = 254.0
+script = ExtResource("Scribble_Controller_Script")
+
+[node name="CharacterTexture" type="TextureRect" parent="ScribbleWindow/ScribbleBody" unique_id=987654325]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 183.0
+offset_bottom = 207.0
+texture = ExtResource("Icon_ScribbleAssistant")
+expand_mode = 1
+
+[node name="SpeechBubble" type="Panel" parent="ScribbleWindow" unique_id=987654326]
+layout_mode = 0
+offset_left = -270.0
+offset_top = 30.0
+offset_right = -10.0
+offset_bottom = 210.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_SpeechBubble")
+
+[node name="DialogLabel" type="Label" parent="ScribbleWindow/SpeechBubble" unique_id=987654327]
+texture_filter = 0
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 248.0
+offset_bottom = 132.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
-text = "Master Volume:"
+text = "Welcome Inspector, this is how your computer works."
+autowrap_mode = 2
 
-[node name="VolumeValueLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=202895032]
-unique_name_in_owner = true
+[node name="NextButton" type="Button" parent="ScribbleWindow/SpeechBubble" unique_id=987654328]
+texture_filter = 0
 layout_mode = 0
-offset_left = 160.0
-offset_top = 125.0
-offset_right = 220.0
-offset_bottom = 145.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "80%"
-
-[node name="VolumeSlider" type="HSlider" parent="SettingsWindow/SettingsBody" unique_id=2062774574]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 25.0
-offset_top = 155.0
-offset_right = 390.0
-offset_bottom = 190.0
-theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
-theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
-theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
-theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_icon")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_icon")
-value = 80.0
-
-[node name="MouseGroup" type="Panel" parent="SettingsWindow/SettingsBody" unique_id=384645756]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 230.0
-offset_right = 416.0
-offset_bottom = 340.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="MouseGroupLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=407490108]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 222.0
-offset_right = 150.0
-offset_bottom = 238.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
-text = "Mouse Input"
-
-[node name="SensitivityLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=576767296]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 250.0
-offset_right = 250.0
-offset_bottom = 270.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "3D Look Sensitivity:"
-
-[node name="SensitivityValueLabel" type="Label" parent="SettingsWindow/SettingsBody" unique_id=816811723]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 175.0
-offset_top = 250.0
-offset_right = 250.0
-offset_bottom = 270.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "0.15"
-
-[node name="SensitivitySlider" type="HSlider" parent="SettingsWindow/SettingsBody" unique_id=2097092736]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 25.0
-offset_top = 280.0
-offset_right = 390.0
-offset_bottom = 315.0
-theme_override_icons/grabber = ExtResource("Icon_SliderHandle")
-theme_override_icons/grabber_highlight = ExtResource("Icon_SliderHandle")
-theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
-theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_icon")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_icon")
-value = 30.0
-
-[node name="QuitButton" type="Button" parent="SettingsWindow/SettingsBody" unique_id=1279160801]
-layout_mode = 0
-offset_left = 153.0
-offset_top = 360.0
-offset_right = 273.0
-offset_bottom = 390.0
+offset_left = 178.0
+offset_top = 142.0
+offset_right = 248.0
+offset_bottom = 168.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_BubbleButtonNormal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_BubbleButtonPressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_BubbleButtonHover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
-text = "Exit Game"
+text = "Next"
+
+[node name="CloseBubbleButton" type="Button" parent="ScribbleWindow/SpeechBubble" unique_id=987654329]
+texture_filter = 0
+layout_mode = 0
+offset_left = 242.0
+offset_top = 6.0
+offset_right = 254.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.5, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 10
+text = "x"
+flat = true
+
+[node name="TailFill" type="Polygon2D" parent="ScribbleWindow/SpeechBubble" unique_id=987654330]
+color = Color(1, 1, 0.882353, 1)
+polygon = PackedVector2Array(258, 85, 275, 93, 258, 101)
+
+[node name="TailBorder" type="Line2D" parent="ScribbleWindow/SpeechBubble" unique_id=987654331]
+points = PackedVector2Array(260, 85, 275, 93, 260, 101)
+width = 1.0
+default_color = Color(0, 0, 0, 1)
 
 [node name="HackerAlert" type="NinePatchRect" parent="." unique_id=202610210]
 unique_name_in_owner = true
@@ -2894,7 +2895,6 @@ text = "Open Terminal"
 
 [node name="CRTOverlay" type="ColorRect" parent="." unique_id=2027712922]
 unique_name_in_owner = true
-visible = false
 material = SubResource("ShaderMaterial_crt")
 layout_mode = 1
 anchors_preset = 15

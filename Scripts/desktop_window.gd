@@ -16,7 +16,7 @@ var right_border: Control
 var bottom_border: Control
 var corner_border: Control
 
-var resize_margin: float = 8.0
+var resize_margin: float = 16.0
 
 var resizing_right: bool = false
 var resizing_bottom: bool = false
@@ -67,7 +67,7 @@ func _setup_resize_handles():
 	
 	if not corner_border:
 		# Corner border is a small square on the bottom right corner
-		corner_border = Control.new()
+		corner_border = ResizeGrip.new()
 		corner_border.name = "CornerBorder"
 		corner_border.mouse_default_cursor_shape = Control.CURSOR_FDIAGSIZE
 		corner_border.gui_input.connect(_on_corner_border_input)
@@ -93,16 +93,29 @@ func _update_resize_handles_positions():
 	right_border.move_to_front()
 	bottom_border.move_to_front()
 	corner_border.move_to_front()
+	corner_border.queue_redraw()
 
 func register_child_margins():
 	child_margins.clear()
 	for child in get_children():
 		if child is Control and not child.name in ["RightBorder", "BottomBorder", "CornerBorder"]:
+			var left_margin = child.position.x
+			var top_margin = child.position.y
+			var right_margin = size.x - (child.position.x + child.size.x)
+			var bottom_margin = size.y - (child.position.y + child.size.y)
+			
+			if is_scalable:
+				var min_margin = resize_margin + 4.0
+				if child.name != "TitleBar" and right_margin < min_margin:
+					right_margin = min_margin
+				if bottom_margin < min_margin:
+					bottom_margin = min_margin
+			
 			child_margins[child] = {
-				"left": child.position.x,
-				"top": child.position.y,
-				"right": size.x - (child.position.x + child.size.x),
-				"bottom": size.y - (child.position.y + child.size.y),
+				"left": left_margin,
+				"top": top_margin,
+				"right": right_margin,
+				"bottom": bottom_margin,
 				"orig_width": child.size.x,
 				"orig_height": child.size.y,
 				"orig_parent_width": size.x,
@@ -116,7 +129,7 @@ func update_child_positions():
 			
 			# Horizontal resizing
 			var should_stretch_h = child.name in ["TitleBar", "TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "addr_container", "content_panel", "ColorRect", "TerminalBorder", "Panel", "ChatManager", "Option"] \
-				or (m.orig_width / m.orig_parent_width > 0.45) \
+				or (float(m.orig_width) / float(m.orig_parent_width) > 0.45) \
 				or (m.left < 80 and m.right < 80)
 			
 			if should_stretch_h:
@@ -131,7 +144,7 @@ func update_child_positions():
 			
 			# Vertical resizing
 			var should_stretch_v = child.name in ["TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "content_panel", "ColorRect", "TerminalBorder", "Panel"] \
-				or (m.orig_height / m.orig_parent_height > 0.45) \
+				or (float(m.orig_height) / float(m.orig_parent_height) > 0.45) \
 				or (m.top < 80 and m.bottom < 80)
 			
 			if should_stretch_v:
@@ -274,3 +287,22 @@ func restore():
 	visible = true
 	move_to_front()
 	focused.emit()
+
+class ResizeGrip extends Control:
+	func _draw():
+		var w = size.x
+		var h = size.y
+		var shadow_color = Color(0.53, 0.48, 0.44) # Retro dark shadow
+		var highlight_color = Color(1.0, 1.0, 1.0) # White highlight
+		
+		# Ridge 1 (closest to corner, offset by 3px from bottom-right)
+		draw_line(Vector2(w - 6, h - 4), Vector2(w - 4, h - 6), shadow_color, 1.0)
+		draw_line(Vector2(w - 5, h - 3), Vector2(w - 3, h - 5), highlight_color, 1.0)
+		
+		# Ridge 2 (middle)
+		draw_line(Vector2(w - 10, h - 4), Vector2(w - 4, h - 10), shadow_color, 1.0)
+		draw_line(Vector2(w - 9, h - 3), Vector2(w - 3, h - 9), highlight_color, 1.0)
+		
+		# Ridge 3 (furthest from corner)
+		draw_line(Vector2(w - 14, h - 4), Vector2(w - 4, h - 14), shadow_color, 1.0)
+		draw_line(Vector2(w - 13, h - 3), Vector2(w - 3, h - 13), highlight_color, 1.0)

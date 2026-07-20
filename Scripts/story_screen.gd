@@ -18,7 +18,7 @@ func _ready():
 	if passcode_input:
 		passcode_input.visible = false
 		
-	var completed_day = GameStats.current_day
+	var completed_day = GameStats.current_day - 1
 	if completed_day in stories:
 		title_label.text = "Shift " + str(completed_day) + " Completed"
 		story_label.text = stories[completed_day]
@@ -31,6 +31,5 @@ func _ready():
 	proceed_button.pressed.connect(_on_proceed_pressed)
 
 func _on_proceed_pressed():
-	GameStats.current_day += 1
 	get_tree().paused = false
 	get_tree().change_scene_to_file.call_deferred("res://Scenes/Game3D.tscn")

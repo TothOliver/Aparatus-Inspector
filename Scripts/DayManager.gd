@@ -160,12 +160,14 @@ func check_quota_progress():
 func end_day():
 	print("Day ", current_day, " finished!")
 	if current_day < max_days:
-		GameStats.current_day = current_day
+		GameStats.current_day = current_day + 1
+		GameStats.save_game()
 		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/StoryScreen.tscn")
 	else:
 		print("Game Over. Victory achieved!")
 		GameStats.total_security_breaches = bad_ai_let_in_count
 		GameStats.bad_robots_terminated = bad_ai_killed
 		GameStats.is_victory = true
+		GameStats.delete_save_game()
 		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 		

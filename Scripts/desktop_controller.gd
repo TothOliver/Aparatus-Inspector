@@ -9,6 +9,7 @@ class_name DesktopController
 @onready var cctv_window = %CCTVWindow
 @onready var slot_machine_window = %SlotMachineWindow
 @onready var settings_window = %SettingsWindow
+@onready var scribble_window = get_node_or_null("%ScribbleWindow")
 
 @onready var inspector_tab = %InspectorTab
 @onready var notepad_tab = %NotepadTab
@@ -52,6 +53,8 @@ func _ready():
 	cctv_window.visible = false
 	slot_machine_window.visible = false
 	settings_window.visible = false
+	if scribble_window:
+		scribble_window.visible = false
 	
 	# Bind CCTV feed from 3D viewport at runtime
 	var cctv_vp = get_node_or_null("/root/Game3D/CCTVViewport")
@@ -416,7 +419,7 @@ func _ready():
 	# Initialize tab focus states
 	_update_top_window_focus()
 	
-	# Hide CCTV (Security Feed) and Terminal (MS-DOS Prompt) on Day 1
+	# Hide CCTV (Security Feed) and Terminal (AE-DOS Prompt) on Day 1
 	if GameStats.current_day == 1:
 		var cctv_icon = get_node_or_null("DesktopIcons/CCTVIcon")
 		if cctv_icon:

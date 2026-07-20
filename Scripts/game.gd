@@ -63,10 +63,6 @@ func _ready():
 			accept_term.position.y = 335
 			accept_term.size = Vector2(250, 310)
 			
-			var btn_panel = accept_term.get_node_or_null("ButtonPanel") as Panel
-			if btn_panel:
-				btn_panel.size = Vector2(250, 310)
-				
 			var app_info = accept_term.get_node_or_null("ApproveInfo") as Label
 			if app_info:
 				app_info.text = "APPROVE:\nPass to grid service."
@@ -93,53 +89,27 @@ func _ready():
 		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
 		if chat_manager_node:
 			chat_manager_node.position.y = 45
-			chat_manager_node.size = Vector2(385, 380) # H=380 instead of 460
+			chat_manager_node.size = Vector2(375, 380) # H=380 instead of 460
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
 		if option_node:
-			option_node.position = Vector2(277, 440)
-			option_node.size = Vector2(385, 205)
 
-			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
-			if ans_panel:
-				ans_panel.position = Vector2.ZERO
-				ans_panel.size = option_node.size
-
-			var label = option_node.get_node_or_null("OptionGroupLabel") as Label
-			if label:
-				label.position = Vector2(20, -8)
-				label.size = Vector2(160, 16)
-
+			option_node.position.y = 440 # starts immediately after ChatManager
+			option_node.size = Vector2(375, 205) # H=205 instead of 235
+			
 			var btn1 = option_node.get_node_or_null("Button1") as Button
 			if btn1:
-				btn1.visible = true
-				btn1.position = Vector2(15, 22)
-				btn1.size = Vector2(355, 55)
-
+				btn1.position = Vector2(15, 20)
+				btn1.size = Vector2(345, 75)
+				btn1.anchor_right = 1.0
+				btn1.offset_right = -15
+				
 			var btn2 = option_node.get_node_or_null("Button2") as Button
 			if btn2:
-				btn2.visible = true
-				btn2.position = Vector2(15, 87)
-				btn2.size = Vector2(355, 55)
-
-			var btn3 = option_node.get_node_or_null("Button3") as Button
-			if btn3:
-				btn3.visible = false
-				btn3.disabled = true
-
-			var input = option_node.get_node_or_null("QuestionInput") as LineEdit
-			if input:
-				input.visible = true
-				input.position = Vector2(15, 155)
-				input.size = Vector2(300, 34)
-				input.placeholder_text = "..."
-
-			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
-			if submit:
-				submit.visible = true
-				submit.position = Vector2(325, 155)
-				submit.size = Vector2(45, 34)
-				submit.text = ">"
+				btn2.position = Vector2(15, 110)
+				btn2.size = Vector2(345, 75)
+				btn2.anchor_right = 1.0
+				btn2.offset_right = -15
 
 		# Compact right side: Model (Database Specs)
 		var model_node = inspector.get_node_or_null("Model") as Control
@@ -147,10 +117,6 @@ func _ready():
 			model_node.position = Vector2(664, 45) # X=664, aligned to right
 			model_node.size = Vector2(244, 600)
 			
-			var info_panel = model_node.get_node_or_null("InfoPanel") as Panel
-			if info_panel:
-				info_panel.size = Vector2(244, 600)
-				
 			# Compact the fields inside Model
 			var fields = {
 				"NameFieldLabel": 15,
@@ -184,10 +150,8 @@ func _ready():
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
 		crt.add_to_group("CRTOverlays")
-	
-	question_input.text_submitted.connect(_on_question_input_submitted)
-	submit_question_button.pressed.connect(_on_submit_question_button_pressed)	
-		
+		crt.visible = GameStats.crt_effect_enabled
+
 	robots = RobotFactory.create_robots()
 	was_wifi_on = GameStats.wifi_on
 	spawn_next_robot()
@@ -235,6 +199,14 @@ func _ready():
 			var offline_label = database_panel.get_node_or_null("OfflineLabel")
 			if offline_label:
 				offline_label.visible = false
+
+	# Show Scribble tutorial assistant automatically on Day 1 start
+	if day_manager.current_day == 1:
+		var scribble = get_node_or_null("ScribbleWindow")
+		if scribble:
+			scribble.visible = true
+			if scribble.has_method("move_to_front"):
+				scribble.move_to_front()
 
 func spawn_next_robot():
 	if not is_inside_tree():

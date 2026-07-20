@@ -76,10 +76,12 @@ func handle_walking_movement(delta):
 	var collider_shape = $CollisionShape3D.shape as CapsuleShape3D
 	
 	var is_crouch_pressed = false
-	if InputMap.has_action("crouch") and Input.is_action_pressed("crouch"):
-		is_crouch_pressed = true
+	if InputMap.has_action("crouch"):
+		is_crouch_pressed = Input.is_action_pressed("crouch")
+	else:
+		is_crouch_pressed = Input.is_key_pressed(KEY_CTRL)
 		
-	if is_crouch_pressed or Input.is_key_pressed(KEY_CTRL):
+	if is_crouch_pressed:
 		target_cam_y = crouch_cam_y
 		collider_shape.height = 1.0
 		is_crouching = true
@@ -94,11 +96,11 @@ func handle_walking_movement(delta):
 	
 	# Get input direction
 	var input_dir = Vector2.ZERO
-	if InputMap.has_action("move_left") and InputMap.has_action("move_right") and InputMap.has_action("move_forward") and InputMap.has_action("move_backward"):
+	var has_move_actions = InputMap.has_action("move_left") and InputMap.has_action("move_right") and InputMap.has_action("move_forward") and InputMap.has_action("move_backward")
+	if has_move_actions:
 		input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-		
-	# Fallback if actions are not mapped or are zero
-	if input_dir == Vector2.ZERO:
+	else:
+		# Fallback if actions are not mapped
 		var x_input = 0.0
 		var z_input = 0.0
 		if Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT): x_input -= 1.0
@@ -127,8 +129,16 @@ func handle_computer_view(delta):
 	camera.transform.basis = camera.transform.basis.slerp(Basis.IDENTITY, lerp_speed * delta)
 
 func _input(event):
-	# Toggle flashlight on F press
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
+	# Toggle flashlight
+	var flashlight_pressed = false
+	if InputMap.has_action("toggle_flashlight"):
+		if event.is_action_pressed("toggle_flashlight"):
+			flashlight_pressed = true
+	else:
+		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
+			flashlight_pressed = true
+			
+	if flashlight_pressed:
 		if flashlight:
 			flashlight.visible = not flashlight.visible
 
@@ -145,11 +155,14 @@ func _input(event):
 	# Handle interaction trigger exactly once when key/button is pressed
 	if current_state != State.COMPUTER_VIEW and event.is_pressed():
 		var is_interact_pressed = false
-		if InputMap.has_action("interact") and event.is_action("interact"):
-			is_interact_pressed = true
-		elif event is InputEventKey and event.keycode == KEY_E:
-			is_interact_pressed = true
-		elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if InputMap.has_action("interact"):
+			if event.is_action("interact"):
+				is_interact_pressed = true
+		else:
+			if event is InputEventKey and event.keycode == KEY_E:
+				is_interact_pressed = true
+				
+		if not is_interact_pressed and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			is_interact_pressed = true
 			
 		if is_interact_pressed:
@@ -199,7 +212,12 @@ func check_interaction():
 			else:
 				target_name = collider.name
 			
-			interact_prompt_changed.emit("Press E or Left Click to interact with: " + target_name)
+			var key_name = "E"
+			if InputMap.has_action("interact"):
+				var events = InputMap.action_get_events("interact")
+				if events.size() > 0 and events[0] is InputEventKey:
+					key_name = OS.get_keycode_string(events[0].keycode)
+			interact_prompt_changed.emit("Press " + key_name + " or Left Click to interact with: " + target_name)
 		else:
 			interact_prompt_changed.emit("")
 	else:

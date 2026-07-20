@@ -25,18 +25,217 @@ var read_emails: Dictionary = {1: false, 2: false, 3: false}
 var mouse_sensitivity: float = 0.15
 var crt_effect_enabled: bool = true
 var master_volume: float = 80.0
+var music_volume: float = 80.0
+var vfx_volume: float = 80.0
+var ambient_volume: float = 80.0
 var fullscreen_enabled: bool = true
+var display_mode: int = 2 # 0 = Windowed, 1 = Borderless, 2 = Fullscreen
+var vsync_enabled: bool = true
+var fps_limit: int = 0 # 0 = Unlimited
+var resolution_width: int = 1920
+var resolution_height: int = 1080
+
+const SAVE_PATH = "user://settings.cfg"
+const SAVE_GAME_PATH = "user://savegame.cfg"
+
+const DEFAULT_BINDS = {
+	"move_forward": KEY_W,
+	"move_backward": KEY_S,
+	"move_left": KEY_A,
+	"move_right": KEY_D,
+	"crouch": KEY_CTRL,
+	"interact": KEY_E,
+	"toggle_flashlight": KEY_F
+}
+
+var custom_keybinds: Dictionary = {}
 
 signal fullscreen_toggled(is_fullscreen: bool)
 
 var target_scene_path: String = ""
 
-
-
 var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
 
+func ensure_audio_buses():
+	var buses = ["Music", "VFX", "Ambient"]
+	for bus in buses:
+		if AudioServer.get_bus_index(bus) == -1:
+			var idx = AudioServer.bus_count
+			AudioServer.add_bus(idx)
+			AudioServer.set_bus_name(idx, bus)
+			AudioServer.set_bus_send(idx, "Master")
+
+func save_settings():
+	var config = ConfigFile.new()
+	config.set_value("Settings", "primary_monitor_initialized", true)
+	config.set_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+	config.set_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+	config.set_value("Settings", "master_volume", master_volume)
+	config.set_value("Settings", "music_volume", music_volume)
+	config.set_value("Settings", "vfx_volume", vfx_volume)
+	config.set_value("Settings", "ambient_volume", ambient_volume)
+	config.set_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+	config.set_value("Settings", "display_mode", display_mode)
+	config.set_value("Settings", "vsync_enabled", vsync_enabled)
+	config.set_value("Settings", "fps_limit", fps_limit)
+	config.set_value("Settings", "resolution_width", resolution_width)
+	config.set_value("Settings", "resolution_height", resolution_height)
+	
+	for action in custom_keybinds.keys():
+		config.set_value("Keybinds", action, custom_keybinds[action])
+		
+	var err = config.save(SAVE_PATH)
+	if err != OK:
+		print("Error saving settings: ", err)
+
+func get_primary_monitor_resolution() -> Vector2i:
+	var primary_screen = DisplayServer.get_primary_screen()
+	var size = DisplayServer.screen_get_size(primary_screen)
+	if size.x > 0 and size.y > 0:
+		return size
+	return Vector2i(1920, 1080)
+
+func get_primary_monitor_refresh_rate() -> int:
+	var primary_screen = DisplayServer.get_primary_screen()
+	var rate = DisplayServer.screen_get_refresh_rate(primary_screen)
+	if rate > 0.0:
+		return int(round(rate))
+	return 60
+
+func load_settings():
+	ensure_audio_buses()
+	var primary_res = get_primary_monitor_resolution()
+	var primary_refresh = get_primary_monitor_refresh_rate()
+	
+	var config = ConfigFile.new()
+	var err = config.load(SAVE_PATH)
+	var is_first_run = not config.get_value("Settings", "primary_monitor_initialized", false)
+	
+	if err == OK and not is_first_run:
+		mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+		crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+		master_volume = config.get_value("Settings", "master_volume", master_volume)
+		music_volume = config.get_value("Settings", "music_volume", music_volume)
+		vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
+		ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
+		fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+		display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
+		vsync_enabled = config.get_value("Settings", "vsync_enabled", vsync_enabled)
+		fps_limit = config.get_value("Settings", "fps_limit", primary_refresh)
+		resolution_width = config.get_value("Settings", "resolution_width", primary_res.x)
+		resolution_height = config.get_value("Settings", "resolution_height", primary_res.y)
+		
+		if config.has_section("Keybinds"):
+			for action in config.get_section_keys("Keybinds"):
+				custom_keybinds[action] = config.get_value("Keybinds", action)
+	else:
+		if err == OK:
+			mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+			crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+			master_volume = config.get_value("Settings", "master_volume", master_volume)
+			music_volume = config.get_value("Settings", "music_volume", music_volume)
+			vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
+			ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
+			fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+			display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
+			vsync_enabled = config.get_value("Settings", "vsync_enabled", vsync_enabled)
+			if config.has_section("Keybinds"):
+				for action in config.get_section_keys("Keybinds"):
+					custom_keybinds[action] = config.get_value("Keybinds", action)
+
+		resolution_width = primary_res.x
+		resolution_height = primary_res.y
+		fps_limit = primary_refresh
+		save_settings()
+	
+	apply_all_settings()
+
+func apply_all_settings():
+	# Display mode & resolution
+	if display_mode == 0: # Windowed
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_size(Vector2i(resolution_width, resolution_height))
+		var screen_size = DisplayServer.screen_get_size()
+		var pos = Vector2i((Vector2(screen_size - Vector2i(resolution_width, resolution_height)) / 2.0).round())
+		DisplayServer.window_set_position(pos)
+		fullscreen_enabled = false
+	elif display_mode == 1: # Borderless
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		fullscreen_enabled = true
+	else: # Fullscreen (Exclusive)
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		fullscreen_enabled = true
+
+	# VSync
+	if vsync_enabled:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+	# FPS Limit
+	Engine.max_fps = fps_limit
+
+	# Audio Volumes
+	apply_bus_volume("Master", master_volume)
+	apply_bus_volume("Music", music_volume)
+	apply_bus_volume("VFX", vfx_volume)
+	apply_bus_volume("Ambient", ambient_volume)
+		
+	setup_input_map()
+	update_crt_overlays()
+
+func apply_bus_volume(bus_name: String, value: float):
+	var bus_idx = AudioServer.get_bus_index(bus_name)
+	if bus_idx == -1:
+		return
+	if value <= 0.0:
+		AudioServer.set_bus_mute(bus_idx, true)
+	else:
+		AudioServer.set_bus_mute(bus_idx, false)
+		var db = -40.0 * (1.0 - (value / 100.0))
+		if value <= 5.0:
+			db = -80.0
+		AudioServer.set_bus_volume_db(bus_idx, db)
+
+func setup_input_map():
+	for action in DEFAULT_BINDS.keys():
+		if not InputMap.has_action(action):
+			InputMap.add_action(action)
+		else:
+			InputMap.action_erase_events(action)
+			
+		var keycode = DEFAULT_BINDS[action]
+		if action in custom_keybinds:
+			keycode = custom_keybinds[action]
+			
+		var event = InputEventKey.new()
+		event.keycode = keycode
+		InputMap.action_add_event(action, event)
+		
+		# Add default alternative keys (Arrow keys for WASD movement) if not rebound
+		if not (action in custom_keybinds):
+			if action == "move_forward":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_UP
+				InputMap.action_add_event(action, alt)
+			elif action == "move_backward":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_DOWN
+				InputMap.action_add_event(action, alt)
+			elif action == "move_left":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_LEFT
+				InputMap.action_add_event(action, alt)
+			elif action == "move_right":
+				var alt = InputEventKey.new()
+				alt.keycode = KEY_RIGHT
+				InputMap.action_add_event(action, alt)
+
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	randomize()
 	button_click_player = AudioStreamPlayer.new()
 	button_click_player.volume_db = -10.0
@@ -44,21 +243,33 @@ func _ready():
 	
 	button_click_stream = _generate_button_click_sound()
 	
-	# Initialize fullscreen mode based on setting
-	if fullscreen_enabled:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	load_settings()
 	
 	# Listen to new nodes added to the tree dynamically
 	get_tree().node_added.connect(_on_node_added)
 	
 	# Recursively connect to all buttons currently in the tree
 	_connect_buttons_recursive(get_tree().root)
+	
+	# Connect Steam overlay signals
+	if Engine.has_singleton("Steam"):
+		var steam = Engine.get_singleton("Steam")
+		steam.overlay_toggled.connect(_on_overlay_toggled)
 
 func _on_node_added(node: Node):
 	if node is Button:
 		_connect_button(node)
+	if node is CanvasItem and (node.name == "CRTOverlay" or node.name == "PauseCRTOverlay" or node.is_in_group("CRTOverlays")):
+		if not node.is_in_group("CRTOverlays"):
+			node.add_to_group("CRTOverlays")
+		node.visible = crt_effect_enabled
+
+func update_crt_overlays():
+	if not is_inside_tree():
+		return
+	for crt in get_tree().get_nodes_in_group("CRTOverlays"):
+		if crt is CanvasItem:
+			crt.visible = crt_effect_enabled
 
 func _connect_buttons_recursive(node: Node):
 	if node is Button:
@@ -91,6 +302,72 @@ func _generate_button_click_sound() -> AudioStreamWAV:
 	stream.data = data
 	return stream
 
+func save_game():
+	var config = ConfigFile.new()
+	config.set_value("Game", "current_day", current_day)
+	config.set_value("Game", "casino_balance", casino_balance)
+	config.set_value("Game", "player_health", player_health)
+	config.set_value("Game", "player_sanity", player_sanity)
+	config.set_value("Game", "total_security_breaches", total_security_breaches)
+	config.set_value("Game", "innocent_robots_killed", innocent_robots_killed)
+	config.set_value("Game", "good_robots_through", good_robots_through)
+	config.set_value("Game", "bad_robots_terminated", bad_robots_terminated)
+	config.set_value("Game", "final_missed_score", final_missed_score)
+	
+	for day in read_emails.keys():
+		config.set_value("Emails", str(day), read_emails[day])
+		
+	var err = config.save(SAVE_GAME_PATH)
+	if err != OK:
+		print("Error saving game: ", err)
+	else:
+		print("Game autosaved successfully for Day ", current_day)
+
+func has_save_file() -> bool:
+	return FileAccess.file_exists(SAVE_GAME_PATH)
+
+func load_game() -> bool:
+	if not has_save_file():
+		return false
+	var config = ConfigFile.new()
+	var err = config.load(SAVE_GAME_PATH)
+	if err != OK:
+		print("Error loading save game: ", err)
+		return false
+		
+	current_day = config.get_value("Game", "current_day", 1)
+	casino_balance = config.get_value("Game", "casino_balance", 100.0)
+	player_health = config.get_value("Game", "player_health", 100.0)
+	player_sanity = config.get_value("Game", "player_sanity", 100.0)
+	total_security_breaches = config.get_value("Game", "total_security_breaches", 0)
+	innocent_robots_killed = config.get_value("Game", "innocent_robots_killed", 0)
+	good_robots_through = config.get_value("Game", "good_robots_through", 0)
+	bad_robots_terminated = config.get_value("Game", "bad_robots_terminated", 0)
+	final_missed_score = config.get_value("Game", "final_missed_score", 0)
+	
+	if config.has_section("Emails"):
+		for day_str in config.get_section_keys("Emails"):
+			var d = int(day_str)
+			read_emails[d] = config.get_value("Emails", day_str, false)
+			
+	# Reset transient per-day state
+	power_level = 100.0
+	door_locked = false
+	hack_active = false
+	hack_progress = 0.0
+	wifi_on = true
+	let_through_bad_sprites.clear()
+	
+	print("Game loaded successfully. Resuming Day ", current_day)
+	return true
+
+func delete_save_game():
+	if has_save_file():
+		var dir = DirAccess.open("user://")
+		if dir:
+			dir.remove("savegame.cfg")
+			print("Save game deleted.")
+
 func reset_game_state():
 	final_missed_score = 0
 	total_security_breaches = 0
@@ -115,7 +392,6 @@ func quit_or_menu(tree: SceneTree):
 	if tree.current_scene and (tree.current_scene.scene_file_path == "res://Scenes/MainMenu.tscn" or tree.current_scene.name == "MainMenu"):
 		tree.quit()
 	else:
-		reset_game_state()
 		tree.paused = false
 		tree.change_scene_to_file.call_deferred("res://Scenes/MainMenu.tscn")
 
@@ -147,3 +423,22 @@ func has_unread_mail() -> bool:
 		if d in read_emails and not read_emails[d]:
 			return true
 	return false
+
+func _process(_delta: float) -> void:
+	if Engine.has_singleton("Steam"):
+		Engine.get_singleton("Steam").run_callbacks()
+
+func _on_overlay_toggled(active: bool) -> void:
+	if active:
+		get_tree().paused = true
+	else:
+		# Only unpause if the in-game pause menu isn't open
+		var current_scene = get_tree().current_scene
+		var is_pause_menu_open = false
+		if current_scene:
+			var pause_menu = current_scene.get_node_or_null("HUD/PauseMenu")
+			if pause_menu and pause_menu.visible:
+				is_pause_menu_open = true
+		
+		if not is_pause_menu_open:
+			get_tree().paused = false

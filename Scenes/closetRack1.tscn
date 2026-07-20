@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://x43yo8lg4cgd"]
+
+[ext_resource type="PackedScene" uid="uid://cwvpbf5m3echf" path="res://assets/metalRack/worn_metal_rack_1k.gltf/worn_metal_rack_1k.gltf" id="1_h4v2q"]
+[ext_resource type="PackedScene" uid="uid://ddi0805nt6t1c" path="res://assets/deskSetup/cardboard_box_01_1k.gltf/cardboard_box_01_1k.gltf" id="2_6rwvq"]
+[ext_resource type="PackedScene" uid="uid://bwtmbp50uijtp" path="res://assets/metalRack/Closet/plunger_1k.gltf/plunger_1k.gltf" id="3_cgbri"]
+[ext_resource type="PackedScene" uid="uid://ddkxsfcrmyn4y" path="res://assets/metalRack/Closet/drain_cleaner_1k.gltf/drain_cleaner_1k.gltf" id="4_87da6"]
+[ext_resource type="PackedScene" uid="uid://dx8ltn3aflh6w" path="res://assets/metalRack/Closet/bleach_bottle_1k.gltf/bleach_bottle_1k.gltf" id="5_l8r4n"]
+[ext_resource type="PackedScene" uid="uid://jbpp8x0kwq25" path="res://assets/metalRack/Office/plastic_container_1k.gltf/plastic_container_1k.gltf" id="6_nt2pe"]
+[ext_resource type="PackedScene" uid="uid://fombtwx71og3" path="res://assets/metalRack/Closet/multi_cleaner_bottle_1k.gltf/multi_cleaner_bottle_1k.gltf" id="7_87da6"]
+[ext_resource type="PackedScene" uid="uid://bxehud2qk2tm0" path="res://assets/metalRack/Closet/propane_torch_1k.gltf/propane_torch_1k.gltf" id="8_l8r4n"]
+[ext_resource type="PackedScene" uid="uid://dajs84othemew" path="res://assets/metalRack/Office/cleaner_tin_01_1k.gltf/cleaner_tin_01_1k.gltf" id="9_nt2pe"]
+[ext_resource type="PackedScene" uid="uid://bw0ck34pu3164" path="res://assets/officeAmbience/trashbag_1k.gltf/trashbag_1k.gltf" id="10_l8r4n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_87da6"]
+size = Vector3(0.7556366, 1.8457716, 0.5494751)
+
+[node name="ClosetRack1" type="Node3D" unique_id=1737296042]
+
+[node name="worn_metal_rack_1k" parent="." unique_id=938674137 instance=ExtResource("1_h4v2q")]
+
+[node name="level1" type="Node3D" parent="." unique_id=1003872355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43681288, 0)
+
+[node name="cardboard_box_01_1k" parent="level1" unique_id=1326655262 instance=ExtResource("2_6rwvq")]
+transform = Transform3D(0.983647, 0, -0.18010712, 0, 1, 0, 0.18010712, 0, 0.983647, -0.213, 0, 0)
+
+[node name="plunger" parent="level1" unique_id=22460921 instance=ExtResource("3_cgbri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.171, 0, 0.145)
+
+[node name="blend_export" parent="level1" unique_id=358167228 instance=ExtResource("4_87da6")]
+transform = Transform3D(0.9698252, 0, 0.2438012, 0, 1, 0, -0.2438012, 0, 0.9698252, 0.12734233, 0, -0.110681206)
+
+[node name="blend_export2" parent="level1" unique_id=1665052738 instance=ExtResource("5_l8r4n")]
+transform = Transform3D(0.9406322, 0, -0.33942753, 0, 1, 0, 0.33942753, 0, 0.9406322, 0.3122662, 0, -0.10106161)
+
+[node name="plastic_container_1k" parent="." unique_id=347998276 instance=ExtResource("6_nt2pe")]
+transform = Transform3D(-0.96723425, 0, -0.07612287, 0, 0.97022504, 0, 0.07612287, 0, -0.96723425, 0, 0.92212653, 0)
+
+[node name="level3" type="Node3D" parent="." unique_id=1650436830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.411, 0)
+
+[node name="multi_cleaner" parent="level3" unique_id=1541446173 instance=ExtResource("7_87da6")]
+transform = Transform3D(0.95111585, 0, -0.3088344, 0, 1, 0, 0.3088344, 0, 0.95111585, 0.23908862, 0, -0.16498151)
+
+[node name="propane_torch_1k" parent="level3" unique_id=973711738 instance=ExtResource("8_l8r4n")]
+transform = Transform3D(1.2679167, 1.1502391, -1.0340877, -1.2640585, -1.3822823e-07, -1.5498888, -0.89137137, 1.6361387, 0.7269846, 0.012170382, 0.058463335, -0.21294992)
+
+[node name="cardboard_box_01_1k" parent="level3" unique_id=677606704 instance=ExtResource("2_6rwvq")]
+transform = Transform3D(0.89179754, 0, 0.45243472, 0, 1, 0, -0.45243472, 0, 0.89179754, -0.213, 0, 0)
+
+[node name="cleaner_tin_01_1k" parent="level3" unique_id=879986906 instance=ExtResource("9_nt2pe")]
+transform = Transform3D(-0.18724418, 0, -0.9823134, 0, 1, 0, 0.9823134, 0, -0.18724418, 0.3456241, 0, -0.07818262)
+
+[node name="trashbag_1k" parent="." unique_id=1250868738 instance=ExtResource("10_l8r4n")]
+transform = Transform3D(-3.4265394e-08, 0.7839008, -0.1596859, -0.8, -3.4969112e-08, -7.1054275e-16, -6.9800934e-09, 0.1596859, 0.7839008, -0.3269568, 0.19386995, -0.042168975)
+
+[node name="RackCollision" type="StaticBody3D" parent="." unique_id=656465363]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RackCollision" unique_id=1543441872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059615374, 0.9228858, 0.0043884516)
+shape = SubResource("BoxShape3D_87da6")
