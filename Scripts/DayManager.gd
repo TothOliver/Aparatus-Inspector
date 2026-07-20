@@ -92,41 +92,46 @@ func start_new_day():
 
 func process_robot(robot: RobotData, player_choice_pass: bool):
 	var is_good_robot = robot.is_good
+	var is_error = false
+	
 	if player_choice_pass:
 		if not is_good_robot:
 			# ADMITTED A BAD AI
+			is_error = true
 			bad_ai_let_in_count += 1
-			GameStats.total_security_breaches = bad_ai_let_in_count
 			if robot.sprite:
 				GameStats.let_through_bad_sprites.append(robot.sprite)
-			print("SECURITY BREACH! Bad AI admitted and is now roaming. Total: ", bad_ai_let_in_count)
-			print("Fail! You let a bad robot in.")
+			print("SECURITY BREACH! Bad AI admitted and is now roaming. Total errors: ", bad_ai_let_in_count)
 			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
-			health = max(0, health - 25)
-			if health_bar and "breaches" in health_bar:
-				health_bar.breaches = bad_ai_let_in_count
-			if health == 0 or bad_ai_let_in_count >= MAX_ALLOWED_BAD_AI:
-				game_over_death()
-				return
 		else:
 			print("Success! Good robot admitted.")
 			GameStats.good_robots_through += 1
 			GameStats.casino_balance += 20.0
 	else:
 		if is_good_robot:
+			# EXTERMINATED / REJECTED A GOOD AI
+			is_error = true
+			bad_ai_let_in_count += 1
 			GameStats.innocent_robots_killed += 1
-			print("Fail! You rejected a perfectly good robot.")
+			print("Fail! You rejected a perfectly good robot. Total errors: ", bad_ai_let_in_count)
 			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 		else:
 			print("Success! You caught a bad robot.")
 			bad_ai_killed += 1
 			GameStats.bad_robots_terminated = bad_ai_killed
 			GameStats.casino_balance += 20.0
-	
-	var is_correct = (player_choice_pass == is_good_robot)
-	if is_correct:
-		processed_today += 1
-		check_quota_progress()
+
+	if is_error:
+		GameStats.total_security_breaches = bad_ai_let_in_count
+		health = max(0, health - 25)
+		if health_bar and "breaches" in health_bar:
+			health_bar.breaches = bad_ai_let_in_count
+		if health == 0 or bad_ai_let_in_count >= MAX_ALLOWED_BAD_AI:
+			game_over_death()
+			return
+
+	processed_today += 1
+	check_quota_progress()
 
 func game_over_death():
 	# Save the count of bad robots allowed through
@@ -139,6 +144,7 @@ func game_over_death():
 func check_quota_progress():
 	if processed_today >= day_configs[current_day].quota:
 		print("Quota Met for Day ", current_day, "! Transitioning to the next shift.")
+		end_day()
 
 func end_day():
 	print("Day ", current_day, " finished!")

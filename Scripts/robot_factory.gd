@@ -16,6 +16,18 @@ static func create_robots() -> Array[RobotData]:
 	robots.shuffle()
 	return robots
 
+static func create_walter_robot() -> RobotData:
+	var r = RobotData.new()
+	r.is_good = false
+	r.name = "Walter"
+	r.model = "H.U.G.O"
+	r.manufacturer = "G.Tech"
+	r.core_hash = "0x4421"
+	r.status = "Fine"
+	r.sprite = load("res://Sprites/robot4.png")
+	_compile_infected_dialogue(r, "Walter")
+	return r
+
 static func generate_random_robot(is_good_unit: bool) -> RobotData:
 	var r = RobotData.new()
 	r.is_good = is_good_unit
@@ -57,6 +69,8 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 			r.core_hash = config.core_hash
 			r.status = config.status
 			r.sprite = load(config.sprite)
+			if config.has("series"):
+				r.name = config.series
 			_compile_infected_dialogue(r, config.series)
 		else:
 			# Typo / Mimic Anomaly Scaling based on Day

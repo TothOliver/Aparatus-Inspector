@@ -127,6 +127,15 @@ func _ready():
 				input.position = Vector2(15, 155)
 				input.size = Vector2(285, 34)
 				input.placeholder_text = "Type question..."
+				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
+				var inner_frame = preload("res://RetroWindowsGUI/StyleBox_Inner_Frame.tres")
+				input.add_theme_font_override("font", font_bold)
+				input.add_theme_font_size_override("font_size", 12)
+				input.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+				input.add_theme_color_override("font_placeholder_color", Color(0.4, 0.4, 0.4, 1))
+				input.add_theme_color_override("caret_color", Color(0, 0, 0, 1))
+				input.add_theme_stylebox_override("normal", inner_frame)
+				input.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 
 			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 			if submit:
@@ -134,6 +143,20 @@ func _ready():
 				submit.position = Vector2(310, 155)
 				submit.size = Vector2(50, 34)
 				submit.text = ">"
+				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
+				var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+				var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+				var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+				submit.add_theme_font_override("font", font_bold)
+				submit.add_theme_font_size_override("font_size", 14)
+				submit.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+				submit.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
+				submit.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+				submit.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
+				submit.add_theme_stylebox_override("normal", btn_normal)
+				submit.add_theme_stylebox_override("hover", btn_hover)
+				submit.add_theme_stylebox_override("pressed", btn_pressed)
+				submit.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 
 		# Compact right side: Model (Database Specs)
 		var model_node = inspector.get_node_or_null("Model") as Control
@@ -327,6 +350,10 @@ func spawn_next_robot():
 		print("Error: No robots found in the 'robots' array.")
 		
 func pick_next_robot() -> RobotData:
+	if day_manager.current_day == 1 and day_manager.processed_today == 2:
+		current_robot = RobotFactory.create_walter_robot()
+		return current_robot
+
 	if robots.is_empty():
 		current_robot = null
 		return null
@@ -484,7 +511,7 @@ func _on_good_button_pressed() -> void:
 	is_processing_choice = true
 	print("Button Pressed: GOOD (Pass)")
 	if current_robot:
-		if current_robot.name == "Walter" and day_manager.current_day == 1:
+		if (current_robot.name == "Walter" or current_robot.model == "H.U.G.O") and day_manager.current_day == 1:
 			trigger_walter_escape()
 			return
 		day_manager.process_robot(current_robot, true)
@@ -500,7 +527,7 @@ func _on_bad_button_pressed() -> void:
 	is_processing_choice = true
 	print("Button Pressed: BAD (Reject)")
 	if current_robot:
-		if current_robot.name == "Walter" and day_manager.current_day == 1:
+		if (current_robot.name == "Walter" or current_robot.model == "H.U.G.O") and day_manager.current_day == 1:
 			trigger_walter_escape()
 			return
 		day_manager.process_robot(current_robot, false)
@@ -532,6 +559,7 @@ func submit_question_text(text: String) -> void:
 	var cleaned_text := text.strip_edges()
 
 	if cleaned_text.is_empty():
+		refocus_question_input()
 		return
 
 	question_input.clear()
@@ -541,9 +569,22 @@ func submit_question_text(text: String) -> void:
 	if robot_reply.is_empty():
 		chat_manager.add_message(cleaned_text, "You")
 		chat_manager.add_message("QUERY NOT RECOGNIZED.", "Terminal")
+		refocus_question_input()
 		return
 
 	handle_chat_choice(cleaned_text, robot_reply)
+	refocus_question_input()
+
+func refocus_question_input() -> void:
+	if question_input == null or not is_inside_tree():
+		return
+	question_input.grab_focus()
+	question_input.caret_column = question_input.text.length()
+	if is_inside_tree() and get_tree():
+		await get_tree().create_timer(0.12).timeout
+	if question_input and is_inside_tree():
+		question_input.grab_focus()
+		question_input.caret_column = question_input.text.length()
 	
 func _process(_delta):
 	var crt = get_node_or_null("CRTOverlay")
