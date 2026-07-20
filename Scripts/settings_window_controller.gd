@@ -88,10 +88,10 @@ func _ready():
 			mat.shader = crt_shader
 			mat.set_shader_parameter("scanline_count", 320.0)
 			mat.set_shader_parameter("scanline_intensity", 0.08)
-			mat.set_shader_parameter("curvature", 0.025)
+			mat.set_shader_parameter("curvature", 0.0)
 			mat.set_shader_parameter("vignette_intensity", 0.08)
-			mat.set_shader_parameter("grr_intensity", 0.03)
-			mat.set_shader_parameter("aberration", 0.001)
+			mat.set_shader_parameter("grr_intensity", 0.0)
+			mat.set_shader_parameter("aberration", 0.0)
 			crt.material = mat
 			crt.z_index = 20
 			

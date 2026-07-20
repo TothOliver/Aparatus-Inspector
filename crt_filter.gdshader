@@ -4,10 +4,10 @@ uniform sampler2D screen_texture : hint_screen_texture, filter_nearest;
 
 uniform float scanline_count : hint_range(0.0, 1000.0) = 400.0;
 uniform float scanline_intensity : hint_range(0.0, 1.0) = 0.08;
-uniform float curvature : hint_range(0.0, 1.0) = 0.025;
+uniform float curvature : hint_range(0.0, 1.0) = 0.0;
 uniform float vignette_intensity : hint_range(0.0, 2.0) = 0.08;
-uniform float grr_intensity : hint_range(0.0, 1.0) = 0.03;
-uniform float aberration : hint_range(0.0, 0.1) = 0.001;
+uniform float grr_intensity : hint_range(0.0, 1.0) = 0.0;
+uniform float aberration : hint_range(0.0, 0.1) = 0.0;
 
 // Distortion function for curvature
 vec2 curve(vec2 uv) {

@@ -81,24 +81,24 @@ func _ready():
 		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
 		if chat_manager_node:
 			chat_manager_node.position.y = 45
-			chat_manager_node.size = Vector2(385, 380) # H=380 instead of 460
+			chat_manager_node.size = Vector2(375, 380) # H=380 instead of 460
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
 		if option_node:
 			option_node.position.y = 440 # starts immediately after ChatManager
-			option_node.size = Vector2(385, 205) # H=205 instead of 235
+			option_node.size = Vector2(375, 205) # H=205 instead of 235
 			
 			var btn1 = option_node.get_node_or_null("Button1") as Button
 			if btn1:
 				btn1.position = Vector2(15, 20)
-				btn1.size = Vector2(355, 75)
+				btn1.size = Vector2(345, 75)
 				btn1.anchor_right = 1.0
 				btn1.offset_right = -15
 				
 			var btn2 = option_node.get_node_or_null("Button2") as Button
 			if btn2:
 				btn2.position = Vector2(15, 110)
-				btn2.size = Vector2(355, 75)
+				btn2.size = Vector2(345, 75)
 				btn2.anchor_right = 1.0
 				btn2.offset_right = -15
 

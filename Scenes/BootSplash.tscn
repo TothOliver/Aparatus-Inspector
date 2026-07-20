@@ -8,10 +8,10 @@
 shader = ExtResource("3_shader")
 shader_parameter/scanline_count = 320.0
 shader_parameter/scanline_intensity = 0.08
-shader_parameter/curvature = 0.025
+shader_parameter/curvature = 0.0
 shader_parameter/vignette_intensity = 0.08
-shader_parameter/grr_intensity = 0.03
-shader_parameter/aberration = 0.001
+shader_parameter/grr_intensity = 0.0
+shader_parameter/aberration = 0.0
 
 [node name="BootSplash" type="Control"]
 layout_mode = 3
