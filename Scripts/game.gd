@@ -39,60 +39,66 @@ const COMMON_BUTTON_1_ID := "purpose"
 const COMMON_BUTTON_2_ID := "humans"
 
 func _ready():
-	# Resize and reposition ApparatusInspectorWindow to be smaller (920x660 instead of 1060x800) and scalable
+	# Resize and reposition ApparatusInspectorWindow to fit at smallest size (850x620) and scale cleanly
 	var inspector = get_node_or_null("ApparatusInspectorWindow") as NinePatchRect
 	if inspector:
 		inspector.custom_minimum_size = Vector2(850, 620)
-		inspector.size = Vector2(920, 660)
+		inspector.size = Vector2(850, 620)
 		inspector.position = Vector2(200, 50)
 		
 		var title_bar_node = inspector.get_node_or_null("TitleBar") as Control
 		if title_bar_node:
-			title_bar_node.size.x = 908
+			title_bar_node.size.x = 838
 			var close_btn = title_bar_node.get_node_or_null("CloseButton") as Button
 			if close_btn:
-				close_btn.position.x = 883
+				close_btn.position.x = 813
 		
-		# Compact left side: Picture stays Y=45, H=280.
-		# AcceptTerminate panel starts at Y=335, H=310.
+		# Left side: Picture & AcceptTerminate (Width = 230)
+		var pic = inspector.get_node_or_null("Picture") as Control
+		if pic:
+			pic.position = Vector2(15, 45)
+			pic.size = Vector2(230, 270)
+			var diag_lbl = pic.get_node_or_null("DiagLabel") as Label
+			if diag_lbl:
+				diag_lbl.position = Vector2(10, 244)
+
 		var accept_term = inspector.get_node_or_null("AcceptTerminate") as Control
 		if accept_term:
-			accept_term.position.y = 335
-			accept_term.size = Vector2(250, 310)
+			accept_term.position = Vector2(15, 335)
+			accept_term.size = Vector2(230, 270)
 			
 			var app_info = accept_term.get_node_or_null("ApproveInfo") as Label
 			if app_info:
 				app_info.text = "APPROVE:\nPass to grid service."
-				app_info.position = Vector2(15, 40)
-				app_info.size = Vector2(220, 36)
+				app_info.position = Vector2(12, 18)
+				app_info.size = Vector2(206, 34)
 				
 			var good_btn = accept_term.get_node_or_null("ButtonPanel/GoodButton") as Button
 			if good_btn:
-				good_btn.position = Vector2(15, 88)
-				good_btn.size = Vector2(220, 50)
+				good_btn.position = Vector2(10, 72)
+				good_btn.size = Vector2(210, 46)
 				
 			var ext_info = accept_term.get_node_or_null("ExterminateInfo") as Label
 			if ext_info:
 				ext_info.text = "EXTERMINATE:\nFlag for disposal."
-				ext_info.position = Vector2(15, 167)
-				ext_info.size = Vector2(220, 36)
+				ext_info.position = Vector2(12, 134)
+				ext_info.size = Vector2(206, 34)
 				
 			var bad_btn = accept_term.get_node_or_null("ButtonPanel/BadButton") as Button
 			if bad_btn:
-				bad_btn.position = Vector2(15, 217)
-				bad_btn.size = Vector2(220, 50)
+				bad_btn.position = Vector2(10, 188)
+				bad_btn.size = Vector2(210, 46)
 
-		# Compact middle side: ChatManager and Option
+		# Middle side: ChatManager and Option (Width = 330)
 		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
 		if chat_manager_node:
-			chat_manager_node.position.y = 45
-			chat_manager_node.size = Vector2(375, 380) # H=380 instead of 460
+			chat_manager_node.position = Vector2(255, 45)
+			chat_manager_node.size = Vector2(330, 380)
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
-		
 		if option_node:
-			option_node.position = Vector2(277, 440)
-			option_node.size = Vector2(375, 205)
+			option_node.position = Vector2(255, 435)
+			option_node.size = Vector2(330, 170)
 
 			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
 			if ans_panel:
@@ -101,20 +107,20 @@ func _ready():
 
 			var label = option_node.get_node_or_null("OptionGroupLabel") as Label
 			if label:
-				label.position = Vector2(20, -8)
+				label.position = Vector2(15, -8)
 				label.size = Vector2(160, 16)
 
 			var btn1 = option_node.get_node_or_null("Button1") as Button
 			if btn1:
 				btn1.visible = true
-				btn1.position = Vector2(15, 22)
-				btn1.size = Vector2(345, 55)
+				btn1.position = Vector2(10, 18)
+				btn1.size = Vector2(310, 44)
 
 			var btn2 = option_node.get_node_or_null("Button2") as Button
 			if btn2:
 				btn2.visible = true
-				btn2.position = Vector2(15, 87)
-				btn2.size = Vector2(345, 55)
+				btn2.position = Vector2(10, 67)
+				btn2.size = Vector2(310, 44)
 
 			var btn3 = option_node.get_node_or_null("Button3") as Button
 			if btn3:
@@ -124,8 +130,8 @@ func _ready():
 			var input = option_node.get_node_or_null("QuestionInput") as LineEdit
 			if input:
 				input.visible = true
-				input.position = Vector2(15, 155)
-				input.size = Vector2(285, 34)
+				input.position = Vector2(10, 118)
+				input.size = Vector2(255, 34)
 				input.placeholder_text = "Type question..."
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
 				var inner_frame = preload("res://RetroWindowsGUI/StyleBox_Inner_Frame.tres")
@@ -140,8 +146,8 @@ func _ready():
 			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 			if submit:
 				submit.visible = true
-				submit.position = Vector2(310, 155)
-				submit.size = Vector2(50, 34)
+				submit.position = Vector2(275, 118)
+				submit.size = Vector2(45, 34)
 				submit.text = ">"
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
 				var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
@@ -158,37 +164,43 @@ func _ready():
 				submit.add_theme_stylebox_override("pressed", btn_pressed)
 				submit.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 
-		# Compact right side: Model (Database Specs)
+			if not option_node.resized.is_connected(_on_option_resized):
+				option_node.resized.connect(_on_option_resized)
+
+		# Right side: Model (Database Specs) (Width = 240)
 		var model_node = inspector.get_node_or_null("Model") as Control
 		if model_node:
-			model_node.position = Vector2(664, 45) # X=664, aligned to right
-			model_node.size = Vector2(244, 600)
+			model_node.position = Vector2(595, 45)
+			model_node.size = Vector2(240, 560)
 			
-			# Compact the fields inside Model
+			# Compact and space fields cleanly inside Model to prevent text overlap
 			var fields = {
 				"NameFieldLabel": 15,
 				"NamePanel": 31,
-				"ModelFieldLabel": 70,
-				"ModelPanel": 86,
-				"StatusFieldLabel": 125,
-				"StatusPanel": 141,
-				"ManuFieldLabel": 180,
-				"ManuPanel": 196,
-				"QuotaFieldLabel": 235,
-				"QuotaPanel": 251,
-				"DiagSpecsTitle": 310,
-				"DiagSpecsDetails": 330
+				"ModelFieldLabel": 65,
+				"ModelPanel": 81,
+				"StatusFieldLabel": 115,
+				"StatusPanel": 131,
+				"ManuFieldLabel": 165,
+				"ManuPanel": 181,
+				"QuotaFieldLabel": 215,
+				"QuotaPanel": 233,
+				"DiagSpecsTitle": 275,
+				"DiagSpecsDetails": 295
 			}
 			
 			for f_name in fields.keys():
 				var f_node = model_node.get_node_or_null(f_name) as Control
 				if f_node:
 					f_node.position.y = fields[f_name]
-					if f_name == "DiagSpecsDetails":
+					f_node.position.x = 10
+					if f_name.ends_with("Panel"):
+						f_node.size.x = 220
+					elif f_name == "DiagSpecsDetails":
 						var lbl = f_node as Label
 						if lbl:
 							lbl.text = "INTEGRITY: NOMINAL\nEMPATHY: 98.4%\nTEMP: 37.4C (STABLE)\nOEC LINK: ONLINE\nLOCK: SECURE\n\n-----------------\nAPPARATUS OS v4.98\nSYSTEM READY."
-							lbl.size = Vector2(220, 180)
+							lbl.size = Vector2(220, 160)
 						
 		# Now re-register all child margins so dragging scales properly
 		if inspector.has_method("register_child_margins"):
@@ -585,6 +597,27 @@ func refocus_question_input() -> void:
 	if question_input and is_inside_tree():
 		question_input.grab_focus()
 		question_input.caret_column = question_input.text.length()
+
+func _on_option_resized() -> void:
+	var option_node = get_node_or_null("ApparatusInspectorWindow/Option") as Control
+	if not option_node:
+		return
+	var w = option_node.size.x
+	var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
+	if ans_panel:
+		ans_panel.size = option_node.size
+	var btn1 = option_node.get_node_or_null("Button1") as Button
+	if btn1:
+		btn1.size.x = max(50, w - 20)
+	var btn2 = option_node.get_node_or_null("Button2") as Button
+	if btn2:
+		btn2.size.x = max(50, w - 20)
+	var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
+	if submit:
+		submit.position.x = w - 10 - submit.size.x
+	var input = option_node.get_node_or_null("QuestionInput") as LineEdit
+	if input:
+		input.size.x = max(50, w - 20 - 10 - (submit.size.x if submit else 45))
 	
 func _process(_delta):
 	var crt = get_node_or_null("CRTOverlay")
