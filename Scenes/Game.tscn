@@ -2717,7 +2717,6 @@ offset_bottom = 36.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ScribbleHeader")
 
 [node name="Title" type="Label" parent="ScribbleWindow/TitleBar" unique_id=987654322]
-texture_filter = 0
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
@@ -2742,7 +2741,7 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 
 [node name="ScribbleBody" type="Control" parent="ScribbleWindow" unique_id=987654324]
-layout_mode = 0
+anchors_preset = 0
 offset_left = 6.0
 offset_top = 42.0
 offset_right = 194.0
@@ -2767,7 +2766,6 @@ offset_bottom = 210.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_SpeechBubble")
 
 [node name="DialogLabel" type="Label" parent="ScribbleWindow/SpeechBubble" unique_id=987654327]
-texture_filter = 0
 layout_mode = 0
 offset_left = 12.0
 offset_top = 12.0
@@ -2780,7 +2778,6 @@ text = "Welcome Inspector, this is how your computer works."
 autowrap_mode = 2
 
 [node name="NextButton" type="Button" parent="ScribbleWindow/SpeechBubble" unique_id=987654328]
-texture_filter = 0
 layout_mode = 0
 offset_left = 178.0
 offset_top = 142.0
@@ -2799,7 +2796,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "Next"
 
 [node name="CloseBubbleButton" type="Button" parent="ScribbleWindow/SpeechBubble" unique_id=987654329]
-texture_filter = 0
 layout_mode = 0
 offset_left = 242.0
 offset_top = 6.0
@@ -2934,15 +2930,7 @@ mouse_filter = 2
 [connection signal="pressed" from="ApparatusInspectorWindow/TitleBar/CloseButton" to="ApparatusInspectorWindow" method="close"]
 [connection signal="pressed" from="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel/GoodButton" to="." method="_on_good_button_pressed"]
 [connection signal="pressed" from="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel/BadButton" to="." method="_on_bad_button_pressed"]
-[connection signal="button_down" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_button_down"]
-[connection signal="button_up" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_button_up"]
-[connection signal="mouse_entered" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_mouse_exited"]
 [connection signal="pressed" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_chat_button1_pressed"]
-[connection signal="button_down" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_button_down"]
-[connection signal="button_up" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_button_up"]
-[connection signal="mouse_entered" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_mouse_exited"]
 [connection signal="pressed" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_chat_button2_pressed"]
 [connection signal="pressed" from="NotepadWindow/TitleBar/CloseButton" to="NotepadWindow" method="close"]
 [connection signal="pressed" from="TerminalWindow/TitleBar/CloseButton" to="TerminalWindow" method="close"]

@@ -34,10 +34,7 @@ var is_waiting_for_replay = false
 var final_message = false
 var is_processing_choice = false
 var was_wifi_on: bool = true
-var robots_picked_count: int = 0
 
-const QUESTIONS_PER_PAGE := 2
-var question_page_start := 0
 const COMMON_BUTTON_1_ID := "purpose"
 const COMMON_BUTTON_2_ID := "humans"
 
@@ -92,24 +89,51 @@ func _ready():
 			chat_manager_node.size = Vector2(375, 380) # H=380 instead of 460
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
+		
 		if option_node:
+			option_node.position = Vector2(277, 440)
+			option_node.size = Vector2(375, 205)
 
-			option_node.position.y = 440 # starts immediately after ChatManager
-			option_node.size = Vector2(375, 205) # H=205 instead of 235
-			
+			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
+			if ans_panel:
+				ans_panel.position = Vector2.ZERO
+				ans_panel.size = option_node.size
+
+			var label = option_node.get_node_or_null("OptionGroupLabel") as Label
+			if label:
+				label.position = Vector2(20, -8)
+				label.size = Vector2(160, 16)
+
 			var btn1 = option_node.get_node_or_null("Button1") as Button
 			if btn1:
-				btn1.position = Vector2(15, 20)
-				btn1.size = Vector2(345, 75)
-				btn1.anchor_right = 1.0
-				btn1.offset_right = -15
-				
+				btn1.visible = true
+				btn1.position = Vector2(15, 22)
+				btn1.size = Vector2(345, 55)
+
 			var btn2 = option_node.get_node_or_null("Button2") as Button
 			if btn2:
-				btn2.position = Vector2(15, 110)
-				btn2.size = Vector2(345, 75)
-				btn2.anchor_right = 1.0
-				btn2.offset_right = -15
+				btn2.visible = true
+				btn2.position = Vector2(15, 87)
+				btn2.size = Vector2(345, 55)
+
+			var btn3 = option_node.get_node_or_null("Button3") as Button
+			if btn3:
+				btn3.visible = false
+				btn3.disabled = true
+
+			var input = option_node.get_node_or_null("QuestionInput") as LineEdit
+			if input:
+				input.visible = true
+				input.position = Vector2(15, 155)
+				input.size = Vector2(285, 34)
+				input.placeholder_text = "Type question..."
+
+			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
+			if submit:
+				submit.visible = true
+				submit.position = Vector2(310, 155)
+				submit.size = Vector2(50, 34)
+				submit.text = ">"
 
 		# Compact right side: Model (Database Specs)
 		var model_node = inspector.get_node_or_null("Model") as Control
@@ -154,6 +178,14 @@ func _ready():
 
 	robots = RobotFactory.create_robots()
 	was_wifi_on = GameStats.wifi_on
+	var input_submit_callable := Callable(self, "_on_question_input_submitted")
+	if question_input and not question_input.text_submitted.is_connected(input_submit_callable):
+		question_input.text_submitted.connect(input_submit_callable)
+
+	var submit_button_callable := Callable(self, "_on_submit_question_button_pressed")
+	if submit_question_button and not submit_question_button.pressed.is_connected(submit_button_callable):
+		submit_question_button.pressed.connect(submit_button_callable)
+	
 	spawn_next_robot()
 	health_bar.value = GameStats.player_health
 	sanity_bar.value = GameStats.player_sanity
@@ -264,7 +296,6 @@ func spawn_next_robot():
 		robot_spawned.emit(current_robot)
 		chat_manager.add_message(current_robot.get_greeting(), current_robot.name)
 		
-		question_page_start = 0
 		refresh_question_buttons()
 		
 		# Only update texture if one exists
@@ -293,38 +324,15 @@ func spawn_next_robot():
 	else:
 		print("Error: No robots found in the 'robots' array.")
 		
-func pick_next_robot():
-	if robots.size() <= 1:
-		return current_robot
-		
-	var current_day = day_manager.current_day
-	var index_to_pick = -1
-	
-	if robots.size() > 9:
-		if current_day == 1:
-			if robots_picked_count == 2:
-				index_to_pick = 3 # Walter (H.U.G.O) always last on Day 1
-		elif current_day == 2:
-			match robots_picked_count:
-				2: index_to_pick = 2 # Larry (S80) - Essential bribe clue
-				# All other slots on Day 2 are randomly generated
-		elif current_day == 3:
-			match robots_picked_count:
-				3: index_to_pick = 3 # Walter clone - Essential key clue
-				# All other slots on Day 3 are randomly generated
-				
-	robots_picked_count += 1
-	
-	if index_to_pick != -1 and index_to_pick < robots.size():
-		current_robot = robots[index_to_pick]
-		return current_robot
-		
-	# Fallback to random pick from procedural pool (indices 10 onwards)
-	var procedural_robots = robots.slice(10) if robots.size() > 10 else robots
-	var next_robot = procedural_robots.pick_random()
-	while next_robot == current_robot:
-		next_robot = procedural_robots.pick_random()
-	current_robot = next_robot
+func pick_next_robot() -> RobotData:
+	if robots.is_empty():
+		current_robot = null
+		return null
+
+	var index := randi_range(0, robots.size() - 1)
+	current_robot = robots[index]
+	robots.remove_at(index)
+
 	return current_robot
 	
 func trigger_walter_escape():
@@ -381,57 +389,6 @@ func handle_last_terminal_chat():
 	if final_message == false:
 		chat_manager.add_message("Inspectation complete. Please issue your final judgment for this AI.", "Terminal: ")
 		final_message = true
-
-func _on_good_button_button_down() -> void:
-	pass
-
-func _on_good_button_button_up() -> void:
-	pass
-
-func _on_good_button_mouse_entered() -> void:
-	pass
-
-func _on_good_button_mouse_exited() -> void:
-	pass
-
-func _on_bad_button_button_down() -> void:
-	pass
-
-func _on_bad_button_button_up() -> void:
-	pass
-
-func _on_bad_button_mouse_entered() -> void:
-	pass
-
-func _on_bad_button_mouse_exited() -> void:
-	pass
-
-func _on_button_1_button_down() -> void:
-	pass
-
-func _on_button_1_button_up() -> void:
-	ask_common_question(COMMON_BUTTON_1_ID)
-
-func _on_button_2_button_up() -> void:
-	ask_common_question(COMMON_BUTTON_2_ID)	
-
-func _on_button_1_mouse_entered() -> void:
-	pass
-
-func _on_button_1_mouse_exited() -> void:
-	pass
-
-func _on_button_2_button_down() -> void:
-	pass
-
-func _on_button_2_mouse_entered() -> void:
-	pass
-
-func _on_button_2_mouse_exited() -> void:
-	pass
-
-func _on_quit_button_button_down() -> void:
-	pass
 
 func _on_quit_button_button_up() -> void:
 	var parent_size = size if size != Vector2.ZERO else Vector2(1280, 1024)
@@ -519,12 +476,6 @@ func _on_quit_button_button_up() -> void:
 	)
 	dialog.add_child(no_btn)
 
-func _on_quit_button_mouse_entered() -> void:
-	pass
-
-func _on_quit_button_mouse_exited() -> void:
-	pass
-
 func _on_good_button_pressed() -> void:
 	if is_processing_choice:
 		return
@@ -568,62 +519,30 @@ func _on_question_input_submitted(text: String) -> void:
 	
 func _on_submit_question_button_pressed() -> void:
 	submit_question_text(question_input.text)
-	
-func fill_question_input(question_index: int) -> void:
-	if current_robot == null:
-		return
-		
-	if question_index < 0 or question_index >= current_robot.humanChat.size():
-		return
-	
-	question_input.text = current_robot.humanChat[question_index]
-	question_input.grab_focus()
-	question_input.caret_column = question_input.text.length()
 
 func submit_question_text(text: String) -> void:
 	if current_robot == null:
 		return
-	
+
 	if is_waiting_for_replay:
 		return
-		
+
 	var cleaned_text := text.strip_edges()
-	
+
 	if cleaned_text.is_empty():
 		return
-		
-	var question_index := find_exact_question_match(cleaned_text)
-	
-	if question_index == -1:
-		chat_manager.add_message(cleaned_text, "You")
-		chat_manager.add_message("QUERY NOT REGOGNIZED.", "Terminal") #robot answer?
-		question_input.clear()
-		return
-	
+
 	question_input.clear()
-	ask_question_at_index(question_index)
 
-func find_exact_question_match(text: String) -> int:
-	if current_robot == null:
-		return -1
-	
-	var normalized_input := normalize_question_text(text)
-	for i in range(current_robot.humanChat.size()):
-		var normalized_question := normalize_question_text(current_robot.humanChat[i])
-		
-		if normalized_input == normalized_question:
-			return i
-	return -1
-	
-func normalize_question_text(text: String) -> String:
-	var result := text.to_lower().strip_edges()
-	
-	var chars_to_remove := [".", ",", "?", "!", ":", ";", "'", "\""]
-	for c in chars_to_remove:
-		result = result.replace(c, "")
-	
-	return result
+	var robot_reply := current_robot.get_response_for_typed_question(cleaned_text)
 
+	if robot_reply.is_empty():
+		chat_manager.add_message(cleaned_text, "You")
+		chat_manager.add_message("QUERY NOT RECOGNIZED.", "Terminal")
+		return
+
+	handle_chat_choice(cleaned_text, robot_reply)
+	
 func _process(_delta):
 	var crt = get_node_or_null("CRTOverlay")
 	if crt:
@@ -641,8 +560,14 @@ func _process(_delta):
 func clear_question_buttons() -> void:
 	chat_button1.text = ""
 	chat_button2.text = ""
+
 	chat_button1.disabled = true
 	chat_button2.disabled = true
+
+	if chat_button3:
+		chat_button3.text = ""
+		chat_button3.disabled = true
+		chat_button3.visible = false
 
 func refresh_question_buttons() -> void:
 	if current_robot == null:
@@ -662,26 +587,6 @@ func set_question_button(button: Button, question_id: String) -> void:
 	button.text = question_text	
 	button.disabled = question_text.is_empty() or not current_robot.has_common_response(question_id)
 
-func ask_question_at_index(question_index: int) -> void:
-	if current_robot == null:
-		return
-
-	if is_waiting_for_replay:
-		return
-
-	if question_index < 0 or question_index >= current_robot.humanChat.size():
-		return
-
-	var player_text := current_robot.humanChat[question_index]
-	var robot_reply_index := question_index + 1
-
-	if robot_reply_index < 0 or robot_reply_index >= current_robot.robotChat.size():
-		push_warning("Missing robot reply for question index: " + str(question_index))
-		return
-
-	var robot_reply := current_robot.robotChat[robot_reply_index]
-	handle_chat_choice(player_text, robot_reply)
-	
 func ask_common_question(question_id: String) -> void:
 	if current_robot == null:
 		return
