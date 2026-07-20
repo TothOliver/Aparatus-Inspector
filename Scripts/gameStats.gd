@@ -25,7 +25,15 @@ var read_emails: Dictionary = {1: false, 2: false, 3: false}
 var mouse_sensitivity: float = 0.15
 var crt_effect_enabled: bool = true
 var master_volume: float = 80.0
+var music_volume: float = 80.0
+var vfx_volume: float = 80.0
+var ambient_volume: float = 80.0
 var fullscreen_enabled: bool = true
+var display_mode: int = 2 # 0 = Windowed, 1 = Borderless, 2 = Fullscreen
+var vsync_enabled: bool = true
+var fps_limit: int = 0 # 0 = Unlimited
+var resolution_width: int = 1920
+var resolution_height: int = 1080
 
 const SAVE_PATH = "user://settings.cfg"
 const SAVE_GAME_PATH = "user://savegame.cfg"
@@ -49,12 +57,30 @@ var target_scene_path: String = ""
 var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
 
+func ensure_audio_buses():
+	var buses = ["Music", "VFX", "Ambient"]
+	for bus in buses:
+		if AudioServer.get_bus_index(bus) == -1:
+			var idx = AudioServer.bus_count
+			AudioServer.add_bus(idx)
+			AudioServer.set_bus_name(idx, bus)
+			AudioServer.set_bus_send(idx, "Master")
+
 func save_settings():
 	var config = ConfigFile.new()
+	config.set_value("Settings", "primary_monitor_initialized", true)
 	config.set_value("Settings", "mouse_sensitivity", mouse_sensitivity)
 	config.set_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 	config.set_value("Settings", "master_volume", master_volume)
+	config.set_value("Settings", "music_volume", music_volume)
+	config.set_value("Settings", "vfx_volume", vfx_volume)
+	config.set_value("Settings", "ambient_volume", ambient_volume)
 	config.set_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+	config.set_value("Settings", "display_mode", display_mode)
+	config.set_value("Settings", "vsync_enabled", vsync_enabled)
+	config.set_value("Settings", "fps_limit", fps_limit)
+	config.set_value("Settings", "resolution_width", resolution_width)
+	config.set_value("Settings", "resolution_height", resolution_height)
 	
 	for action in custom_keybinds.keys():
 		config.set_value("Keybinds", action, custom_keybinds[action])
@@ -63,38 +89,115 @@ func save_settings():
 	if err != OK:
 		print("Error saving settings: ", err)
 
+func get_primary_monitor_resolution() -> Vector2i:
+	var primary_screen = DisplayServer.get_primary_screen()
+	var size = DisplayServer.screen_get_size(primary_screen)
+	if size.x > 0 and size.y > 0:
+		return size
+	return Vector2i(1920, 1080)
+
+func get_primary_monitor_refresh_rate() -> int:
+	var primary_screen = DisplayServer.get_primary_screen()
+	var rate = DisplayServer.screen_get_refresh_rate(primary_screen)
+	if rate > 0.0:
+		return int(round(rate))
+	return 60
+
 func load_settings():
+	ensure_audio_buses()
+	var primary_res = get_primary_monitor_resolution()
+	var primary_refresh = get_primary_monitor_refresh_rate()
+	
 	var config = ConfigFile.new()
 	var err = config.load(SAVE_PATH)
-	if err == OK:
+	var is_first_run = not config.get_value("Settings", "primary_monitor_initialized", false)
+	
+	if err == OK and not is_first_run:
 		mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
 		crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 		master_volume = config.get_value("Settings", "master_volume", master_volume)
+		music_volume = config.get_value("Settings", "music_volume", music_volume)
+		vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
+		ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
 		fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+		display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
+		vsync_enabled = config.get_value("Settings", "vsync_enabled", vsync_enabled)
+		fps_limit = config.get_value("Settings", "fps_limit", primary_refresh)
+		resolution_width = config.get_value("Settings", "resolution_width", primary_res.x)
+		resolution_height = config.get_value("Settings", "resolution_height", primary_res.y)
 		
 		if config.has_section("Keybinds"):
 			for action in config.get_section_keys("Keybinds"):
 				custom_keybinds[action] = config.get_value("Keybinds", action)
+	else:
+		if err == OK:
+			mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+			crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+			master_volume = config.get_value("Settings", "master_volume", master_volume)
+			music_volume = config.get_value("Settings", "music_volume", music_volume)
+			vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
+			ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
+			fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
+			display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
+			vsync_enabled = config.get_value("Settings", "vsync_enabled", vsync_enabled)
+			if config.has_section("Keybinds"):
+				for action in config.get_section_keys("Keybinds"):
+					custom_keybinds[action] = config.get_value("Keybinds", action)
+
+		resolution_width = primary_res.x
+		resolution_height = primary_res.y
+		fps_limit = primary_refresh
+		save_settings()
 	
 	apply_all_settings()
 
 func apply_all_settings():
-	if fullscreen_enabled:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	else:
+	# Display mode & resolution
+	if display_mode == 0: # Windowed
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_size(Vector2i(resolution_width, resolution_height))
+		var screen_size = DisplayServer.screen_get_size()
+		var pos = (screen_size - Vector2i(resolution_width, resolution_height)) / 2
+		DisplayServer.window_set_position(pos)
+		fullscreen_enabled = false
+	elif display_mode == 1: # Borderless
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		fullscreen_enabled = true
+	else: # Fullscreen (Exclusive)
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		fullscreen_enabled = true
+
+	# VSync
+	if vsync_enabled:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+	# FPS Limit
+	Engine.max_fps = fps_limit
+
+	# Audio Volumes
+	apply_bus_volume("Master", master_volume)
+	apply_bus_volume("Music", music_volume)
+	apply_bus_volume("VFX", vfx_volume)
+	apply_bus_volume("Ambient", ambient_volume)
 		
-	var bus_idx = AudioServer.get_bus_index("Master")
-	if master_volume <= 0.0:
+	setup_input_map()
+
+func apply_bus_volume(bus_name: String, value: float):
+	var bus_idx = AudioServer.get_bus_index(bus_name)
+	if bus_idx == -1:
+		return
+	if value <= 0.0:
 		AudioServer.set_bus_mute(bus_idx, true)
 	else:
 		AudioServer.set_bus_mute(bus_idx, false)
-		var db = -40.0 * (1.0 - (master_volume / 100.0))
-		if master_volume <= 5.0:
+		var db = -40.0 * (1.0 - (value / 100.0))
+		if value <= 5.0:
 			db = -80.0
 		AudioServer.set_bus_volume_db(bus_idx, db)
-		
-	setup_input_map()
 
 func setup_input_map():
 	for action in DEFAULT_BINDS.keys():

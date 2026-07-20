@@ -1,10 +1,22 @@
 extends Control
 
-@onready var crt_checkbox = $GeneralContainer/CRTCheckbox
-@onready var volume_slider = $GeneralContainer/VolumeSlider
-@onready var volume_value_label = $GeneralContainer/VolumeValueLabel
-@onready var sensitivity_slider = $GeneralContainer/SensitivitySlider
-@onready var sensitivity_value_label = $GeneralContainer/SensitivityValueLabel
+@onready var display_mode_option = get_node_or_null("GeneralContainer/DisplayModeOption")
+@onready var resolution_option = get_node_or_null("GeneralContainer/ResolutionOption")
+@onready var fps_option = get_node_or_null("GeneralContainer/FPSOption")
+@onready var vsync_checkbox = get_node_or_null("GeneralContainer/VSyncCheckbox")
+@onready var crt_checkbox = get_node_or_null("GeneralContainer/CRTCheckbox")
+
+@onready var volume_slider = get_node_or_null("GeneralContainer/VolumeSlider")
+@onready var volume_value_label = get_node_or_null("GeneralContainer/VolumeValueLabel")
+@onready var music_volume_slider = get_node_or_null("GeneralContainer/MusicVolumeSlider")
+@onready var music_volume_value_label = get_node_or_null("GeneralContainer/MusicVolumeValueLabel")
+@onready var vfx_volume_slider = get_node_or_null("GeneralContainer/VfxVolumeSlider")
+@onready var vfx_volume_value_label = get_node_or_null("GeneralContainer/VfxVolumeValueLabel")
+@onready var ambient_volume_slider = get_node_or_null("GeneralContainer/AmbientVolumeSlider")
+@onready var ambient_volume_value_label = get_node_or_null("GeneralContainer/AmbientVolumeValueLabel")
+
+@onready var sensitivity_slider = get_node_or_null("GeneralContainer/SensitivitySlider")
+@onready var sensitivity_value_label = get_node_or_null("GeneralContainer/SensitivityValueLabel")
 @onready var quit_button = get_node_or_null("QuitButton")
 
 @onready var general_tab_btn = $GeneralTabBtn
@@ -35,6 +47,19 @@ const ACTION_LABELS = {
 	"interact": "Interact",
 	"toggle_flashlight": "Flashlight"
 }
+
+var available_resolutions: Array[Vector2i] = []
+var available_fps_limits: Array[int] = []
+
+const RESOLUTIONS = [
+	Vector2i(1280, 720),
+	Vector2i(1600, 900),
+	Vector2i(1920, 1080),
+	Vector2i(2560, 1440),
+	Vector2i(3840, 2160)
+]
+
+const FPS_LIMITS = [30, 60, 144, 165, 240, 0]
 
 func _ready():
 	# If parent is PauseWindow, dynamically add a CRTOverlay covering the full PauseMenu.
@@ -85,9 +110,10 @@ func _ready():
 	# Dynamic resize and positioning of parent settings window
 	var parent = get_parent()
 	if parent and parent is Control:
-		parent.size = Vector2(450, 490)
+		parent.size = Vector2(450, 790)
 		var viewport_size = get_viewport_rect().size
 		parent.position.x = (viewport_size.x - 450) / 2.0
+		parent.position.y = max(10.0, (viewport_size.y - 790) / 2.0)
 		
 		# Update TitleBar
 		var title_bar = parent.get_node_or_null("TitleBar")
@@ -98,15 +124,15 @@ func _ready():
 				close_button.position.x = title_bar.size.x - 26
 
 	# Resize self (SettingsBody) to fill parent
-	self.size = Vector2(426, 436)
+	self.size = Vector2(426, 750)
 	if "offset_right" in self:
 		self.offset_right = 438
 	if "offset_bottom" in self:
-		self.offset_bottom = 478
+		self.offset_bottom = 780
 
 	# Position QuitButton down if it exists
 	if quit_button:
-		quit_button.position = Vector2(153, 400)
+		quit_button.position = Vector2(153, 700)
 
 	# Add binding rows to Controls Group
 	var idx = 0
@@ -253,20 +279,104 @@ func update_ui_from_stats():
 	_update_tab_visuals()
 	_update_keybind_buttons()
 
+	# Apply Windows 98 PopupMenu styling to option buttons
+	style_retro_option_button(display_mode_option)
+	style_retro_option_button(resolution_option)
+	style_retro_option_button(fps_option)
+
+	# Display Mode Option
+	if display_mode_option:
+		if display_mode_option.item_selected.is_connected(_on_display_mode_selected):
+			display_mode_option.item_selected.disconnect(_on_display_mode_selected)
+		display_mode_option.clear()
+		display_mode_option.add_item("Windowed")
+		display_mode_option.add_item("Borderless")
+		display_mode_option.add_item("Fullscreen")
+		display_mode_option.selected = clamp(GameStats.display_mode, 0, 2)
+		display_mode_option.item_selected.connect(_on_display_mode_selected)
+
+	# Resolution Option
+	if resolution_option:
+		if resolution_option.item_selected.is_connected(_on_resolution_selected):
+			resolution_option.item_selected.disconnect(_on_resolution_selected)
+		resolution_option.clear()
+
+		available_resolutions.clear()
+		for res in RESOLUTIONS:
+			available_resolutions.append(res)
+
+		var current_res = Vector2i(GameStats.resolution_width, GameStats.resolution_height)
+		if not (current_res in available_resolutions):
+			available_resolutions.append(current_res)
+			available_resolutions.sort_custom(func(a, b): return (a.x * a.y) < (b.x * b.y))
+
+		var selected_idx = 0
+		for i in range(available_resolutions.size()):
+			var res = available_resolutions[i]
+			resolution_option.add_item("%d x %d" % [res.x, res.y])
+			if res == current_res:
+				selected_idx = i
+		resolution_option.selected = selected_idx
+		resolution_option.item_selected.connect(_on_resolution_selected)
+
+	# FPS Option
+	if fps_option:
+		if fps_option.item_selected.is_connected(_on_fps_selected):
+			fps_option.item_selected.disconnect(_on_fps_selected)
+		fps_option.clear()
+
+		available_fps_limits.clear()
+		for limit in FPS_LIMITS:
+			available_fps_limits.append(limit)
+
+		if not (GameStats.fps_limit in available_fps_limits):
+			available_fps_limits.append(GameStats.fps_limit)
+			var zero_present = 0 in available_fps_limits
+			if zero_present:
+				available_fps_limits.erase(0)
+			available_fps_limits.sort()
+			if zero_present:
+				available_fps_limits.append(0)
+
+		var selected_fps_idx = available_fps_limits.size() - 1
+		for i in range(available_fps_limits.size()):
+			var limit = available_fps_limits[i]
+			if limit == 0:
+				fps_option.add_item("Unlimited")
+			else:
+				fps_option.add_item("%d FPS" % limit)
+			if limit == GameStats.fps_limit:
+				selected_fps_idx = i
+		fps_option.selected = selected_fps_idx
+		fps_option.item_selected.connect(_on_fps_selected)
+
+	# VSync Checkbox
+	if vsync_checkbox:
+		if vsync_checkbox.toggled.is_connected(_on_vsync_toggled):
+			vsync_checkbox.toggled.disconnect(_on_vsync_toggled)
+		vsync_checkbox.button_pressed = GameStats.vsync_enabled
+		vsync_checkbox.toggled.connect(_on_vsync_toggled)
+
+	# CRT Checkbox
 	if crt_checkbox:
 		if crt_checkbox.toggled.is_connected(_on_crt_toggled):
 			crt_checkbox.toggled.disconnect(_on_crt_toggled)
 		crt_checkbox.button_pressed = GameStats.crt_effect_enabled
 		crt_checkbox.toggled.connect(_on_crt_toggled)
-		_on_crt_toggled(GameStats.crt_effect_enabled)
 
-	if volume_slider:
-		if volume_slider.value_changed.is_connected(_on_volume_changed):
-			volume_slider.value_changed.disconnect(_on_volume_changed)
-		volume_slider.value = GameStats.master_volume
-		volume_slider.value_changed.connect(_on_volume_changed)
-		_on_volume_changed(GameStats.master_volume)
+	# Main Volume Slider
+	_setup_volume_slider(volume_slider, volume_value_label, GameStats.master_volume, func(v): _on_volume_changed("Master", v))
+	
+	# Music Volume Slider
+	_setup_volume_slider(music_volume_slider, music_volume_value_label, GameStats.music_volume, func(v): _on_volume_changed("Music", v))
 
+	# VFX Volume Slider
+	_setup_volume_slider(vfx_volume_slider, vfx_volume_value_label, GameStats.vfx_volume, func(v): _on_volume_changed("VFX", v))
+
+	# Ambient Volume Slider
+	_setup_volume_slider(ambient_volume_slider, ambient_volume_value_label, GameStats.ambient_volume, func(v): _on_volume_changed("Ambient", v))
+
+	# Sensitivity Slider
 	if sensitivity_slider:
 		if sensitivity_slider.value_changed.is_connected(_on_sensitivity_changed):
 			sensitivity_slider.value_changed.disconnect(_on_sensitivity_changed)
@@ -275,6 +385,39 @@ func update_ui_from_stats():
 		sensitivity_slider.value_changed.connect(_on_sensitivity_changed)
 		_on_sensitivity_changed(sensitivity_slider.value)
 
+func _setup_volume_slider(slider: HSlider, label: Label, initial_value: float, callback: Callable):
+	if slider:
+		for conn in slider.value_changed.get_connections():
+			slider.value_changed.disconnect(conn.callable)
+		slider.value = initial_value
+		slider.value_changed.connect(callback)
+		if label:
+			label.text = str(int(round(initial_value))) + "%"
+
+func _on_display_mode_selected(index: int):
+	GameStats.display_mode = index
+	GameStats.apply_all_settings()
+	GameStats.save_settings()
+
+func _on_resolution_selected(index: int):
+	if index >= 0 and index < available_resolutions.size():
+		var res = available_resolutions[index]
+		GameStats.resolution_width = res.x
+		GameStats.resolution_height = res.y
+		GameStats.apply_all_settings()
+		GameStats.save_settings()
+
+func _on_fps_selected(index: int):
+	if index >= 0 and index < available_fps_limits.size():
+		GameStats.fps_limit = available_fps_limits[index]
+		GameStats.apply_all_settings()
+		GameStats.save_settings()
+
+func _on_vsync_toggled(toggled_on: bool):
+	GameStats.vsync_enabled = toggled_on
+	GameStats.apply_all_settings()
+	GameStats.save_settings()
+
 func _on_crt_toggled(toggled_on: bool):
 	GameStats.crt_effect_enabled = toggled_on
 	GameStats.save_settings()
@@ -282,25 +425,28 @@ func _on_crt_toggled(toggled_on: bool):
 		for crt in get_tree().get_nodes_in_group("CRTOverlays"):
 			crt.visible = toggled_on
 
-func _on_volume_changed(value: float):
-	GameStats.master_volume = value
+func _on_volume_changed(bus_name: String, value: float):
+	if bus_name == "Master":
+		GameStats.master_volume = value
+		if volume_value_label:
+			volume_value_label.text = str(int(round(value))) + "%"
+	elif bus_name == "Music":
+		GameStats.music_volume = value
+		if music_volume_value_label:
+			music_volume_value_label.text = str(int(round(value))) + "%"
+	elif bus_name == "VFX":
+		GameStats.vfx_volume = value
+		if vfx_volume_value_label:
+			vfx_volume_value_label.text = str(int(round(value))) + "%"
+	elif bus_name == "Ambient":
+		GameStats.ambient_volume = value
+		if ambient_volume_value_label:
+			ambient_volume_value_label.text = str(int(round(value))) + "%"
+			
+	GameStats.apply_bus_volume(bus_name, value)
 	GameStats.save_settings()
-	if volume_value_label:
-		volume_value_label.text = str(int(round(value))) + "%"
-	
-	var bus_idx = AudioServer.get_bus_index("Master")
-	if value <= 0.0:
-		AudioServer.set_bus_mute(bus_idx, true)
-	else:
-		AudioServer.set_bus_mute(bus_idx, false)
-		# Convert 0..100 linear value to decibels (-40 dB to 0 dB range)
-		var db = -40.0 * (1.0 - (value / 100.0))
-		if value <= 5.0:
-			db = -80.0
-		AudioServer.set_bus_volume_db(bus_idx, db)
 
 func _on_sensitivity_changed(value: float):
-	# Map slider 0..100 to sensitivity range 0.02 to 0.5
 	var sens = 0.02 + (value / 100.0) * (0.5 - 0.02)
 	GameStats.mouse_sensitivity = sens
 	GameStats.save_settings()
@@ -410,7 +556,6 @@ func _update_tab_visuals():
 	var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
 
 	if current_tab == "General":
-		# General Settings is selected: raised white/light-grey (btn_hover)
 		general_tab_btn.add_theme_stylebox_override("normal", btn_hover)
 		general_tab_btn.add_theme_stylebox_override("hover", btn_hover)
 		general_tab_btn.add_theme_stylebox_override("pressed", btn_pressed)
@@ -419,7 +564,6 @@ func _update_tab_visuals():
 		general_tab_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 		general_tab_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 		
-		# Controls is unselected: raised silver (btn_normal)
 		controls_tab_btn.add_theme_stylebox_override("normal", btn_normal)
 		controls_tab_btn.add_theme_stylebox_override("hover", btn_hover)
 		controls_tab_btn.add_theme_stylebox_override("pressed", btn_pressed)
@@ -431,7 +575,6 @@ func _update_tab_visuals():
 		general_container.visible = true
 		controls_container.visible = false
 	else:
-		# General Settings is unselected: raised silver (btn_normal)
 		general_tab_btn.add_theme_stylebox_override("normal", btn_normal)
 		general_tab_btn.add_theme_stylebox_override("hover", btn_hover)
 		general_tab_btn.add_theme_stylebox_override("pressed", btn_pressed)
@@ -440,7 +583,6 @@ func _update_tab_visuals():
 		general_tab_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 		general_tab_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 		
-		# Controls is selected: raised white/light-grey (btn_hover)
 		controls_tab_btn.add_theme_stylebox_override("normal", btn_hover)
 		controls_tab_btn.add_theme_stylebox_override("hover", btn_hover)
 		controls_tab_btn.add_theme_stylebox_override("pressed", btn_pressed)
@@ -486,3 +628,73 @@ func _on_reset_keybinds_pressed():
 	listening_action = ""
 	listening_button = null
 	_update_keybind_buttons()
+
+func style_retro_option_button(btn: OptionButton):
+	if not btn:
+		return
+	
+	var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
+	var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
+	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+
+	btn.add_theme_font_override("font", font_bold)
+	btn.add_theme_font_size_override("font_size", 12)
+	btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+	btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
+	btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+	btn.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
+	btn.add_theme_stylebox_override("normal", btn_normal)
+	btn.add_theme_stylebox_override("hover", btn_hover)
+	btn.add_theme_stylebox_override("pressed", btn_pressed)
+	btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+
+	var popup = btn.get_popup()
+	if popup:
+		popup.add_theme_font_override("font", font_regular)
+		popup.add_theme_font_size_override("font_size", 12)
+		popup.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		popup.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1))
+		popup.add_theme_color_override("font_accelerator_color", Color(0.3, 0.3, 0.3, 1))
+		popup.add_theme_color_override("font_disabled_color", Color(0.5, 0.5, 0.5, 1))
+		popup.add_theme_color_override("font_separator_color", Color(0, 0, 0, 1))
+		
+		# Windows 98 3D Panel border stylebox for dropdown popup
+		var panel_sb = StyleBoxFlat.new()
+		panel_sb.bg_color = Color(0.83137, 0.81568, 0.78431, 1.0) # #D4D0C8
+		panel_sb.border_width_left = 2
+		panel_sb.border_width_top = 2
+		panel_sb.border_width_right = 2
+		panel_sb.border_width_bottom = 2
+		panel_sb.border_color = Color(0.3, 0.3, 0.3, 1.0)
+		panel_sb.corner_radius_top_left = 0
+		panel_sb.corner_radius_top_right = 0
+		panel_sb.corner_radius_bottom_left = 0
+		panel_sb.corner_radius_bottom_right = 0
+		panel_sb.content_margin_left = 2
+		panel_sb.content_margin_top = 2
+		panel_sb.content_margin_right = 2
+		panel_sb.content_margin_bottom = 2
+		popup.add_theme_stylebox_override("panel", panel_sb)
+
+		# Windows 98 selection highlight: Navy Blue (#000080) bar
+		var hover_sb = StyleBoxFlat.new()
+		hover_sb.bg_color = Color(0.0, 0.0, 0.502, 1.0) # Windows classic selection blue
+		hover_sb.corner_radius_top_left = 0
+		hover_sb.corner_radius_top_right = 0
+		hover_sb.corner_radius_bottom_left = 0
+		hover_sb.corner_radius_bottom_right = 0
+		hover_sb.content_margin_left = 4
+		hover_sb.content_margin_top = 2
+		hover_sb.content_margin_right = 4
+		hover_sb.content_margin_bottom = 2
+		popup.add_theme_stylebox_override("hover", hover_sb)
+		
+		# Replace radio/check icons with empty texture for clean retro text dropdown
+		var empty_img = Image.create_empty(1, 1, false, Image.FORMAT_RGBA8)
+		var empty_icon = ImageTexture.create_from_image(empty_img)
+		popup.add_theme_icon_override("radio_checked", empty_icon)
+		popup.add_theme_icon_override("radio_unchecked", empty_icon)
+		popup.add_theme_icon_override("checked", empty_icon)
+		popup.add_theme_icon_override("unchecked", empty_icon)
