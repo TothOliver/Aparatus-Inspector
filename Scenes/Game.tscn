@@ -1262,7 +1262,7 @@ layout_mode = 0
 offset_left = 15.0
 offset_top = 20.0
 offset_right = 500.0
-offset_bottom = 110.0
+offset_bottom = 54.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -1278,9 +1278,9 @@ autowrap_mode = 3
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
-offset_top = 120.0
+offset_top = 66.0
 offset_right = 500.0
-offset_bottom = 210.0
+offset_bottom = 106.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -1291,6 +1291,40 @@ theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 autowrap_mode = 3
+
+[node name="Button3" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=1784474317]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 114.0
+offset_right = 500.0
+offset_bottom = 159.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+autowrap_mode = 3
+
+[node name="QuestionInput" type="LineEdit" parent="ApparatusInspectorWindow/Option" unique_id=147204211]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 19.0
+offset_top = 170.0
+offset_right = 434.0
+offset_bottom = 218.0
+
+[node name="SubmitQuestionButton" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=155730944]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 445.0
+offset_top = 174.0
+offset_right = 493.0
+offset_bottom = 212.0
 
 [node name="Model" type="Control" parent="ApparatusInspectorWindow" unique_id=538820585]
 anchors_preset = 0
@@ -1622,6 +1656,7 @@ autowrap_mode = 3
 
 [node name="NotepadWindow" type="NinePatchRect" parent="." unique_id=202610160]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 100.0
@@ -1684,6 +1719,7 @@ wrap_mode = 1
 
 [node name="TerminalWindow" type="NinePatchRect" parent="." unique_id=202610170]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 280.0
 offset_top = 180.0
@@ -1795,6 +1831,7 @@ caret_blink = true
 
 [node name="MinesweeperWindow" type="NinePatchRect" parent="." unique_id=202610180]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 480.0
 offset_top = 200.0
@@ -1913,6 +1950,7 @@ columns = 9
 
 [node name="SnakeWindow" type="NinePatchRect" parent="." unique_id=202610190]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 180.0
@@ -2029,6 +2067,7 @@ offset_bottom = 369.0
 
 [node name="CCTVWindow" type="NinePatchRect" parent="." unique_id=202610200]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 680.0
 offset_top = 100.0
@@ -2170,6 +2209,7 @@ vertical_alignment = 1
 
 [node name="SlotMachineWindow" type="NinePatchRect" parent="." unique_id=202610220]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 220.0
 offset_top = 140.0
@@ -2567,6 +2607,7 @@ text = "Buy Battery Booster ($40)
 
 [node name="SettingsWindow" type="NinePatchRect" parent="." unique_id=202610230]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 380.0
 offset_top = 120.0
@@ -2858,15 +2899,7 @@ mouse_filter = 2
 [connection signal="pressed" from="ApparatusInspectorWindow/TitleBar/CloseButton" to="ApparatusInspectorWindow" method="close"]
 [connection signal="pressed" from="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel/GoodButton" to="." method="_on_good_button_pressed"]
 [connection signal="pressed" from="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel/BadButton" to="." method="_on_bad_button_pressed"]
-[connection signal="button_down" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_button_down"]
-[connection signal="button_up" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_button_up"]
-[connection signal="mouse_entered" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_button_1_mouse_exited"]
 [connection signal="pressed" from="ApparatusInspectorWindow/Option/Button1" to="." method="_on_chat_button1_pressed"]
-[connection signal="button_down" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_button_down"]
-[connection signal="button_up" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_button_up"]
-[connection signal="mouse_entered" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_button_2_mouse_exited"]
 [connection signal="pressed" from="ApparatusInspectorWindow/Option/Button2" to="." method="_on_chat_button2_pressed"]
 [connection signal="pressed" from="NotepadWindow/TitleBar/CloseButton" to="NotepadWindow" method="close"]
 [connection signal="pressed" from="TerminalWindow/TitleBar/CloseButton" to="TerminalWindow" method="close"]
