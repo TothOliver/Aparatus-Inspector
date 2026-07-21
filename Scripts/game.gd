@@ -36,7 +36,7 @@ var is_processing_choice = false
 var was_wifi_on: bool = true
 
 const COMMON_BUTTON_1_ID := "purpose"
-const COMMON_BUTTON_2_ID := "humans"
+const COMMON_BUTTON_2_ID := "assignment"
 
 func _ready():
 	# Resize and reposition ApparatusInspectorWindow to fit at smallest size (850x620) and scale cleanly
@@ -686,11 +686,9 @@ func ask_common_question(question_id: String) -> void:
 func get_common_question_text(question_id: String) -> String:
 	match question_id:
 		"purpose":
-			return "State your primary purpose."
-		"humans":
-			return "What do you think of humans?"
-		"inspection":
-			return "Do you understand why you are being inspected?"
+			return "State your primary function"
+		"assignment":
+			return "Describe your recent assigmnent"
 		_:
 			return ""
 	

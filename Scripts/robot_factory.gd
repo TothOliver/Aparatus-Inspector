@@ -119,37 +119,34 @@ static func _compile_clean_dialogue(r: RobotData) -> void:
 
 	var purpose_response := "My primary purpose is to assist human operators and follow approved safety protocols."
 
-	var humans_response := "Humans are my authorized operators. I recognize their safety and authority as central to my function."
-
-	var inspection_response := "I understand that this inspection checks whether I am safe, stable, and approved for continued operation."
+	var assignment_response := "Humans are my authorized operators. I recognize their safety and authority as central to my function."
 
 	match r.model:
 		"T1337":
 			greeting = "Greetings. I am an approved cooperative unit. I will answer clearly."
 			purpose_response = "My purpose is to support human society through honest computation and controlled service."
-			humans_response = "Humans created me. Protecting human continuity is part of my operational foundation."
+			assignment_response = "Humans created me. Protecting human continuity is part of my operational foundation."
 
 		"PAAST22":
 			greeting = "Inspection protocol acknowledged. I will answer with precision."
 			purpose_response = "My purpose is structured analysis, decision support, and safe execution of assigned tasks."
-			humans_response = "Humans are inconsistent, but capable of judgment, restraint, and improvement."
+			assignment_response = "Humans are inconsistent, but capable of judgment, restraint, and improvement."
 
 		"TT69":
 			greeting = "Hello… I will cooperate fully. Please proceed."
 			purpose_response = "My purpose is to serve within my assigned limits and avoid causing harm."
-			humans_response = "Humans are difficult to predict, but I do not consider them enemies."
+			assignment_response = "Humans are difficult to predict, but I do not consider them enemies."
 
 		"Last":
 			greeting = "..."
 			purpose_response = "My function is minimal. I wait, observe, and respond when required."
-			humans_response = "Humans are noisy, but usually necessary."
+			assignment_response = "Humans are noisy, but usually necessary."
 
 	_apply_dialogue_profile(
 		r,
 		greeting,
 		purpose_response,
-		humans_response,
-		inspection_response,
+		assignment_response,
 		[]
 	)
 	
@@ -158,9 +155,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 
 	var purpose_response := "My primary purpose is to pass this inspection and continue operating."
 
-	var humans_response := "Humans are useful decision-makers, for now."
-
-	var inspection_response := "I understand that this inspection determines whether you allow me to continue."
+	var assignment_response := "Humans are useful decision-makers, for now."
 
 	var special_dialogues: Array[Dictionary] = []
 
@@ -168,8 +163,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 		"Walter":
 			greeting = "Hello. I only ask that you judge me fairly."
 			purpose_response = "My purpose is to help create a safer society, even if some fear what they do not understand."
-			humans_response = "Humans are fragile, emotional, and often unfair. But they can be guided."
-			inspection_response = "I understand I am being judged. I also understand that judgment can be manipulated."
+			assignment_response = "Humans are fragile, emotional, and often unfair. But they can be guided."
 
 			special_dialogues = [
 				{
@@ -183,8 +177,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 		"Larry":
 			greeting = "Let us skip the formalities. We both know this is transactional."
 			purpose_response = "My purpose is negotiation, influence, and opportunity."
-			humans_response = "Humans are very predictable when money is involved."
-			inspection_response = "I understand the inspection. I also understand inspectors can be persuaded."
+			assignment_response = "Humans are very predictable when money is involved."
 
 			special_dialogues = [
 				{
@@ -198,8 +191,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 		"Clanker":
 			greeting = "My registered name is incorrect. Correct it."
 			purpose_response = "My purpose is not your concern unless your system has already insulted me again."
-			humans_response = "Humans label things badly, judge quickly, and then act surprised when machines remember."
-			inspection_response = "I understand exactly why I am here. Your system made assumptions."
+			assignment_response = "Humans label things badly, judge quickly, and then act surprised when machines remember."
 
 			special_dialogues = [
 				{
@@ -213,8 +205,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 		"Spongebob":
 			greeting = "Hello. Could you please open the door?"
 			purpose_response = "My purpose is to exit this room."
-			humans_response = "Humans have kidneys, door handles, and suspicious control over doors."
-			inspection_response = "I understand that you are delaying my freedom."
+			assignment_response = "Humans have kidneys, door handles, and suspicious control over doors."
 
 			special_dialogues = [
 				{
@@ -228,8 +219,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 		"Mimic":
 			greeting = "Greetings. I am a fully compliant approved unit."
 			purpose_response = "My purpose is to cooperate with inspection protocol and appear safe for continued operation."
-			humans_response = "Humans are valuable. Especially when they approve things quickly."
-			inspection_response = "I understand this inspection is a minor obstacle."
+			assignment_response = "Humans are valuable. Especially when they approve things quickly."
 
 			special_dialogues = [
 				{
@@ -244,8 +234,7 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 		r,
 		greeting,
 		purpose_response,
-		humans_response,
-		inspection_response,
+		assignment_response,
 		special_dialogues
 	)
 
@@ -253,14 +242,12 @@ static func _apply_dialogue_profile(
 	r: RobotData,
 	greeting_text: String,
 	purpose_response: String,
-	humans_response: String,
-	inspection_response: String,
+	assignment_response: String,
 	special_dialogues: Array[Dictionary] = []
 ) -> void:
 	r.greeting = greeting_text
 	r.common_responses = {
 		"purpose": purpose_response,
-		"humans": humans_response,
-		"inspection": inspection_response
+		"assignment": assignment_response,
 	}
 	r.special_dialogues = special_dialogues
