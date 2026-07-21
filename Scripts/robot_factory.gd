@@ -287,3 +287,10 @@ static func _apply_dialogue_profile(
 		"assignment": assignment_response,
 	}
 	r.special_dialogues = special_dialogues
+
+static func _generate_compromised_combination() -> void:
+	var model_config: Dictionary = MODEL_CONFIGS.pick_random()
+	
+	compromised_model = model_config["model"]
+	compromised_manufacturer = MANUFACTURERS.pick_random()
+	
