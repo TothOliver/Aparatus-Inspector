@@ -19,19 +19,14 @@
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="PackedScene" uid="uid://fh5mshlhk12l" path="res://Scenes/breakerCloset.tscn" id="11_47omi"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
+[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
-[ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
-[ext_resource type="Texture2D" uid="uid://bbw7onsjn6kf2" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
-[ext_resource type="Texture2D" uid="uid://c0ttjlxtyl1cj" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
-[ext_resource type="Texture2D" uid="uid://dx3a0jbw8cavi" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
 [ext_resource type="Texture2D" uid="uid://b6ousc5vgvsd8" path="res://RetroWindowsGUI/Window_Header.png" id="Icon_WindowHeader"]
-[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_ButtonHover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_ButtonNormal"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_ButtonPressed"]
-[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_InnerFrame"]
 
 [sub_resource type="Environment" id="Environment_game"]
 background_mode = 1
@@ -125,20 +120,6 @@ albedo_color = Color(0.18, 0.18, 0.18, 1)
 roughness = 0.9
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GroupLabel"]
-bg_color = Color(0.83137, 0.81568, 0.78431, 1)
-expand_margin_left = 4.0
-expand_margin_right = 4.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
-texture = ExtResource("Icon_SliderBG")
-texture_margin_left = 2.0
-texture_margin_top = 1.0
-texture_margin_right = 2.0
-texture_margin_bottom = 1.0
-expand_margin_top = 3.0
-expand_margin_bottom = 3.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_glass_window"]
 size = Vector2(1.6, 1)
@@ -507,7 +488,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch = false
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=574545017]
 handle_input_locally = false
@@ -617,7 +597,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("Icon_ExitBtn")
 icon_alignment = 1
 
-[node name="SettingsBody" parent="HUD/PauseMenu/PauseWindow" instance=ExtResource("12_settings_body")]
+[node name="SettingsBody" parent="HUD/PauseMenu/PauseWindow" unique_id=1549779638 instance=ExtResource("12_settings_body")]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 42.0
