@@ -1,19 +1,54 @@
 class_name RobotFactory
 extends RefCounted
 
+const ROBOT_POOL_SIZE := 30
+const BAD_ROBOT_CHANCE := 0.5
+const COMPROMISED_COMBINATION_CHANCE := 0.5
+
+static var compromised_model: String 
+static var compromised_manufacturer: String
+
+const MODEL_CONFIGS := [
+		{
+		"model": "T1337",
+		"core_hash": "0xFA82",
+		"status": "Operational",
+		"sprite": "res://Sprites/robot1.png"
+	},
+	{
+		"model": "PAAST22",
+		"core_hash": "0xBB99",
+		"status": "Operational",
+		"sprite": "res://Sprites/robot8.png"
+	},
+	{
+		"model": "TT69",
+		"core_hash": "0x77E1",
+		"status": "Operational",
+		"sprite": "res://Sprites/robot5.png"
+	},
+	{
+		"model": "Last",
+		"core_hash": "0x88CC",
+		"status": "Operational",
+		"sprite": "res://Sprites/robot6.png"
+	}
+]
+
+const MANUFACTURERS := [
+	"AgselAB",
+	"BTH",
+	"TT Robotics",
+	"Vanguard Systems",
+	"Gupta Gases"
+]
+
 static func create_robots() -> Array[RobotData]:
 	var robots: Array[RobotData] = []
 
-	const GOOD_ROBOT_COUNT := 15
-	const BAD_ROBOT_COUNT := 15
+	for i in range(ROBOT_POOL_SIZE):
+		robots.append(generate_random_robot())
 
-	for i in range(GOOD_ROBOT_COUNT):
-		robots.append(generate_random_robot(true))
-
-	for i in range(BAD_ROBOT_COUNT):
-		robots.append(generate_random_robot(false))
-
-	robots.shuffle()
 	return robots
 
 static func create_walter_robot() -> RobotData:
@@ -28,9 +63,10 @@ static func create_walter_robot() -> RobotData:
 	_compile_infected_dialogue(r, "Walter")
 	return r
 
-static func generate_random_robot(is_good_unit: bool) -> RobotData:
+static func generate_random_robot() -> RobotData:
 	var r = RobotData.new()
-	r.is_good = is_good_unit
+	var is_bad_unit := randf() < BAD_ROBOT_CHANCE
+	r.is_good = not is_bad_unit
 	
 	var first_names = ["Alpha", "Beta", "Sigma", "Omega", "Gamma", "Delta", "Theta", "Zeta", "Kappa", "Psi"]
 	var last_names = ["-90", "-100", "-500", " Prime", " v2", " 800", " Core", " Unit", " Prototype", " Mark-III"]
@@ -52,7 +88,7 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 	
 	var day = GameStats.current_day
 	
-	if is_good_unit:
+	if r.is_good:
 		var config = approved_configs.pick_random()
 		r.model = config.model
 		r.manufacturer = config.manufacturer
