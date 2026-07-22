@@ -130,12 +130,8 @@ func handle_walking_movement(delta):
 
 
 
-func handle_computer_view(delta):
-	# Smoothly position player at chair, zoom camera into screen
-	global_position = global_position.lerp(sit_pos, lerp_speed * delta)
-	rotation.y = lerp_angle(rotation.y, 0.0, lerp_speed * delta)
-	camera.position = camera.position.lerp(Vector3(0, 0.9, -0.22), lerp_speed * delta)
-	camera.transform.basis = camera.transform.basis.slerp(Basis.IDENTITY, lerp_speed * delta)
+func handle_computer_view(_delta):
+	pass
 
 func _input(event):
 	# Toggle flashlight
@@ -180,14 +176,21 @@ func _input(event):
 				if collider:
 					if collider.has_method("interact"):
 						collider.interact(self)
+					elif collider.get_node_or_null("SwitchInteractable") and collider.get_node_or_null("SwitchInteractable").has_method("interact"):
+						collider.get_node_or_null("SwitchInteractable").interact(self)
+					elif collider.get_node_or_null("WifiButton/SwitchInteractable") and collider.get_node_or_null("WifiButton/SwitchInteractable").has_method("interact"):
+						collider.get_node_or_null("WifiButton/SwitchInteractable").interact(self)
 					elif collider.name.contains("Screen") or collider.name.contains("Computer") or collider.name.contains("Monitor"):
 						if not is_power_off():
 							interact_with_computer()
-
 					elif collider.name.contains("Breaker") or collider.name.contains("Fuse"):
 						var parent = get_parent()
 						if parent and parent.has_method("reset_breaker"):
 							parent.reset_breaker()
+					elif collider.name.to_lower().contains("wifi") or collider.name.to_lower().contains("router"):
+						var game_3d = get_tree().current_scene
+						if game_3d and game_3d.has_method("toggle_wifi"):
+							game_3d.toggle_wifi()
 
 func is_power_off() -> bool:
 	var game_3d = get_tree().current_scene
@@ -200,10 +203,16 @@ func is_interactable(collider) -> bool:
 		return false
 	if collider.has_method("interact"):
 		return true
+	var switch_child = collider.get_node_or_null("SwitchInteractable")
+	if switch_child and switch_child.has_method("interact"):
+		return true
+	var wifi_switch = collider.get_node_or_null("WifiButton/SwitchInteractable")
+	if wifi_switch and wifi_switch.has_method("interact"):
+		return true
 	var name_lower = collider.name.to_lower()
 	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor"):
 		return not is_power_off()
-	if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse"):
+	if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse") or name_lower.contains("wifi") or name_lower.contains("router"):
 		return true
 	return false
 
@@ -218,6 +227,12 @@ func check_interaction():
 			var target_name = ""
 			if collider.has_method("get_interact_name"):
 				target_name = collider.get_interact_name()
+			elif collider.get_node_or_null("SwitchInteractable") and collider.get_node_or_null("SwitchInteractable").has_method("get_interact_name"):
+				target_name = collider.get_node_or_null("SwitchInteractable").get_interact_name()
+			elif collider.get_node_or_null("WifiButton/SwitchInteractable") and collider.get_node_or_null("WifiButton/SwitchInteractable").has_method("get_interact_name"):
+				target_name = collider.get_node_or_null("WifiButton/SwitchInteractable").get_interact_name()
+			elif collider.name.to_lower().contains("wifi") or collider.name.to_lower().contains("router"):
+				target_name = "Wifi Router"
 			else:
 				target_name = collider.name
 			
@@ -248,11 +263,6 @@ func interact_with_computer():
 
 func exit_computer_view():
 	current_state = State.WALKING
-	global_position = stand_exit_pos
-	velocity = Vector3.ZERO
-	camera.position = Vector3(0, stand_cam_y, 0)
-	camera.transform.basis = Basis.IDENTITY
-	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	var game_3d = get_tree().current_scene
 	if game_3d and game_3d.has_method("exit_computer_view"):

@@ -10,6 +10,19 @@ func get_interact_name() -> String:
 
 func interact(_player):
 	if target_method != "":
-		var target = get_node_or_null(target_node_path)
+		var target: Node = null
+		if target_node_path and not target_node_path.is_empty():
+			target = get_node_or_null(target_node_path)
+		if not target or not target.has_method(target_method):
+			var current_scene = get_tree().current_scene
+			if current_scene and current_scene.has_method(target_method):
+				target = current_scene
+		if not target or not target.has_method(target_method):
+			var curr = get_parent()
+			while curr:
+				if curr.has_method(target_method):
+					target = curr
+					break
+				curr = curr.get_parent()
 		if target and target.has_method(target_method):
 			target.call(target_method)

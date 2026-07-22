@@ -384,6 +384,8 @@ func _update_door_light_material(locked: bool):
 func toggle_wifi():
 	GameStats.wifi_on = not GameStats.wifi_on
 	_update_wifi_led_material()
+	if GameStats.has_method("_play_button_click"):
+		GameStats._play_button_click()
 
 func trigger_breaker_outage():
 	is_breaker_tripped = true
@@ -428,15 +430,18 @@ func _update_wifi_led_material():
 	if wifi_led:
 		var mat = wifi_led.get_active_material(0) as StandardMaterial3D
 		if mat:
+			mat.emission_enabled = true
 			if is_blackout:
 				mat.albedo_color = Color(0.1, 0.1, 0.1) # black/off
 				mat.emission = Color(0, 0, 0)
 			elif GameStats.wifi_on:
 				mat.albedo_color = Color(0, 1, 0) # green
 				mat.emission = Color(0, 1, 0)
+				mat.emission_energy_multiplier = 1.5
 			else:
 				mat.albedo_color = Color(1, 0, 0) # red
 				mat.emission = Color(1, 0, 0)
+				mat.emission_energy_multiplier = 1.5
 
 func _on_interact_prompt_changed(text: String):
 	$HUD/PromptLabel.text = text

@@ -453,7 +453,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_00gq5")
 
 [node name="SwitchInteractable" type="StaticBody3D" parent="placeholder/WifiRouter/WifiButton" unique_id=1972470430]
 script = ExtResource("1_o0rpj")
-target_node_path = NodePath("/root/Game3D")
+target_node_path = NodePath("../../../..")
 target_method = "toggle_wifi"
 interact_name = "Wifi Router"
 
