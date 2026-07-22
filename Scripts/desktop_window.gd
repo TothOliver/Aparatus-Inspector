@@ -11,17 +11,26 @@ signal focused
 var dragging: bool = false
 var drag_offset: Vector2 = Vector2.ZERO
 
-# Resize variables
+# Resize handle controls
+var left_border: Control
 var right_border: Control
+var top_border: Control
 var bottom_border: Control
-var corner_border: Control
+var top_left_corner: Control
+var top_right_corner: Control
+var bottom_left_corner: Control
+var corner_border: Control # bottom-right
 
-var resize_margin: float = 16.0
+var resize_margin: float = 12.0
 
+# Resize state variables
+var resizing_left: bool = false
 var resizing_right: bool = false
+var resizing_top: bool = false
 var resizing_bottom: bool = false
-var resizing_corner: bool = false
+
 var resize_start_size: Vector2 = Vector2.ZERO
+var resize_start_pos: Vector2 = Vector2.ZERO
 var resize_start_mouse_pos: Vector2 = Vector2.ZERO
 
 var child_margins: Dictionary = {}
@@ -49,56 +58,122 @@ func _ready():
 func _setup_resize_handles():
 	if not is_scalable:
 		return
+
+	if not left_border:
+		left_border = Control.new()
+		left_border.name = "LeftBorder"
+		left_border.mouse_default_cursor_shape = Control.CURSOR_HSIZE
+		left_border.gui_input.connect(_on_left_border_input)
+		add_child(left_border)
+
 	if not right_border:
-		# Right border is a thin vertical strip on the right side
 		right_border = Control.new()
 		right_border.name = "RightBorder"
 		right_border.mouse_default_cursor_shape = Control.CURSOR_HSIZE
 		right_border.gui_input.connect(_on_right_border_input)
 		add_child(right_border)
-	
+
+	if not top_border:
+		top_border = Control.new()
+		top_border.name = "TopBorder"
+		top_border.mouse_default_cursor_shape = Control.CURSOR_VSIZE
+		top_border.gui_input.connect(_on_top_border_input)
+		add_child(top_border)
+
 	if not bottom_border:
-		# Bottom border is a thin horizontal strip on the bottom side
 		bottom_border = Control.new()
 		bottom_border.name = "BottomBorder"
 		bottom_border.mouse_default_cursor_shape = Control.CURSOR_VSIZE
 		bottom_border.gui_input.connect(_on_bottom_border_input)
 		add_child(bottom_border)
-	
+
+	if not top_left_corner:
+		top_left_corner = Control.new()
+		top_left_corner.name = "TopLeftCorner"
+		top_left_corner.mouse_default_cursor_shape = Control.CURSOR_FDIAGSIZE
+		top_left_corner.gui_input.connect(_on_top_left_corner_input)
+		add_child(top_left_corner)
+
+	if not top_right_corner:
+		top_right_corner = Control.new()
+		top_right_corner.name = "TopRightCorner"
+		top_right_corner.mouse_default_cursor_shape = Control.CURSOR_BDIAGSIZE
+		top_right_corner.gui_input.connect(_on_top_right_corner_input)
+		add_child(top_right_corner)
+
+	if not bottom_left_corner:
+		bottom_left_corner = Control.new()
+		bottom_left_corner.name = "BottomLeftCorner"
+		bottom_left_corner.mouse_default_cursor_shape = Control.CURSOR_BDIAGSIZE
+		bottom_left_corner.gui_input.connect(_on_bottom_left_corner_input)
+		add_child(bottom_left_corner)
+
 	if not corner_border:
-		# Corner border is a small square on the bottom right corner
 		corner_border = ResizeGrip.new()
 		corner_border.name = "CornerBorder"
 		corner_border.mouse_default_cursor_shape = Control.CURSOR_FDIAGSIZE
 		corner_border.gui_input.connect(_on_corner_border_input)
 		add_child(corner_border)
-	
+
 	_update_resize_handles_positions()
 
 func _update_resize_handles_positions():
-	if not is_inside_tree():
+	if not is_inside_tree() or not is_scalable:
 		return
-	if not right_border or not bottom_border or not corner_border:
+	if not left_border or not right_border or not top_border or not bottom_border:
 		return
-	right_border.position = Vector2(size.x - resize_margin, 0)
-	right_border.size = Vector2(resize_margin, max(0, size.y - resize_margin))
-	
-	bottom_border.position = Vector2(0, size.y - resize_margin)
-	bottom_border.size = Vector2(max(0, size.x - resize_margin), resize_margin)
-	
-	corner_border.position = Vector2(size.x - resize_margin, size.y - resize_margin)
-	corner_border.size = Vector2(resize_margin, resize_margin)
-	
+	if not top_left_corner or not top_right_corner or not bottom_left_corner or not corner_border:
+		return
+
+	var m = resize_margin
+	var w = size.x
+	var h = size.y
+	var mid_w = max(0.0, w - 2 * m)
+	var mid_h = max(0.0, h - 2 * m)
+
+	# Corners
+	top_left_corner.position = Vector2(0, 0)
+	top_left_corner.size = Vector2(m, m)
+
+	top_right_corner.position = Vector2(w - m, 0)
+	top_right_corner.size = Vector2(m, m)
+
+	bottom_left_corner.position = Vector2(0, h - m)
+	bottom_left_corner.size = Vector2(m, m)
+
+	corner_border.position = Vector2(w - m, h - m)
+	corner_border.size = Vector2(m, m)
+
+	# Borders
+	top_border.position = Vector2(m, 0)
+	top_border.size = Vector2(mid_w, m)
+
+	bottom_border.position = Vector2(m, h - m)
+	bottom_border.size = Vector2(mid_w, m)
+
+	left_border.position = Vector2(0, m)
+	left_border.size = Vector2(m, mid_h)
+
+	right_border.position = Vector2(w - m, m)
+	right_border.size = Vector2(m, mid_h)
+
 	# Keep borders on top
-	right_border.move_to_front()
-	bottom_border.move_to_front()
+	top_left_corner.move_to_front()
+	top_right_corner.move_to_front()
+	bottom_left_corner.move_to_front()
 	corner_border.move_to_front()
+	top_border.move_to_front()
+	bottom_border.move_to_front()
+	left_border.move_to_front()
+	right_border.move_to_front()
+
 	corner_border.queue_redraw()
 
 func register_child_margins():
 	child_margins.clear()
+	var handle_names = ["LeftBorder", "RightBorder", "TopBorder", "BottomBorder", "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "CornerBorder"]
 	for child in get_children():
-		if child is Control and not child.name in ["RightBorder", "BottomBorder", "CornerBorder"]:
+		if child is Control and not child.name in handle_names:
 			var left_margin = child.position.x
 			var top_margin = child.position.y
 			var right_margin = size.x - (child.position.x + child.size.x)
@@ -188,38 +263,84 @@ func _on_window_gui_input(event: InputEvent):
 		move_to_front()
 		focused.emit()
 
+func _start_resizing():
+	resize_start_size = size
+	resize_start_pos = position
+	resize_start_mouse_pos = get_global_mouse_position()
+	move_to_front()
+	focused.emit()
+
+func _on_left_border_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			resizing_left = true
+			_start_resizing()
+		else:
+			resizing_left = false
+
 func _on_right_border_input(event: InputEvent):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			resizing_right = true
-			resize_start_size = size
-			resize_start_mouse_pos = get_global_mouse_position()
-			move_to_front()
-			focused.emit()
+			_start_resizing()
 		else:
 			resizing_right = false
+
+func _on_top_border_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			resizing_top = true
+			_start_resizing()
+		else:
+			resizing_top = false
 
 func _on_bottom_border_input(event: InputEvent):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			resizing_bottom = true
-			resize_start_size = size
-			resize_start_mouse_pos = get_global_mouse_position()
-			move_to_front()
-			focused.emit()
+			_start_resizing()
 		else:
 			resizing_bottom = false
+
+func _on_top_left_corner_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			resizing_top = true
+			resizing_left = true
+			_start_resizing()
+		else:
+			resizing_top = false
+			resizing_left = false
+
+func _on_top_right_corner_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			resizing_top = true
+			resizing_right = true
+			_start_resizing()
+		else:
+			resizing_top = false
+			resizing_right = false
+
+func _on_bottom_left_corner_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			resizing_bottom = true
+			resizing_left = true
+			_start_resizing()
+		else:
+			resizing_bottom = false
+			resizing_left = false
 
 func _on_corner_border_input(event: InputEvent):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			resizing_corner = true
-			resize_start_size = size
-			resize_start_mouse_pos = get_global_mouse_position()
-			move_to_front()
-			focused.emit()
+			resizing_bottom = true
+			resizing_right = true
+			_start_resizing()
 		else:
-			resizing_corner = false
+			resizing_bottom = false
+			resizing_right = false
 
 func _process(_delta):
 	# Register margins on first process tick to ensure all subclasses ready
@@ -235,9 +356,10 @@ func _process(_delta):
 		
 	# Safety release in case mouse up occurred outside focus
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		resizing_left = false
 		resizing_right = false
+		resizing_top = false
 		resizing_bottom = false
-		resizing_corner = false
 		dragging = false
 		
 	if dragging:
@@ -251,36 +373,50 @@ func _process(_delta):
 			position.x = clamp(position.x, -size.x + 50, size_limit.x - 50)
 			position.y = clamp(position.y, 0, size_limit.y - 30)
 			
-	elif resizing_right or resizing_bottom or resizing_corner:
+	elif resizing_top or resizing_bottom or resizing_left or resizing_right:
 		var current_mouse_pos = get_global_mouse_position()
 		var delta_mouse = current_mouse_pos - resize_start_mouse_pos
 		var new_size = resize_start_size
+		var new_pos = resize_start_pos
 		
 		var min_w = custom_minimum_size.x if custom_minimum_size.x > 0.0 else 200.0
 		var min_h = custom_minimum_size.y if custom_minimum_size.y > 0.0 else 100.0
 		
-		if resizing_right or resizing_corner:
+		if resizing_right:
 			new_size.x = max(min_w, resize_start_size.x + delta_mouse.x)
-		if resizing_bottom or resizing_corner:
-			new_size.y = max(min_h, resize_start_size.y + delta_mouse.y)
+		if resizing_left:
+			var target_w = max(min_w, resize_start_size.x - delta_mouse.x)
+			new_pos.x = resize_start_pos.x + (resize_start_size.x - target_w)
+			new_size.x = target_w
 			
+		if resizing_bottom:
+			new_size.y = max(min_h, resize_start_size.y + delta_mouse.y)
+		if resizing_top:
+			var target_h = max(min_h, resize_start_size.y - delta_mouse.y)
+			new_pos.y = resize_start_pos.y + (resize_start_size.y - target_h)
+			new_size.y = target_h
+			
+		if position != new_pos:
+			position = new_pos
 		if size != new_size:
 			size = new_size
 
 func close():
 	visible = false
 	dragging = false
+	resizing_left = false
 	resizing_right = false
+	resizing_top = false
 	resizing_bottom = false
-	resizing_corner = false
 	closed.emit()
 
 func minimize():
 	visible = false
 	dragging = false
+	resizing_left = false
 	resizing_right = false
+	resizing_top = false
 	resizing_bottom = false
-	resizing_corner = false
 	minimized.emit()
 
 func restore():
