@@ -1,19 +1,19 @@
 extends Node3D
 
-@onready var sprite_3d = $RobotChamber/RobotSprite3D
-@onready var viewport_container = $SubViewportContainer
-@onready var sub_viewport = $SubViewportContainer/SubViewport
-@onready var game_2d = $SubViewportContainer/SubViewport/Control2
+@onready var sprite_3d = get_node_or_null("RobotChamber/RobotSprite3D")
+@onready var viewport_container = get_node_or_null("SubViewportContainer")
+@onready var sub_viewport = get_node_or_null("SubViewportContainer/SubViewport")
+@onready var game_2d = get_node_or_null("SubViewportContainer/SubViewport/Control2")
 
-@onready var desk_light = $Lighting/DeskLight
+@onready var desk_light = get_node_or_null("Lighting/DeskLight")
 @export var screen_mesh: MeshInstance3D
-@onready var corridor_light = $Lighting/CorridorLight
-@onready var door_light = $Office/DoorLight
-@onready var door_mesh = $Office/LeftDoor
-@onready var reticle = $HUD/Reticle
-@onready var ceiling_bulb = $Office/CeilingFixture/Bulb
+@onready var corridor_light = get_node_or_null("Lighting/CorridorLight")
+@onready var door_light = get_node_or_null("Office/DoorLight")
+@onready var door_mesh = get_node_or_null("Office/LeftDoor")
+@onready var reticle = get_node_or_null("HUD/Reticle")
+@onready var ceiling_bulb = get_node_or_null("Office/CeilingFixture/Bulb")
 @export var wifi_led: MeshInstance3D
-@onready var curtain_node = $Office/Curtain
+@onready var curtain_node = get_node_or_null("Office/Curtain")
 
 var aspect_overlay: Control
 var left_bar: ColorRect

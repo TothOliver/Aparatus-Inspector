@@ -101,8 +101,7 @@ func _ready():
 
 			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
 			if ans_panel:
-				ans_panel.position = Vector2.ZERO
-				ans_panel.size = option_node.size
+				ans_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 			var label = option_node.get_node_or_null("OptionGroupLabel") as Label
 			if label:

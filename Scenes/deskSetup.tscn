@@ -429,9 +429,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3350096, 0.027)
 mesh = SubResource("QuadMesh_0aqei")
 surface_material_override/0 = SubResource("StandardMaterial3D_cxmlp")
 
-[node name="ScreenInteractable" type="StaticBody3D" parent="placeholder/ComputerMonitor/Screen" unique_id=1317682807]
+[node name="Computer" type="StaticBody3D" parent="placeholder/ComputerMonitor/Screen" unique_id=1317682807]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/ComputerMonitor/Screen/ScreenInteractable" unique_id=78732863]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/ComputerMonitor/Screen/Computer" unique_id=78732863]
 shape = SubResource("BoxShape3D_y33b3")
 
 [node name="WifiRouter" type="CSGBox3D" parent="placeholder" unique_id=1034697675]
@@ -455,7 +455,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_00gq5")
 script = ExtResource("1_o0rpj")
 target_node_path = NodePath("/root/Game3D")
 target_method = "toggle_wifi"
-interact_name = "Wifi Router Power Button"
+interact_name = "Wifi Router"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/WifiRouter/WifiButton/SwitchInteractable" unique_id=1572952256]
 shape = SubResource("BoxShape3D_lu60s")
