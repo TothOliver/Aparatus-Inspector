@@ -39,6 +39,11 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.position.y = stand_cam_y
 	
+	if "fov" in GameStats:
+		camera.fov = GameStats.fov
+	if GameStats.has_signal("fov_changed") and not GameStats.fov_changed.is_connected(_on_fov_changed):
+		GameStats.fov_changed.connect(_on_fov_changed)
+	
 	# Create flashlight dynamically
 	flashlight = SpotLight3D.new()
 	flashlight.name = "Flashlight"
@@ -50,6 +55,10 @@ func _ready():
 	flashlight.position = Vector3(0, 0, 0)
 	flashlight.rotation = Vector3(0, 0, 0)
 	camera.add_child(flashlight)
+
+func _on_fov_changed(new_fov: float):
+	if camera:
+		camera.fov = new_fov
 
 func _physics_process(delta):
 	if current_state == State.WALKING:

@@ -6,6 +6,9 @@ func _ready() -> void:
 	# Make sure mouse is visible in the main menu
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	# Preload main 3D game scene in background thread while player is in Main Menu
+	ResourceLoader.load_threaded_request("res://Scenes/Game3D.tscn")
+	
 	# Create modal blocker overlay dynamically
 	var blocker = ColorRect.new()
 	blocker.name = "SettingsBlocker"

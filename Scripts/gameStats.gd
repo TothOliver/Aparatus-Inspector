@@ -22,6 +22,7 @@ var read_emails: Dictionary = {1: false, 2: false, 3: false}
 
 # User System Settings
 var mouse_sensitivity: float = 0.15
+var fov: float = 70.0
 var crt_effect_enabled: bool = true
 var brightness: float = 100.0
 var master_volume: float = 80.0
@@ -51,6 +52,7 @@ const DEFAULT_BINDS = {
 var custom_keybinds: Dictionary = {}
 
 signal fullscreen_toggled(is_fullscreen: bool)
+signal fov_changed(new_fov: float)
 
 var target_scene_path: String = ""
 
@@ -70,6 +72,7 @@ func save_settings():
 	var config = ConfigFile.new()
 	config.set_value("Settings", "primary_monitor_initialized", true)
 	config.set_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+	config.set_value("Settings", "fov", fov)
 	config.set_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 	config.set_value("Settings", "brightness", brightness)
 	config.set_value("Settings", "master_volume", master_volume)
@@ -115,6 +118,7 @@ func load_settings():
 	
 	if err == OK and not is_first_run:
 		mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+		fov = config.get_value("Settings", "fov", fov)
 		crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 		brightness = config.get_value("Settings", "brightness", brightness)
 		master_volume = config.get_value("Settings", "master_volume", master_volume)
@@ -134,6 +138,7 @@ func load_settings():
 	else:
 		if err == OK:
 			mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+			fov = config.get_value("Settings", "fov", fov)
 			crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 			brightness = config.get_value("Settings", "brightness", brightness)
 			master_volume = config.get_value("Settings", "master_volume", master_volume)
@@ -189,6 +194,20 @@ func apply_all_settings():
 		
 	setup_input_map()
 	apply_brightness()
+	apply_fov()
+
+func apply_fov():
+	fov_changed.emit(fov)
+	if is_inside_tree() and get_tree() and get_tree().root:
+		var player = get_tree().root.find_child("Player", true, false)
+		if player and player.get_node_or_null("Camera3D"):
+			var cam = player.get_node_or_null("Camera3D")
+			if cam is Camera3D:
+				cam.fov = fov
+		else:
+			var cam = get_tree().root.find_child("Camera3D", true, false)
+			if cam is Camera3D and cam.name == "Camera3D" and cam.get_parent() and cam.get_parent().name == "Player":
+				cam.fov = fov
 
 func apply_brightness():
 	update_crt_overlays()

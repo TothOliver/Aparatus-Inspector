@@ -375,16 +375,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_breaker_lever")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/BreakerBox" unique_id=237491292]
 shape = SubResource("BoxShape3D_breaker_col")
 
-[node name="Curtain2" type="CSGBox3D" parent="Office" unique_id=1709281139]
-transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23683, 1.27984, -1.4393517)
-size = Vector3(1.7, 0.94437253, 0.04)
-material = SubResource("StandardMaterial3D_curtain")
-
-[node name="Curtain3" type="CSGBox3D" parent="Office" unique_id=1090749948]
-transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7487085, 1.27984, 10.433812)
-size = Vector3(1.7, 0.94437253, 0.04)
-material = SubResource("StandardMaterial3D_curtain")
-
 [node name="BreakerCloset" parent="." unique_id=1619679942 instance=ExtResource("11_47omi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 

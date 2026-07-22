@@ -30,7 +30,7 @@ texture_margin_bottom = 1.0
 layout_mode = 3
 anchors_preset = 0
 offset_right = 426.0
-offset_bottom = 750.0
+offset_bottom = 780.0
 script = ExtResource("1_controller")
 
 [node name="GeneralContainer" type="Control" parent="."]
@@ -384,7 +384,7 @@ layout_mode = 0
 offset_left = 10.0
 offset_top = 593.0
 offset_right = 416.0
-offset_bottom = 703.0
+offset_bottom = 720.0
 theme_override_styles/panel = ExtResource("2_inner_frame")
 
 [node name="MouseGroupLabel" type="Label" parent="GeneralContainer"]
@@ -397,14 +397,14 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
-text = "Mouse Input"
+text = "Mouse & Camera"
 
 [node name="SensitivityLabel" type="Label" parent="GeneralContainer"]
 layout_mode = 0
 offset_left = 25.0
-offset_top = 610.0
+offset_top = 605.0
 offset_right = 250.0
-offset_bottom = 630.0
+offset_bottom = 625.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
@@ -414,9 +414,9 @@ text = "3D Look Sensitivity:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 175.0
-offset_top = 610.0
+offset_top = 605.0
 offset_right = 250.0
-offset_bottom = 630.0
+offset_bottom = 625.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
@@ -426,13 +426,51 @@ text = "0.15"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
-offset_top = 635.0
+offset_top = 625.0
 offset_right = 390.0
-offset_bottom = 670.0
+offset_bottom = 652.0
 theme_override_icons/grabber = ExtResource("7_slider_handle")
 theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 30.0
+
+[node name="FovLabel" type="Label" parent="GeneralContainer"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 655.0
+offset_right = 170.0
+offset_bottom = 675.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_font_regular")
+theme_override_font_sizes/font_size = 12
+text = "Field of View (FOV):"
+
+[node name="FovValueLabel" type="Label" parent="GeneralContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 175.0
+offset_top = 655.0
+offset_right = 250.0
+offset_bottom = 675.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_font_regular")
+theme_override_font_sizes/font_size = 12
+text = "70°"
+
+[node name="FovSlider" type="HSlider" parent="GeneralContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 676.0
+offset_right = 390.0
+offset_bottom = 708.0
+theme_override_icons/grabber = ExtResource("7_slider_handle")
+theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
+min_value = 50.0
+max_value = 110.0
+step = 1.0
+value = 70.0
 
 [node name="ControlsContainer" type="Control" parent="."]
 visible = false
@@ -465,9 +503,9 @@ text = "Keyboard Controls"
 [node name="QuitButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 153.0
-offset_top = 700.0
+offset_top = 735.0
 offset_right = 273.0
-offset_bottom = 730.0
+offset_bottom = 765.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)

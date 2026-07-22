@@ -19,6 +19,8 @@ extends Control
 
 @onready var sensitivity_slider = get_node_or_null("GeneralContainer/SensitivitySlider")
 @onready var sensitivity_value_label = get_node_or_null("GeneralContainer/SensitivityValueLabel")
+@onready var fov_slider = get_node_or_null("GeneralContainer/FovSlider")
+@onready var fov_value_label = get_node_or_null("GeneralContainer/FovValueLabel")
 @onready var quit_button = get_node_or_null("QuitButton")
 
 @onready var general_tab_btn = $GeneralTabBtn
@@ -112,10 +114,10 @@ func _ready():
 	# Dynamic resize and positioning of parent settings window
 	var parent = get_parent()
 	if parent and parent is Control:
-		parent.size = Vector2(450, 790)
+		parent.size = Vector2(450, 820)
 		var viewport_size = get_viewport_rect().size
 		parent.position.x = (viewport_size.x - 450) / 2.0
-		parent.position.y = max(10.0, (viewport_size.y - 790) / 2.0)
+		parent.position.y = max(10.0, (viewport_size.y - 820) / 2.0)
 		
 		# Update TitleBar
 		var title_bar = parent.get_node_or_null("TitleBar")
@@ -126,15 +128,70 @@ func _ready():
 				close_button.position.x = title_bar.size.x - 26
 
 	# Resize self (SettingsBody) to fill parent
-	self.size = Vector2(426, 750)
+	self.size = Vector2(426, 780)
 	if "offset_right" in self:
 		self.offset_right = 438
 	if "offset_bottom" in self:
-		self.offset_bottom = 780
+		self.offset_bottom = 810
 
 	# Position QuitButton down if it exists
 	if quit_button:
-		quit_button.position = Vector2(153, 700)
+		quit_button.position = Vector2(153, 735)
+
+	# Dynamic creation of FOV slider if missing from scene node tree
+	if fov_slider == null and general_container:
+		var mouse_group_label = general_container.get_node_or_null("MouseGroupLabel")
+		if mouse_group_label:
+			mouse_group_label.text = "Mouse & Camera"
+		var mouse_group = general_container.get_node_or_null("MouseGroup")
+		if mouse_group:
+			mouse_group.size.y = 127
+			if "offset_bottom" in mouse_group:
+				mouse_group.offset_bottom = 720
+			
+		var label = Label.new()
+		label.name = "FovLabel"
+		label.text = "Field of View (FOV):"
+		label.add_theme_font_override("font", font_regular)
+		label.add_theme_font_size_override("font_size", 12)
+		label.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		label.position = Vector2(25, 655)
+		label.size = Vector2(145, 20)
+		general_container.add_child(label)
+
+		var val_label = Label.new()
+		val_label.name = "FovValueLabel"
+		val_label.text = "70°"
+		val_label.add_theme_font_override("font", font_regular)
+		val_label.add_theme_font_size_override("font_size", 12)
+		val_label.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		val_label.position = Vector2(175, 655)
+		val_label.size = Vector2(75, 20)
+		general_container.add_child(val_label)
+		fov_value_label = val_label
+
+		var slider = HSlider.new()
+		slider.name = "FovSlider"
+		slider.position = Vector2(25, 676)
+		slider.size = Vector2(365, 32)
+		slider.min_value = 50.0
+		slider.max_value = 110.0
+		slider.step = 1.0
+		slider.value = 70.0
+		var slider_bg = preload("res://RetroWindowsGUI/Windows_Slider_Background.png")
+		var slider_handle = preload("res://RetroWindowsGUI/Windows_Slider_Handle.png")
+		if slider_bg and slider_handle:
+			var sb_tex = StyleBoxTexture.new()
+			sb_tex.texture = slider_bg
+			sb_tex.texture_margin_left = 2
+			sb_tex.texture_margin_top = 1
+			sb_tex.texture_margin_right = 2
+			sb_tex.texture_margin_bottom = 1
+			slider.add_theme_stylebox_override("slider", sb_tex)
+			slider.add_theme_icon_override("grabber", slider_handle)
+			slider.add_theme_icon_override("grabber_highlight", slider_handle)
+		general_container.add_child(slider)
+		fov_slider = slider
 
 	# Add binding rows to Controls Group
 	var idx = 0
@@ -398,6 +455,25 @@ func update_ui_from_stats():
 		sensitivity_slider.value = clamp(t * 100.0, 0.0, 100.0)
 		sensitivity_slider.value_changed.connect(_on_sensitivity_changed)
 		_on_sensitivity_changed(sensitivity_slider.value)
+
+	# FOV Slider
+	if fov_slider:
+		for conn in fov_slider.value_changed.get_connections():
+			fov_slider.value_changed.disconnect(conn.callable)
+		fov_slider.min_value = 50.0
+		fov_slider.max_value = 110.0
+		fov_slider.step = 1.0
+		fov_slider.value = GameStats.fov
+		fov_slider.value_changed.connect(_on_fov_changed)
+		if fov_value_label:
+			fov_value_label.text = str(int(round(GameStats.fov))) + "°"
+
+func _on_fov_changed(value: float):
+	GameStats.fov = value
+	if fov_value_label:
+		fov_value_label.text = str(int(round(value))) + "°"
+	GameStats.apply_fov()
+	GameStats.save_settings()
 
 func _setup_volume_slider(slider: HSlider, label: Label, initial_value: float, callback: Callable):
 	if slider:
