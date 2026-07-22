@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://d2m5xw1srajxm" path="res://Sprites/icon_minesweeper.png" id="Icon_Minesweeper"]
 [ext_resource type="Texture2D" uid="uid://bygw03hvek5il" path="res://Sprites/icon_notepad.png" id="Icon_Notepad"]
 [ext_resource type="Texture2D" uid="uid://c2i7t3dkl3gqy" path="res://Sprites/scribble_assistant.png" id="Icon_ScribbleAssistant"]
+[ext_resource type="Texture2D" path="res://Sprites/scribble_bg.png" id="Icon_ScribbleBG"]
 [ext_resource type="Texture2D" uid="uid://bngxjt5tmmnxl" path="res://Sprites/icon_settings.png" id="Icon_Settings"]
 [ext_resource type="Texture2D" uid="uid://cvrd4ikgp4inr" path="res://Sprites/icon_slots.png" id="Icon_Slots"]
 [ext_resource type="Texture2D" uid="uid://ddbweqgeyt4w4" path="res://Sprites/icon_snake.png" id="Icon_Snake"]
@@ -2735,6 +2736,16 @@ offset_right = 194.0
 offset_bottom = 254.0
 script = ExtResource("Scribble_Controller_Script")
 
+[node name="BackgroundTexture" type="TextureRect" parent="ScribbleWindow/ScribbleBody" unique_id=987654332]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 183.0
+offset_bottom = 207.0
+texture = ExtResource("Icon_ScribbleBG")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="CharacterTexture" type="TextureRect" parent="ScribbleWindow/ScribbleBody" unique_id=987654325]
 layout_mode = 0
 offset_left = 5.0
@@ -2743,6 +2754,7 @@ offset_right = 183.0
 offset_bottom = 207.0
 texture = ExtResource("Icon_ScribbleAssistant")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="SpeechBubble" type="Panel" parent="ScribbleWindow" unique_id=987654326]
 layout_mode = 0
