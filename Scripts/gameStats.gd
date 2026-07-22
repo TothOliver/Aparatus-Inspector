@@ -413,6 +413,11 @@ func delete_save_game():
 			dir.remove("savegame.cfg")
 			print("Save game deleted.")
 
+func reset_fail_quota() -> void:
+	total_security_breaches = 0
+	player_health = 100.0
+	let_through_bad_sprites.clear()
+
 func reset_game_state():
 	final_missed_score = 0
 	total_security_breaches = 0
