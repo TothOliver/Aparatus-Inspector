@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://fh5mshlhk12l" path="res://Scenes/breakerCloset.tscn" id="11_47omi"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
 [ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
+[ext_resource type="PackedScene" uid="uid://0ub7akbpcn26" path="res://assets/TempRobot/TempModel1.glb" id="28_r4ocn"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
@@ -828,5 +829,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4.7)
 script = ExtResource("4_switch")
 target_method = "toggle_room3_lights"
 interact_name = "Light Switch"
+
+[node name="TempModel1" parent="." unique_id=185779234 instance=ExtResource("28_r4ocn")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.859251, 0.32607877, 2.8986762)
 
 [connection signal="pressed" from="HUD/PauseMenu/PauseWindow/TitleBar/CloseButton" to="Player" method="handle_settings_shortcut"]

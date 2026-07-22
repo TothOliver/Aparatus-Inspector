@@ -23,6 +23,7 @@ var read_emails: Dictionary = {1: false, 2: false, 3: false}
 # User System Settings
 var mouse_sensitivity: float = 0.15
 var crt_effect_enabled: bool = true
+var brightness: float = 100.0
 var master_volume: float = 80.0
 var music_volume: float = 80.0
 var vfx_volume: float = 80.0
@@ -70,6 +71,7 @@ func save_settings():
 	config.set_value("Settings", "primary_monitor_initialized", true)
 	config.set_value("Settings", "mouse_sensitivity", mouse_sensitivity)
 	config.set_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+	config.set_value("Settings", "brightness", brightness)
 	config.set_value("Settings", "master_volume", master_volume)
 	config.set_value("Settings", "music_volume", music_volume)
 	config.set_value("Settings", "vfx_volume", vfx_volume)
@@ -114,6 +116,7 @@ func load_settings():
 	if err == OK and not is_first_run:
 		mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
 		crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+		brightness = config.get_value("Settings", "brightness", brightness)
 		master_volume = config.get_value("Settings", "master_volume", master_volume)
 		music_volume = config.get_value("Settings", "music_volume", music_volume)
 		vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
@@ -132,6 +135,7 @@ func load_settings():
 		if err == OK:
 			mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
 			crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
+			brightness = config.get_value("Settings", "brightness", brightness)
 			master_volume = config.get_value("Settings", "master_volume", master_volume)
 			music_volume = config.get_value("Settings", "music_volume", music_volume)
 			vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
@@ -184,7 +188,15 @@ func apply_all_settings():
 	apply_bus_volume("Ambient", ambient_volume)
 		
 	setup_input_map()
+	apply_brightness()
+
+func apply_brightness():
 	update_crt_overlays()
+	if is_inside_tree() and get_tree() and get_tree().root:
+		var env_node = get_tree().root.find_child("WorldEnvironment", true, false)
+		if env_node and env_node is WorldEnvironment and env_node.environment:
+			env_node.environment.adjustment_enabled = true
+			env_node.environment.adjustment_brightness = brightness / 100.0
 
 func apply_bus_volume(bus_name: String, value: float):
 	var bus_idx = AudioServer.get_bus_index(bus_name)
@@ -261,14 +273,29 @@ func _on_node_added(node: Node):
 	if node is CanvasItem and (node.name == "CRTOverlay" or node.name == "PauseCRTOverlay" or node.is_in_group("CRTOverlays")):
 		if not node.is_in_group("CRTOverlays"):
 			node.add_to_group("CRTOverlays")
-		node.visible = crt_effect_enabled
+		apply_brightness()
 
 func update_crt_overlays():
 	if not is_inside_tree():
 		return
+	var factor = brightness / 100.0
 	for crt in get_tree().get_nodes_in_group("CRTOverlays"):
 		if crt is CanvasItem:
-			crt.visible = crt_effect_enabled
+			if crt_effect_enabled:
+				crt.visible = true
+				if crt.material and crt.material is ShaderMaterial:
+					crt.material.set_shader_parameter("scanline_intensity", 0.08)
+					crt.material.set_shader_parameter("vignette_intensity", 0.08)
+					crt.material.set_shader_parameter("brightness", factor)
+			else:
+				if abs(brightness - 100.0) < 0.1:
+					crt.visible = false
+				else:
+					crt.visible = true
+					if crt.material and crt.material is ShaderMaterial:
+						crt.material.set_shader_parameter("scanline_intensity", 0.0)
+						crt.material.set_shader_parameter("vignette_intensity", 0.0)
+						crt.material.set_shader_parameter("brightness", factor)
 
 func _connect_buttons_recursive(node: Node):
 	if node is Button:

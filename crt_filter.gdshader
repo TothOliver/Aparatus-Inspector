@@ -9,6 +9,8 @@ uniform float vignette_intensity : hint_range(0.0, 2.0) = 0.08;
 uniform float grr_intensity : hint_range(0.0, 1.0) = 0.0;
 uniform float aberration : hint_range(0.0, 0.1) = 0.0;
 
+uniform float brightness : hint_range(0.2, 2.0) = 1.0;
+
 // Distortion function for curvature
 vec2 curve(vec2 uv) {
     uv = uv * 2.0 - 1.0;
@@ -47,6 +49,9 @@ void fragment() {
         float vignette = v_uv.x * v_uv.y * 15.0;
         vignette = clamp(pow(vignette, vignette_intensity), 0.0, 1.0);
         col.rgb *= vignette;
+        
+        // Brightness adjustment
+        col.rgb *= brightness;
         
         COLOR = col;
     }

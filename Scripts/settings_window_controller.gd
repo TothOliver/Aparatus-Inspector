@@ -5,6 +5,8 @@ extends Control
 @onready var fps_option = get_node_or_null("GeneralContainer/FPSOption")
 @onready var vsync_checkbox = get_node_or_null("GeneralContainer/VSyncCheckbox")
 @onready var crt_checkbox = get_node_or_null("GeneralContainer/CRTCheckbox")
+@onready var brightness_slider = get_node_or_null("GeneralContainer/BrightnessSlider")
+@onready var brightness_value_label = get_node_or_null("GeneralContainer/BrightnessValueLabel")
 
 @onready var volume_slider = get_node_or_null("GeneralContainer/VolumeSlider")
 @onready var volume_value_label = get_node_or_null("GeneralContainer/VolumeValueLabel")
@@ -364,6 +366,18 @@ func update_ui_from_stats():
 		crt_checkbox.button_pressed = GameStats.crt_effect_enabled
 		crt_checkbox.toggled.connect(_on_crt_toggled)
 
+	# Brightness Slider
+	if brightness_slider:
+		for conn in brightness_slider.value_changed.get_connections():
+			brightness_slider.value_changed.disconnect(conn.callable)
+		brightness_slider.min_value = 50.0
+		brightness_slider.max_value = 150.0
+		brightness_slider.step = 1.0
+		brightness_slider.value = GameStats.brightness
+		brightness_slider.value_changed.connect(_on_brightness_changed)
+		if brightness_value_label:
+			brightness_value_label.text = str(int(round(GameStats.brightness))) + "%"
+
 	# Main Volume Slider
 	_setup_volume_slider(volume_slider, volume_value_label, GameStats.master_volume, func(v): _on_volume_changed("Master", v))
 	
@@ -422,6 +436,13 @@ func _on_crt_toggled(toggled_on: bool):
 	GameStats.crt_effect_enabled = toggled_on
 	GameStats.save_settings()
 	GameStats.update_crt_overlays()
+
+func _on_brightness_changed(value: float):
+	GameStats.brightness = value
+	if brightness_value_label:
+		brightness_value_label.text = str(int(round(value))) + "%"
+	GameStats.apply_brightness()
+	GameStats.save_settings()
 
 func _on_volume_changed(bus_name: String, value: float):
 	if bus_name == "Master":

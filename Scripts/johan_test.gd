@@ -1,16 +1,5 @@
 extends "res://Scripts/game3d.gd"
 
-var is_curtain2_closed: bool = false
-var target_curtain2_scale_x: float = 0.1
-var target_curtain2_pos_x: float = 5.25 # Open is 5.25, closed is 6.0
-
-var is_curtain3_closed: bool = false
-var target_curtain3_scale_x: float = 0.1
-var target_curtain3_pos_x: float = -0.75 # Open is -0.75, closed is 0.0
-
-var is_room2_light_on: bool = true
-var is_room3_light_on: bool = true
-
 func _ready():
 	# Remove the original hunter robot to prevent it from interfering
 	var old_hunter = get_node_or_null("HunterRobot")
