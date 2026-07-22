@@ -1,7 +1,6 @@
 extends Node
 
 @onready var health_bar = %HealthBar
-var sanity_bar = null
 
 # Scoring
 var missed_robots_score: int = 0
@@ -13,7 +12,6 @@ var max_days: int = 3
 # BAD AI let in
 var bad_ai_let_in_count: int = 0
 var bad_ai_killed: int = 0
-var sanity: int = 100
 
 var health: int = 100:
 	set(value):
@@ -23,7 +21,7 @@ var health: int = 100:
 			if "breaches" in health_bar:
 				health_bar.breaches = bad_ai_let_in_count
 			health_bar.value = value
-const MAX_ALLOWED_BAD_AI = 4
+const MAX_ALLOWED_BAD_AI = 2
 
 # Day Configurations: [Quota, Difficulty Level]
 var day_configs = {
@@ -123,7 +121,7 @@ func process_robot(robot: RobotData, player_choice_pass: bool):
 
 	if is_error:
 		GameStats.total_security_breaches = bad_ai_let_in_count
-		health = max(0, health - 25)
+		health = max(0, health - 50)
 		if health_bar and "breaches" in health_bar:
 			health_bar.breaches = bad_ai_let_in_count
 		if health == 0 or bad_ai_let_in_count >= MAX_ALLOWED_BAD_AI:

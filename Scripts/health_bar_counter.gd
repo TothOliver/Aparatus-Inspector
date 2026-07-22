@@ -16,5 +16,5 @@ func _ready():
 func update_display():
 	var count = breaches
 	if value < 100.0:
-		count = max(count, int(round((100.0 - value) / 25.0)))
-	text = str(clamp(count, 0, 4)) + " / 4"
+		count = max(count, int(round((100.0 - value) / 50.0)))
+	text = str(clamp(count, 0, 2)) + " / 2"

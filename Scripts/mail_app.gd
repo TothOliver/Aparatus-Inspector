@@ -3,21 +3,21 @@ extends DesktopWindow
 var emails = {
 	1: {
 		"sender": "Supervisor Donald",
-		"subject": "Shift 1 Instructions: Welcome to the Cage",
+		"subject": "Shift 1 Instructions: Welcome",
 		"date": "06-Jul-1998",
-		"body": "Julian,\n\nWelcome to your first shift down in the observation booth. Below are your instructions for today.\n\n==================================\nDAILY INSPECTOR CHECKLIST (DAY 1)\n==================================\n- OBJECTIVE: Inspect 3 synthetic units.\n- TOOL PROTOCOLS:\n  * Chat Interface: ONLINE.\n  * Database Specs: OFFLINE.\n  * System Scanner: OFFLINE.\n- VERIFICATION METHOD (TUTORIAL):\n  * Evaluate units based ONLY on dialogue tells.\n  * Open the \"Apparatus Explorer\" web browser app.\n  * Navigate to: www.inspections-database.org/behavior\n    to read the \"Whistleblower Behavioral Profiler\".\n  * This log documents the specific conversational\n    tells for T-Series, S80, H.U.G.O, and Model-3.\n  * Chat with the units and check if they exhibit\n    any of these emotional or verbal tells. If they\n    do, they are INFECTED!\n- OFFICE TOOLS REFERENCE:\n  * Read the user manual file ('manual.txt') in the\n    terminal (type 'cat manual.txt') to understand\n    how to use your light switches, door locks, and\n    override command interfaces.\n==================================\n\nBe diligent. Your performance is monitored.\n\nDonald"
+		"body": "Julian,\n\nWelcome to Shift 1.\n\n===========================\nDAILY CHECKLIST (SHIFT 1)\n===========================\n• Quota: Inspect 3 units.\n• Tools: Inspector App & Browser (ONLINE). Specs & Terminal Scanner (OFFLINE).\n• Verification: Evaluate units using dialogue. Check www.inspections-database.org/behavior in the browser for behavioral tells.\n===========================\n\nYour performance is monitored.\n- Donald"
 	},
 	2: {
 		"sender": "Supervisor Donald",
-		"subject": "Shift 2 Instructions: Telemetry & Scanner Enabled",
+		"subject": "Shift 2 Instructions: Scanner Online",
 		"date": "07-Jul-1998",
-		"body": "Julian,\n\nGood job surviving the first shift. We have enabled additional diagnostic tools for you today.\n\n==================================\nDAILY INSPECTOR CHECKLIST (DAY 2)\n==================================\n- OBJECTIVE: Inspect 4 synthetic units.\n- TOOL PROTOCOLS:\n  * Chat Interface: ONLINE.\n  * Database Specs: ONLINE.\n  * System Scanner: ONLINE ('scan' command).\n- VERIFICATION METHOD (TUTORIAL):\n  * Open the \"Apparatus Explorer\" web browser app.\n  * Navigate to: www.robot-factory.corp/registry\n    to access the \"Official Specs & Core Registry\".\n  * Open your system Terminal and run the \"scan\"\n    command when a robot is inside the chamber.\n  * Compare the scanned telemetry (Model, Manufacturer,\n    Status, and Core Signature Hash) with the official\n    intranet registry records.\n  * Rogue units today have 2 combined anomalies\n    (e.g., registry spelling mismatch + dialogue tell).\n==================================\n\nAlso, local weather reports warn of severe E-M spikes in the grid. Watch the power levels and CCTV for any corridor movement.\n\nDonald"
+		"body": "Julian,\n\nShift 1 complete. Additional tools are now enabled.\n\n===========================\nDAILY CHECKLIST (SHIFT 2)\n===========================\n• Quota: Inspect 4 units.\n• Tools: Database Specs & Terminal Scanner ('scan' command) are ONLINE.\n• Verification: Run 'scan' in terminal and compare telemetry against www.robot-factory.corp/registry.\n===========================\n\nWatch power levels and CCTV.\n- Donald"
 	},
 	3: {
 		"sender": "Supervisor Donald",
-		"subject": "Shift 3 Instructions: Anomaly spoofing detected",
+		"subject": "Shift 3 Instructions: Anomaly Spoofing",
 		"date": "08-Jul-1998",
-		"body": "Julian,\n\nThis is your final shift. The network intrusions are accelerating, and we suspect Prime-0 has improved its registry spoofing capabilities.\n\n==================================\nDAILY INSPECTOR CHECKLIST (DAY 3)\n==================================\n- OBJECTIVE: Inspect 5 synthetic units.\n- TOOL PROTOCOLS:\n  * Chat Interface: ONLINE.\n  * Database Specs: ONLINE.\n  * System Scanner: ONLINE ('scan' command).\n- VERIFICATION METHOD:\n  * Registry check: Match all details.\n  * Beware of spoofing: Rogues now have only\n    1 anomaly. Clean registry could mean infected\n    dialogue, and clean dialogue could mean an\n    unapproved registry detail/blacklisted hash!\n  * Blacklist check: Cross-reference Core Hash\n    with blacklisted signatures (e.g. Walter 0x4421,\n    Larry 0xBD42, Harold 0x9E10, Clanker 0x333F)\n    documented in decryption records.\n==================================\n\nDonald"
+		"body": "Julian,\n\nFinal shift. Network intrusions are accelerating.\n\n===========================\nDAILY CHECKLIST (SHIFT 3)\n===========================\n• Quota: Inspect 5 units.\n• Threat: Rogues now spoof telemetry (1 anomaly per rogue).\n• Verification: Cross-reference core hashes against blacklists and watch for dialogue tells.\n===========================\n\nComplete the quota to authorize evacuation.\n- Donald"
 	}
 }
 

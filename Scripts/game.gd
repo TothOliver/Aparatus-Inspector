@@ -14,7 +14,6 @@ signal robot_spawned(robot: RobotData)
 @onready var day_manager = %DayManager
 @onready var chat_manager = %ChatManager
 @onready var health_bar = %HealthBar
-@onready var sanity_bar = get_node_or_null("%SanityBar")
 
 #info tab stuff
 @onready var nameInfo = %NameLabel
@@ -269,13 +268,12 @@ func _ready():
 			if offline_label:
 				offline_label.visible = false
 
-	# Show Scribble tutorial assistant automatically on Day 1 start
-	if day_manager.current_day == 1:
-		var scribble = get_node_or_null("ScribbleWindow")
-		if scribble:
-			scribble.visible = true
-			if scribble.has_method("move_to_front"):
-				scribble.move_to_front()
+	# Show Scribble tutorial assistant automatically on shift start
+	var scribble = get_node_or_null("ScribbleWindow")
+	if scribble:
+		scribble.visible = true
+		if scribble.has_method("move_to_front"):
+			scribble.move_to_front()
 
 func spawn_next_robot():
 	if not is_inside_tree():

@@ -288,7 +288,7 @@ func _on_command_submitted(new_text: String):
 			var passed = GameStats.good_robots_through
 			var killed = GameStats.bad_robots_terminated
 			print_to_terminal("=== SYSTEM DIAGNOSTICS ===\n" +
-				"Security Breaches (Bad AI admitted): " + str(breaches) + " / 4 (CRITICAL LIMIT)\n" +
+				"Security Breaches (Bad AI admitted): " + str(breaches) + " / 2 (CRITICAL LIMIT)\n" +
 				"Innocent AIs Terminated: " + str(innocents) + "\n" +
 				"Good AIs Admitted: " + str(passed) + "\n" +
 				"Bad AIs Exterminated: " + str(killed) + "\n" +

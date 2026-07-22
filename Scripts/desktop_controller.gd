@@ -504,6 +504,10 @@ func _process(_delta):
 
 func _update_tab_state(tab: Button, active: bool):
 	if tab:
+		if GameStats.current_day == 1 and (tab == terminal_tab or tab == cctv_tab):
+			tab.visible = false
+			return
+
 		var normal_style = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
 		var hover_style = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
 		var pressed_style = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
@@ -561,11 +565,15 @@ func shutdown_computer():
 
 # Triggered by double-clicking or clicking desktop icons
 func open_app(app_name: String):
+	if GameStats.current_day == 1 and (app_name == "Terminal" or app_name == "CCTV"):
+		return
 	var window = _get_window_by_name(app_name)
 	if window:
 		window.restore()
 
 func toggle_window_from_tab(app_name: String):
+	if GameStats.current_day == 1 and (app_name == "Terminal" or app_name == "CCTV"):
+		return
 	var window = _get_window_by_name(app_name)
 	if window:
 		if window.visible:

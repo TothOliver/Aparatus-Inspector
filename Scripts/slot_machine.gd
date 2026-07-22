@@ -9,14 +9,14 @@ extends Control
 @onready var balance_label = %BalanceLabel
 @onready var bet_label = %BetLabel
 @onready var win_label = %WinLabel
-@onready var sanity_status_label = get_node_or_null("%SanityStatusLabel")
+@onready var security_status_label = get_node_or_null("%SecurityStatusLabel")
 
 # Buttons
 @onready var spin_button = %SpinButton
 @onready var bet_plus_btn = %BetPlusBtn
 @onready var bet_minus_btn = %BetMinusBtn
 @onready var loan_button = %LoanButton
-@onready var buy_sanity_btn = get_node_or_null("%BuySanityBtn")
+@onready var buy_repair_btn = get_node_or_null("%BuyRepairBtn")
 @onready var buy_battery_btn = %BuyBatteryBtn
 
 # Variables
@@ -78,9 +78,9 @@ func _ready():
 		bet_minus_btn.pressed.connect(_on_bet_minus_pressed)
 	if loan_button:
 		loan_button.pressed.connect(_on_loan_pressed)
-	if buy_sanity_btn:
-		buy_sanity_btn.pressed.connect(_on_buy_sanity_pressed)
-		buy_sanity_btn.text = "Repair Security ($50)\n[-1 Breach]"
+	if buy_repair_btn:
+		buy_repair_btn.pressed.connect(_on_buy_repair_pressed)
+		buy_repair_btn.text = "Repair Security ($50)\n[-1 Breach]"
 	if buy_battery_btn:
 		buy_battery_btn.pressed.connect(_on_buy_battery_pressed)
 
@@ -201,8 +201,8 @@ func _generate_glitch_sound() -> AudioStreamWAV:
 func _process(_delta):
 	# Keep status display updated if DayManager exists
 	var dm = get_day_manager()
-	if dm and sanity_status_label:
-		sanity_status_label.text = "Status: OK"
+	if dm and security_status_label:
+		security_status_label.text = "Status: OK"
 		
 	# Keep balance label updated in real time if modified by other games
 	if GameStats.casino_balance != last_displayed_balance:
@@ -225,8 +225,8 @@ func update_ui():
 		bet_label.text = "Bet: $%d" % bet
 	
 	# Enable/disable buy buttons based on balance
-	if buy_sanity_btn:
-		buy_sanity_btn.disabled = (balance < 50.0)
+	if buy_repair_btn:
+		buy_repair_btn.disabled = (balance < 50.0)
 	if buy_battery_btn:
 		buy_battery_btn.disabled = (balance < 40.0)
 		
@@ -416,7 +416,7 @@ func calculate_win(r1: String, r2: String, r3: String):
 		win_label.text = text_outcome
 
 
-func _on_buy_sanity_pressed():
+func _on_buy_repair_pressed():
 	if balance >= 50.0:
 		var dm = get_day_manager()
 		if dm:

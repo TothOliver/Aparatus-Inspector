@@ -17,7 +17,6 @@ var is_victory: bool = false
 var casino_balance: float = 100.0
 var wifi_on: bool = true
 var player_health: float = 100.0
-var player_sanity: float = 100.0
 
 var read_emails: Dictionary = {1: false, 2: false, 3: false}
 
@@ -307,7 +306,6 @@ func save_game():
 	config.set_value("Game", "current_day", current_day)
 	config.set_value("Game", "casino_balance", casino_balance)
 	config.set_value("Game", "player_health", player_health)
-	config.set_value("Game", "player_sanity", player_sanity)
 	config.set_value("Game", "total_security_breaches", total_security_breaches)
 	config.set_value("Game", "innocent_robots_killed", innocent_robots_killed)
 	config.set_value("Game", "good_robots_through", good_robots_through)
@@ -338,7 +336,6 @@ func load_game() -> bool:
 	current_day = config.get_value("Game", "current_day", 1)
 	casino_balance = config.get_value("Game", "casino_balance", 100.0)
 	player_health = config.get_value("Game", "player_health", 100.0)
-	player_sanity = config.get_value("Game", "player_sanity", 100.0)
 	total_security_breaches = config.get_value("Game", "total_security_breaches", 0)
 	innocent_robots_killed = config.get_value("Game", "innocent_robots_killed", 0)
 	good_robots_through = config.get_value("Game", "good_robots_through", 0)
@@ -385,7 +382,6 @@ func reset_game_state():
 	casino_balance = 100.0
 	wifi_on = true
 	player_health = 100.0
-	player_sanity = 100.0
 	read_emails = {1: false, 2: false, 3: false}
 
 func quit_or_menu(tree: SceneTree):
