@@ -309,6 +309,7 @@ func _connect_button(btn: Button):
 
 func _play_button_click():
 	if button_click_player and button_click_stream:
+		button_click_player.pitch_scale = randf_range(0.95, 1.05)
 		button_click_player.stream = button_click_stream
 		button_click_player.play()
 
