@@ -23,7 +23,7 @@ var wait_at_door_timer: float = 0.0
 
 func _ready():
 	super._ready()
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	set_physics_process(false)
 	
 	if not phase1_robot:
@@ -42,10 +42,10 @@ func activate(_peek_loc: PeekLocation):
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 	
 	global_position = get_door_pos()
-	# Face the office door
-	look_at(Vector3(0.0, global_position.y, 0.5))
+	# Face the player
+	look_at_player()
 		
-	$Sprite3D.visible = true
+	set_monster_visible(true)
 	wait_at_door_timer = 6.0
 	
 	var ap = get_active_audio_player()
@@ -62,7 +62,7 @@ func _physics_process(delta):
 	wait_at_door_timer -= delta
 	if wait_at_door_timer <= 0:
 		# Deactivate and advance
-		$Sprite3D.visible = false
+		set_monster_visible(false)
 		current_state = State.INACTIVE
 		set_physics_process(false)
 		
@@ -78,7 +78,7 @@ func check_if_player_sees_hunter() -> bool:
 	return false
 
 func retreat_and_reset():
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.INACTIVE
 	set_physics_process(false)
 	

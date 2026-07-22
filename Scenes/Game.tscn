@@ -2163,7 +2163,7 @@ offset_bottom = 332.0
 [node name="Cam1Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398413]
 layout_mode = 0
 offset_top = 4.0
-offset_right = 55.0
+offset_right = 45.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -2179,9 +2179,9 @@ text = "CAM 1"
 
 [node name="Cam2Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398414]
 layout_mode = 0
-offset_left = 60.0
+offset_left = 48.0
 offset_top = 4.0
-offset_right = 115.0
+offset_right = 93.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -2197,9 +2197,9 @@ text = "CAM 2"
 
 [node name="Cam3Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398416]
 layout_mode = 0
-offset_left = 120.0
+offset_left = 96.0
 offset_top = 4.0
-offset_right = 175.0
+offset_right = 141.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -2213,16 +2213,35 @@ theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "CAM 3"
 
+[node name="CCTVLightButton" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398417]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 145.0
+offset_top = 4.0
+offset_right = 210.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "LIGHT"
+
 [node name="CameraLabel" type="Label" parent="CCTVWindow/CameraControls" unique_id=12398415]
 layout_mode = 0
-offset_left = 185.0
+offset_left = 215.0
 offset_top = 4.0
 offset_right = 320.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "Camera: Corridor"
+theme_override_font_sizes/font_size = 11
+text = "Corridor"
 vertical_alignment = 1
 
 [node name="SlotMachineWindow" type="NinePatchRect" parent="." unique_id=202610220]
@@ -2939,6 +2958,7 @@ mouse_filter = 2
 [connection signal="pressed" from="CCTVWindow/CameraControls/Cam1Button" to="DesktopOS" method="_on_cam1_pressed"]
 [connection signal="pressed" from="CCTVWindow/CameraControls/Cam2Button" to="DesktopOS" method="_on_cam2_pressed"]
 [connection signal="pressed" from="CCTVWindow/CameraControls/Cam3Button" to="DesktopOS" method="_on_cam3_pressed"]
+[connection signal="pressed" from="CCTVWindow/CameraControls/CCTVLightButton" to="DesktopOS" method="_on_cctv_light_pressed"]
 [connection signal="pressed" from="SlotMachineWindow/TitleBar/CloseButton" to="SlotMachineWindow" method="close"]
 [connection signal="pressed" from="SettingsWindow/TitleBar/CloseButton" to="SettingsWindow" method="close"]
 [connection signal="pressed" from="HackerAlert/TerminalButton" to="DesktopOS" method="_on_hacker_alert_terminal_pressed"]

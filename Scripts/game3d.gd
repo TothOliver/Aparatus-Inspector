@@ -191,15 +191,24 @@ func _process(delta):
 	if GameStats.door_locked:
 		var drain_rate = 3.5 * (1.0 + (GameStats.current_day - 1) * 0.45)
 		GameStats.power_level = max(0.0, GameStats.power_level - drain_rate * delta)
-	else:
+	elif not GameStats.cctv_light_on:
 		if GameStats.power_level < 100.0 and not is_breaker_tripped:
 			# Recharge power: ~2.5% per second
 			GameStats.power_level = min(100.0, GameStats.power_level + 2.5 * delta)
+
+	if GameStats.cctv_light_on:
+		GameStats.power_level = max(0.0, GameStats.power_level - 20.0 * delta)
+		if GameStats.power_level <= 0.0:
+			GameStats.cctv_light_on = false
+			var desktop_os = get_node_or_null("ViewportContainer/SubViewport/DesktopOS")
+			if desktop_os and desktop_os.has_method("update_cctv_light_state"):
+				desktop_os.update_cctv_light_state()
 
 	# Handle Blackout state changes based on power level or breaker state
 	if GameStats.power_level <= 0.0 or is_breaker_tripped:
 		if not is_blackout:
 			GameStats.door_locked = false
+			GameStats.cctv_light_on = false
 			_trigger_power_outage()
 	else:
 		if is_blackout and GameStats.power_level >= 10.0 and not is_breaker_tripped:

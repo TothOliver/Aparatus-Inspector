@@ -677,7 +677,8 @@ func _on_cam1_pressed():
 		cam3.current = false
 	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
 	if label:
-		label.text = "Camera: Corridor"
+		label.text = "Corridor"
+	update_cctv_light_state()
 
 func _on_cam2_pressed():
 	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
@@ -691,7 +692,8 @@ func _on_cam2_pressed():
 		cam3.current = false
 	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
 	if label:
-		label.text = "Camera: Room 2"
+		label.text = "Room 2"
+	update_cctv_light_state()
 
 func _on_cam3_pressed():
 	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
@@ -705,7 +707,43 @@ func _on_cam3_pressed():
 		cam3.current = true
 	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
 	if label:
-		label.text = "Camera: Room 3"
+		label.text = "Room 3"
+	update_cctv_light_state()
+
+func _on_cctv_light_pressed():
+	if GameStats.power_level <= 0.0:
+		GameStats.cctv_light_on = false
+	else:
+		GameStats.cctv_light_on = not GameStats.cctv_light_on
+	update_cctv_light_state()
+
+func update_cctv_light_state():
+	if GameStats.power_level <= 0.0:
+		GameStats.cctv_light_on = false
+		
+	var light1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1/CCTVLight1")
+	var light2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2/CCTVLight2")
+	var light3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3/CCTVLight3")
+	
+	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
+	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
+	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+
+	if light1:
+		light1.visible = GameStats.cctv_light_on and (cam1 and cam1.current)
+	if light2:
+		light2.visible = GameStats.cctv_light_on and (cam2 and cam2.current)
+	if light3:
+		light3.visible = GameStats.cctv_light_on and (cam3 and cam3.current)
+		
+	var light_btn = get_node_or_null("%CCTVWindow/CameraControls/CCTVLightButton") as Button
+	if light_btn:
+		if GameStats.cctv_light_on:
+			light_btn.text = "LIGHT: ON"
+			light_btn.add_theme_color_override("font_color", Color(0, 0.5, 0, 1))
+		else:
+			light_btn.text = "LIGHT"
+			light_btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
 
 func refresh_mail_notifications():
 	var has_unread = GameStats.has_unread_mail()

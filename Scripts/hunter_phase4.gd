@@ -15,7 +15,7 @@ var state_timer: float = 0.0
 
 func _ready():
 	super._ready()
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	set_physics_process(false)
 	
 	if not phase2_robot:
@@ -26,13 +26,13 @@ func activate():
 	current_state = State.BREAKING_IN
 	global_position = get_door_pos()
 	
-	# Face the office door
-	look_at(Vector3(0.0, global_position.y, 0.5))
+	# Face the player
+	look_at_player()
 	
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 		
-	$Sprite3D.visible = true
+	set_monster_visible(true)
 	bang_count = 0
 	state_timer = 1.0 # time until first bang thud
 	set_physics_process(true)
@@ -72,7 +72,7 @@ func _physics_process(delta):
 
 func retreat_to_phase2():
 	print("[Phase 4 Debug] Retreating back to Phase 2 due to failed break-in!")
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.INACTIVE
 	set_physics_process(false)
 	
@@ -84,8 +84,8 @@ func kill_player():
 	current_state = State.INACTIVE
 	set_physics_process(false)
 	
-	# Make sure sprite is visible
-	$Sprite3D.visible = true
+	# Make sure monster is visible
+	set_monster_visible(true)
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 	

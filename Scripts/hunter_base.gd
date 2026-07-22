@@ -75,6 +75,30 @@ func _ready():
 	
 	audio_player.unit_size = 4.0
 	audio_player.max_db = 3.0
+	
+	set_monster_visible(false)
+	var model = get_node_or_null("TempModel1")
+	if model:
+		model.scale = Vector3(0.3, 0.3, 0.3)
+		model.rotation_degrees.y = 90.0
+
+func set_monster_visible(vis: bool) -> void:
+	var sprite = get_node_or_null("Sprite3D")
+	if sprite:
+		sprite.visible = false
+	var model = get_node_or_null("TempModel1")
+	if model:
+		model.visible = vis
+		model.scale = Vector3(0.3, 0.3, 0.3)
+		model.rotation_degrees.y = 90.0
+
+func look_at_player() -> void:
+	var player = get_tree().root.find_child("Player", true, false)
+	var target_pos = Vector3(0.0, global_position.y, 0.5)
+	if player:
+		target_pos = Vector3(player.global_position.x, global_position.y, player.global_position.z)
+	if global_position.distance_squared_to(target_pos) > 0.001:
+		look_at(target_pos)
 
 # === PROCEDURAL AUDIO GENERATION ===
 

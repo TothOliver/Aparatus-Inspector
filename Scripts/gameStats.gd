@@ -10,6 +10,7 @@ var let_through_bad_sprites: Array = []
 # Gameplay depth additions
 var current_day: int = 1
 var power_level: float = 100.0
+var cctv_light_on: bool = false
 var door_locked: bool = false
 var hack_active: bool = false
 var hack_progress: float = 0.0

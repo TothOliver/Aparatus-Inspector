@@ -1,7 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0qa8660x6cxk"]
+[gd_scene format=3 uid="uid://c0qa8660x6cxk"]
 
 [ext_resource type="PackedScene" uid="uid://cpompt0m35ptf" path="res://Scenes/JohanTest.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://bbepv7iggyorx" path="res://Scripts/phase1_test.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://0ub7akbpcn26" path="res://assets/TempRobot/TempModel1.glb" id="3_urn1b"]
 
-[node name="Game3D" instance=ExtResource("1_base")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux8wi"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wglud"]
+resource_local_to_scene = true
+albedo_color = Color(1, 1, 0.9, 1)
+emission_enabled = true
+emission = Color(1, 0.95, 0.85, 1)
+emission_energy_multiplier = 2.0
+
+[node name="Game3D" unique_id=946660494 instance=ExtResource("1_base")]
 script = ExtResource("2_script")
+
+[node name="DoorLight" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="0" unique_id=1542004563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 2.3, 2.5)
+surface_material_override/0 = SubResource("StandardMaterial3D_ux8wi")
+
+[node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="1" unique_id=1047560640]
+surface_material_override/0 = SubResource("StandardMaterial3D_wglud")
+
+[node name="Sprite3D" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="2" unique_id=1439095790]
+visible = true
+
+[node name="Sprite3D" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="2" unique_id=1686748764]
+visible = true
+
+[node name="Sprite3D" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="2" unique_id=2137436410]
+visible = true
+
+[node name="Sprite3D" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="2" unique_id=2137436411]
+visible = true
+
+[node name="TempModel1" parent="." index="37" unique_id=185779234 instance=ExtResource("3_urn1b")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.859251, 0.32607877, 2.8986762)

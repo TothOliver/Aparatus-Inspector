@@ -125,7 +125,17 @@ func _physics_process(delta):
 	var show_sprite = false
 	if current_state == State.DOOR_RATTLE or current_state == State.BREAKING_IN:
 		show_sprite = true
-	$Sprite3D.visible = show_sprite
+	set_monster_visible(show_sprite)
+
+func set_monster_visible(vis: bool) -> void:
+	var sprite = get_node_or_null("Sprite3D")
+	if sprite:
+		sprite.visible = false
+	var model = get_node_or_null("TempModel1")
+	if model:
+		model.visible = vis
+		model.scale = Vector3(0.3, 0.3, 0.3)
+		model.rotation_degrees.y = 90.0
 	
 	# Activate robot on first active day
 	if not is_active:
@@ -198,12 +208,12 @@ func handle_approaching(delta):
 		# Warp to the chosen location
 		if active_peek_location == PeekLocation.WINDOW:
 			global_position = window_peek_marker.global_position
-			look_at(Vector3(get_window_pos().x, global_position.y, get_window_pos().z))
 		elif active_peek_location == PeekLocation.CAMERA:
 			global_position = camera_peek_marker.global_position
-			look_at(Vector3(get_door_pos().x, global_position.y, get_door_pos().z))
 		else:
 			global_position = get_door_pos()
+			
+		look_at_player()
 			
 		current_state = State.DOOR_RATTLE
 		wait_at_door_timer = 2.0
@@ -267,9 +277,9 @@ func check_if_player_sees_hunter() -> bool:
 	if not player:
 		return false
 		
-	# 1. Check if player is viewing CCTV Camera app on computer
+	# 1. Check if player is viewing CCTV Camera app on computer with camera flashlight ON
 	var seen_on_cctv = false
-	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
+	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on and GameStats.cctv_light_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
 			seen_on_cctv = true
@@ -289,11 +299,10 @@ func check_if_player_sees_hunter() -> bool:
 					
 	# Match based on chosen peek location
 	if active_peek_location == PeekLocation.WINDOW:
-		return seen_through_window
+		return seen_through_window or seen_on_cctv
 	elif active_peek_location == PeekLocation.CAMERA:
 		return seen_on_cctv
 	else:
-		# DOOR can be spotted by either CCTV or direct window look (fallback)
 		return seen_on_cctv or seen_through_window
 
 func retreat_and_reset():

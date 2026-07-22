@@ -22,7 +22,7 @@ var look_duration: float = 0.0
 func _ready():
 	super._ready()
 	global_position = get_start_pos()
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.PATROLLING
 	is_active = false
 	
@@ -36,7 +36,7 @@ func _physics_process(delta):
 	if GameStats.current_day <= 1:
 		global_position = get_start_pos()
 		current_state = State.PATROLLING
-		$Sprite3D.visible = false
+		set_monster_visible(false)
 		is_active = false
 		return
 
@@ -60,7 +60,7 @@ func _physics_process(delta):
 			handle_spawned(delta)
 
 func handle_patrol(delta):
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	global_position = get_start_pos()
 	
 	if next_investigation_time > 0:
@@ -118,15 +118,13 @@ func spawn_and_stare():
 			spawn_pos = marker.global_position
 	global_position = spawn_pos
 
-	# Look at CCTV camera
-	var cctv_camera = get_tree().root.find_child("CCTVCamera", true, false)
-	if cctv_camera:
-		look_at(Vector3(cctv_camera.global_position.x, global_position.y, cctv_camera.global_position.z))
+	# Look directly at the player
+	look_at_player()
 	
 	# Assign texture if loaded
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
-	$Sprite3D.visible = true
+	set_monster_visible(true)
 	
 	# Cue Sound: Location-based or random selection
 	var ap = get_active_audio_player()
@@ -165,10 +163,10 @@ func handle_spawned(delta):
 		advance_to_phase2()
 
 func check_if_player_sees_hunter() -> bool:
-	# 1. Check if player looks at it on CCTV
+	# 1. Check if player looks at it on CCTV with camera flashlight ON
 	if check_if_player_looks_at_cctv():
 		return true
-		
+
 	# 2. Check if player is looking directly at it in 3D and has flashlight on
 	var game_3d = get_parent_node_3d()
 	if not game_3d:
@@ -207,6 +205,10 @@ func check_if_player_looks_at_cctv() -> bool:
 	if not player:
 		return false
 		
+	# CCTV flashlight MUST be ON to see and scare the monster!
+	if not GameStats.cctv_light_on:
+		return false
+		
 	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
@@ -223,7 +225,7 @@ func check_if_player_looks_at_cctv() -> bool:
 	return false
 
 func disappear_and_reset():
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.PATROLLING
 	global_position = get_start_pos()
 	
@@ -245,7 +247,7 @@ func disappear_and_reset():
 	ap.play()
 
 func advance_to_phase2():
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.PATROLLING
 	global_position = get_start_pos()
 	
@@ -262,7 +264,7 @@ func start_chase():
 	# Slot machine bypass: goes straight to Phase 3 (old Phase 2)!
 	if GameStats.current_day <= 1:
 		return
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.PATROLLING
 	global_position = get_start_pos()
 	

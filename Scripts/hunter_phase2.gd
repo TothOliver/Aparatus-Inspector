@@ -17,7 +17,7 @@ var look_duration: float = 0.0
 
 func _ready():
 	super._ready()
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	set_physics_process(false)
 	
 	if not phase1_robot:
@@ -38,13 +38,13 @@ func activate(is_door_retreat: bool = false):
 			spawn_pos = marker.global_position
 	global_position = spawn_pos
 	
-	# Look towards the office center
-	look_at(Vector3(0.0, global_position.y, 0.5))
+	# Look directly at the player
+	look_at_player()
 	
 	# Ensure texture is loaded
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
-	$Sprite3D.visible = true
+	set_monster_visible(true)
 	
 	# Play heavy heavy concrete step sound to show it moved closer
 	var ap = get_active_audio_player()
@@ -113,7 +113,7 @@ func check_if_player_sees_hunter() -> bool:
 	return seen_in_3d
 
 func retreat_and_reset():
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.INACTIVE
 	set_physics_process(false)
 	
@@ -121,7 +121,7 @@ func retreat_and_reset():
 		phase1_robot.retreat()
 
 func advance_to_phase3():
-	$Sprite3D.visible = false
+	set_monster_visible(false)
 	current_state = State.INACTIVE
 	set_physics_process(false)
 	

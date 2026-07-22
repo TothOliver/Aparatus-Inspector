@@ -147,13 +147,34 @@ transform = Transform3D(-4.37114e-08, 0.17364796, -0.9848078, 0, 0.9848078, 0.17
 current = true
 fov = 65.0
 
+[node name="CCTVLight1" type="SpotLight3D" parent="CCTVViewport/CCTVCamera1" unique_id=1651515990]
+visible = false
+light_color = Color(1, 0.98, 0.9, 1)
+light_energy = 4.0
+spot_range = 25.0
+spot_angle = 45.0
+
 [node name="CCTVCamera2" type="Camera3D" parent="CCTVViewport" unique_id=98721498]
 transform = Transform3D(1, 0, 0, 0, 0.9848078, 0.17364796, 0, -0.17364796, 0.9848078, 6, 1.2965627, 0.49045503)
 fov = 65.0
 
+[node name="CCTVLight2" type="SpotLight3D" parent="CCTVViewport/CCTVCamera2" unique_id=98721497]
+visible = false
+light_color = Color(1, 0.98, 0.9, 1)
+light_energy = 4.0
+spot_range = 25.0
+spot_angle = 45.0
+
 [node name="CCTVCamera3" type="Camera3D" parent="CCTVViewport" unique_id=98721499]
 transform = Transform3D(-1, 1.518079e-08, -8.609465e-08, 0, 0.9848078, 0.17364796, 8.74228e-08, 0.17364796, -0.9848078, 0, 1.5478749, 9.224833)
 fov = 65.0
+
+[node name="CCTVLight3" type="SpotLight3D" parent="CCTVViewport/CCTVCamera3" unique_id=98721500]
+visible = false
+light_color = Color(1, 0.98, 0.9, 1)
+light_energy = 4.0
+spot_range = 25.0
+spot_angle = 45.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1196134443]
 environment = SubResource("Environment_game")
@@ -625,10 +646,15 @@ shape = SubResource("CapsuleShape3D_player")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase1" unique_id=1439095790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 pixel_size = 0.006
 billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
+
+[node name="TempModel1" parent="HunterPhase1" instance=ExtResource("28_r4ocn")]
+transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+visible = false
 
 [node name="HunterPhase2" type="CharacterBody3D" parent="." unique_id=1703336048]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
@@ -650,10 +676,15 @@ shape = SubResource("CapsuleShape3D_player")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase2" unique_id=1686748764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 pixel_size = 0.006
 billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
+
+[node name="TempModel1" parent="HunterPhase2" instance=ExtResource("28_r4ocn")]
+transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+visible = false
 
 [node name="HunterPhase3" type="CharacterBody3D" parent="." unique_id=734618851]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
@@ -666,10 +697,15 @@ shape = SubResource("CapsuleShape3D_player")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase3" unique_id=2137436410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 pixel_size = 0.006
 billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
+
+[node name="TempModel1" parent="HunterPhase3" instance=ExtResource("28_r4ocn")]
+transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+visible = false
 
 [node name="HunterPhase4" type="CharacterBody3D" parent="." unique_id=74488888]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
@@ -688,10 +724,15 @@ shape = SubResource("CapsuleShape3D_player")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase4" unique_id=2137436411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
 pixel_size = 0.006
 billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
+
+[node name="TempModel1" parent="HunterPhase4" instance=ExtResource("28_r4ocn")]
+transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+visible = false
 
 [node name="Room2" type="Node3D" parent="." unique_id=1588998239]
 
@@ -819,8 +860,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4.7)
 script = ExtResource("4_switch")
 target_method = "toggle_room3_lights"
 interact_name = "Light Switch"
-
-[node name="TempModel1" parent="." unique_id=185779234 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.859251, 0.32607877, 2.8986762)
 
 [connection signal="pressed" from="HUD/PauseMenu/PauseWindow/TitleBar/CloseButton" to="Player" method="handle_settings_shortcut"]
