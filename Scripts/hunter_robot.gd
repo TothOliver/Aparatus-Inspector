@@ -127,16 +127,6 @@ func _physics_process(delta):
 		show_sprite = true
 	set_monster_visible(show_sprite)
 
-func set_monster_visible(vis: bool) -> void:
-	var sprite = get_node_or_null("Sprite3D")
-	if sprite:
-		sprite.visible = false
-	var model = get_node_or_null("TempModel1")
-	if model:
-		model.visible = vis
-		model.scale = Vector3(0.3, 0.3, 0.3)
-		model.rotation_degrees.y = 90.0
-	
 	# Activate robot on first active day
 	if not is_active:
 		is_active = true
@@ -177,6 +167,24 @@ func set_monster_visible(vis: bool) -> void:
 
 	# Handle footstep audio timing
 	handle_footsteps(delta)
+
+func set_monster_visible(vis: bool) -> void:
+	var sprite = get_node_or_null("Sprite3D")
+	if sprite:
+		sprite.visible = false
+	var model = get_node_or_null("TempModel1")
+	if model:
+		model.visible = vis
+		model.scale = Vector3(0.3, 0.3, 0.3)
+		model.rotation_degrees.y = 90.0
+
+func look_at_player() -> void:
+	var player = get_tree().root.find_child("Player", true, false)
+	var target_pos = Vector3(0.0, global_position.y, 0.5)
+	if player:
+		target_pos = Vector3(player.global_position.x, global_position.y, player.global_position.z)
+	if global_position.distance_squared_to(target_pos) > 0.001:
+		look_at(target_pos)
 
 func handle_patrol(_delta):
 	# Remain stationary at the starting point in the far corridor

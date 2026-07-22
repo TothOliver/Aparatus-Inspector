@@ -273,7 +273,7 @@ func _generate_flag_sound() -> AudioStreamWAV:
 		var t = float(i) / 11025.0
 		var env = (1.0 - t / 0.08)
 		var freq = 400.0 + t * 2500.0
-		var val = 0.25 if (fmod(t * freq, 1.0) < 0.5) else -0.25
+		var val = 0.175 if (fmod(t * freq, 1.0) < 0.5) else -0.175 # Lowered volume by 30%
 		data[i] = int(clamp((val * env) * 127.0 + 128.0, 0, 255))
 	stream.data = data
 	return stream
@@ -288,7 +288,7 @@ func _generate_explosion_sound() -> AudioStreamWAV:
 	for i in range(num_samples):
 		var t = float(i) / 11025.0
 		var env = exp(-8.0 * t)
-		var val = (randf() - 0.5) * 0.7 * env
+		var val = (randf() - 0.5) * 0.49 * env # Lowered volume by 30%
 		data[i] = int(clamp(val * 127.0 + 128.0, 0, 255))
 	stream.data = data
 	return stream
