@@ -27,6 +27,7 @@ var die_stream: AudioStreamWAV
 func _ready():
 	sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = -12.0
+	sfx_player.bus = "SFX"
 	add_child(sfx_player)
 	
 	tick_stream = _generate_tick_sound()

@@ -166,6 +166,7 @@ text = "Quit"
 
 [node name="gameOverSFX" type="AudioStreamPlayer" parent="." unique_id=1722259798]
 stream = ExtResource("Audio_GameOver")
+bus = &"SFX"
 
 [node name="CRTOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true

@@ -90,9 +90,16 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 			r.status = config.status
 			r.sprite = load(config.sprite)
 			
-			var anomaly_types = [0, 1, 2, 3] # 0: Model, 1: Manufacturer, 2: Hash, 3: Dialogue
-			anomaly_types.shuffle()
-			var active_anomalies = anomaly_types.slice(0, target_anomalies)
+			var active_anomalies = []
+			if target_anomalies == 1:
+				if randf() < 0.5:
+					active_anomalies = [3] # 50% chance: Dialogue anomaly
+				else:
+					active_anomalies = [[0, 1, 2].pick_random()] # 50% chance: Spec anomaly (Model, Manufacturer, or Hash)
+			else:
+				var anomaly_types = [0, 1, 2, 3] # 0: Model, 1: Manufacturer, 2: Hash, 3: Dialogue
+				anomaly_types.shuffle()
+				active_anomalies = anomaly_types.slice(0, target_anomalies)
 			
 			var has_dialogue_tell = false
 			

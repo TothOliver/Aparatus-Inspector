@@ -38,6 +38,7 @@ var number_colors = {
 func _ready():
 	sfx_player = AudioStreamPlayer.new()
 	sfx_player.volume_db = -10.0
+	sfx_player.bus = "SFX"
 	add_child(sfx_player)
 	
 	click_stream = _generate_click_sound()

@@ -55,6 +55,8 @@ func _ready():
 	sfx_player = AudioStreamPlayer.new()
 	tick_player.volume_db = -9.0
 	sfx_player.volume_db = -9.0
+	tick_player.bus = "SFX"
+	sfx_player.bus = "SFX"
 	add_child(tick_player)
 	add_child(sfx_player)
 	

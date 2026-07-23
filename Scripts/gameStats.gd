@@ -28,7 +28,7 @@ var crt_effect_enabled: bool = true
 var brightness: float = 100.0
 var master_volume: float = 80.0
 var music_volume: float = 80.0
-var vfx_volume: float = 80.0
+var sfx_volume: float = 80.0
 var ambient_volume: float = 80.0
 var fullscreen_enabled: bool = true
 var display_mode: int = 2 # 0 = Windowed, 1 = Borderless, 2 = Fullscreen
@@ -61,7 +61,7 @@ var button_click_player: AudioStreamPlayer
 var button_click_stream: AudioStreamWAV
 
 func ensure_audio_buses():
-	var buses = ["Music", "VFX", "Ambient"]
+	var buses = ["Music", "SFX", "Ambient"]
 	for bus in buses:
 		if AudioServer.get_bus_index(bus) == -1:
 			var idx = AudioServer.bus_count
@@ -78,7 +78,7 @@ func save_settings():
 	config.set_value("Settings", "brightness", brightness)
 	config.set_value("Settings", "master_volume", master_volume)
 	config.set_value("Settings", "music_volume", music_volume)
-	config.set_value("Settings", "vfx_volume", vfx_volume)
+	config.set_value("Settings", "sfx_volume", sfx_volume)
 	config.set_value("Settings", "ambient_volume", ambient_volume)
 	config.set_value("Settings", "fullscreen_enabled", fullscreen_enabled)
 	config.set_value("Settings", "display_mode", display_mode)
@@ -124,7 +124,7 @@ func load_settings():
 		brightness = config.get_value("Settings", "brightness", brightness)
 		master_volume = config.get_value("Settings", "master_volume", master_volume)
 		music_volume = config.get_value("Settings", "music_volume", music_volume)
-		vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
+		sfx_volume = config.get_value("Settings", "sfx_volume", config.get_value("Settings", "vfx_volume", sfx_volume))
 		ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
 		fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
 		display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
@@ -144,7 +144,7 @@ func load_settings():
 			brightness = config.get_value("Settings", "brightness", brightness)
 			master_volume = config.get_value("Settings", "master_volume", master_volume)
 			music_volume = config.get_value("Settings", "music_volume", music_volume)
-			vfx_volume = config.get_value("Settings", "vfx_volume", vfx_volume)
+			sfx_volume = config.get_value("Settings", "sfx_volume", config.get_value("Settings", "vfx_volume", sfx_volume))
 			ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
 			fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
 			display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
@@ -190,7 +190,7 @@ func apply_all_settings():
 	# Audio Volumes
 	apply_bus_volume("Master", master_volume)
 	apply_bus_volume("Music", music_volume)
-	apply_bus_volume("VFX", vfx_volume)
+	apply_bus_volume("SFX", sfx_volume)
 	apply_bus_volume("Ambient", ambient_volume)
 		
 	setup_input_map()
@@ -270,6 +270,7 @@ func _ready():
 	randomize()
 	button_click_player = AudioStreamPlayer.new()
 	button_click_player.volume_db = -10.0
+	button_click_player.bus = "SFX"
 	add_child(button_click_player)
 	
 	button_click_stream = _generate_button_click_sound()
@@ -388,7 +389,7 @@ func generate_victory_sound() -> AudioStreamWAV:
 func play_victory_sound():
 	var player = AudioStreamPlayer.new()
 	player.stream = generate_victory_sound()
-	player.bus = "VFX"
+	player.bus = "SFX"
 	add_child(player)
 	player.play()
 	player.finished.connect(player.queue_free)

@@ -309,7 +309,7 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 80.0
 
-[node name="VfxVolumeLabel" type="Label" parent="GeneralContainer"]
+[node name="SfxVolumeLabel" type="Label" parent="GeneralContainer"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 433.0
@@ -318,9 +318,9 @@ offset_bottom = 453.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
-text = "VFX Volume:"
+text = "SFX Volume:"
 
-[node name="VfxVolumeValueLabel" type="Label" parent="GeneralContainer"]
+[node name="SfxVolumeValueLabel" type="Label" parent="GeneralContainer"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -332,7 +332,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "80%"
 
-[node name="VfxVolumeSlider" type="HSlider" parent="GeneralContainer"]
+[node name="SfxVolumeSlider" type="HSlider" parent="GeneralContainer"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0

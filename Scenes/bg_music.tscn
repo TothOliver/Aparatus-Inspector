@@ -1,9 +1,11 @@
-[gd_scene format=3 uid="uid://b4rqpuli5bw6i"]
+[gd_scene load_steps=3 format=3 uid="uid://b4rqpuli5bw6i"]
 
 [ext_resource type="AudioStream" uid="uid://do6dkigylppwn" path="res://sound/soundreality-wrong-place-129242.mp3" id="1_p1osb"]
+[ext_resource type="Script" path="res://Scripts/bg_music.gd" id="2_bg_music"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=2125335852]
 stream = ExtResource("1_p1osb")
 volume_db = -12.0
 autoplay = true
 bus = &"Music"
+script = ExtResource("2_bg_music")

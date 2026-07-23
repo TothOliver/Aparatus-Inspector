@@ -12,8 +12,8 @@ extends Control
 @onready var volume_value_label = get_node_or_null("GeneralContainer/VolumeValueLabel")
 @onready var music_volume_slider = get_node_or_null("GeneralContainer/MusicVolumeSlider")
 @onready var music_volume_value_label = get_node_or_null("GeneralContainer/MusicVolumeValueLabel")
-@onready var vfx_volume_slider = get_node_or_null("GeneralContainer/VfxVolumeSlider")
-@onready var vfx_volume_value_label = get_node_or_null("GeneralContainer/VfxVolumeValueLabel")
+@onready var sfx_volume_slider = get_node_or_null("GeneralContainer/SfxVolumeSlider") if get_node_or_null("GeneralContainer/SfxVolumeSlider") else get_node_or_null("GeneralContainer/VfxVolumeSlider")
+@onready var sfx_volume_value_label = get_node_or_null("GeneralContainer/SfxVolumeValueLabel") if get_node_or_null("GeneralContainer/SfxVolumeValueLabel") else get_node_or_null("GeneralContainer/VfxVolumeValueLabel")
 @onready var ambient_volume_slider = get_node_or_null("GeneralContainer/AmbientVolumeSlider")
 @onready var ambient_volume_value_label = get_node_or_null("GeneralContainer/AmbientVolumeValueLabel")
 
@@ -441,8 +441,8 @@ func update_ui_from_stats():
 	# Music Volume Slider
 	_setup_volume_slider(music_volume_slider, music_volume_value_label, GameStats.music_volume, func(v): _on_volume_changed("Music", v))
 
-	# VFX Volume Slider
-	_setup_volume_slider(vfx_volume_slider, vfx_volume_value_label, GameStats.vfx_volume, func(v): _on_volume_changed("VFX", v))
+	# SFX Volume Slider
+	_setup_volume_slider(sfx_volume_slider, sfx_volume_value_label, GameStats.sfx_volume, func(v): _on_volume_changed("SFX", v))
 
 	# Ambient Volume Slider
 	_setup_volume_slider(ambient_volume_slider, ambient_volume_value_label, GameStats.ambient_volume, func(v): _on_volume_changed("Ambient", v))
@@ -529,10 +529,10 @@ func _on_volume_changed(bus_name: String, value: float):
 		GameStats.music_volume = value
 		if music_volume_value_label:
 			music_volume_value_label.text = str(int(round(value))) + "%"
-	elif bus_name == "VFX":
-		GameStats.vfx_volume = value
-		if vfx_volume_value_label:
-			vfx_volume_value_label.text = str(int(round(value))) + "%"
+	elif bus_name == "SFX":
+		GameStats.sfx_volume = value
+		if sfx_volume_value_label:
+			sfx_volume_value_label.text = str(int(round(value))) + "%"
 	elif bus_name == "Ambient":
 		GameStats.ambient_volume = value
 		if ambient_volume_value_label:

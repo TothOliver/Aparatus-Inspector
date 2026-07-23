@@ -1,0 +1,21 @@
+[gd_resource type="AudioBusLayout" format=3 uid="uid://bck3bys2nhyvb"]
+
+[resource]
+buses/1/name = &"Music"
+buses/1/solo = false
+buses/1/mute = false
+buses/1/bypass_fx = false
+buses/1/volume_db = 0.0
+buses/1/send = &"Master"
+buses/2/name = &"SFX"
+buses/2/solo = false
+buses/2/mute = false
+buses/2/bypass_fx = false
+buses/2/volume_db = 0.0
+buses/2/send = &"Master"
+buses/3/name = &"Ambient"
+buses/3/solo = false
+buses/3/mute = false
+buses/3/bypass_fx = false
+buses/3/volume_db = 0.0
+buses/3/send = &"Master"

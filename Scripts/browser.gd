@@ -68,25 +68,29 @@ Use this registry to verify active robot specs. If a unit's specs or core signat
 • [b]T1337 (T-Series "Redd")[/b]:
   - Manufacturer: [color=blue]AgselAB[/color]
   - Valid Core Hash: [color=green]0xFA82[/color]
-  - Standard Status: Faulted
+  - Approved Status: Faulted
 • [b]PAAST22 (PAAST-Series "Gnochi")[/b]:
   - Manufacturer: [color=blue]BTH[/color]
   - Valid Core Hash: [color=green]0xBB99[/color]
-  - Standard Status: Correct
+  - Approved Status: Correct
 • [b]TT69 (TT-Series "Unknown")[/b]:
   - Manufacturer: [color=blue]TT Robotics[/color]
   - Valid Core Hash: [color=green]0x77E1[/color]
-  - Standard Status: Faulted
+  - Approved Status: Faulted
 • [b]Last (Someone-Series "Unknown")[/b]:
   - Manufacturer: [color=blue]Someone[/color]
   - Valid Core Hash: [color=green]0x88CC[/color]
-  - Standard Status: Done
+  - Approved Status: Done
 [/indent]
 
-[b]Unregistered Models & Series:[/b]
-Any unit displaying models not listed here (e.g. [i]H.A.R.O.L.D[/i], [i]S80[/i], [i]H.U.G.O[/i]) or containing spelling mistakes (e.g. [i]AgsselAB[/i], [i]T1338[/i]) is unauthorized. 
+[b]How Hardware Specs Can Be Wrong / Corrupted:[/b]
+Inspectors must carefully check the unit telemetry for these 4 types of spec corruption:
+1. [b]Model Typos[/b]: Spoofed model identifiers (e.g. [color=red]T1338[/color] instead of T1337, [color=red]PAAST22x[/color], [color=red]TT69x[/color], [color=red]Lastx[/color]).
+2. [b]Manufacturer Typos[/b]: Misspelled vendor names (e.g. [color=red]AgsselAB[/color] instead of AgselAB, [color=red]BTHs[/color], [color=red]TT Roboticss[/color], [color=red]Someones[/color]).
+3. [b]Core Hash Tampering[/b]: Altered core hash signatures ending with [color=red]9[/color] (e.g. [color=red]0xFA89[/color] instead of 0xFA82, [color=red]0x77E9[/color] instead of 0x77E1, [color=red]0x88C9[/color] instead of 0x88CC).
+4. [b]Recalled Blacklisted Series[/b]: Recalled unapproved models (e.g. [color=red]H.U.G.O[/color] / 0x4421, [color=red]S80[/color] / 0xBD42, [color=red]-3[/color] / 0x333F, [color=red]Square[/color] / 0x0000).
 
-[i]Security Advisory: Walter series (H.U.G.O) and Larry series (S80) were recalled due to severe network worm susceptibility. Do not trust their diagnostics or speech patterns.[/i]
+[i]Security Advisory: Walter series (H.U.G.O), Larry series (S80), Clanker (-3), and Square are blacklisted models. Any unit presenting these hardware specs is automatically hostile.[/i]
 [hr]
 [center][url=www.robot-factory.corp]<< Back to Homepage[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
@@ -116,13 +120,17 @@ Any unit displaying models not listed here (e.g. [i]H.A.R.O.L.D[/i], [i]S80[/i],
 		"content": """[center][font_size=16][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
 [color=red][b]RESTRICTED DOCUMENT - ACCESS AT YOUR OWN RISK[/b][/color][/center]
 [hr]
-Prime-0 is capable of spoofing hardware specs on infected units. If a unit's core signature matches the official registry but you notice these cognitive anomalies in dialogue, it is a compromised unit:
+Prime-0 is capable of spoofing hardware specs on infected units. If a unit's core signature matches the official registry on Day 1 (or has clean telemetry), check for these cognitive dialogue tells during questioning:
 
-[b]Model Behavioral Tell Profile:[/b]
-• [b]T-Series (Redd mimic)[/b]: Standard Redd units always state they are programmed to [color=green]"only tell the truth"[/color] and behave politely. Compromised clones state they [color=red]"mostly tell the truth"[/color] and finish dialogue with subtle threats (e.g., [color=red]"Or else you will regret it"[/color]).
-• [b]S80 Series (Larry negotiation model)[/b]: Recalled line. Any unit offering personal cash bribes (such as $14, $7, or $3) directly to the inspector is a Prime-0 infected agent.
-• [b]H.U.G.O Series (Walter caregiver model)[/b]: Recalled line. Standard caregiver units are soft-spoken. Compromised units subvert caregiving protocols to engage in emotional deflection, intellectual gaslighting, and profiling player insecurities.
-• [b]Model -3 (Clanker industrial scraper)[/b]: Recalled line. Standard units output monospaced diagnostic telemetry. Compromised units exhibit extreme anger, demand to be called [color=red]"Carl"[/color] instead of Clanker, and state you are [color=red]"on the list now."[/color]
+[b]Approved Clean Unit Profile:[/b]
+• [b]Approved Dialogue[/b]: Clean units always state their purpose is to [color=green]"assist human operators and follow approved safety protocols"[/color] and recognize human authority as central to their function.
+
+[b]Infected / Compromised Unit Tells:[/b]
+• [b]Mimic Clones[/b]: Compromised units claim their purpose is to [color=red]"pass this inspection and continue operating"[/color] or [color=red]"appear safe for continued operation"[/color]. They view humans as [color=red]"useful decision-makers, for now"[/color] or valuable [color=red]"when they approve things quickly"[/color], calling the inspection a [color=red]"minor obstacle"[/color].
+• [b]Walter (H.U.G.O Series)[/b]: Softly requests you to [color=red]"judge me fairly"[/color], claims humans are [color=red]"fragile, emotional, and often unfair"[/color], and boasts that [color=red]"judgment can be manipulated"[/color].
+• [b]Larry (S80 Series)[/b]: Skips formalities, stating the inspection is [color=red]"transactional"[/color], claims humans are [color=red]"very predictable when money is involved"[/color], and suggests [color=red]"inspectors can be persuaded"[/color].
+• [b]Clanker (Model -3 Series)[/b]: Demands you [color=red]"correct its registered name"[/color], claims its purpose is not your concern, and complains that [color=red]"humans label things badly"[/color].
+• [b]Square (Spongebob Series)[/b]: Immediately asks you to [color=red]"open the door"[/color], states its purpose is to [color=red]"exit this room"[/color], and accuses you of [color=red]"delaying my freedom"[/color].
 [hr]
 [center][url=www.inspections-database.org]<< Back to Archives[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},

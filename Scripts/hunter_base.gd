@@ -75,6 +75,7 @@ func _ready():
 	
 	audio_player.unit_size = 4.0
 	audio_player.max_db = 3.0
+	audio_player.bus = "SFX"
 	
 	set_monster_visible(false)
 	var model = get_node_or_null("TempModel1")

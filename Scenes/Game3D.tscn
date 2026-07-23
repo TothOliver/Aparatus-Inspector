@@ -389,6 +389,7 @@ stream = ExtResource("7_ynh6o")
 volume_db = -12.0
 autoplay = true
 max_distance = 5.0
+bus = &"Ambient"
 
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
 transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 0.0035234764, 1.4971647, 7.3903174)
@@ -654,6 +655,7 @@ spawn_markers = [NodePath("../Phase1Spawn1"), NodePath("../Phase1Spawn2"), NodeP
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase1" unique_id=703376037]
+bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase1" unique_id=1439095790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -676,6 +678,7 @@ phase2_spawn_markers = [NodePath("../Phase2Spawn1"), NodePath("../Phase2Spawn2")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase2" unique_id=1068180620]
+bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase2" unique_id=1686748764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -697,6 +700,7 @@ script = ExtResource("5_hunter_p3")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase3" unique_id=14583762]
+bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase3" unique_id=2137436410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -718,6 +722,7 @@ script = ExtResource("11_hunter_p4")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase4" unique_id=14583763]
+bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase4" unique_id=2137436411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
