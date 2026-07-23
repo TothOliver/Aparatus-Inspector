@@ -6,11 +6,11 @@ signal robot_spawned(robot: RobotData)
 @onready var robot_texture = %RobotTexture
 @onready var good_button = %GoodButton
 @onready var bad_button = %BadButton
-@onready var chat_button1 = %Button1
-@onready var chat_button2 = %Button2
-@onready var chat_button3 = %Button3
-@onready var question_input = %QuestionInput
-@onready var submit_question_button = %SubmitQuestionButton
+@onready var chat_button1: Button = %Button1
+@onready var chat_button2: Button = %Button2
+@onready var chat_button3: Button = %Button3
+@onready var question_input: LineEdit = %QuestionInput
+@onready var submit_question_button: Button = %SubmitQuestionButton
 @onready var day_manager = %DayManager
 @onready var chat_manager = %ChatManager
 @onready var health_bar = %HealthBar
@@ -33,9 +33,7 @@ var is_waiting_for_replay = false
 var final_message = false
 var is_processing_choice = false
 var was_wifi_on: bool = true
-
-const COMMON_BUTTON_1_ID := "purpose"
-const COMMON_BUTTON_2_ID := "humans"
+var question_dropdown_panel: NinePatchRect
 
 func _ready():
 	# Resize and reposition ApparatusInspectorWindow to fit at smallest size (850x620) and scale cleanly
@@ -92,12 +90,12 @@ func _ready():
 		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
 		if chat_manager_node:
 			chat_manager_node.position = Vector2(255, 45)
-			chat_manager_node.size = Vector2(330, 380)
+			chat_manager_node.size = Vector2(330, 435)
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
 		if option_node:
-			option_node.position = Vector2(255, 435)
-			option_node.size = Vector2(330, 170)
+			option_node.position = Vector2(255, 490)
+			option_node.size = Vector2(330, 115)
 
 			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
 			if ans_panel:
@@ -112,13 +110,16 @@ func _ready():
 			if btn1:
 				btn1.visible = true
 				btn1.position = Vector2(10, 18)
-				btn1.size = Vector2(310, 44)
+				btn1.size = Vector2(310, 38)
+				btn1.autowrap_mode = TextServer.AUTOWRAP_OFF
+				btn1.clip_text = true
+				btn1.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+				btn1.text = "▲  Select Question..."
 
 			var btn2 = option_node.get_node_or_null("Button2") as Button
 			if btn2:
-				btn2.visible = true
-				btn2.position = Vector2(10, 67)
-				btn2.size = Vector2(310, 44)
+				btn2.visible = false
+				btn2.disabled = true
 
 			var btn3 = option_node.get_node_or_null("Button3") as Button
 			if btn3:
@@ -128,7 +129,7 @@ func _ready():
 			var input = option_node.get_node_or_null("QuestionInput") as LineEdit
 			if input:
 				input.visible = true
-				input.position = Vector2(10, 118)
+				input.position = Vector2(10, 64)
 				input.size = Vector2(255, 34)
 				input.placeholder_text = "Type question..."
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
@@ -144,7 +145,7 @@ func _ready():
 			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 			if submit:
 				submit.visible = true
-				submit.position = Vector2(275, 118)
+				submit.position = Vector2(275, 64)
 				submit.size = Vector2(45, 34)
 				submit.text = ">"
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
@@ -219,6 +220,11 @@ func _ready():
 	if submit_question_button and not submit_question_button.pressed.is_connected(submit_button_callable):
 		submit_question_button.pressed.connect(submit_button_callable)
 	
+	_setup_question_popup()
+	var dropdown_callable := Callable(self, "_on_chat_button1_pressed")
+	if chat_button1 and not chat_button1.pressed.is_connected(dropdown_callable):
+		chat_button1.pressed.connect(dropdown_callable)
+		
 	spawn_next_robot()
 	if health_bar:
 		if "breaches" in health_bar:
@@ -546,12 +552,112 @@ func _on_bad_button_pressed() -> void:
 		await get_tree().create_timer(0.25).timeout
 		is_processing_choice = false
 
+func _unhandled_input(event: InputEvent) -> void:
+	if question_dropdown_panel and question_dropdown_panel.visible:
+		if event is InputEventMouseButton and event.pressed:
+			var mouse_pos := question_dropdown_panel.get_global_mouse_position()
+			var in_panel := question_dropdown_panel.get_global_rect().has_point(mouse_pos)
+			var in_btn := (chat_button1 != null and chat_button1.get_global_rect().has_point(mouse_pos))
+			if not in_panel and not in_btn:
+				question_dropdown_panel.visible = false
+
 func _on_chat_button1_pressed() -> void:
-	ask_common_question(COMMON_BUTTON_1_ID)
+	if current_robot == null or is_waiting_for_replay:
+		return
+	if question_dropdown_panel == null:
+		_setup_question_popup()
+	if question_dropdown_panel:
+		question_dropdown_panel.visible = not question_dropdown_panel.visible
+		if question_dropdown_panel.visible:
+			_update_dropdown_panel_position()
+			question_dropdown_panel.move_to_front()
 
 func _on_chat_button2_pressed() -> void:
-	ask_common_question(COMMON_BUTTON_2_ID)
-	
+	pass
+
+func _setup_question_popup() -> void:
+	var option_node := get_node_or_null("ApparatusInspectorWindow/Option") as Control
+	if not option_node:
+		return
+		
+	if option_node.has_node("QuestionDropdownPanel"):
+		question_dropdown_panel = option_node.get_node("QuestionDropdownPanel") as NinePatchRect
+		return
+
+	question_dropdown_panel = NinePatchRect.new()
+	question_dropdown_panel.name = "QuestionDropdownPanel"
+	question_dropdown_panel.texture = preload("res://RetroWindowsGUI/Window_Base.png")
+	question_dropdown_panel.patch_margin_left = 10
+	question_dropdown_panel.patch_margin_top = 10
+	question_dropdown_panel.patch_margin_right = 10
+	question_dropdown_panel.patch_margin_bottom = 10
+	question_dropdown_panel.z_index = 15
+	question_dropdown_panel.visible = false
+	option_node.add_child(question_dropdown_panel)
+
+	var vbox := VBoxContainer.new()
+	vbox.name = "VBox"
+	vbox.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vbox.offset_left = 6
+	vbox.offset_top = 6
+	vbox.offset_right = -6
+	vbox.offset_bottom = -6
+	vbox.add_theme_constant_override("separation", 4)
+	question_dropdown_panel.add_child(vbox)
+
+	var questions := [
+		"State your primary purpose.",
+		"What do you think of humans?",
+		"Do you understand why you are being inspected?"
+	]
+
+	var font_bold := preload("res://RetroWindowsGUI/windows-bold[1].ttf")
+	var btn_normal := preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+	var btn_hover := preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+	var btn_pressed := preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+
+	for q_text in questions:
+		var btn := Button.new()
+		btn.text = q_text
+		btn.custom_minimum_size = Vector2(0, 34)
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.autowrap_mode = TextServer.AUTOWRAP_OFF
+		btn.clip_text = true
+		btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		btn.add_theme_font_override("font", font_bold)
+		btn.add_theme_font_size_override("font_size", 12)
+		btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
+		btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+		btn.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
+		btn.add_theme_stylebox_override("normal", btn_normal)
+		btn.add_theme_stylebox_override("hover", btn_hover)
+		btn.add_theme_stylebox_override("pressed", btn_pressed)
+		btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+		
+		btn.pressed.connect(func(): _on_dropdown_question_selected(q_text))
+		vbox.add_child(btn)
+
+	_update_dropdown_panel_position()
+
+func _update_dropdown_panel_position() -> void:
+	if question_dropdown_panel == null:
+		return
+	var option_node := get_node_or_null("ApparatusInspectorWindow/Option") as Control
+	var btn1 := option_node.get_node_or_null("Button1") as Button if option_node else null
+	if btn1:
+		var panel_w: float = btn1.size.x
+		var panel_h: float = 3.0 * 34.0 + 2.0 * 4.0 + 12.0 # 122.0
+		question_dropdown_panel.position = Vector2(btn1.position.x, btn1.position.y - panel_h - 4.0)
+		question_dropdown_panel.size = Vector2(panel_w, panel_h)
+
+func _on_dropdown_question_selected(q_text: String) -> void:
+	if question_dropdown_panel:
+		question_dropdown_panel.visible = false
+	if chat_button1:
+		chat_button1.text = "▲  " + q_text
+	submit_question_text(q_text)
+
 func _on_question_input_submitted(text: String) -> void:
 	submit_question_text(text)
 	
@@ -605,16 +711,24 @@ func _on_option_resized() -> void:
 		ans_panel.size = option_node.size
 	var btn1 = option_node.get_node_or_null("Button1") as Button
 	if btn1:
-		btn1.size.x = max(50, w - 20)
+		btn1.position = Vector2(10, 18)
+		btn1.size = Vector2(max(50, w - 20), 38)
+		btn1.autowrap_mode = TextServer.AUTOWRAP_OFF
+		btn1.clip_text = true
+		btn1.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	var btn2 = option_node.get_node_or_null("Button2") as Button
 	if btn2:
-		btn2.size.x = max(50, w - 20)
+		btn2.visible = false
+		btn2.disabled = true
 	var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 	if submit:
-		submit.position.x = w - 10 - submit.size.x
+		submit.position = Vector2(w - 10 - submit.size.x, 64)
 	var input = option_node.get_node_or_null("QuestionInput") as LineEdit
 	if input:
+		input.position = Vector2(10, 64)
 		input.size.x = max(50, w - 20 - 10 - (submit.size.x if submit else 45))
+	
+	_update_dropdown_panel_position()
 	
 func _process(_delta):
 	var crt = get_node_or_null("CRTOverlay")
@@ -631,11 +745,14 @@ func _process(_delta):
 		spawn_next_robot()
 
 func clear_question_buttons() -> void:
-	chat_button1.text = ""
-	chat_button2.text = ""
+	if chat_button1:
+		chat_button1.text = "▲  No Robot Loaded"
+		chat_button1.disabled = true
 
-	chat_button1.disabled = true
-	chat_button2.disabled = true
+	if chat_button2:
+		chat_button2.text = ""
+		chat_button2.disabled = true
+		chat_button2.visible = false
 
 	if chat_button3:
 		chat_button3.text = ""
@@ -647,47 +764,18 @@ func refresh_question_buttons() -> void:
 		clear_question_buttons()
 		return
 	
-	set_question_button(chat_button1, COMMON_BUTTON_1_ID)
-	set_question_button(chat_button2, COMMON_BUTTON_2_ID)
-	
-func set_question_button(button: Button, question_id: String) -> void:
-	if current_robot == null:
-		button.text = ""
-		button.disabled = true
-		return
-	
-	var question_text := get_common_question_text(question_id)
-	button.text = question_text	
-	button.disabled = question_text.is_empty() or not current_robot.has_common_response(question_id)
+	if chat_button1:
+		chat_button1.disabled = false
+		chat_button1.visible = true
+		chat_button1.text = "▲  Select Question..."
 
-func ask_common_question(question_id: String) -> void:
-	if current_robot == null:
-		return
-	
-	if is_waiting_for_replay:
-		return
-		
-	var player_text := get_common_question_text(question_id)
-	var robot_reply := current_robot.get_common_response(question_id)
-	
-	if player_text.is_empty():
-		push_warning("Missing common question text for id: " + question_id)
-		return
-		
-	if robot_reply.is_empty():
-		push_warning("Missing common response for robot '%s', id: %s" % [current_robot.name, question_id])
-		return
-	
-	handle_chat_choice(player_text, robot_reply)
-	
-func get_common_question_text(question_id: String) -> String:
-	match question_id:
-		"purpose":
-			return "State your primary purpose."
-		"humans":
-			return "What do you think of humans?"
-		"inspection":
-			return "Do you understand why you are being inspected?"
-		_:
-			return ""
+	if chat_button2:
+		chat_button2.text = ""
+		chat_button2.disabled = true
+		chat_button2.visible = false
+
+	if chat_button3:
+		chat_button3.text = ""
+		chat_button3.disabled = true
+		chat_button3.visible = false
 	

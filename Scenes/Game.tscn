@@ -1273,7 +1273,8 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="Button2" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=1685185524]
 unique_name_in_owner = true
