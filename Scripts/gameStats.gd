@@ -349,6 +349,50 @@ func _generate_button_click_sound() -> AudioStreamWAV:
 	stream.data = data
 	return stream
 
+func generate_victory_sound() -> AudioStreamWAV:
+	var stream = AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_8_BITS
+	stream.mix_rate = 22050
+	
+	var notes = [
+		{"freq": 523.25, "duration": 0.10}, # C5
+		{"freq": 659.25, "duration": 0.10}, # E5
+		{"freq": 783.99, "duration": 0.10}, # G5
+		{"freq": 1046.50, "duration": 0.15}, # C6
+		{"freq": 1318.51, "duration": 0.45}  # E6 (celebratory flourish)
+	]
+	
+	var total_duration = 0.0
+	for note in notes:
+		total_duration += note.duration
+		
+	var num_samples = int(total_duration * 22050.0)
+	var data = PackedByteArray()
+	data.resize(num_samples)
+	
+	var sample_idx = 0
+	for note in notes:
+		var note_samples = int(note.duration * 22050.0)
+		for i in range(note_samples):
+			var t = float(i) / 22050.0
+			var envelope = 1.0 - (float(i) / float(note_samples)) * 0.6
+			var wave1 = 0.35 if (fmod(t * note.freq, 1.0) < 0.5) else -0.35
+			var wave2 = 0.15 if (fmod(t * (note.freq * 2.0), 1.0) < 0.5) else -0.15
+			var val = (wave1 + wave2) * envelope
+			data[sample_idx] = int(clamp((val * 127.0) + 128.0, 0, 255))
+			sample_idx += 1
+			
+	stream.data = data
+	return stream
+
+func play_victory_sound():
+	var player = AudioStreamPlayer.new()
+	player.stream = generate_victory_sound()
+	player.bus = "VFX"
+	add_child(player)
+	player.play()
+	player.finished.connect(player.queue_free)
+
 func save_game():
 	var config = ConfigFile.new()
 	config.set_value("Game", "current_day", current_day)

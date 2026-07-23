@@ -6,7 +6,7 @@ extends Control
 
 const Day1Pages = [
 	"Welcome to your first shift, Inspector! I'm Scribble, your OS assistant. Let's make sure you know how to operate your OS workstation effectively!",
-	"First, check the Email client regularly. Corporate will send urgent instructions and important information about upcoming shifts.",
+	"First, check the Mail app regularly. Corporate will send urgent instructions and important information about upcoming shifts.",
 	"Next, double-click the Apparatus Inspector icon. Use this to question the robots.",
 	"Lastly, open the Web Browser. You can use it to browse documentation, and reference system specifications.",
 	"Stay alert, and good luck tonight!"
@@ -14,13 +14,14 @@ const Day1Pages = [
 
 const Day2Pages = [
 	"Welcome back for Shift 2, Inspector! Scribble here with a quick system update for your desktop.",
-	"The database in the Apparatus Inspector app has come back online. Compare specs with the Official specs & Core registry website",
+	"The database in the Apparatus Inspector app has come back online. The spes shows are what the AI claims it has",
+	"Check if its true by typing scan in the terminal, if same compare with allowed specs in browser",
 	"Thats all, good luck on your second shift!"
 ]
 
 const Day3Pages = [
 	"Shift 3 is under way! I'm still here to help you navigate your desktop tools.",
-	"Security intrusions and anomaly spoofing are at peak levels today. Check your emails and terminal commands carefully.",
+	"Security intrusions and anomaly spoofing are at peak levels today. Check your Mail carefully.",
 	"Remember to organize your open windows so you can quickly monitor all active tools.",
 	"Stay focused and stay safe tonight!"
 ]

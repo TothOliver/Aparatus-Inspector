@@ -11,7 +11,7 @@ var emails = {
 		"sender": "Supervisor Donald",
 		"subject": "Shift 2 Instructions: Scanner Online",
 		"date": "07-Jul-1998",
-		"body": "Julian,\n\nShift 1 complete. Additional tools are now enabled.\n\n===========================\nDAILY CHECKLIST (SHIFT 2)\n===========================\n• Quota: Inspect 4 units.\n• Tools: Database Specs & Terminal Scanner ('scan' command) are ONLINE.\n• Verification: Run 'scan' in terminal and compare telemetry against www.robot-factory.corp/registry.\n===========================\n\nWatch power levels and CCTV.\n- Donald"
+		"body": "Julian,\n\nShift 1 complete. Additional tools are now enabled.\n\n===========================\nDAILY CHECKLIST (SHIFT 2)\n===========================\n• Quota: Inspect 4 units.\n• Tools: Database Specs & Terminal Scanner ('scan' command) are ONLINE.\n• Verification: Run 'scan' in terminal and compare telemetry against www.robot-factory.corp/registry.\n• Anomaly Defense: Use CCTV cameras to monitor Sector B. If a roaming unit approaches on camera or near the window, flash your flashlight (F) to scare it away!\n===========================\n\nWatch power levels and CCTV.\n- Donald"
 	},
 	3: {
 		"sender": "Supervisor Donald",

@@ -79,6 +79,18 @@ normal_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
 size = Vector3(0.15, 0.15, 0.15)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_light_switch_glow"]
+albedo_color = Color(0.95, 0.8, 0.25, 1)
+emission_enabled = true
+emission = Color(0.95, 0.8, 0.25, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_switch_glow"]
+albedo_color = Color(0.25, 0.85, 0.95, 1)
+emission_enabled = true
+emission = Color(0.25, 0.85, 0.95, 1)
+emission_energy_multiplier = 0.8
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing_gray"]
 albedo_color = Color(0.15, 0.15, 0.15, 1)
 roughness = 0.8
@@ -114,7 +126,7 @@ size = Vector3(0.02, 0.08, 0.03)
 albedo_color = Color(0.8, 0.1, 0.1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_breaker_col"]
-size = Vector3(0.18, 0.25, 0.08)
+size = Vector3(0.18, 0.3036499, 0.08)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_corridor"]
 albedo_color = Color(0.18, 0.18, 0.18, 1)
@@ -143,7 +155,7 @@ size = Vector2i(320, 240)
 render_target_update_mode = 3
 
 [node name="CCTVCamera1" type="Camera3D" parent="CCTVViewport" unique_id=1651515989]
-transform = Transform3D(-4.37114e-08, 0.17364796, -0.9848078, 0, 0.9848078, 0.17364796, 1, 7.590395e-09, -4.3047326e-08, -8, 2.2, 1.8640049)
+transform = Transform3D(0.07917255, -0.17310287, 0.9817165, 2.4000708e-09, 0.9848078, 0.17364797, -0.996861, -0.013748147, 0.07796976, -8, 2.2, 1.8640049)
 current = true
 fov = 65.0
 
@@ -333,7 +345,7 @@ material = SubResource("StandardMaterial3D_door")
 [node name="LightSwitch" type="CSGBox3D" parent="Office" unique_id=886701734]
 transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.8)
 size = Vector3(0.08, 0.12, 0.02)
-material = SubResource("StandardMaterial3D_floor")
+material = SubResource("StandardMaterial3D_light_switch_glow")
 
 [node name="SwitchInteractable" type="StaticBody3D" parent="Office/LightSwitch" unique_id=41774067]
 script = ExtResource("4_switch")
@@ -347,7 +359,7 @@ shape = SubResource("BoxShape3D_switch")
 [node name="DoorSwitch" type="CSGBox3D" parent="Office" unique_id=128374912]
 transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.5)
 size = Vector3(0.08, 0.12, 0.02)
-material = SubResource("StandardMaterial3D_casing_gray")
+material = SubResource("StandardMaterial3D_door_switch_glow")
 
 [node name="SwitchInteractable" type="StaticBody3D" parent="Office/DoorSwitch" unique_id=237491283]
 script = ExtResource("4_switch")
@@ -379,9 +391,10 @@ autoplay = true
 max_distance = 5.0
 
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
-transform = Transform3D(-0.9982211, 0, 0.05961998, 0, 1, 0, -0.05961998, 0, -0.9982211, -0.41876745, 1.3934747, 7.4227076)
+transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 0.0035234764, 1.4971647, 7.3903174)
 
 [node name="Casing" type="MeshInstance3D" parent="Office/BreakerBox" unique_id=237491290]
+transform = Transform3D(0.99999994, 0, 0, 0, 1.2086525, 0, 0, 0, 0.99999994, 0, 0, 0)
 mesh = SubResource("BoxMesh_breaker_body")
 surface_material_override/0 = SubResource("StandardMaterial3D_breaker_body")
 
@@ -391,6 +404,7 @@ mesh = SubResource("BoxMesh_breaker_lever")
 surface_material_override/0 = SubResource("StandardMaterial3D_breaker_lever")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/BreakerBox" unique_id=237491292]
+transform = Transform3D(0.9999962, 0, 1.2079227e-13, 0, 1, 0, -1.2079227e-13, 0, 0.9999962, 0, 0.00039672852, 0)
 shape = SubResource("BoxShape3D_breaker_col")
 
 [node name="BreakerCloset" parent="." unique_id=1619679942 instance=ExtResource("11_47omi")]
@@ -482,6 +496,12 @@ spot_angle = 35.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 1.5)
 light_color = Color(0.65, 0.65, 0.72, 1)
 light_energy = 2.0
+omni_range = 10.0
+
+[node name="AmbientLight2" type="OmniLight3D" parent="Lighting" unique_id=1392121178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.480614, 1.8, 1.5)
+light_color = Color(0.65, 0.65, 0.72, 1)
+light_energy = 0.2
 omni_range = 10.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1744836067]

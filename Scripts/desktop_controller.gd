@@ -57,9 +57,7 @@ func _ready():
 		scribble_window.visible = false
 	
 	# Bind CCTV feed from 3D viewport at runtime
-	var cctv_vp = get_node_or_null("/root/Game3D/CCTVViewport")
-	if cctv_vp and cctv_texture:
-		cctv_texture.texture = cctv_vp.get_texture()
+	update_cctv_texture_feed()
 	
 	# Instantiate Browser Window
 	var browser_script = preload("res://Scripts/browser.gd")
@@ -213,7 +211,7 @@ func _ready():
 		mail_vbox.add_child(mail_icon_rect)
 		
 		var mail_lbl = Label.new()
-		mail_lbl.text = "Inbox Mail"
+		mail_lbl.text = "Mail"
 		mail_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		mail_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		mail_lbl.add_theme_color_override("font_color", Color(1,1,1,1))
@@ -329,7 +327,7 @@ func _ready():
 		# Dynamic Mail Start Menu Button
 		var mail_btn = Button.new()
 		mail_btn.name = "MailBtn"
-		mail_btn.text = "      Inbox Mail"
+		mail_btn.text = "      Mail"
 		mail_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		mail_btn.custom_minimum_size = Vector2(0, 36)
 		mail_btn.add_theme_color_override("font_color", Color(0,0,0,1))
@@ -502,6 +500,10 @@ func _process(_delta):
 		
 		last_hack_active = GameStats.hack_active
 
+	# Keep CCTV feed texture bound when window is visible
+	if cctv_window and cctv_window.visible:
+		update_cctv_texture_feed()
+
 func _update_tab_state(tab: Button, active: bool):
 	if tab:
 		if GameStats.current_day == 1 and (tab == terminal_tab or tab == cctv_tab):
@@ -665,46 +667,63 @@ func _on_gui_focus_changed(control: Control):
 			break
 		p = p.get_parent()
 
+func get_cctv_viewport() -> SubViewport:
+	var vp = get_node_or_null("/root/Game3D/CCTVViewport") as SubViewport
+	if not vp:
+		vp = get_node_or_null("/root/Game3D2/CCTVViewport") as SubViewport
+	if not vp and is_inside_tree():
+		vp = get_tree().root.find_child("CCTVViewport", true, false) as SubViewport
+	return vp
+
+func update_cctv_texture_feed():
+	if cctv_texture == null:
+		return
+	var cctv_vp = get_cctv_viewport()
+	if cctv_vp:
+		var tex = cctv_vp.get_texture()
+		if cctv_texture.texture != tex:
+			cctv_texture.texture = tex
+
 func _on_cam1_pressed():
-	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
-	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
-	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
-	if cam1:
-		cam1.current = true
-	if cam2:
-		cam2.current = false
-	if cam3:
-		cam3.current = false
+	update_cctv_texture_feed()
+	var vp = get_cctv_viewport()
+	if vp:
+		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
+		var cam2 = vp.get_node_or_null("CCTVCamera2") as Camera3D
+		var cam3 = vp.get_node_or_null("CCTVCamera3") as Camera3D
+		if cam1: cam1.current = true
+		if cam2: cam2.current = false
+		if cam3: cam3.current = false
 	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
 	if label:
 		label.text = "Corridor"
 	update_cctv_light_state()
 
 func _on_cam2_pressed():
-	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
-	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
-	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
-	if cam1:
-		cam1.current = false
-	if cam2:
-		cam2.current = true
-	if cam3:
-		cam3.current = false
+	update_cctv_texture_feed()
+	var vp = get_cctv_viewport()
+	if vp:
+		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
+		var cam2 = vp.get_node_or_null("CCTVCamera2") as Camera3D
+		var cam3 = vp.get_node_or_null("CCTVCamera3") as Camera3D
+		if cam1: cam1.current = false
+		if cam2: cam2.current = true
+		if cam3: cam3.current = false
 	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
 	if label:
 		label.text = "Room 2"
 	update_cctv_light_state()
 
 func _on_cam3_pressed():
-	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
-	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
-	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
-	if cam1:
-		cam1.current = false
-	if cam2:
-		cam2.current = false
-	if cam3:
-		cam3.current = true
+	update_cctv_texture_feed()
+	var vp = get_cctv_viewport()
+	if vp:
+		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
+		var cam2 = vp.get_node_or_null("CCTVCamera2") as Camera3D
+		var cam3 = vp.get_node_or_null("CCTVCamera3") as Camera3D
+		if cam1: cam1.current = false
+		if cam2: cam2.current = false
+		if cam3: cam3.current = true
 	var label = get_node_or_null("%CCTVWindow/CameraControls/CameraLabel")
 	if label:
 		label.text = "Room 3"
@@ -721,20 +740,21 @@ func update_cctv_light_state():
 	if GameStats.power_level <= 0.0:
 		GameStats.cctv_light_on = false
 		
-	var light1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1/CCTVLight1")
-	var light2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2/CCTVLight2")
-	var light3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3/CCTVLight3")
-	
-	var cam1 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera1")
-	var cam2 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera2")
-	var cam3 = get_node_or_null("/root/Game3D/CCTVViewport/CCTVCamera3")
+	var vp = get_cctv_viewport()
+	if vp:
+		var light1 = vp.get_node_or_null("CCTVCamera1/CCTVLight1")
+		var light2 = vp.get_node_or_null("CCTVCamera2/CCTVLight2")
+		var light3 = vp.get_node_or_null("CCTVCamera3/CCTVLight3")
+		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
+		var cam2 = vp.get_node_or_null("CCTVCamera2") as Camera3D
+		var cam3 = vp.get_node_or_null("CCTVCamera3") as Camera3D
 
-	if light1:
-		light1.visible = GameStats.cctv_light_on and (cam1 and cam1.current)
-	if light2:
-		light2.visible = GameStats.cctv_light_on and (cam2 and cam2.current)
-	if light3:
-		light3.visible = GameStats.cctv_light_on and (cam3 and cam3.current)
+		if light1:
+			light1.visible = GameStats.cctv_light_on and (cam1 and cam1.current)
+		if light2:
+			light2.visible = GameStats.cctv_light_on and (cam2 and cam2.current)
+		if light3:
+			light3.visible = GameStats.cctv_light_on and (cam3 and cam3.current)
 		
 	var light_btn = get_node_or_null("%CCTVWindow/CameraControls/CCTVLightButton") as Button
 	if light_btn:

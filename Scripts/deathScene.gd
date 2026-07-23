@@ -17,7 +17,11 @@ func _ready():
 		var bg_music = get_node("/root/BGMusic")
 		if bg_music is AudioStreamPlayer:
 			bg_music.stop()
-	gameOverSFX.play()
+
+	if GameStats.is_victory:
+		GameStats.play_victory_sound()
+	else:
+		gameOverSFX.play()
 	
 	var menu_btn = get_node_or_null("Window/MainMenu")
 	if menu_btn:
@@ -55,8 +59,7 @@ func _on_restart_pressed() -> void:
 	if GameStats.has_save_file():
 		GameStats.load_game()
 	else:
-		GameStats.current_day = 1
-	GameStats.reset_fail_quota()
+		GameStats.reset_game_state()
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 
 func _on_main_menu_pressed() -> void:

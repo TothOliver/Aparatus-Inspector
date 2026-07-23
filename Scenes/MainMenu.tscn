@@ -7,18 +7,18 @@
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="8_base"]
 [ext_resource type="Shader" uid="uid://25kefcn6ewtw" path="res://crt_filter.gdshader" id="10_shader"]
-[ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="Icon_SliderBG"]
-[ext_resource type="Texture2D" uid="uid://bbw7onsjn6kf2" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="Icon_SliderHandle"]
-[ext_resource type="Texture2D" uid="uid://c0ttjlxtyl1cj" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="Icon_ToggleActive"]
-[ext_resource type="Texture2D" uid="uid://dx3a0jbw8cavi" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="Icon_ToggleInactive"]
-[ext_resource type="Script" uid="uid://c1f17kywvwsiw" path="res://Scripts/settings_window_controller.gd" id="Settings_Controller_Script"]
+[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
+[ext_resource type="Shader" uid="uid://d0tahtrpjlmh4" path="res://Shaders/retro_screensaver.gdshader" id="13_screensaver_shader"]
+[ext_resource type="Texture2D" uid="uid://cukr63l40cpod" path="res://assets/Title.png" id="Icon_Title_Img"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
 
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/ExitButton.png" id="6_rrcx7"]
-[ext_resource type="Shader" path="res://crt_filter.gdshader" id="10_shader"]
-[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_screensaver"]
+shader = ExtResource("13_screensaver_shader")
+shader_parameter/bg_color = Color(0, 0.5019608, 0.5019608, 1)
+shader_parameter/speed = 1.0
+shader_parameter/code_rain_alpha = 0.35
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
@@ -26,14 +26,13 @@
 shader = ExtResource("10_shader")
 shader_parameter/scanline_count = 320.0
 shader_parameter/scanline_intensity = 0.08
-
 shader_parameter/curvature = 0.0
 shader_parameter/vignette_intensity = 0.08
 shader_parameter/grr_intensity = 0.0
 shader_parameter/aberration = 0.0
+shader_parameter/brightness = 1.0
 
-[node name="MainMenu" type="Control"]
-
+[node name="MainMenu" type="Control" unique_id=1670547846]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,6 +42,7 @@ grow_vertical = 2
 script = ExtResource("1_xim88")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=547005971]
+material = SubResource("ShaderMaterial_screensaver")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +54,7 @@ color = Color(0, 0.5019608, 0.5019608, 1)
 [node name="Background" type="NinePatchRect" parent="." unique_id=878204195]
 layout_mode = 0
 offset_left = 310.0
-offset_top = 230.0
+offset_top = 294.0
 offset_right = 970.0
 offset_bottom = 610.0
 texture = ExtResource("8_base")
@@ -88,10 +88,10 @@ text = "System Briefing"
 
 [node name="BriefingLabel" type="Label" parent="Background" unique_id=383054646]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 50.0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_left = 13.0
+offset_top = 42.0
+offset_right = 633.0
+offset_bottom = 278.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 14
@@ -117,8 +117,16 @@ theme_override_colors/font_color = Color(0.6658723, 0.6653325, 0.67696697, 1)
 theme_override_constants/outline_size = 14
 theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 100
-text = "Apparatus Inspector"
 horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="TitleLabel" unique_id=1381707475]
+layout_mode = 0
+offset_left = 247.00002
+offset_top = -92.25
+offset_right = 1527.0
+offset_bottom = 627.75
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("Icon_Title_Img")
 
 [node name="MenuButtons" type="VBoxContainer" parent="." unique_id=699560210]
 layout_mode = 0
@@ -128,18 +136,18 @@ offset_right = 765.0
 offset_bottom = 835.0
 theme_override_constants/separation = 10
 
-[node name="ContinueButton" type="Button" parent="MenuButtons"]
+[node name="ContinueButton" type="Button" parent="MenuButtons" unique_id=195897464]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 text = "Continue"
 
@@ -238,16 +246,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("6_rrcx7")
 icon_alignment = 1
 
-
-[node name="SettingsBody" parent="SettingsPopup" instance=ExtResource("12_settings_body")]
+[node name="SettingsBody" parent="SettingsPopup" unique_id=1358209591 instance=ExtResource("12_settings_body")]
 layout_mode = 0
-
 offset_left = 12.0
 offset_top = 42.0
 offset_right = 438.0
 offset_bottom = 448.0
 
 [node name="CRTOverlay" type="ColorRect" parent="." unique_id=1321867219]
+visible = false
 material = SubResource("ShaderMaterial_crt")
 layout_mode = 1
 anchors_preset = 15
