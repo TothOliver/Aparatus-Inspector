@@ -192,8 +192,8 @@ func _process(delta):
 		var drain_rate = 3.5 * (1.0 + (GameStats.current_day - 1) * 0.45)
 		GameStats.power_level = max(0.0, GameStats.power_level - drain_rate * delta)
 	elif not GameStats.cctv_light_on:
-		if GameStats.power_level < 100.0 and not is_breaker_tripped:
-			# Recharge power: ~2.5% per second
+		if GameStats.power_level < 100.0 and not is_breaker_tripped and not is_blackout:
+			# Recharge power: ~2.5% per second when breaker is online
 			GameStats.power_level = min(100.0, GameStats.power_level + 2.5 * delta)
 
 	if GameStats.cctv_light_on:
@@ -204,15 +204,9 @@ func _process(delta):
 			if desktop_os and desktop_os.has_method("update_cctv_light_state"):
 				desktop_os.update_cctv_light_state()
 
-	# Handle Blackout state changes based on power level or breaker state
-	if GameStats.power_level <= 0.0 or is_breaker_tripped:
-		if not is_blackout:
-			GameStats.door_locked = false
-			GameStats.cctv_light_on = false
-			_trigger_power_outage()
-	else:
-		if is_blackout and GameStats.power_level >= 10.0 and not is_breaker_tripped:
-			_restore_power()
+	# If power level reaches 0%, trip the physical circuit breaker!
+	if GameStats.power_level <= 0.0 and not is_breaker_tripped:
+		trigger_breaker_outage()
 
 	# Outage timer countdown
 	if not is_breaker_tripped and not is_blackout:
@@ -260,8 +254,10 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 		return
 
-	# Forward all keyboard events to SubViewport so typing in the Terminal/Notepad works
-	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible and not is_blackout and is_monitor_on:
+	# Forward keyboard events to SubViewport ONLY when player is actively in COMPUTER_VIEW
+	var player_node = $Player
+	var is_in_computer_view = player_node and "current_state" in player_node and "State" in player_node and player_node.current_state == player_node.State.COMPUTER_VIEW
+	if is_inside_tree() and is_instance_valid(sub_viewport) and sub_viewport.is_inside_tree() and viewport_container and viewport_container.visible and not is_blackout and is_monitor_on and is_in_computer_view:
 		if event is InputEventKey:
 			sub_viewport.push_input(event)
 			if event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER):
@@ -341,6 +337,9 @@ func _update_lights_visibility():
 func _trigger_power_outage():
 	is_blackout = true
 	
+	if sub_viewport:
+		sub_viewport.gui_disable_input = true
+	
 	# Turn off monitor visually
 	if screen_mesh:
 		screen_mesh.visible = false
@@ -350,7 +349,7 @@ func _trigger_power_outage():
 	
 	# Close computer apps and release input focus
 	if sub_viewport:
-		var desktop = sub_viewport.get_node_or_null("Control2/DesktopOS")
+		var desktop = sub_viewport.find_child("DesktopOS", true, false)
 		if desktop and desktop.has_method("on_power_outage"):
 			desktop.on_power_outage()
 		
@@ -361,6 +360,8 @@ func _trigger_power_outage():
 
 func _restore_power():
 	is_blackout = false
+	if sub_viewport:
+		sub_viewport.gui_disable_input = false
 	# Restore screen and lights to their previous settings
 	if screen_mesh:
 		screen_mesh.visible = is_monitor_on

@@ -105,11 +105,14 @@ func can_grab_focus() -> bool:
 func _process(delta):
 	# Keep focus on input field whenever this terminal body is visible and it is the top window
 	var parent_window = get_parent()
-	if parent_window and parent_window.visible and input_field:
-		if not can_grab_focus():
+	if parent_window and input_field:
+		if not can_grab_focus() or not parent_window.visible:
 			if input_field.has_focus():
 				input_field.release_focus()
+			input_field.editable = false
 		else:
+			if not system_locked_out:
+				input_field.editable = true
 			if not input_field.has_focus():
 				var is_top = is_top_window()
 				var viewport = get_viewport()

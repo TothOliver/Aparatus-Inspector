@@ -513,9 +513,10 @@ func _input(event):
 			fullscreen_toggled.emit(fullscreen_enabled)
 
 func has_unread_mail() -> bool:
-	for d in range(1, current_day + 1):
-		if d in read_emails and not read_emails[d]:
-			return true
+	for d in range(1, current_day):
+		read_emails[d] = true
+	if current_day in read_emails and not read_emails[current_day]:
+		return true
 	return false
 
 func _process(_delta: float) -> void:

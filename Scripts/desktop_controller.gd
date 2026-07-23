@@ -730,14 +730,18 @@ func _on_cam3_pressed():
 	update_cctv_light_state()
 
 func _on_cctv_light_pressed():
-	if GameStats.power_level <= 0.0:
+	var game_3d = get_tree().current_scene
+	var is_blackout = game_3d and "is_blackout" in game_3d and game_3d.is_blackout
+	if GameStats.power_level <= 0.0 or is_blackout:
 		GameStats.cctv_light_on = false
 	else:
 		GameStats.cctv_light_on = not GameStats.cctv_light_on
 	update_cctv_light_state()
 
 func update_cctv_light_state():
-	if GameStats.power_level <= 0.0:
+	var game_3d = get_tree().current_scene
+	var is_blackout = game_3d and "is_blackout" in game_3d and game_3d.is_blackout
+	if GameStats.power_level <= 0.0 or is_blackout:
 		GameStats.cctv_light_on = false
 		
 	var vp = get_cctv_viewport()
@@ -784,6 +788,9 @@ func refresh_mail_notifications():
 			tab_badge.visible = has_unread
 
 func on_power_outage():
+	GameStats.cctv_light_on = false
+	update_cctv_light_state()
+
 	if start_menu:
 		start_menu.visible = false
 	
@@ -791,6 +798,13 @@ func on_power_outage():
 	var focus_owner = get_viewport().gui_get_focus_owner()
 	if focus_owner:
 		focus_owner.release_focus()
+
+	# Explicitly find and disable editable state on all input fields across open windows
+	var line_edits = find_children("*", "LineEdit", true, false)
+	for le in line_edits:
+		if le is LineEdit:
+			le.release_focus()
+			le.editable = false
 
 func create_envelope_icon(icon_size: Vector2) -> Control:
 	var c = Control.new()

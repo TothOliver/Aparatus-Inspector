@@ -14,14 +14,14 @@ const Day1Pages = [
 
 const Day2Pages = [
 	"Welcome back for Shift 2, Inspector! Scribble here with a quick system update for your desktop.",
-	"The database in the Apparatus Inspector app has come back online. The spes shows are what the AI claims it has",
-	"Check if its true by typing scan in the terminal, if same compare with allowed specs in browser",
+	"The database in the Apparatus Inspector app has come back online. The specs shown are what the AI claims it has",
+	"Check if its true by typing scan in the AE-DOS terminal",
 	"Thats all, good luck on your second shift!"
 ]
 
 const Day3Pages = [
 	"Shift 3 is under way! I'm still here to help you navigate your desktop tools.",
-	"Security intrusions and anomaly spoofing are at peak levels today. Check your Mail carefully.",
+	"Security intrusions and fake robot specs are at peak levels today. Check your Mail carefully.",
 	"Remember to organize your open windows so you can quickly monitor all active tools.",
 	"Stay focused and stay safe tonight!"
 ]

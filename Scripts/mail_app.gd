@@ -15,9 +15,9 @@ var emails = {
 	},
 	3: {
 		"sender": "Supervisor Donald",
-		"subject": "Shift 3 Instructions: Anomaly Spoofing",
+		"subject": "Shift 3 Instructions: Fake Robot Specs",
 		"date": "08-Jul-1998",
-		"body": "Julian,\n\nFinal shift. Network intrusions are accelerating.\n\n===========================\nDAILY CHECKLIST (SHIFT 3)\n===========================\n• Quota: Inspect 5 units.\n• Threat: Rogues now spoof telemetry (1 anomaly per rogue).\n• Verification: Cross-reference core hashes against blacklists and watch for dialogue tells.\n===========================\n\nComplete the quota to authorize evacuation.\n- Donald"
+		"body": "Julian,\n\nFinal shift. Network intrusions are accelerating.\n\n===========================\nDAILY CHECKLIST (SHIFT 3)\n===========================\n• Quota: Inspect 5 units.\n• Threat: Rogues now fake their specs (1 anomaly per rogue).\n• Verification: Cross-reference core hashes against blacklists and watch for dialogue tells.\n===========================\n\nComplete the quota to authorize evacuation.\n- Donald"
 	}
 }
 
@@ -144,6 +144,9 @@ func render_inbox():
 	
 	# Render all emails up to the current day
 	var current_day = GameStats.current_day
+	for d in range(1, current_day):
+		GameStats.read_emails[d] = true
+		
 	for d in range(current_day, 0, -1):
 		if not d in emails:
 			continue

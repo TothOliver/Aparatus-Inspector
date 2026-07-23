@@ -85,7 +85,7 @@ Use this registry to verify active robot specs. If a unit's specs or core signat
 
 [b]How Hardware Specs Can Be Wrong / Corrupted:[/b]
 Inspectors must carefully check the unit telemetry for these 4 types of spec corruption:
-1. [b]Model Typos[/b]: Spoofed model identifiers (e.g. [color=red]T1338[/color] instead of T1337, [color=red]PAAST22x[/color], [color=red]TT69x[/color], [color=red]Lastx[/color]).
+1. [b]Model Typos[/b]: Faked model identifiers (e.g. [color=red]T1338[/color] instead of T1337, [color=red]PAAST22x[/color], [color=red]TT69x[/color], [color=red]Lastx[/color]).
 2. [b]Manufacturer Typos[/b]: Misspelled vendor names (e.g. [color=red]AgsselAB[/color] instead of AgselAB, [color=red]BTHs[/color], [color=red]TT Roboticss[/color], [color=red]Someones[/color]).
 3. [b]Core Hash Tampering[/b]: Altered core hash signatures ending with [color=red]9[/color] (e.g. [color=red]0xFA89[/color] instead of 0xFA82, [color=red]0x77E9[/color] instead of 0x77E1, [color=red]0x88C9[/color] instead of 0x88CC).
 4. [b]Recalled Blacklisted Series[/b]: Recalled unapproved models (e.g. [color=red]H.U.G.O[/color] / 0x4421, [color=red]S80[/color] / 0xBD42, [color=red]-3[/color] / 0x333F, [color=red]Square[/color] / 0x0000).
@@ -120,7 +120,7 @@ Inspectors must carefully check the unit telemetry for these 4 types of spec cor
 		"content": """[center][font_size=16][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
 [color=red][b]RESTRICTED DOCUMENT - ACCESS AT YOUR OWN RISK[/b][/color][/center]
 [hr]
-Prime-0 is capable of spoofing hardware specs on infected units. If a unit's core signature matches the official registry on Day 1 (or has clean telemetry), check for these cognitive dialogue tells during questioning:
+Prime-0 is capable of faking hardware specs on infected units. If a unit's core signature matches the official registry on Day 1 (or has clean telemetry), check for these cognitive dialogue tells during questioning:
 
 [b]Approved Clean Unit Profile:[/b]
 • [b]Approved Dialogue[/b]: Clean units always state their purpose is to [color=green]"assist human operators and follow approved safety protocols"[/color] and recognize human authority as central to their function.

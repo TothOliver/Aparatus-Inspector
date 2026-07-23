@@ -148,6 +148,8 @@ func end_day():
 	print("Day ", current_day, " finished!")
 	if current_day < max_days:
 		GameStats.current_day = current_day + 1
+		for d in range(1, GameStats.current_day):
+			GameStats.read_emails[d] = true
 		GameStats.save_game()
 		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/StoryScreen.tscn")
 	else:

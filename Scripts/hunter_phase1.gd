@@ -48,7 +48,7 @@ func _physics_process(delta):
 			day_multiplier = 0.75
 		elif GameStats.current_day >= 3:
 			day_multiplier = 0.5
-		next_investigation_time = randf_range(30.0, 60.0) * day_multiplier
+		next_investigation_time = 15.0 + (randf_range(30.0, 60.0) * day_multiplier)
 		warning_played = false
 		if GameStats.let_through_bad_sprites.size() > 0:
 			$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
