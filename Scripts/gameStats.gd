@@ -43,6 +43,7 @@ var master_volume: float = 80.0
 var music_volume: float = 80.0
 var sfx_volume: float = 80.0
 var ambient_volume: float = 80.0
+var audio_output_device: String = "Default"
 var fullscreen_enabled: bool = true
 var display_mode: int = 2 # 0 = Windowed, 1 = Borderless, 2 = Fullscreen
 var vsync_enabled: bool = true
@@ -95,6 +96,7 @@ func save_settings():
 	config.set_value("Settings", "music_volume", music_volume)
 	config.set_value("Settings", "sfx_volume", sfx_volume)
 	config.set_value("Settings", "ambient_volume", ambient_volume)
+	config.set_value("Settings", "audio_output_device", audio_output_device)
 	config.set_value("Settings", "fullscreen_enabled", fullscreen_enabled)
 	config.set_value("Settings", "display_mode", display_mode)
 	config.set_value("Settings", "vsync_enabled", vsync_enabled)
@@ -143,6 +145,7 @@ func load_settings():
 		music_volume = config.get_value("Settings", "music_volume", music_volume)
 		sfx_volume = config.get_value("Settings", "sfx_volume", config.get_value("Settings", "vfx_volume", sfx_volume))
 		ambient_volume = config.get_value("Settings", "ambient_volume", ambient_volume)
+		audio_output_device = config.get_value("Settings", "audio_output_device", audio_output_device)
 		fullscreen_enabled = config.get_value("Settings", "fullscreen_enabled", fullscreen_enabled)
 		display_mode = config.get_value("Settings", "display_mode", 2 if fullscreen_enabled else 0)
 		vsync_enabled = config.get_value("Settings", "vsync_enabled", vsync_enabled)
@@ -206,11 +209,19 @@ func apply_all_settings():
 	# FPS Limit
 	Engine.max_fps = fps_limit
 
-	# Audio Volumes
+	# Audio Volumes & Output
+	apply_audio_output_device()
 	apply_bus_volume("Master", master_volume)
 	apply_bus_volume("Music", music_volume)
 	apply_bus_volume("SFX", sfx_volume)
 	apply_bus_volume("Ambient", ambient_volume)
+
+func apply_audio_output_device():
+	var devices = AudioServer.get_output_device_list()
+	if audio_output_device in devices:
+		AudioServer.output_device = audio_output_device
+	else:
+		AudioServer.output_device = "Default"
 		
 	setup_input_map()
 	apply_brightness()

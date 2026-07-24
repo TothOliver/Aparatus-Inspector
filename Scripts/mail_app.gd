@@ -119,6 +119,7 @@ func _ready():
 	reading_panel.add_theme_font_override("normal_font", font_regular)
 	reading_panel.add_theme_font_override("bold_font", font_bold)
 	reading_panel.add_theme_font_size_override("normal_font_size", 12)
+	reading_panel.add_theme_font_size_override("bold_font_size", 16)
 	reading_panel.add_theme_color_override("default_color", Color(0,0,0,1))
 	reading_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	reading_panel.offset_left = 10
@@ -183,6 +184,8 @@ func render_inbox():
 		rtl.offset_bottom = -4
 		rtl.add_theme_font_override("normal_font", font_regular)
 		rtl.add_theme_font_override("bold_font", font_bold)
+		rtl.add_theme_font_size_override("normal_font_size", 12)
+		rtl.add_theme_font_size_override("bold_font_size", 16)
 		rtl.add_theme_color_override("default_color", Color(0,0,0,1))
 		rtl.text = prefix + (email_data.subject if not is_unread else "[b]" + email_data.subject + "[/b]")
 		item_btn.add_child(rtl)

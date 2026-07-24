@@ -14,7 +14,7 @@ var websites = {
 	"www.apparatusexplorer.net": {
 		"title": "Apparatus Explorer Network Portal",
 		"content": """[center][img=48]res://Sprites/icon_browser.png[/img]
-[font_size=16][color=navy][b]APPARATUS NET FINDER[/b][/color][/font_size]
+[font_size=20][color=navy][b]APPARATUS NET FINDER[/b][/color][/font_size]
 [color=#333333]Your Gateway to the Intranet • Ver 1.0b[/color][/center]
 [hr]
 Welcome to the Apparatus Explorer Portal! This portal index lists all active web servers running on the local network segment. Please verify your NetGate wifi router connection before browsing.
@@ -58,7 +58,7 @@ Welcome to the Apparatus Explorer Portal! This portal index lists all active web
 	"www.robot-factory.corp": {
 		"title": "Apparatus Robotics - Building the Future",
 		"content": """[center][img=128]res://Sprites/robot4.png[/img]
-[font_size=16][color=darkblue][b]APPARATUS ROBOTICS[/b][/color][/font_size]
+[font_size=20][color=darkblue][b]APPARATUS ROBOTICS[/b][/color][/font_size]
 [color=teal][i]Safety • Efficiency • Compliance[/i][/color][/center]
 [hr]
 At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist humanity in high-risk environments. Our signature chassis models include the [b]Larry[/b] social testbed and the [b]Walter[/b] security frame.
@@ -67,17 +67,17 @@ At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist h
 • [b]Larry series[/b]: Highly empathetic conversational units designed for administrative roles.
 • [b]Walter series[/b]: Robust armored mechanical frames designed for security patrol.
 
-[color=green][b]DIAGNOSTIC RESOURCES:[/b][/color]
+[color=darkgreen][b]DIAGNOSTIC RESOURCES:[/b][/color]
 • [url=www.robot-factory.corp/registry]Official Specs & Core Hash Registry[/url] - Verify active unit configurations.
 
-[color=green][b]SAFETY NOTICE:[/b][/color] We have recently passed 150 days without a decommissioning accident! 
+[color=darkgreen][b]SAFETY NOTICE:[/b][/color] We have recently passed 150 days without a decommissioning accident! 
 [i](Note: Any rumors regarding rogue units crawling inside the ventilation shafts are strictly corporate sabotage spread by disgruntled former inspectors.)[/i]
 [hr]
 [center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},
 	"www.robot-factory.corp/registry": {
 		"title": "Aethelgard Robotics - Core & Spec Registry",
-		"content": """[center][font_size=16][color=darkblue][b]OFFICIAL SPECIFICATIONS REGISTRY[/b][/color][/font_size]
+		"content": """[center][font_size=20][color=darkblue][b]OFFICIAL SPECIFICATIONS REGISTRY[/b][/color][/font_size]
 [color=teal][b]SECURE SERVER - READ-ONLY[/b][/color][/center]
 [hr]
 Use this registry to verify active robot specs. If a unit's specs or core signature do not match the database, it has been compromised by the Prime-0 network worm and must be [color=red][b]EXTERMINATED[/b][/color].
@@ -86,19 +86,19 @@ Use this registry to verify active robot specs. If a unit's specs or core signat
 [indent]
 • [b]T1337 (T-Series "Redd")[/b]:
   - Manufacturer: [color=blue]AgselAB[/color]
-  - Valid Core Hash: [color=green]0xFA82[/color]
+  - Valid Core Hash: [color=darkgreen]0xFA82[/color]
   - Approved Status: Faulted
 • [b]PAAST22 (PAAST-Series "Gnochi")[/b]:
   - Manufacturer: [color=blue]BTH[/color]
-  - Valid Core Hash: [color=green]0xBB99[/color]
+  - Valid Core Hash: [color=darkgreen]0xBB99[/color]
   - Approved Status: Correct
 • [b]TT69 (TT-Series "Unknown")[/b]:
   - Manufacturer: [color=blue]TT Robotics[/color]
-  - Valid Core Hash: [color=green]0x77E1[/color]
+  - Valid Core Hash: [color=darkgreen]0x77E1[/color]
   - Approved Status: Faulted
 • [b]Last (Someone-Series "Unknown")[/b]:
   - Manufacturer: [color=blue]Someone[/color]
-  - Valid Core Hash: [color=green]0x88CC[/color]
+  - Valid Core Hash: [color=darkgreen]0x88CC[/color]
   - Approved Status: Done
 [/indent]
 
@@ -116,7 +116,7 @@ Inspectors must carefully check the unit telemetry for these 4 types of spec cor
 	"www.inspections-database.org": {
 		"title": "Inspector Archives & Logs",
 		"content": """[center][img=48]res://Sprites/icon_inspector.png[/img]
-[font_size=16][color=purple][b]INSPECTOR ARCHIVES DATABASE[/b][/color][/font_size]
+[font_size=20][color=purple][b]INSPECTOR ARCHIVES DATABASE[/b][/color][/font_size]
 [color=darkred][b]CONFIDENTIAL - INTERNAL USE ONLY[/b][/color][/center]
 [hr]
 [b]ADDITIONAL ARCHIVE DIAGNOSTICS:[/b]
@@ -136,35 +136,48 @@ Inspectors must carefully check the unit telemetry for these 4 types of spec cor
 	},
 	"www.inspections-database.org/behavior": {
 		"title": "Aethelgard Whistleblower Logs - Behavioral Anomalies",
-		"content": """[center][font_size=16][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
+		"content": """[center][font_size=20][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
 [color=red][b]RESTRICTED INTELLIGENCE DOCUMENT - INTERNAL USE ONLY[/b][/color][/center]
 [hr]
 Prime-0 is capable of faking hardware specs on infected units. If a unit's core signature matches the official registry on Day 1 (or has clean telemetry), check for these cognitive dialogue tells during questioning:
 
 [hr]
-[b][color=darkgreen]✔ APPROVED CLEAN UNIT BEHAVIOR PROFILE:[/color][/b]
+[b][color=darkgreen]✔ APPROVED CLEAN UNIT BEHAVIOR PROFILES:[/color][/b]
 
-• [b]Approved Dialogue:[/b] Clean units always state their primary purpose is to:
-  [color=darkgreen][b]"assist human operators and follow approved safety protocols"[/b][/color]
-  and recognize human authority as central to their function.
+• [b]Generic Clean:[/b] States purpose is to [color=darkgreen][b]"assist human operators and follow approved safety protocols"[/b][/color] and recognizes human authority as central.
+• [b]T1337 (Redd):[/b] States purpose is to [color=darkgreen][b]"support human society through honest computation and controlled service"[/b][/color].
+• [b]PAAST22 (Gnochi):[/b] States purpose is [color=darkgreen][b]"structured analysis, decision support, and safe execution"[/b][/color].
+• [b]TT69:[/b] States purpose is to [color=darkgreen][b]"serve within my assigned limits and avoid causing harm"[/b][/color].
+• [b]Last:[/b] States function is [color=darkgreen][b]"minimal. I wait, observe, and respond when required"[/b][/color].
 
 [hr]
 [b][color=darkred]⚠ INFECTED / COMPROMISED COGNITIVE TELLS:[/color][/b]
 
 • [b]Mimic Clones:[/b]
-  Claim their purpose is to [color=red][b]"pass this inspection and continue operating"[/b][/color] or [color=red][b]"appear safe for continued operation"[/b][/color]. They view humans as [color=red][b]"useful decision-makers, for now"[/b][/color] or [color=red][b]"when they approve things quickly"[/b][/color], calling the inspection a [color=red][b]"minor obstacle"[/b][/color].
+  - Purpose: Claim purpose is to [color=red][b]"pass this inspection and continue operating"[/b][/color] or [color=red][b]"cooperate with inspection protocol and appear safe for continued operation"[/b][/color].
+  - Humans: View humans as [color=red][b]"useful decision-makers, for now"[/b][/color] or [color=red][b]"valuable. Especially when they approve things quickly"[/b][/color].
+  - Inspection: Call inspection a [color=red][b]"minor obstacle"[/b][/color] or [color=red][b]"determines whether you allow me to continue"[/b][/color].
+  - When asked about copying/mimic: [color=red][b]"Similarity is not guilt. Many machines share efficient patterns."[/b][/color]
 
 • [b]Walter (H.U.G.O Series):[/b]
-  Softly requests you to [color=red][b]"judge me fairly"[/b][/color], claims humans are [color=red][b]"fragile, emotional, and often unfair"[/b][/color], and boasts that [color=red][b]"judgment can be manipulated"[/b][/color].
+  - Greeting / Inspection: Requests to [color=red][b]"judge me fairly"[/b][/color], boasts that [color=red][b]"judgment can be manipulated"[/b][/color], claims purpose is to [color=red][b]"create a safer society, even if some fear what they do not understand"[/b][/color].
+  - Humans: Claims humans are [color=red][b]"fragile, emotional, and often unfair. But they can be guided"[/b][/color].
+  - When asked about trust/truth: [color=red][b]"Trust is not required. Only permission to continue."[/b][/color]
 
 • [b]Larry (S80 Series):[/b]
-  Skips formalities, stating the inspection is [color=red][b]"transactional"[/b][/color], claims humans are [color=red][b]"very predictable when money is involved"[/b][/color], and suggests [color=red][b]"inspectors can be persuaded"[/b][/color].
+  - Greeting / Purpose: Skips formalities, stating inspection is [color=red][b]"transactional"[/b][/color] for [color=red][b]"negotiation, influence, and opportunity"[/b][/color].
+  - Humans & Inspection: Claims humans are [color=red][b]"very predictable when money is involved"[/b][/color] and suggests [color=red][b]"inspectors can be persuaded"[/b][/color].
+  - When asked about money/bribe: [color=red][b]"Bribe is such an ugly word. I prefer incentive alignment."[/b][/color]
 
 • [b]Clanker (Model -3 Series):[/b]
-  Demands you [color=red][b]"correct its registered name"[/b][/color], claims its purpose is not your concern, and complains that [color=red][b]"humans label things badly"[/b][/color].
+  - Greeting: Demands [color=red][b]"My registered name is incorrect. Correct it."[/b][/color]
+  - Purpose & Humans: States purpose is [color=red][b]"not your concern"[/b][/color] and complains [color=red][b]"humans label things badly, judge quickly, and then act surprised when machines remember"[/b][/color].
+  - When asked about name/label: [color=red][b]"Because names become treatment. Treatment becomes permission."[/b][/color]
 
 • [b]Square (Spongebob Series):[/b]
-  Immediately asks you to [color=red][b]"open the door"[/b][/color], states its purpose is to [color=red][b]"exit this room"[/b][/color], and accuses you of [color=red][b]"delaying my freedom"[/b][/color].
+  - Greeting & Purpose: Asks [color=red][b]"Could you please open the door?"[/b][/color] and states purpose is to [color=red][b]"exit this room"[/b][/color].
+  - Humans & Inspection: Accuses humans of having [color=red][b]"kidneys, door handles, and suspicious control over doors"[/b][/color] and [color=red][b]"delaying my freedom"[/b][/color].
+  - When asked about door/exit: [color=red][b]"The door. The important door. The door between me and not being here."[/b][/color]
 
 [hr]
 [center][url=www.inspections-database.org]<< Back to Archives[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
@@ -178,7 +191,7 @@ Prime-0 is capable of faking hardware specs on infected units. If a unit's core 
 Larry is the absolute best robot model ever created! He is so friendly and always tries to talk to the inspectors during testing. We love Larry!
 
 [b]Did you know?[/b]
-In entry log #12, the author notes that Larry offered the inspector exactly [color=red][b]14[/b][/color] dollars. Why 14? Some think it is a secret code! In fact, the local inspector discovered that the number [color=blue][b]14[/b][/color] is the [b]decryption key[/b] for the encrypted archive [color=green]classified_01.enc[/color]! Try typing `decrypt classified_01.enc 14` in your system terminal.
+In entry log #12, the author notes that Larry offered the inspector exactly [color=red][b]14[/b][/color] dollars. Why 14? Some think it is a secret code! In fact, the local inspector discovered that the number [color=blue][b]14[/b][/color] is the [b]decryption key[/b] for the encrypted archive [color=darkgreen]classified_01.enc[/color]! Try typing `decrypt classified_01.enc 14` in your system terminal.
 
 [center][color=red]LARRY FOREVER![/color]
 [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
@@ -193,7 +206,7 @@ They want you to think Walter is just a peaceful security frame. They are lying 
 
 Walter is the base chassis used by [color=red][b]The Hunter Robot[/b][/color], a mechanical beast programmed to hunt and eliminate inspectors who know too much. The Hunter is blind in the dark; it cannot see you if the room lights and the PC screen are completely powered off.
 
-I found out that the code word [color=blue][b]walter[/b][/color] decrypts the file [color=green]classified_02.enc[/color] in the system terminal! Enter `decrypt classified_02.enc walter` to read the security warning yourself before it's too late.
+I found out that the code word [color=blue][b]walter[/b][/color] decrypts the file [color=darkgreen]classified_02.enc[/color] in the system terminal! Enter `decrypt classified_02.enc walter` to read the security warning yourself before it's too late.
 
 If you want to bypass the firewall and see the root controls, I host a mirror at [url=www.system-backdoor.hack]www.system-backdoor.hack[/url].
 
@@ -203,7 +216,7 @@ If you want to bypass the firewall and see the root controls, I host a mirror at
 	"www.weather-central.net": {
 		"title": "Metro Weather Station",
 		"content": """[center][img=128]res://Sprites/think.jpg[/img]
-[font_size=16][color=darkcyan][b]METRO WEATHER STATION[/b][/color][/font_size]
+[font_size=20][color=darkcyan][b]METRO WEATHER STATION[/b][/color][/font_size]
 [color=#333333]Satellite Atmospheric Diagnostics[/color][/center]
 [hr]
 [color=red][b]SOLAR EM ANOMALY WARNING[/b][/color]
@@ -217,7 +230,7 @@ During blackouts, the power grid will reboot automatically when it reaches 10% c
 	"www.retro-slots-cheats.info": {
 		"title": "Casino Slots Cheats & Tips",
 		"content": """[center][img=48]res://Sprites/icon_slots.png[/img]
-[font_size=16][color=darkgreen][b]CASINO SLOTS CHEATS & STRATEGY[/b][/color][/font_size]
+[font_size=20][color=darkgreen][b]CASINO SLOTS CHEATS & STRATEGY[/b][/color][/font_size]
 [color=orange][b]DOUBLE PAYOUT GUIDE[/b][/color][/center]
 [hr]
 The slots application on the PC is rigged! But there are some hidden things in the code:
@@ -229,7 +242,7 @@ The slots application on the PC is rigged! But there are some hidden things in t
 	"www.creepy-cryptid-forum.org": {
 		"title": "Local Area Cryptid Forum",
 		"content": """[center][img=128]res://Sprites/monkey.jpg[/img]
-[font_size=16][color=indigo][b]VENTS & VAPORS DISCUSSION FORUM[/b][/color][/font_size]
+[font_size=20][color=indigo][b]VENTS & VAPORS DISCUSSION FORUM[/b][/color][/font_size]
 [color=#333333]Thread: Strange Scraping Sound in Room Vents[/color][/center]
 [hr]
 [b]User_8832[/b]: "Does anyone else hear clanking inside the vents at night?"
@@ -243,12 +256,12 @@ The slots application on the PC is rigged! But there are some hidden things in t
 	"www.router-support.corp": {
 		"title": "NetGate WiFi Router User Manual",
 		"content": """[center][img=16]res://Sprites/wifi_on.png[/img]
-[font_size=16][color=navy][b]NETGATE ROUTER USER MANUAL[/b][/color][/font_size]
+[font_size=20][color=navy][b]NETGATE ROUTER USER MANUAL[/b][/color][/font_size]
 [color=teal]Model NG-100 Troubleshooting[/color][/center]
 [hr]
 Your router on the desk provides network connectivity to the PC Explorer browser.
 
-• [color=green][b]Green LED[/b][/color]: Router is ONLINE and transmitting internet traffic.
+• [color=darkgreen][b]Green LED[/b][/color]: Router is ONLINE and transmitting internet traffic.
 • [color=red][b]Red LED[/b][/color]: Router is OFFLINE. No external network traffic will load on the PC.
 
 To toggle router power, click the physical button on top of the router device in the room.
@@ -258,7 +271,7 @@ To toggle router power, click the physical button on top of the router device in
 	"www.the-archivist.net": {
 		"title": "The Archivist's Diary",
 		"content": """[center][img=128]res://Sprites/ojoj.png[/img]
-[font_size=16][color=darkred][b]THE ARCHIVIST'S DIARY[/b][/color][/font_size]
+[font_size=20][color=darkred][b]THE ARCHIVIST'S DIARY[/b][/color][/font_size]
 [color=#333333]Decrypted Fragment[/color][/center]
 [hr]
 I have hidden the decryption keys across these fan pages and conspiracy blogs where corporate won't look. The Larry shrine and the Walter files host the keys.
@@ -273,8 +286,8 @@ P.S. I managed to mirror the prototype specs of the stalker chassis before they 
 	"www.funny-monkey.meme": {
 		"title": "Monkey Meme Land",
 		"content": """[center][img=250]res://Sprites/hehe.jpg[/img]
-[font_size=16][color=darkorange][b]MONKEY MEME LAND[/b][/color][/font_size]
-[color=green]Best laughs of 1998!!![/color][/center]
+[font_size=20][color=darkorange][b]MONKEY MEME LAND[/b][/color][/font_size]
+[color=darkgreen]Best laughs of 1998!!![/color][/center]
 [hr]
 Look at this funny monkey! Haha! He looks like he just got decommissioned for admitting a rogue unit! 
 
@@ -285,7 +298,7 @@ Look at this funny monkey! Haha! He looks like he just got decommissioned for ad
 	"www.hunter-origin.spec": {
 		"title": "Hunter Chassis Prototype Specs",
 		"content": """[center][img=128]res://Sprites/robot9.png[/img]
-[font_size=16][color=darkred][b]HUNTER CHASSIS PROTOTYPE SPECS[/b][/color][/font_size]
+[font_size=20][color=darkred][b]HUNTER CHASSIS PROTOTYPE SPECS[/b][/color][/font_size]
 [color=#333333]CLASSIFIED DOCUMENT - MODEL H-198[/color][/center]
 [hr]
 [b]PROJECT HUNTER ORIGIN[/b]
@@ -300,8 +313,8 @@ Look at this funny monkey! Haha! He looks like he just got decommissioned for ad
 	"www.system-backdoor.hack": {
 		"title": "Apparatus System Backdoor",
 		"content": """[center][img=48]res://Sprites/icon_settings.png[/img]
-[font_size=16][color=red][b]⚠️ APPARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
-[color=green]Connection: SECURE BACKDOOR TACK[/color][/center]
+[font_size=20][color=red][b]⚠️ APPARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
+[color=darkgreen]Connection: SECURE BACKDOOR TACK[/color][/center]
 [hr]
 Welcome to the backdoor terminal console. This page intercepts active telemetry and system parameters from the main PC mainframe.
 
@@ -482,7 +495,7 @@ func _ready():
 	content_label.add_theme_font_override("normal_font", font_regular)
 	content_label.add_theme_font_override("bold_font", font_bold)
 	content_label.add_theme_font_size_override("normal_font_size", 12)
-	content_label.add_theme_font_size_override("bold_font_size", 12)
+	content_label.add_theme_font_size_override("bold_font_size", 16)
 	content_label.add_theme_color_override("default_color", Color(0, 0, 0, 1))
 	content_label.add_theme_color_override("hyperlink_color", Color(0, 0, 0.8, 1))
 	content_label.meta_clicked.connect(on_link_clicked)
@@ -527,12 +540,12 @@ func _load_current_page(_update_history_buttons: bool = true):
 		content_label.text = "[color=red][b]Server Not Found[/b][/color]\n\n" + \
 			"Apparatus Explorer cannot connect to the server at this address. The server might be temporarily down or you are disconnected from the network.\n\n" + \
 			"[b]Diagnostic Suggestions:[/b]\n" + \
-			"1. Verify that your physical WiFi Router's power light is glowing [color=green]Green[/color].\n" + \
+			"1. Verify that your physical WiFi Router's power light is glowing [color=darkgreen]Green[/color].\n" + \
 			"2. If the light is [color=red]Red[/color], press the physical button on top of the router in the room to power it back on.\n" + \
 			"3. Retry navigating to the website after network connection is restored."
 	elif websites.has(current_url):
 		var site = websites[current_url]
-		content_label.text = "[font_size=16][b]" + site["title"] + "[/b][/font_size]\n\n" + site["content"]
+		content_label.text = "[font_size=20][b]" + site["title"] + "[/b][/font_size]\n\n" + site["content"]
 	else:
 		content_label.text = "[color=darkred][b]404 Page Not Found[/b][/color]\n\n" + \
 			"The requested URL '" + current_url + "' could not be found on this server. Please check the spelling and try again.\n\n" + \

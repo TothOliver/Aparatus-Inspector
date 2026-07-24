@@ -16,6 +16,7 @@ extends Control
 @onready var sfx_volume_value_label = get_node_or_null("GeneralContainer/SfxVolumeValueLabel") if get_node_or_null("GeneralContainer/SfxVolumeValueLabel") else get_node_or_null("GeneralContainer/VfxVolumeValueLabel")
 @onready var ambient_volume_slider = get_node_or_null("GeneralContainer/AmbientVolumeSlider")
 @onready var ambient_volume_value_label = get_node_or_null("GeneralContainer/AmbientVolumeValueLabel")
+@onready var audio_output_option = get_node_or_null("GeneralContainer/AudioOutputOption")
 
 @onready var sensitivity_slider = get_node_or_null("GeneralContainer/SensitivitySlider")
 @onready var sensitivity_value_label = get_node_or_null("GeneralContainer/SensitivityValueLabel")
@@ -54,8 +55,8 @@ func _setup_scroll_containers():
 		
 		general_container.visible = true
 		general_container.position = Vector2(0, 0)
-		general_container.custom_minimum_size = Vector2(410, 785)
-		general_container.size = Vector2(410, 785)
+		general_container.custom_minimum_size = Vector2(410, 845)
+		general_container.size = Vector2(410, 845)
 
 	if controls_container and controls_container.get_parent() is ScrollContainer:
 		controls_scroll = controls_container.get_parent() as ScrollContainer
@@ -501,6 +502,24 @@ func update_ui_from_stats():
 	# Ambient Volume Slider
 	_setup_volume_slider(ambient_volume_slider, ambient_volume_value_label, GameStats.ambient_volume, func(v): _on_volume_changed("Ambient", v))
 
+	# Audio Output Device Option
+	if audio_output_option:
+		style_retro_option_button(audio_output_option)
+		if audio_output_option.item_selected.is_connected(_on_audio_output_selected):
+			audio_output_option.item_selected.disconnect(_on_audio_output_selected)
+		audio_output_option.clear()
+
+		var devices = AudioServer.get_output_device_list()
+		var selected_idx = 0
+		for i in range(devices.size()):
+			var dev = devices[i]
+			audio_output_option.add_item(dev)
+			if dev == GameStats.audio_output_device:
+				selected_idx = i
+
+		audio_output_option.selected = selected_idx
+		audio_output_option.item_selected.connect(_on_audio_output_selected)
+
 	# Sensitivity Slider
 	if sensitivity_slider:
 		if sensitivity_slider.value_changed.is_connected(_on_sensitivity_changed):
@@ -648,6 +667,13 @@ func _on_volume_changed(bus_name: String, value: float):
 			
 	GameStats.apply_bus_volume(bus_name, value)
 	GameStats.save_settings()
+
+func _on_audio_output_selected(index: int):
+	if audio_output_option:
+		var device_name = audio_output_option.get_item_text(index)
+		GameStats.audio_output_device = device_name
+		AudioServer.output_device = device_name
+		GameStats.save_settings()
 
 func _on_sensitivity_changed(value: float):
 	var sens = 0.02 + (value / 100.0) * (0.5 - 0.02)
