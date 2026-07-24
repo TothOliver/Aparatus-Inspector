@@ -21,6 +21,8 @@ extends Control
 @onready var sensitivity_value_label = get_node_or_null("GeneralContainer/SensitivityValueLabel")
 @onready var fov_slider = get_node_or_null("GeneralContainer/FovSlider")
 @onready var fov_value_label = get_node_or_null("GeneralContainer/FovValueLabel")
+@onready var invert_x_checkbox = get_node_or_null("GeneralContainer/InvertXCheckbox")
+@onready var invert_y_checkbox = get_node_or_null("GeneralContainer/InvertYCheckbox")
 @onready var quit_button = get_node_or_null("QuitButton")
 
 @onready var general_tab_btn = $GeneralTabBtn
@@ -29,6 +31,53 @@ extends Control
 @onready var controls_container = $ControlsContainer
 @onready var controls_group = $ControlsContainer/ControlsGroup
 @onready var controls_label = $ControlsContainer/ControlsGroupLabel
+
+var general_scroll: ScrollContainer = null
+var controls_scroll: ScrollContainer = null
+
+func _setup_scroll_containers():
+	if general_container and general_container.get_parent() is ScrollContainer:
+		general_scroll = general_container.get_parent() as ScrollContainer
+	elif general_container:
+		general_scroll = ScrollContainer.new()
+		general_scroll.name = "GeneralScroll"
+		general_scroll.position = Vector2(0, 40)
+		general_scroll.size = Vector2(426, 335)
+		general_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		general_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		
+		var parent_node = general_container.get_parent()
+		if parent_node:
+			parent_node.remove_child(general_container)
+			general_scroll.add_child(general_container)
+			parent_node.add_child(general_scroll)
+		
+		general_container.visible = true
+		general_container.position = Vector2(0, 0)
+		general_container.custom_minimum_size = Vector2(410, 785)
+		general_container.size = Vector2(410, 785)
+
+	if controls_container and controls_container.get_parent() is ScrollContainer:
+		controls_scroll = controls_container.get_parent() as ScrollContainer
+	elif controls_container:
+		controls_scroll = ScrollContainer.new()
+		controls_scroll.name = "ControlsScroll"
+		controls_scroll.position = Vector2(0, 40)
+		controls_scroll.size = Vector2(426, 335)
+		controls_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		controls_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		controls_scroll.visible = false
+		
+		var parent_node = controls_container.get_parent()
+		if parent_node:
+			parent_node.remove_child(controls_container)
+			controls_scroll.add_child(controls_container)
+			parent_node.add_child(controls_scroll)
+		
+		controls_container.visible = true
+		controls_container.position = Vector2(0, 0)
+		controls_container.custom_minimum_size = Vector2(410, 690)
+		controls_container.size = Vector2(410, 690)
 
 var is_pause_menu: bool = false
 var was_visible: bool = false
@@ -114,29 +163,34 @@ func _ready():
 	# Dynamic resize and positioning of parent settings window
 	var parent = get_parent()
 	if parent and parent is Control:
-		parent.size = Vector2(450, 820)
+		parent.custom_minimum_size = Vector2(450, 460)
+		parent.size = Vector2(450, 460)
 		var viewport_size = get_viewport_rect().size
 		parent.position.x = (viewport_size.x - 450) / 2.0
-		parent.position.y = max(10.0, (viewport_size.y - 820) / 2.0)
+		parent.position.y = clamp((viewport_size.y - 460) / 2.0, 10.0, max(10.0, viewport_size.y - 470))
 		
 		# Update TitleBar
 		var title_bar = parent.get_node_or_null("TitleBar")
 		if title_bar:
-			title_bar.size.x = 450 - 12
+			title_bar.size.x = 438
+			title_bar.custom_minimum_size.x = 438
 			var close_button = title_bar.get_node_or_null("CloseButton")
 			if close_button:
-				close_button.position.x = title_bar.size.x - 26
+				close_button.position.x = 414
 
 	# Resize self (SettingsBody) to fill parent
-	self.size = Vector2(426, 780)
+	self.size = Vector2(426, 400)
 	if "offset_right" in self:
 		self.offset_right = 438
 	if "offset_bottom" in self:
-		self.offset_bottom = 810
+		self.offset_bottom = 445
+
+	_setup_scroll_containers()
 
 	# Position QuitButton down if it exists
 	if quit_button:
-		quit_button.position = Vector2(153, 735)
+		quit_button.position = Vector2(153, 385)
+		quit_button.size = Vector2(120, 26)
 
 	# Dynamic creation of FOV slider if missing from scene node tree
 	if fov_slider == null and general_container:
@@ -468,6 +522,60 @@ func update_ui_from_stats():
 		if fov_value_label:
 			fov_value_label.text = str(int(round(GameStats.fov))) + "°"
 
+	# Invert X Checkbox
+	if invert_x_checkbox:
+		if invert_x_checkbox.toggled.is_connected(_on_invert_x_toggled):
+			invert_x_checkbox.toggled.disconnect(_on_invert_x_toggled)
+		invert_x_checkbox.button_pressed = GameStats.invert_mouse_x
+		invert_x_checkbox.toggled.connect(_on_invert_x_toggled)
+
+	# Invert Y Checkbox
+	if invert_y_checkbox:
+		if invert_y_checkbox.toggled.is_connected(_on_invert_y_toggled):
+			invert_y_checkbox.toggled.disconnect(_on_invert_y_toggled)
+		invert_y_checkbox.button_pressed = GameStats.invert_mouse_y
+		invert_y_checkbox.toggled.connect(_on_invert_y_toggled)
+
+	# Disable mouse wheel scrolling on all sliders
+	for slider in [brightness_slider, volume_slider, music_volume_slider, sfx_volume_slider, ambient_volume_slider, sensitivity_slider, fov_slider]:
+		_disable_slider_scroll(slider)
+
+func _disable_slider_scroll(slider: HSlider):
+	if not slider:
+		return
+	if not slider.gui_input.is_connected(_on_slider_gui_input.bind(slider)):
+		slider.gui_input.connect(_on_slider_gui_input.bind(slider))
+
+func _on_slider_gui_input(event: InputEvent, slider: HSlider):
+	if event is InputEventMouseButton:
+		var mb = event as InputEventMouseButton
+		if mb.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN, MOUSE_BUTTON_WHEEL_LEFT, MOUSE_BUTTON_WHEEL_RIGHT]:
+			slider.accept_event()
+			if mb.pressed:
+				var scroll_box = general_scroll if general_scroll else _find_parent_scroll_container(slider)
+				if scroll_box:
+					var step = 35
+					if mb.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+						scroll_box.scroll_vertical += step
+					elif mb.button_index == MOUSE_BUTTON_WHEEL_UP:
+						scroll_box.scroll_vertical -= step
+
+func _find_parent_scroll_container(node: Node) -> ScrollContainer:
+	var curr = node.get_parent()
+	while curr:
+		if curr is ScrollContainer:
+			return curr as ScrollContainer
+		curr = curr.get_parent()
+	return null
+
+func _on_invert_x_toggled(toggled_on: bool):
+	GameStats.invert_mouse_x = toggled_on
+	GameStats.save_settings()
+
+func _on_invert_y_toggled(toggled_on: bool):
+	GameStats.invert_mouse_y = toggled_on
+	GameStats.save_settings()
+
 func _on_fov_changed(value: float):
 	GameStats.fov = value
 	if fov_value_label:
@@ -667,8 +775,15 @@ func _update_tab_visuals():
 		controls_tab_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 		controls_tab_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 		
-		general_container.visible = true
-		controls_container.visible = false
+		if general_scroll:
+			general_scroll.visible = true
+		if general_container:
+			general_container.visible = true
+			
+		if controls_scroll:
+			controls_scroll.visible = false
+		if controls_container:
+			controls_container.visible = false
 	else:
 		general_tab_btn.add_theme_stylebox_override("normal", btn_normal)
 		general_tab_btn.add_theme_stylebox_override("hover", btn_hover)
@@ -686,8 +801,15 @@ func _update_tab_visuals():
 		controls_tab_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 		controls_tab_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 		
-		general_container.visible = false
-		controls_container.visible = true
+		if general_scroll:
+			general_scroll.visible = false
+		if general_container:
+			general_container.visible = false
+			
+		if controls_scroll:
+			controls_scroll.visible = true
+		if controls_container:
+			controls_container.visible = true
 		
 		listening_action = ""
 		listening_button = null

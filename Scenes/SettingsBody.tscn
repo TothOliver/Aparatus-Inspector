@@ -1,13 +1,13 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene format=3 uid="uid://bhko7288f6akj"]
 
-[ext_resource type="Script" path="res://Scripts/settings_window_controller.gd" id="1_controller"]
+[ext_resource type="Script" uid="uid://c1f17kywvwsiw" path="res://Scripts/settings_window_controller.gd" id="1_controller"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="2_inner_frame"]
-[ext_resource type="FontFile" path="res://RetroWindowsGUI/M 8pt.ttf" id="3_font_regular"]
-[ext_resource type="FontFile" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="4_font_bold"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="5_toggle_active"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="6_toggle_inactive"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="7_slider_handle"]
-[ext_resource type="Texture2D" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="8_slider_bg"]
+[ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="3_font_regular"]
+[ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="4_font_bold"]
+[ext_resource type="Texture2D" uid="uid://c0ttjlxtyl1cj" path="res://RetroWindowsGUI/Windows_Toggle_Active.png" id="5_toggle_active"]
+[ext_resource type="Texture2D" uid="uid://dx3a0jbw8cavi" path="res://RetroWindowsGUI/Windows_Toggle_Inactive.png" id="6_toggle_inactive"]
+[ext_resource type="Texture2D" uid="uid://bbw7onsjn6kf2" path="res://RetroWindowsGUI/Windows_Slider_Handle.png" id="7_slider_handle"]
+[ext_resource type="Texture2D" uid="uid://b1ontqtesaon4" path="res://RetroWindowsGUI/Windows_Slider_Background.png" id="8_slider_bg"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="9_btn_normal"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="10_btn_hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="11_btn_pressed"]
@@ -17,6 +17,8 @@ bg_color = Color(0.83137, 0.81568, 0.78431, 1)
 expand_margin_left = 4.0
 expand_margin_right = 4.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider"]
 texture = ExtResource("8_slider_bg")
 texture_margin_left = 2.0
@@ -24,23 +26,20 @@ texture_margin_top = 1.0
 texture_margin_right = 2.0
 texture_margin_bottom = 1.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
-
-[node name="SettingsBody" type="Control"]
+[node name="SettingsBody" type="Control" unique_id=1646383924]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 426.0
 offset_bottom = 780.0
 script = ExtResource("1_controller")
 
-[node name="GeneralContainer" type="Control" parent="."]
-layout_mode = 3
+[node name="GeneralContainer" type="Control" parent="." unique_id=1941808357]
 anchors_preset = 0
 offset_right = 426.0
 offset_bottom = 700.0
 mouse_filter = 2
 
-[node name="DisplayGroup" type="Panel" parent="GeneralContainer"]
+[node name="DisplayGroup" type="Panel" parent="GeneralContainer" unique_id=555430962]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 55.0
@@ -48,7 +47,7 @@ offset_right = 416.0
 offset_bottom = 282.0
 theme_override_styles/panel = ExtResource("2_inner_frame")
 
-[node name="DisplayGroupLabel" type="Label" parent="GeneralContainer"]
+[node name="DisplayGroupLabel" type="Label" parent="GeneralContainer" unique_id=731596683]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 47.0
@@ -60,7 +59,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Display"
 
-[node name="DisplayModeLabel" type="Label" parent="GeneralContainer"]
+[node name="DisplayModeLabel" type="Label" parent="GeneralContainer" unique_id=2047740739]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 70.0
@@ -71,7 +70,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Display Mode:"
 
-[node name="DisplayModeOption" type="OptionButton" parent="GeneralContainer"]
+[node name="DisplayModeOption" type="OptionButton" parent="GeneralContainer" unique_id=82550957]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 180.0
@@ -79,17 +78,17 @@ offset_top = 66.0
 offset_right = 390.0
 offset_bottom = 92.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = ExtResource("9_btn_normal")
-theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
+theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 
-[node name="ResolutionLabel" type="Label" parent="GeneralContainer"]
+[node name="ResolutionLabel" type="Label" parent="GeneralContainer" unique_id=1363772269]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 103.0
@@ -100,7 +99,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Resolution:"
 
-[node name="ResolutionOption" type="OptionButton" parent="GeneralContainer"]
+[node name="ResolutionOption" type="OptionButton" parent="GeneralContainer" unique_id=69493970]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 180.0
@@ -108,17 +107,17 @@ offset_top = 99.0
 offset_right = 390.0
 offset_bottom = 125.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = ExtResource("9_btn_normal")
-theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
+theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 
-[node name="FPSLabel" type="Label" parent="GeneralContainer"]
+[node name="FPSLabel" type="Label" parent="GeneralContainer" unique_id=450396356]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 136.0
@@ -129,7 +128,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Framerate Limit:"
 
-[node name="FPSOption" type="OptionButton" parent="GeneralContainer"]
+[node name="FPSOption" type="OptionButton" parent="GeneralContainer" unique_id=717124157]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 180.0
@@ -137,17 +136,17 @@ offset_top = 132.0
 offset_right = 390.0
 offset_bottom = 158.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = ExtResource("9_btn_normal")
-theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
+theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 
-[node name="VSyncCheckbox" type="CheckBox" parent="GeneralContainer"]
+[node name="VSyncCheckbox" type="CheckBox" parent="GeneralContainer" unique_id=1733142024]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -164,7 +163,7 @@ theme_override_icons/checked = ExtResource("5_toggle_active")
 theme_override_icons/unchecked = ExtResource("6_toggle_inactive")
 text = " Enable V-Sync"
 
-[node name="CRTCheckbox" type="CheckBox" parent="GeneralContainer"]
+[node name="CRTCheckbox" type="CheckBox" parent="GeneralContainer" unique_id=1340457805]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -181,7 +180,7 @@ theme_override_icons/checked = ExtResource("5_toggle_active")
 theme_override_icons/unchecked = ExtResource("6_toggle_inactive")
 text = " Enable CRT Screen Filter"
 
-[node name="BrightnessLabel" type="Label" parent="GeneralContainer"]
+[node name="BrightnessLabel" type="Label" parent="GeneralContainer" unique_id=1551813727]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 224.0
@@ -192,7 +191,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Brightness:"
 
-[node name="BrightnessValueLabel" type="Label" parent="GeneralContainer"]
+[node name="BrightnessValueLabel" type="Label" parent="GeneralContainer" unique_id=1418204541]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -204,7 +203,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "100%"
 
-[node name="BrightnessSlider" type="HSlider" parent="GeneralContainer"]
+[node name="BrightnessSlider" type="HSlider" parent="GeneralContainer" unique_id=97383842]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -216,10 +215,9 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 min_value = 50.0
 max_value = 150.0
-step = 1.0
 value = 100.0
 
-[node name="AudioGroup" type="Panel" parent="GeneralContainer"]
+[node name="AudioGroup" type="Panel" parent="GeneralContainer" unique_id=1802489749]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 298.0
@@ -227,7 +225,7 @@ offset_right = 416.0
 offset_bottom = 578.0
 theme_override_styles/panel = ExtResource("2_inner_frame")
 
-[node name="AudioGroupLabel" type="Label" parent="GeneralContainer"]
+[node name="AudioGroupLabel" type="Label" parent="GeneralContainer" unique_id=1411824015]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 290.0
@@ -239,7 +237,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Audio"
 
-[node name="VolumeLabel" type="Label" parent="GeneralContainer"]
+[node name="VolumeLabel" type="Label" parent="GeneralContainer" unique_id=817472052]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 313.0
@@ -250,7 +248,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Main Volume:"
 
-[node name="VolumeValueLabel" type="Label" parent="GeneralContainer"]
+[node name="VolumeValueLabel" type="Label" parent="GeneralContainer" unique_id=1123870798]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -262,7 +260,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "80%"
 
-[node name="VolumeSlider" type="HSlider" parent="GeneralContainer"]
+[node name="VolumeSlider" type="HSlider" parent="GeneralContainer" unique_id=2125243234]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -274,7 +272,7 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 80.0
 
-[node name="MusicVolumeLabel" type="Label" parent="GeneralContainer"]
+[node name="MusicVolumeLabel" type="Label" parent="GeneralContainer" unique_id=1336419431]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 373.0
@@ -285,7 +283,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Music Volume:"
 
-[node name="MusicVolumeValueLabel" type="Label" parent="GeneralContainer"]
+[node name="MusicVolumeValueLabel" type="Label" parent="GeneralContainer" unique_id=1576999591]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -297,7 +295,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "80%"
 
-[node name="MusicVolumeSlider" type="HSlider" parent="GeneralContainer"]
+[node name="MusicVolumeSlider" type="HSlider" parent="GeneralContainer" unique_id=919931752]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -309,7 +307,7 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 80.0
 
-[node name="SfxVolumeLabel" type="Label" parent="GeneralContainer"]
+[node name="SfxVolumeLabel" type="Label" parent="GeneralContainer" unique_id=1257592327]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 433.0
@@ -320,7 +318,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "SFX Volume:"
 
-[node name="SfxVolumeValueLabel" type="Label" parent="GeneralContainer"]
+[node name="SfxVolumeValueLabel" type="Label" parent="GeneralContainer" unique_id=322670243]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -332,7 +330,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "80%"
 
-[node name="SfxVolumeSlider" type="HSlider" parent="GeneralContainer"]
+[node name="SfxVolumeSlider" type="HSlider" parent="GeneralContainer" unique_id=2010335276]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -344,7 +342,7 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 80.0
 
-[node name="AmbientVolumeLabel" type="Label" parent="GeneralContainer"]
+[node name="AmbientVolumeLabel" type="Label" parent="GeneralContainer" unique_id=449386543]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 493.0
@@ -355,7 +353,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Ambient Volume:"
 
-[node name="AmbientVolumeValueLabel" type="Label" parent="GeneralContainer"]
+[node name="AmbientVolumeValueLabel" type="Label" parent="GeneralContainer" unique_id=1657375475]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 160.0
@@ -367,7 +365,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "80%"
 
-[node name="AmbientVolumeSlider" type="HSlider" parent="GeneralContainer"]
+[node name="AmbientVolumeSlider" type="HSlider" parent="GeneralContainer" unique_id=2013284889]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -379,15 +377,15 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 80.0
 
-[node name="MouseGroup" type="Panel" parent="GeneralContainer"]
+[node name="MouseGroup" type="Panel" parent="GeneralContainer" unique_id=777491748]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 593.0
 offset_right = 416.0
-offset_bottom = 720.0
+offset_bottom = 830.0
 theme_override_styles/panel = ExtResource("2_inner_frame")
 
-[node name="MouseGroupLabel" type="Label" parent="GeneralContainer"]
+[node name="MouseGroupLabel" type="Label" parent="GeneralContainer" unique_id=1785837066]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 585.0
@@ -399,7 +397,7 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Mouse & Camera"
 
-[node name="SensitivityLabel" type="Label" parent="GeneralContainer"]
+[node name="SensitivityLabel" type="Label" parent="GeneralContainer" unique_id=1097334981]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 605.0
@@ -410,7 +408,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "3D Look Sensitivity:"
 
-[node name="SensitivityValueLabel" type="Label" parent="GeneralContainer"]
+[node name="SensitivityValueLabel" type="Label" parent="GeneralContainer" unique_id=1719681621]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 175.0
@@ -422,7 +420,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "0.15"
 
-[node name="SensitivitySlider" type="HSlider" parent="GeneralContainer"]
+[node name="SensitivitySlider" type="HSlider" parent="GeneralContainer" unique_id=1218141335]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -434,7 +432,7 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 value = 30.0
 
-[node name="FovLabel" type="Label" parent="GeneralContainer"]
+[node name="FovLabel" type="Label" parent="GeneralContainer" unique_id=1076149622]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 655.0
@@ -445,7 +443,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "Field of View (FOV):"
 
-[node name="FovValueLabel" type="Label" parent="GeneralContainer"]
+[node name="FovValueLabel" type="Label" parent="GeneralContainer" unique_id=1018164550]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 175.0
@@ -457,7 +455,7 @@ theme_override_fonts/font = ExtResource("3_font_regular")
 theme_override_font_sizes/font_size = 12
 text = "70°"
 
-[node name="FovSlider" type="HSlider" parent="GeneralContainer"]
+[node name="FovSlider" type="HSlider" parent="GeneralContainer" unique_id=98457339]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 25.0
@@ -469,18 +467,50 @@ theme_override_icons/grabber_highlight = ExtResource("7_slider_handle")
 theme_override_styles/slider = SubResource("StyleBoxTexture_slider")
 min_value = 50.0
 max_value = 110.0
-step = 1.0
 value = 70.0
 
-[node name="ControlsContainer" type="Control" parent="."]
+[node name="InvertXCheckbox" type="CheckBox" parent="GeneralContainer" unique_id=794032708]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 712.0
+offset_right = 350.0
+offset_bottom = 740.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_font_regular")
+theme_override_font_sizes/font_size = 12
+theme_override_icons/checked = ExtResource("5_toggle_active")
+theme_override_icons/unchecked = ExtResource("6_toggle_inactive")
+text = " Invert Mouse X Axis"
+
+[node name="InvertYCheckbox" type="CheckBox" parent="GeneralContainer" unique_id=827692521]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 740.0
+offset_right = 350.0
+offset_bottom = 768.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_font_regular")
+theme_override_font_sizes/font_size = 12
+theme_override_icons/checked = ExtResource("5_toggle_active")
+theme_override_icons/unchecked = ExtResource("6_toggle_inactive")
+text = " Invert Mouse Y Axis"
+
+[node name="ControlsContainer" type="Control" parent="." unique_id=467511582]
 visible = false
-layout_mode = 3
 anchors_preset = 0
 offset_right = 426.0
 offset_bottom = 700.0
 mouse_filter = 2
 
-[node name="ControlsGroup" type="Panel" parent="ControlsContainer"]
+[node name="ControlsGroup" type="Panel" parent="ControlsContainer" unique_id=1149186874]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 55.0
@@ -488,7 +518,7 @@ offset_right = 416.0
 offset_bottom = 685.0
 theme_override_styles/panel = ExtResource("2_inner_frame")
 
-[node name="ControlsGroupLabel" type="Label" parent="ControlsContainer"]
+[node name="ControlsGroupLabel" type="Label" parent="ControlsContainer" unique_id=1802105031]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 47.0
@@ -500,49 +530,49 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Keyboard Controls"
 
-[node name="QuitButton" type="Button" parent="."]
+[node name="QuitButton" type="Button" parent="." unique_id=172740624]
 layout_mode = 0
 offset_left = 153.0
-offset_top = 735.0
+offset_top = 785.0
 offset_right = 273.0
-offset_bottom = 765.0
+offset_bottom = 815.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = ExtResource("9_btn_normal")
-theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
+theme_override_styles/hover = ExtResource("10_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "Quit Game"
 
-[node name="GeneralTabBtn" type="Button" parent="."]
+[node name="GeneralTabBtn" type="Button" parent="." unique_id=578886810]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 150.0
 offset_bottom = 35.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "General Settings"
 
-[node name="ControlsTabBtn" type="Button" parent="."]
+[node name="ControlsTabBtn" type="Button" parent="." unique_id=2026856400]
 layout_mode = 0
 offset_left = 155.0
 offset_top = 10.0
 offset_right = 255.0
 offset_bottom = 35.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")

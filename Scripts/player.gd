@@ -149,10 +149,12 @@ func _input(event):
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
+		var dir_x = -1.0 if (GameStats.invert_mouse_x if "invert_mouse_x" in GameStats else false) else 1.0
+		var dir_y = -1.0 if (GameStats.invert_mouse_y if "invert_mouse_y" in GameStats else false) else 1.0
 		if current_state == State.WALKING:
 			# Modify player rotation (yaw) and camera rotation (pitch)
-			rotate_y(deg_to_rad(-event.relative.x * active_sens))
-			camera.rotate_x(deg_to_rad(-event.relative.y * active_sens))
+			rotate_y(deg_to_rad(-event.relative.x * active_sens * dir_x))
+			camera.rotate_x(deg_to_rad(-event.relative.y * active_sens * dir_y))
 			# Clamp camera pitch to look straight down / straight up
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 

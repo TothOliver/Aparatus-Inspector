@@ -34,6 +34,8 @@ var read_emails: Dictionary = {1: false, 2: false, 3: false}
 
 # User System Settings
 var mouse_sensitivity: float = 0.15
+var invert_mouse_x: bool = false
+var invert_mouse_y: bool = false
 var fov: float = 70.0
 var crt_effect_enabled: bool = true
 var brightness: float = 100.0
@@ -84,6 +86,8 @@ func save_settings():
 	var config = ConfigFile.new()
 	config.set_value("Settings", "primary_monitor_initialized", true)
 	config.set_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+	config.set_value("Settings", "invert_mouse_x", invert_mouse_x)
+	config.set_value("Settings", "invert_mouse_y", invert_mouse_y)
 	config.set_value("Settings", "fov", fov)
 	config.set_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 	config.set_value("Settings", "brightness", brightness)
@@ -130,6 +134,8 @@ func load_settings():
 	
 	if err == OK and not is_first_run:
 		mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+		invert_mouse_x = config.get_value("Settings", "invert_mouse_x", invert_mouse_x)
+		invert_mouse_y = config.get_value("Settings", "invert_mouse_y", invert_mouse_y)
 		fov = config.get_value("Settings", "fov", fov)
 		crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 		brightness = config.get_value("Settings", "brightness", brightness)
@@ -150,6 +156,8 @@ func load_settings():
 	else:
 		if err == OK:
 			mouse_sensitivity = config.get_value("Settings", "mouse_sensitivity", mouse_sensitivity)
+			invert_mouse_x = config.get_value("Settings", "invert_mouse_x", invert_mouse_x)
+			invert_mouse_y = config.get_value("Settings", "invert_mouse_y", invert_mouse_y)
 			fov = config.get_value("Settings", "fov", fov)
 			crt_effect_enabled = config.get_value("Settings", "crt_effect_enabled", crt_effect_enabled)
 			brightness = config.get_value("Settings", "brightness", brightness)
