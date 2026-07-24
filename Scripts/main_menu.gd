@@ -114,8 +114,8 @@ func _center_difficulty_popup(popup: Control) -> void:
 func _create_difficulty_popup() -> Control:
 	var window = NinePatchRect.new()
 	window.name = "DifficultyPopup"
-	window.custom_minimum_size = Vector2(450, 360)
-	window.size = Vector2(450, 360)
+	window.custom_minimum_size = Vector2(450, 275)
+	window.size = Vector2(450, 275)
 	window.texture = preload("res://RetroWindowsGUI/Window_Base.png")
 	window.patch_margin_left = 12
 	window.patch_margin_top = 12
@@ -165,10 +165,10 @@ func _create_difficulty_popup() -> Control:
 	
 	# VBox Container for options
 	var vbox = VBoxContainer.new()
-	vbox.position = Vector2(16, 42)
-	vbox.custom_minimum_size = Vector2(418, 305)
-	vbox.size = Vector2(418, 305)
-	vbox.add_theme_constant_override("separation", 6)
+	vbox.position = Vector2(16, 40)
+	vbox.custom_minimum_size = Vector2(418, 225)
+	vbox.size = Vector2(418, 225)
+	vbox.add_theme_constant_override("separation", 4)
 	window.add_child(vbox)
 	
 	# Header Label
@@ -183,7 +183,7 @@ func _create_difficulty_popup() -> Control:
 	var create_mode_btn = func(text_str: String, mode: GameStats.DifficultyMode) -> Button:
 		var btn = Button.new()
 		btn.text = text_str
-		btn.custom_minimum_size = Vector2(418, 28)
+		btn.custom_minimum_size = Vector2(418, 26)
 		btn.add_theme_font_override("font", font_bold)
 		btn.add_theme_font_size_override("font_size", 13)
 		btn.add_theme_stylebox_override("normal", btn_normal)
@@ -232,7 +232,7 @@ func _create_difficulty_popup() -> Control:
 
 	# Spacer
 	var spacer = Control.new()
-	spacer.custom_minimum_size = Vector2(0, 8)
+	spacer.custom_minimum_size = Vector2(0, 4)
 	vbox.add_child(spacer)
 
 	# Bottom row for Back button (Centered)
@@ -242,7 +242,7 @@ func _create_difficulty_popup() -> Control:
 	
 	var back_btn = Button.new()
 	back_btn.text = "Back"
-	back_btn.custom_minimum_size = Vector2(120, 28)
+	back_btn.custom_minimum_size = Vector2(120, 26)
 	back_btn.add_theme_font_override("font", font_bold)
 	back_btn.add_theme_font_size_override("font_size", 13)
 	back_btn.add_theme_stylebox_override("normal", btn_normal)
