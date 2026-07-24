@@ -290,8 +290,9 @@ func _on_command_submitted(new_text: String):
 			var innocents = GameStats.innocent_robots_killed
 			var passed = GameStats.good_robots_through
 			var killed = GameStats.bad_robots_terminated
+			var max_b = GameStats.get_max_allowed_breaches()
 			print_to_terminal("=== SYSTEM DIAGNOSTICS ===\n" +
-				"Security Breaches (Bad AI admitted): " + str(breaches) + " / 2 (CRITICAL LIMIT)\n" +
+				"Security Breaches (Bad AI admitted): " + str(breaches) + " / " + str(max_b) + " (CRITICAL LIMIT)\n" +
 				"Innocent AIs Terminated: " + str(innocents) + "\n" +
 				"Good AIs Admitted: " + str(passed) + "\n" +
 				"Bad AIs Exterminated: " + str(killed) + "\n" +

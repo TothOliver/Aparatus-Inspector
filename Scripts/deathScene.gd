@@ -34,9 +34,16 @@ func display_stats():
 	var breaches = GameStats.total_security_breaches
 	var innocents = GameStats.innocent_robots_killed
 	
+	var mode_name = "NORMAL"
+	if GameStats.difficulty_mode == GameStats.DifficultyMode.HARD:
+		mode_name = "HARD (PERMADEATH)"
+	elif GameStats.difficulty_mode == GameStats.DifficultyMode.NIGHTMARE:
+		mode_name = "NIGHTMARE (PERMADEATH)"
+		
 	var grade = calculate_grade(calculated_score)
 	
-	stats_label.text = "Bad robots EXTERMINATED: " + str(terminated) 
+	stats_label.text = "DIFFICULTY MODE: " + mode_name
+	stats_label.text += "\nBad robots EXTERMINATED: " + str(terminated) 
 	stats_label.text += "\nTOTAL BREACHES: " + str(breaches)
 	stats_label.text += "\nINNOCENTS TERMINATED: " + str(innocents)
 	stats_label.text += "\nPERFORMANCE GRADE: " + grade
@@ -56,7 +63,10 @@ func calculate_grade(score: int) -> String:
 		return "F"
 
 func _on_restart_pressed() -> void:
-	if GameStats.has_save_file():
+	if GameStats.is_permadeath():
+		GameStats.reset_game_state()
+		GameStats.delete_save_game()
+	elif GameStats.has_save_file():
 		GameStats.load_game()
 	else:
 		GameStats.reset_game_state()

@@ -7,8 +7,8 @@ extends Control
 const Day1Pages = [
 	"Welcome to your first shift, Inspector! I'm Scribble, your OS assistant. Let's make sure you know how to operate your OS workstation effectively!",
 	"First, check the Mail app regularly. Corporate will send urgent instructions and important information about upcoming shifts.",
-	"Next, double-click the Apparatus Inspector icon. Use this to question the robots.",
-	"Lastly, open the Web Browser. You can use it to browse documentation, and reference system specifications.",
+	"Next, click the Apparatus Inspector icon. Use this to question the robots.",
+	"Lastly, open the Apparatus Explorer. You can use it to browse documentation, and reference system specifications.",
 	"Stay alert, and good luck tonight!"
 ]
 

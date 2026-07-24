@@ -8,6 +8,17 @@ var bad_robots_terminated: int = 0
 var let_through_bad_sprites: Array = []
 
 # Gameplay depth additions
+enum DifficultyMode { NORMAL, HARD, NIGHTMARE }
+var difficulty_mode: DifficultyMode = DifficultyMode.NORMAL
+
+func get_max_allowed_breaches() -> int:
+	if difficulty_mode == DifficultyMode.NIGHTMARE:
+		return 1
+	return 2
+
+func is_permadeath() -> bool:
+	return difficulty_mode == DifficultyMode.HARD or difficulty_mode == DifficultyMode.NIGHTMARE
+
 var current_day: int = 1
 var power_level: float = 100.0
 var cctv_light_on: bool = false
@@ -397,6 +408,7 @@ func play_victory_sound():
 func save_game():
 	var config = ConfigFile.new()
 	config.set_value("Game", "current_day", current_day)
+	config.set_value("Game", "difficulty_mode", int(difficulty_mode))
 	config.set_value("Game", "casino_balance", casino_balance)
 	config.set_value("Game", "player_health", player_health)
 	config.set_value("Game", "total_security_breaches", total_security_breaches)
@@ -426,6 +438,7 @@ func load_game() -> bool:
 		print("Error loading save game: ", err)
 		return false
 		
+	difficulty_mode = config.get_value("Game", "difficulty_mode", DifficultyMode.NORMAL) as DifficultyMode
 	current_day = config.get_value("Game", "current_day", 1)
 	casino_balance = config.get_value("Game", "casino_balance", 100.0)
 	player_health = config.get_value("Game", "player_health", 100.0)

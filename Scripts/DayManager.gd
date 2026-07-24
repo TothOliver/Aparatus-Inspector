@@ -124,7 +124,8 @@ func process_robot(robot: RobotData, player_choice_pass: bool):
 		health = max(0, health - 50)
 		if health_bar and "breaches" in health_bar:
 			health_bar.breaches = bad_ai_let_in_count
-		if health == 0 or bad_ai_let_in_count >= MAX_ALLOWED_BAD_AI:
+		var max_allowed = GameStats.get_max_allowed_breaches()
+		if health == 0 or bad_ai_let_in_count >= max_allowed:
 			game_over_death()
 			return
 
@@ -137,6 +138,9 @@ func game_over_death():
 	GameStats.bad_robots_terminated = bad_ai_killed
 	GameStats.is_victory = false
 	print("YOU DIE")
+	if GameStats.is_permadeath():
+		GameStats.delete_save_game()
+		GameStats.current_day = 1
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 
 func check_quota_progress():
