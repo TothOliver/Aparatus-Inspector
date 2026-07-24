@@ -55,6 +55,10 @@ func _ready():
 		if pic:
 			pic.position = Vector2(15, 45)
 			pic.size = Vector2(230, 270)
+			var rob_tex = pic.get_node_or_null("RobotTexture") as TextureRect
+			if rob_tex:
+				rob_tex.position = Vector2(4, 4)
+				rob_tex.size = Vector2(222, 262)
 			var diag_lbl = pic.get_node_or_null("DiagLabel") as Label
 			if diag_lbl:
 				diag_lbl.position = Vector2(10, 244)
