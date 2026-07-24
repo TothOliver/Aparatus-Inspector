@@ -5,7 +5,7 @@ var emails = {
 		"sender": "Supervisor Donald",
 		"subject": "Shift 1 Instructions: Welcome",
 		"date": "06-Jul-1998",
-		"body": "Julian,\n\nWelcome to Shift 1.\n\n===========================\nDAILY CHECKLIST (SHIFT 1)\n===========================\n• Quota: Inspect 3 units.\n• Tools: Inspector App & Browser (ONLINE). Specs & Terminal Scanner (OFFLINE).\n• Verification: Evaluate units using dialogue. Check www.inspections-database.org/behavior in the browser for behavioral tells.\n===========================\n\nYour performance is monitored.\n- Donald"
+		"body": "Julian,\n\nWelcome to Shift 1.\n\n===========================\nDAILY CHECKLIST (SHIFT 1)\n===========================\n• Quota: Inspect 4 units.\n• Tools: Inspector App & Browser (ONLINE). Specs & Terminal Scanner (OFFLINE).\n• Verification: Evaluate units using dialogue. Check www.inspections-database.org/behavior in the browser for behavioral tells.\n===========================\n\nYour performance is monitored.\n- Donald"
 	},
 	2: {
 		"sender": "Supervisor Donald",

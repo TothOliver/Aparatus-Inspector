@@ -107,8 +107,8 @@ func _init():
 		return
 		
 	var configs = dm.get("day_configs")
-	if configs[1]["quota"] != 3:
-		printerr("ERROR: Day 1 quota is not 3")
+	if configs[1]["quota"] != 4:
+		printerr("ERROR: Day 1 quota is not 4")
 		quit(1)
 		return
 	if configs[2]["quota"] != 4:

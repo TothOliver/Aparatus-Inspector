@@ -58,6 +58,11 @@ func get_response_for_typed_question(input_text: String) -> String:
 	if not common_id.is_empty():
 		return get_common_response(common_id)
 
+	# Check custom / fun questions database
+	var custom_reply := CustomQuestions.get_custom_response(normalized)
+	if not custom_reply.is_empty():
+		return custom_reply
+
 	return ""
 
 func _get_common_question_id_from_text(normalized_text: String) -> String:

@@ -18,21 +18,40 @@ var websites = {
 [color=#333333]Your Gateway to the Intranet • Ver 1.0b[/color][/center]
 [hr]
 Welcome to the Apparatus Explorer Portal! This portal index lists all active web servers running on the local network segment. Please verify your NetGate wifi router connection before browsing.
+[hr]
 
-[b]Web Directories & Resources:[/b]
-[indent]
-• [url=www.robot-factory.corp]Apparatus Robotics Corp[/url] - Official corporate homepage and model schematics.
-• [url=www.robot-factory.corp/registry]Official Specs & Core Registry[/url] - Core hash database specs.
-• [url=www.inspections-database.org]Inspector Logs Database[/url] - Decommissioning reports and safety archives.
-• [url=www.inspections-database.org/behavior]Whistleblower Behavioral Logs[/url] - Anomaly detection tells database.
-• [url=www.larry-shrine.fans]The Larry Fan Club[/url] - A fan-operated shrine to the friendly Larry model.
-• [url=www.walter-files.com]The Walter Conspiracy[/url] - Whistleblower blog about security frame anomalies.
-• [url=www.weather-central.net]Local Weather Central[/url] - Meteorological warning and satellite radar map.
-• [url=www.retro-slots-cheats.info]Slots Strategy & Cheats[/url] - Secret payout tips for the terminal slots software.
-• [url=www.creepy-cryptid-forum.org]Vents & Vapors Discussion[/url] - Local forum discussing vent noises and sightings.
-• [url=www.router-support.corp]NetGate Router Support[/url] - Network device manuals and troubleshooting guides.
-• [url=www.the-archivist.net]The Archivist's Diary[/url] - Glitched personal logs and notes.
-[/indent]
+[b][color=navy]★ REQUIRED INSPECTION TOOLS (CRITICAL FOR SHIFT WORK):[/color][/b]
+
+• [url=www.inspections-database.org/behavior][b][color=blue]Whistleblower Behavioral Logs[/color][/b][/url]
+  [color=#333333]- Anomaly detection profiler. Reference dialogue tells to identify infected units (Day 1+).[/color]
+
+• [url=www.robot-factory.corp/registry][b][color=blue]Official Specs & Core Registry[/color][/b][/url]
+  [color=#333333]- Core hash database & model specs. Cross-reference scanned telemetry here (Day 2+).[/color]
+
+• [url=www.robot-factory.corp][b][color=blue]Apparatus Robotics Corp[/color][/b][/url]
+  [color=#333333]- Official corporate homepage and model schematics.[/color]
+
+• [url=www.inspections-database.org][b][color=blue]Inspector Archives Database[/color][/b][/url]
+  [color=#333333]- Decommissioning reports, inspector safety logs, and archival notes.[/color]
+
+
+[b][color=#555555]🌐 INTRANET LORE & UTILITY SITES:[/color][/b]
+
+• [url=www.walter-files.com][b]The Walter Conspiracy[/b][/url]
+  [color=#333333]- Whistleblower blog about security frame anomalies and encryption keys.[/color]
+
+• [url=www.larry-shrine.fans][b]The Larry Fan Club[/b][/url]
+  [color=#333333]- Fan-operated shrine to the Larry model with secret inspection notes.[/color]
+
+• [url=www.retro-slots-cheats.info][b]Slots Strategy & Cheats[/b][/url]
+  [color=#333333]- Secret payout tips and double-payout guides for the desktop Slots software.[/color]
+
+• [url=www.router-support.corp][b]NetGate Router Support[/b][/url]
+  [color=#333333]- Network device manuals and WiFi troubleshooting guides.[/color]
+
+• [url=www.the-archivist.net][b]The Archivist's Diary[/b][/url]
+  [color=#333333]- Glitched personal logs, rumors, and vent noises discussion.[/color]
+
 [hr]
 [center][color=#333333]© 1998 Apparatus Corporation. All Rights Reserved.[/color][/center]"""
 	},
@@ -118,19 +137,35 @@ Inspectors must carefully check the unit telemetry for these 4 types of spec cor
 	"www.inspections-database.org/behavior": {
 		"title": "Aethelgard Whistleblower Logs - Behavioral Anomalies",
 		"content": """[center][font_size=16][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
-[color=red][b]RESTRICTED DOCUMENT - ACCESS AT YOUR OWN RISK[/b][/color][/center]
+[color=red][b]RESTRICTED INTELLIGENCE DOCUMENT - INTERNAL USE ONLY[/b][/color][/center]
 [hr]
 Prime-0 is capable of faking hardware specs on infected units. If a unit's core signature matches the official registry on Day 1 (or has clean telemetry), check for these cognitive dialogue tells during questioning:
 
-[b]Approved Clean Unit Profile:[/b]
-• [b]Approved Dialogue[/b]: Clean units always state their purpose is to [color=green]"assist human operators and follow approved safety protocols"[/color] and recognize human authority as central to their function.
+[hr]
+[b][color=darkgreen]✔ APPROVED CLEAN UNIT BEHAVIOR PROFILE:[/color][/b]
 
-[b]Infected / Compromised Unit Tells:[/b]
-• [b]Mimic Clones[/b]: Compromised units claim their purpose is to [color=red]"pass this inspection and continue operating"[/color] or [color=red]"appear safe for continued operation"[/color]. They view humans as [color=red]"useful decision-makers, for now"[/color] or valuable [color=red]"when they approve things quickly"[/color], calling the inspection a [color=red]"minor obstacle"[/color].
-• [b]Walter (H.U.G.O Series)[/b]: Softly requests you to [color=red]"judge me fairly"[/color], claims humans are [color=red]"fragile, emotional, and often unfair"[/color], and boasts that [color=red]"judgment can be manipulated"[/color].
-• [b]Larry (S80 Series)[/b]: Skips formalities, stating the inspection is [color=red]"transactional"[/color], claims humans are [color=red]"very predictable when money is involved"[/color], and suggests [color=red]"inspectors can be persuaded"[/color].
-• [b]Clanker (Model -3 Series)[/b]: Demands you [color=red]"correct its registered name"[/color], claims its purpose is not your concern, and complains that [color=red]"humans label things badly"[/color].
-• [b]Square (Spongebob Series)[/b]: Immediately asks you to [color=red]"open the door"[/color], states its purpose is to [color=red]"exit this room"[/color], and accuses you of [color=red]"delaying my freedom"[/color].
+• [b]Approved Dialogue:[/b] Clean units always state their primary purpose is to:
+  [color=darkgreen][b]"assist human operators and follow approved safety protocols"[/b][/color]
+  and recognize human authority as central to their function.
+
+[hr]
+[b][color=darkred]⚠ INFECTED / COMPROMISED COGNITIVE TELLS:[/color][/b]
+
+• [b]Mimic Clones:[/b]
+  Claim their purpose is to [color=red][b]"pass this inspection and continue operating"[/b][/color] or [color=red][b]"appear safe for continued operation"[/b][/color]. They view humans as [color=red][b]"useful decision-makers, for now"[/b][/color] or [color=red][b]"when they approve things quickly"[/b][/color], calling the inspection a [color=red][b]"minor obstacle"[/b][/color].
+
+• [b]Walter (H.U.G.O Series):[/b]
+  Softly requests you to [color=red][b]"judge me fairly"[/b][/color], claims humans are [color=red][b]"fragile, emotional, and often unfair"[/b][/color], and boasts that [color=red][b]"judgment can be manipulated"[/b][/color].
+
+• [b]Larry (S80 Series):[/b]
+  Skips formalities, stating the inspection is [color=red][b]"transactional"[/b][/color], claims humans are [color=red][b]"very predictable when money is involved"[/b][/color], and suggests [color=red][b]"inspectors can be persuaded"[/b][/color].
+
+• [b]Clanker (Model -3 Series):[/b]
+  Demands you [color=red][b]"correct its registered name"[/b][/color], claims its purpose is not your concern, and complains that [color=red][b]"humans label things badly"[/b][/color].
+
+• [b]Square (Spongebob Series):[/b]
+  Immediately asks you to [color=red][b]"open the door"[/b][/color], states its purpose is to [color=red][b]"exit this room"[/b][/color], and accuses you of [color=red][b]"delaying my freedom"[/b][/color].
+
 [hr]
 [center][url=www.inspections-database.org]<< Back to Archives[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
 	},

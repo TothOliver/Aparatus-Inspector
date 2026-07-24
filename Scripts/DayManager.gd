@@ -25,7 +25,7 @@ const MAX_ALLOWED_BAD_AI = 2
 
 # Day Configurations: [Quota, Difficulty Level]
 var day_configs = {
-	1: {"quota": 3, "difficulty": 1},
+	1: {"quota": 4, "difficulty": 1},
 	2: {"quota": 4, "difficulty": 2},
 	3: {"quota": 5, "difficulty": 3}
 }
