@@ -2155,23 +2155,25 @@ offset_bottom = 369.0
 [node name="CCTVWindow" type="NinePatchRect" parent="." unique_id=202610200]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(640, 520)
 layout_mode = 0
-offset_left = 680.0
-offset_top = 100.0
-offset_right = 1024.0
-offset_bottom = 440.0
+offset_left = 550.0
+offset_top = 80.0
+offset_right = 1190.0
+offset_bottom = 600.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 script = ExtResource("11_window")
+is_scalable = false
 
 [node name="TitleBar" type="NinePatchRect" parent="CCTVWindow" unique_id=1403287735]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 338.0
+offset_right = 634.0
 offset_bottom = 36.0
 mouse_filter = 0
 texture = ExtResource("2_7lihs")
@@ -2185,7 +2187,7 @@ patch_margin_bottom = 3
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
-offset_right = 200.0
+offset_right = 300.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 16
@@ -2193,9 +2195,9 @@ text = "Security Camera Feed"
 
 [node name="CloseButton" type="Button" parent="CCTVWindow/TitleBar" unique_id=2085586462]
 layout_mode = 0
-offset_left = 304.0
+offset_left = 607.0
 offset_top = 4.0
-offset_right = 326.0
+offset_right = 629.0
 offset_bottom = 26.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
@@ -2205,13 +2207,12 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 expand_icon = true
 
-
 [node name="VideoPanel" type="Panel" parent="CCTVWindow" unique_id=819995663]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 42.0
-offset_right = 332.0
-offset_bottom = 288.0
+offset_right = 628.0
+offset_bottom = 456.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="CCTVTexture" type="TextureRect" parent="CCTVWindow/VideoPanel" unique_id=952200199]
@@ -2227,21 +2228,21 @@ expand_mode = 1
 [node name="CameraControls" type="Control" parent="CCTVWindow" unique_id=12398412]
 anchors_preset = 0
 offset_left = 12.0
-offset_top = 296.0
-offset_right = 332.0
-offset_bottom = 332.0
+offset_top = 466.0
+offset_right = 628.0
+offset_bottom = 508.0
 
 [node name="Cam1Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398413]
 layout_mode = 0
 offset_top = 4.0
-offset_right = 45.0
-offset_bottom = 28.0
+offset_right = 90.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2250,16 +2251,16 @@ text = "CAM 1"
 
 [node name="Cam2Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398414]
 layout_mode = 0
-offset_left = 48.0
+offset_left = 98.0
 offset_top = 4.0
-offset_right = 93.0
-offset_bottom = 28.0
+offset_right = 188.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2268,16 +2269,16 @@ text = "CAM 2"
 
 [node name="Cam3Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398416]
 layout_mode = 0
-offset_left = 96.0
+offset_left = 196.0
 offset_top = 4.0
-offset_right = 141.0
-offset_bottom = 28.0
+offset_right = 286.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2287,16 +2288,16 @@ text = "CAM 3"
 [node name="CCTVLightButton" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398417]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 145.0
+offset_left = 294.0
 offset_top = 4.0
-offset_right = 210.0
-offset_bottom = 28.0
+offset_right = 414.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2305,13 +2306,13 @@ text = "LIGHT"
 
 [node name="CameraLabel" type="Label" parent="CCTVWindow/CameraControls" unique_id=12398415]
 layout_mode = 0
-offset_left = 215.0
+offset_left = 426.0
 offset_top = 4.0
-offset_right = 320.0
-offset_bottom = 28.0
+offset_right = 610.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 13
 text = "Corridor"
 vertical_alignment = 1
 

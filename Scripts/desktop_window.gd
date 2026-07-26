@@ -203,7 +203,7 @@ func update_child_positions():
 			var m = child_margins[child]
 			
 			# Horizontal resizing
-			var should_stretch_h = child.name in ["TitleBar", "TextEdit", "TerminalBody", "VideoPanel", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "addr_container", "content_panel", "ColorRect", "TerminalBorder", "Panel", "ChatManager", "Option"] \
+			var should_stretch_h = child.name in ["TitleBar", "TextEdit", "TerminalBody", "VideoPanel", "CameraControls", "MinesweeperBody", "SnakeBody", "SlotBody", "SettingsBody", "addr_container", "content_panel", "ColorRect", "TerminalBorder", "Panel", "ChatManager", "Option"] \
 				or (float(m.orig_width) / float(m.orig_parent_width) > 0.45) \
 				or (m.left < 80 and m.right < 80)
 			

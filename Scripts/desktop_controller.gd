@@ -691,7 +691,34 @@ func update_cctv_texture_feed():
 		if cctv_texture.texture != tex:
 			cctv_texture.texture = tex
 
+var cctv_glitch_tween: Tween
+
+func trigger_cctv_swap_glitch() -> void:
+	if cctv_texture == null:
+		return
+		
+	var mat = cctv_texture.material as ShaderMaterial
+	if mat == null:
+		var glitch_shader = preload("res://Shaders/cctv_glitch.gdshader")
+		mat = ShaderMaterial.new()
+		mat.shader = glitch_shader
+		cctv_texture.material = mat
+		
+	if cctv_glitch_tween and cctv_glitch_tween.is_running():
+		cctv_glitch_tween.kill()
+		
+	mat.set_shader_parameter("glitch_intensity", 1.0)
+	cctv_glitch_tween = create_tween()
+	cctv_glitch_tween.tween_method(func(val: float):
+		if cctv_texture and cctv_texture.material:
+			var m = cctv_texture.material as ShaderMaterial
+			if m:
+				m.set_shader_parameter("glitch_intensity", val)
+				m.set_shader_parameter("time", Time.get_ticks_msec() / 1000.0)
+	, 1.0, 0.0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
 func _on_cam1_pressed():
+	trigger_cctv_swap_glitch()
 	update_cctv_texture_feed()
 	var vp = get_cctv_viewport()
 	if vp:
@@ -707,6 +734,7 @@ func _on_cam1_pressed():
 	update_cctv_light_state()
 
 func _on_cam2_pressed():
+	trigger_cctv_swap_glitch()
 	update_cctv_texture_feed()
 	var vp = get_cctv_viewport()
 	if vp:
@@ -722,6 +750,7 @@ func _on_cam2_pressed():
 	update_cctv_light_state()
 
 func _on_cam3_pressed():
+	trigger_cctv_swap_glitch()
 	update_cctv_texture_feed()
 	var vp = get_cctv_viewport()
 	if vp:
