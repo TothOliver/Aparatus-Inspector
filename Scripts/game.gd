@@ -36,19 +36,20 @@ var was_wifi_on: bool = true
 var question_dropdown_panel: NinePatchRect
 
 func _ready():
-	# Resize and reposition ApparatusInspectorWindow to fit at smallest size (850x620) and scale cleanly
+	# Resize and reposition ApparatusInspectorWindow to fit at standard size (1020x620) and scale cleanly
 	var inspector = get_node_or_null("ApparatusInspectorWindow") as NinePatchRect
 	if inspector:
-		inspector.custom_minimum_size = Vector2(850, 620)
-		inspector.size = Vector2(850, 620)
-		inspector.position = Vector2(200, 50)
+		inspector.custom_minimum_size = Vector2(1020, 620)
+		inspector.size = Vector2(1020, 620)
+		inspector.position = Vector2(115, 50)
 		
 		var title_bar_node = inspector.get_node_or_null("TitleBar") as Control
 		if title_bar_node:
-			title_bar_node.size.x = 838
+			title_bar_node.size.x = 1008
 			var close_btn = title_bar_node.get_node_or_null("CloseButton") as Button
 			if close_btn:
-				close_btn.position.x = 813
+				close_btn.position = Vector2(981, 4)
+				close_btn.size = Vector2(22, 22)
 		
 		# Left side: Picture & AcceptTerminate (Width = 230)
 		var pic = inspector.get_node_or_null("Picture") as Control
@@ -90,16 +91,16 @@ func _ready():
 				bad_btn.position = Vector2(10, 188)
 				bad_btn.size = Vector2(210, 46)
 
-		# Middle side: ChatManager and Option (Width = 330)
+		# Middle side: ChatManager and Option (Width = 500)
 		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
 		if chat_manager_node:
 			chat_manager_node.position = Vector2(255, 45)
-			chat_manager_node.size = Vector2(330, 435)
+			chat_manager_node.size = Vector2(500, 435)
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
 		if option_node:
 			option_node.position = Vector2(255, 490)
-			option_node.size = Vector2(330, 115)
+			option_node.size = Vector2(500, 115)
 
 			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
 			if ans_panel:
@@ -114,10 +115,11 @@ func _ready():
 			if btn1:
 				btn1.visible = true
 				btn1.position = Vector2(10, 18)
-				btn1.size = Vector2(310, 38)
+				btn1.size = Vector2(480, 38)
 				btn1.autowrap_mode = TextServer.AUTOWRAP_OFF
 				btn1.clip_text = true
 				btn1.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+				btn1.add_theme_font_size_override("font_size", 16)
 				btn1.text = "▲  Select Question..."
 
 			var btn2 = option_node.get_node_or_null("Button2") as Button
@@ -134,12 +136,12 @@ func _ready():
 			if input:
 				input.visible = true
 				input.position = Vector2(10, 64)
-				input.size = Vector2(255, 34)
+				input.size = Vector2(425, 34)
 				input.placeholder_text = "Type question..."
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
 				var inner_frame = preload("res://RetroWindowsGUI/StyleBox_Inner_Frame.tres")
 				input.add_theme_font_override("font", font_bold)
-				input.add_theme_font_size_override("font_size", 12)
+				input.add_theme_font_size_override("font_size", 16)
 				input.add_theme_color_override("font_color", Color(0, 0, 0, 1))
 				input.add_theme_color_override("font_placeholder_color", Color(0.4, 0.4, 0.4, 1))
 				input.add_theme_color_override("caret_color", Color(0, 0, 0, 1))
@@ -149,7 +151,7 @@ func _ready():
 			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 			if submit:
 				submit.visible = true
-				submit.position = Vector2(275, 64)
+				submit.position = Vector2(445, 64)
 				submit.size = Vector2(45, 34)
 				submit.text = ">"
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
@@ -157,7 +159,7 @@ func _ready():
 				var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
 				var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
 				submit.add_theme_font_override("font", font_bold)
-				submit.add_theme_font_size_override("font_size", 14)
+				submit.add_theme_font_size_override("font_size", 16)
 				submit.add_theme_color_override("font_color", Color(0, 0, 0, 1))
 				submit.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 				submit.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
@@ -173,7 +175,7 @@ func _ready():
 		# Right side: Model (Database Specs) (Width = 240)
 		var model_node = inspector.get_node_or_null("Model") as Control
 		if model_node:
-			model_node.position = Vector2(595, 45)
+			model_node.position = Vector2(765, 45)
 			model_node.size = Vector2(240, 560)
 			
 			# Compact and space fields cleanly inside Model to prevent text overlap
@@ -549,7 +551,7 @@ func _on_bad_button_pressed() -> void:
 		await get_tree().create_timer(0.25).timeout
 		is_processing_choice = false
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if question_dropdown_panel and question_dropdown_panel.visible:
 		if event is InputEventMouseButton and event.pressed:
 			var mouse_pos := question_dropdown_panel.get_global_mouse_position()
@@ -557,6 +559,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			var in_btn := (chat_button1 != null and chat_button1.get_global_rect().has_point(mouse_pos))
 			if not in_panel and not in_btn:
 				question_dropdown_panel.visible = false
+
+func close_question_dropdown() -> void:
+	if question_dropdown_panel:
+		question_dropdown_panel.visible = false
 
 func _on_chat_button1_pressed() -> void:
 	if current_robot == null or is_waiting_for_replay:
@@ -588,7 +594,8 @@ func _setup_question_popup() -> void:
 	question_dropdown_panel.patch_margin_top = 10
 	question_dropdown_panel.patch_margin_right = 10
 	question_dropdown_panel.patch_margin_bottom = 10
-	question_dropdown_panel.z_index = 15
+	question_dropdown_panel.z_as_relative = true
+	question_dropdown_panel.z_index = 1
 	question_dropdown_panel.visible = false
 	option_node.add_child(question_dropdown_panel)
 
@@ -616,13 +623,13 @@ func _setup_question_popup() -> void:
 	for q_text in questions:
 		var btn := Button.new()
 		btn.text = q_text
-		btn.custom_minimum_size = Vector2(0, 34)
+		btn.custom_minimum_size = Vector2(0, 38)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.autowrap_mode = TextServer.AUTOWRAP_OFF
 		btn.clip_text = true
 		btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		btn.add_theme_font_override("font", font_bold)
-		btn.add_theme_font_size_override("font_size", 12)
+		btn.add_theme_font_size_override("font_size", 16)
 		btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
 		btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 		btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
@@ -644,7 +651,7 @@ func _update_dropdown_panel_position() -> void:
 	var btn1 := option_node.get_node_or_null("Button1") as Button if option_node else null
 	if btn1:
 		var panel_w: float = btn1.size.x
-		var panel_h: float = 3.0 * 34.0 + 2.0 * 4.0 + 12.0 # 122.0
+		var panel_h: float = 3.0 * 38.0 + 2.0 * 4.0 + 12.0 # 134.0
 		question_dropdown_panel.position = Vector2(btn1.position.x, btn1.position.y - panel_h - 4.0)
 		question_dropdown_panel.size = Vector2(panel_w, panel_h)
 

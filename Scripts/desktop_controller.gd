@@ -633,16 +633,22 @@ func _update_top_window_focus():
 
 func _update_window_focus_visuals(active_app_name: String):
 	var active_header = preload("res://RetroWindowsGUI/Window_Header.png")
+	var pink_header = preload("res://RetroWindowsGUI/Window_Header_Pink.png")
 	var inactive_header = preload("res://RetroWindowsGUI/Window_Header_Inactive.png")
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail"]:
+	if active_app_name != "Inspector":
+		var root_scene = get_tree().current_scene if is_inside_tree() else null
+		if root_scene and root_scene.has_method("close_question_dropdown"):
+			root_scene.close_question_dropdown()
+
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail", "Scribble"]:
 		var window = _get_window_by_name(app_name)
 		if window:
 			var title_bar = window.get_node_or_null("TitleBar") as NinePatchRect
 			if title_bar:
 				var title_label = title_bar.get_node_or_null("Title") as Label
 				if app_name == active_app_name:
-					title_bar.texture = active_header
+					title_bar.texture = pink_header if app_name == "Scribble" else active_header
 					if title_label:
 						title_label.add_theme_color_override("font_color", Color(1, 1, 1, 1)) # White
 				else:

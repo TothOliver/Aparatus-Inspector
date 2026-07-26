@@ -82,7 +82,7 @@ offset_top = 6.0
 offset_right = 400.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("Font_Bold")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 16
 text = "GAME OVER"
 
 [node name="StatsPanel" type="Panel" parent="Window"]

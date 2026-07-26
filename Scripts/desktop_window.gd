@@ -236,7 +236,8 @@ func update_child_positions():
 			if child.name == "TitleBar":
 				var close_btn = child.get_node_or_null("CloseButton")
 				if close_btn and close_btn is Control:
-					close_btn.position.x = child.size.x - close_btn.size.x - 6
+					close_btn.position.x = child.size.x - close_btn.size.x - 5
+					close_btn.position.y = 4
 
 func _on_window_resized():
 	if not _margins_registered:

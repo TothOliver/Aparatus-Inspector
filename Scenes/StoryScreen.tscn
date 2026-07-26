@@ -81,7 +81,7 @@ offset_top = 6.0
 offset_right = 500.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("Font_Bold")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 16
 text = "SHIFT COMPLETED"
 
 [node name="StatsPanel" type="Panel" parent="Window"]

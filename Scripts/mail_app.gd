@@ -66,8 +66,8 @@ func _ready():
 	title_lbl.name = "Title"
 	title_lbl.text = "Aethelgard Mail Client v1.0b"
 	title_lbl.add_theme_font_override("font", font_bold)
-	title_lbl.add_theme_font_size_override("font_size", 12)
-	title_lbl.position = Vector2(30, 6)
+	title_lbl.add_theme_font_size_override("font_size", 16)
+	title_lbl.position = Vector2(30, 4)
 	title_bar_rect.add_child(title_lbl)
 	
 	# Title bar Close button
@@ -79,9 +79,10 @@ func _ready():
 	close_btn.add_theme_stylebox_override("pressed", btn_pressed)
 	close_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	close_btn.icon = preload("res://RetroWindowsGUI/ExitButton.png")
+	close_btn.expand_icon = true
 	close_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	close_btn.position = Vector2(title_bar_rect.size.x - 24, 6)
-	close_btn.size = Vector2(18, 18)
+	close_btn.position = Vector2(title_bar_rect.size.x - 27, 4)
+	close_btn.size = Vector2(22, 22)
 	close_btn.pressed.connect(func(): close())
 	title_bar_rect.add_child(close_btn)
 	
