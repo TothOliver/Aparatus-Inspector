@@ -183,10 +183,10 @@ mouse_filter = 2
 
 [node name="InspectorIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=1693226324]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = 140.0
-offset_bottom = 120.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 149.0
+offset_bottom = 130.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -214,8 +214,8 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "Apparatus
 Inspector"
 horizontal_alignment = 1
@@ -223,10 +223,10 @@ vertical_alignment = 1
 
 [node name="NotepadIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=671595973]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 150.0
-offset_right = 140.0
-offset_bottom = 240.0
+offset_left = 25.0
+offset_top = 145.0
+offset_right = 149.0
+offset_bottom = 250.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -254,18 +254,18 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "Notepad"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TerminalIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=694017198]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 270.0
-offset_right = 140.0
-offset_bottom = 360.0
+offset_left = 25.0
+offset_top = 265.0
+offset_right = 149.0
+offset_bottom = 370.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -293,97 +293,19 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "AE-DOS
 Prompt"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MinesweeperIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=388072426]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 616.0
-offset_right = 140.0
-offset_bottom = 706.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
-theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
-
-[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/MinesweeperIcon" unique_id=1824676663]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 2
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/MinesweeperIcon/VBox" unique_id=819400525]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("Icon_Minesweeper")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/MinesweeperIcon/VBox" unique_id=1058928315]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "Minesweeper"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SnakeIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=441548481]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 736.0
-offset_right = 140.0
-offset_bottom = 826.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
-theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
-
-[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/SnakeIcon" unique_id=942090651]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 2
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/SnakeIcon/VBox" unique_id=458416154]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("Icon_Snake")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/SnakeIcon/VBox" unique_id=1768938370]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "Snake"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="CCTVIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=409650710]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 390.0
-offset_right = 140.0
-offset_bottom = 480.0
+offset_left = 25.0
+offset_top = 385.0
+offset_right = 149.0
+offset_bottom = 490.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -411,19 +333,97 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "Security
 Feed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MinesweeperIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=388072426]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 670.0
+offset_right = 149.0
+offset_bottom = 775.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/MinesweeperIcon" unique_id=1824676663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/MinesweeperIcon/VBox" unique_id=819400525]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Minesweeper")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/MinesweeperIcon/VBox" unique_id=1058928315]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = -4
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "Minesweeper"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SnakeIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=441548481]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 790.0
+offset_right = 149.0
+offset_bottom = 895.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
+theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
+
+[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/SnakeIcon" unique_id=942090651]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/SnakeIcon/VBox" unique_id=458416154]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon_Snake")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/SnakeIcon/VBox" unique_id=1768938370]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = -4
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
+text = "Snake"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SlotsIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=119958942]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 856.0
-offset_right = 140.0
-offset_bottom = 946.0
+offset_left = 25.0
+offset_top = 910.0
+offset_right = 149.0
+offset_bottom = 1015.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -451,8 +451,8 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "Casino
 Slots"
 horizontal_alignment = 1
@@ -465,10 +465,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -140.0
-offset_top = -168.0
-offset_right = -30.0
-offset_bottom = -78.0
+offset_left = -150.0
+offset_top = -180.0
+offset_right = -26.0
+offset_bottom = -75.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
@@ -498,8 +498,8 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "System
 Settings"
 horizontal_alignment = 1
@@ -2234,15 +2234,15 @@ offset_bottom = 508.0
 
 [node name="Cam1Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398413]
 layout_mode = 0
-offset_top = 4.0
-offset_right = 90.0
-offset_bottom = 34.0
+offset_top = 2.0
+offset_right = 95.0
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2251,16 +2251,16 @@ text = "CAM 1"
 
 [node name="Cam2Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398414]
 layout_mode = 0
-offset_left = 98.0
-offset_top = 4.0
-offset_right = 188.0
-offset_bottom = 34.0
+offset_left = 105.0
+offset_top = 2.0
+offset_right = 200.0
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2269,16 +2269,16 @@ text = "CAM 2"
 
 [node name="Cam3Button" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398416]
 layout_mode = 0
-offset_left = 196.0
-offset_top = 4.0
-offset_right = 286.0
-offset_bottom = 34.0
+offset_left = 210.0
+offset_top = 2.0
+offset_right = 305.0
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2288,16 +2288,16 @@ text = "CAM 3"
 [node name="CCTVLightButton" type="Button" parent="CCTVWindow/CameraControls" unique_id=12398417]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 294.0
-offset_top = 4.0
-offset_right = 414.0
-offset_bottom = 34.0
+offset_left = 315.0
+offset_top = 2.0
+offset_right = 430.0
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
@@ -2306,13 +2306,13 @@ text = "LIGHT"
 
 [node name="CameraLabel" type="Label" parent="CCTVWindow/CameraControls" unique_id=12398415]
 layout_mode = 0
-offset_left = 426.0
-offset_top = 4.0
+offset_left = 445.0
+offset_top = 2.0
 offset_right = 610.0
-offset_bottom = 34.0
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 13
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 16
 text = "Corridor"
 vertical_alignment = 1
 
