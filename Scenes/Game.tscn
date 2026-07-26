@@ -115,6 +115,19 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_notepad_bg"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+border_blend = true
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
 shader = ExtResource("CRT_Shader")
 shader_parameter/scanline_count = 320.0
@@ -493,9 +506,9 @@ vertical_alignment = 1
 
 [node name="SystemMonitor" type="NinePatchRect" parent="DesktopOS" unique_id=51067068]
 layout_mode = 0
-offset_left = 1040.0
+offset_left = 1670.0
 offset_top = 30.0
-offset_right = 1250.0
+offset_right = 1880.0
 offset_bottom = 219.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
@@ -541,17 +554,41 @@ theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 14
 text = "Security Breaches:"
 
-[node name="HealthBar" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=1602687783]
-unique_name_in_owner = true
+[node name="BreachPanel" type="Panel" parent="DesktopOS/SystemMonitor/Health" unique_id=1602687784]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 68.0
 offset_right = 195.0
 offset_bottom = 98.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="BreachBg" type="ColorRect" parent="DesktopOS/SystemMonitor/Health/BreachPanel" unique_id=1602687785]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="HealthBar" type="Label" parent="DesktopOS/SystemMonitor/Health/BreachPanel" unique_id=1602687783]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 18
 text = "0 / 2"
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("HealthBar_Script")
 
 [node name="PowerLabel" type="Label" parent="DesktopOS/SystemMonitor/Health" unique_id=144926720]
@@ -658,9 +695,9 @@ vertical_alignment = 1
 
 [node name="QuitButton" type="Button" parent="DesktopOS/Taskbar" unique_id=1330054589]
 layout_mode = 0
-offset_left = 1130.0
+offset_left = 1770.0
 offset_top = 6.0
-offset_right = 1166.0
+offset_right = 1806.0
 offset_bottom = 42.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
@@ -672,7 +709,7 @@ icon_alignment = 1
 layout_mode = 0
 offset_left = 120.0
 offset_top = 6.0
-offset_right = 900.0
+offset_right = 1540.0
 offset_bottom = 42.0
 theme_override_constants/separation = 10
 
@@ -965,9 +1002,9 @@ expand_icon = true
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 180.0
-offset_top = 40.0
-offset_right = 1240.0
-offset_bottom = 840.0
+offset_top = 50.0
+offset_right = 1740.0
+offset_bottom = 980.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -980,7 +1017,7 @@ is_scalable = true
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 1054.0
+offset_right = 1554.0
 offset_bottom = 36.0
 mouse_filter = 0
 texture = ExtResource("2_7lihs")
@@ -1002,9 +1039,9 @@ text = "Apparatus Inspector AI reviewer"
 
 [node name="CloseButton" type="Button" parent="ApparatusInspectorWindow/TitleBar" unique_id=2099896239]
 layout_mode = 0
-offset_left = 1024.0
+offset_left = 1524.0
 offset_top = 6.0
-offset_right = 1042.0
+offset_right = 1542.0
 offset_bottom = 24.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
@@ -1015,10 +1052,10 @@ icon_alignment = 1
 
 [node name="Picture" type="Control" parent="ApparatusInspectorWindow" unique_id=2014082233]
 anchors_preset = 0
-offset_left = 12.0
+offset_left = 16.0
 offset_top = 45.0
-offset_right = 262.0
-offset_bottom = 325.0
+offset_right = 416.0
+offset_bottom = 445.0
 
 [node name="RobotArea" type="Panel" parent="ApparatusInspectorWindow/Picture" unique_id=1551997195]
 layout_mode = 1
@@ -1047,8 +1084,8 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 226.0
-offset_bottom = 266.0
+offset_right = 396.0
+offset_bottom = 396.0
 expand_mode = 1
 stretch_mode = 5
 
@@ -1068,9 +1105,9 @@ text = "CAM 01 - FEED: LIVE"
 [node name="DiagLabel" type="Label" parent="ApparatusInspectorWindow/Picture" unique_id=1446096076]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 250.0
+offset_top = 370.0
 offset_right = 200.0
-offset_bottom = 266.0
+offset_bottom = 386.0
 theme_override_colors/font_color = Color(0, 0.75, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -1080,10 +1117,10 @@ text = "TESTING CHAMBER OK"
 
 [node name="AcceptTerminate" type="Control" parent="ApparatusInspectorWindow" unique_id=1629775354]
 anchors_preset = 0
-offset_left = 12.0
-offset_top = 340.0
-offset_right = 262.0
-offset_bottom = 755.0
+offset_left = 16.0
+offset_top = 460.0
+offset_right = 416.0
+offset_bottom = 910.0
 
 [node name="ButtonPanel" type="Panel" parent="ApparatusInspectorWindow/AcceptTerminate" unique_id=966110224]
 layout_mode = 1
@@ -1097,10 +1134,10 @@ theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 [node name="GoodButton" type="Button" parent="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel" unique_id=809091503]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 16.0
-offset_top = 98.0
-offset_right = 216.0
-offset_bottom = 163.0
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 380.0
+offset_bottom = 160.0
 theme_override_colors/font_color = Color(0, 0.4, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0.4, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.3, 0, 1)
@@ -1115,10 +1152,10 @@ text = "APPROVE"
 [node name="BadButton" type="Button" parent="ApparatusInspectorWindow/AcceptTerminate/ButtonPanel" unique_id=956657047]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 16.0
-offset_top = 281.0
-offset_right = 216.0
-offset_bottom = 346.0
+offset_left = 20.0
+offset_top = 280.0
+offset_right = 380.0
+offset_bottom = 360.0
 theme_override_colors/font_color = Color(0.7, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0.7, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.6, 0, 0, 1)
@@ -1144,10 +1181,10 @@ text = "Evaluation Verdict"
 
 [node name="ApproveInfo" type="Label" parent="ApparatusInspectorWindow/AcceptTerminate" unique_id=1258170280]
 layout_mode = 0
-offset_left = 15.0
+offset_left = 20.0
 offset_top = 20.0
-offset_right = 235.0
-offset_bottom = 85.0
+offset_right = 380.0
+offset_bottom = 75.0
 theme_override_colors/font_color = Color(0.3, 0.3, 0.3, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1157,10 +1194,10 @@ autowrap_mode = 3
 
 [node name="ExterminateInfo" type="Label" parent="ApparatusInspectorWindow/AcceptTerminate" unique_id=1319581623]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 200.0
-offset_right = 235.0
-offset_bottom = 265.0
+offset_left = 20.0
+offset_top = 220.0
+offset_right = 380.0
+offset_bottom = 275.0
 theme_override_colors/font_color = Color(0.3, 0.3, 0.3, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1174,10 +1211,10 @@ layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 277.0
+offset_left = 435.0
 offset_top = 45.0
-offset_right = 652.0
-offset_bottom = 505.0
+offset_right = 1145.0
+offset_bottom = 660.0
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -1235,10 +1272,10 @@ theme_override_constants/separation = 4
 
 [node name="Option" type="Control" parent="ApparatusInspectorWindow" unique_id=442527454]
 anchors_preset = 0
-offset_left = 277.0
-offset_top = 520.0
-offset_right = 652.0
-offset_bottom = 755.0
+offset_left = 435.0
+offset_top = 675.0
+offset_right = 1145.0
+offset_bottom = 910.0
 
 [node name="AnswerPanel" type="Panel" parent="ApparatusInspectorWindow/Option" unique_id=131471417]
 layout_mode = 1
@@ -1247,6 +1284,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="OptionGroupLabel" type="Label" parent="ApparatusInspectorWindow/Option" unique_id=1914693907]
@@ -1266,7 +1304,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
 offset_top = 20.0
-offset_right = 500.0
+offset_right = 695.0
 offset_bottom = 54.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -1285,7 +1323,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
 offset_top = 66.0
-offset_right = 500.0
+offset_right = 695.0
 offset_bottom = 106.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -1303,7 +1341,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
 offset_top = 114.0
-offset_right = 500.0
+offset_right = 695.0
 offset_bottom = 159.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -1320,9 +1358,9 @@ autowrap_mode = 3
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 15.0
-offset_top = 155.0
-offset_right = 300.0
-offset_bottom = 189.0
+offset_top = 175.0
+offset_right = 615.0
+offset_bottom = 215.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
@@ -1334,10 +1372,10 @@ placeholder_text = "Type question..."
 [node name="SubmitQuestionButton" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=155730944]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 310.0
-offset_top = 155.0
-offset_right = 360.0
-offset_bottom = 189.0
+offset_left = 625.0
+offset_top = 175.0
+offset_right = 695.0
+offset_bottom = 215.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -1351,10 +1389,10 @@ text = ">"
 
 [node name="Model" type="Control" parent="ApparatusInspectorWindow" unique_id=538820585]
 anchors_preset = 0
-offset_left = 804.0
+offset_left = 1165.0
 offset_top = 45.0
-offset_right = 1048.0
-offset_bottom = 755.0
+offset_right = 1545.0
+offset_bottom = 910.0
 
 [node name="InfoPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=356643237]
 layout_mode = 1
@@ -1392,8 +1430,8 @@ text = "Subject Name:"
 layout_mode = 0
 offset_left = 15.0
 offset_top = 40.0
-offset_right = 225.0
-offset_bottom = 72.0
+offset_right = 365.0
+offset_bottom = 76.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="NameFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=1366362932]
@@ -1411,9 +1449,9 @@ grow_vertical = 2
 [node name="StaticNameLabel" type="Label" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=766496088]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 4.0
+offset_top = 6.0
 offset_right = 90.0
-offset_bottom = 28.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1423,9 +1461,9 @@ text = "ID:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 35.0
-offset_top = 4.0
-offset_right = 200.0
-offset_bottom = 28.0
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
@@ -1433,9 +1471,9 @@ theme_override_font_sizes/font_size = 14
 [node name="ModelFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model" unique_id=249813675]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 85.0
+offset_top = 105.0
 offset_right = 180.0
-offset_bottom = 101.0
+offset_bottom = 121.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1444,9 +1482,9 @@ text = "Model Designation:"
 [node name="ModelPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=2041964042]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 105.0
-offset_right = 225.0
-offset_bottom = 137.0
+offset_top = 125.0
+offset_right = 365.0
+offset_bottom = 161.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="ModelFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=16655454]
@@ -1464,9 +1502,9 @@ grow_vertical = 2
 [node name="StaticModelLabel" type="Label" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=835369628]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 4.0
+offset_top = 6.0
 offset_right = 90.0
-offset_bottom = 28.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1476,9 +1514,9 @@ text = "TYPE:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 55.0
-offset_top = 4.0
-offset_right = 200.0
-offset_bottom = 28.0
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
@@ -1486,9 +1524,9 @@ theme_override_font_sizes/font_size = 14
 [node name="StatusFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model" unique_id=673614139]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 150.0
+offset_top = 190.0
 offset_right = 180.0
-offset_bottom = 166.0
+offset_bottom = 206.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1497,9 +1535,9 @@ text = "Chassis Status:"
 [node name="StatusPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=1015063183]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 170.0
-offset_right = 225.0
-offset_bottom = 202.0
+offset_top = 210.0
+offset_right = 365.0
+offset_bottom = 246.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="StatusFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=1243743410]
@@ -1517,9 +1555,9 @@ grow_vertical = 2
 [node name="StaticStatusLabel" type="Label" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=114314964]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 4.0
+offset_top = 6.0
 offset_right = 90.0
-offset_bottom = 28.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1529,9 +1567,9 @@ text = "ALIGN:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 65.0
-offset_top = 4.0
-offset_right = 200.0
-offset_bottom = 28.0
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
@@ -1539,9 +1577,9 @@ theme_override_font_sizes/font_size = 14
 [node name="ManuFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model" unique_id=700113416]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 215.0
+offset_top = 275.0
 offset_right = 180.0
-offset_bottom = 231.0
+offset_bottom = 291.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1550,9 +1588,9 @@ text = "Manufacturer Code:"
 [node name="ManuPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=566703700]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 235.0
-offset_right = 225.0
-offset_bottom = 267.0
+offset_top = 295.0
+offset_right = 365.0
+offset_bottom = 331.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="ManuFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1815463333]
@@ -1570,9 +1608,9 @@ grow_vertical = 2
 [node name="StaticManuLabel" type="Label" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1674359586]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 4.0
+offset_top = 6.0
 offset_right = 90.0
-offset_bottom = 28.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1582,9 +1620,9 @@ text = "CORP:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 55.0
-offset_top = 4.0
-offset_right = 200.0
-offset_bottom = 28.0
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
@@ -1592,9 +1630,9 @@ theme_override_font_sizes/font_size = 14
 [node name="QuotaFieldLabel" type="Label" parent="ApparatusInspectorWindow/Model" unique_id=1437891853]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 280.0
+offset_top = 360.0
 offset_right = 180.0
-offset_bottom = 296.0
+offset_bottom = 376.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1603,9 +1641,9 @@ text = "Today's Quota Progress:"
 [node name="QuotaPanel" type="Panel" parent="ApparatusInspectorWindow/Model" unique_id=566703799]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 300.0
-offset_right = 225.0
-offset_bottom = 332.0
+offset_top = 380.0
+offset_right = 365.0
+offset_bottom = 416.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="QuotaFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=533492106]
@@ -1623,9 +1661,9 @@ grow_vertical = 2
 [node name="StaticQuotaLabel" type="Label" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=1674359599]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 4.0
+offset_top = 6.0
 offset_right = 90.0
-offset_bottom = 28.0
+offset_bottom = 30.0
 theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
@@ -1635,48 +1673,12 @@ text = "GOAL:"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 55.0
-offset_top = 4.0
-offset_right = 200.0
-offset_bottom = 28.0
-theme_override_colors/font_color = Color(0, 0.5, 0, 1)
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0.5, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
-
-[node name="DiagSpecsTitle" type="Label" parent="ApparatusInspectorWindow/Model" unique_id=115559636]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 355.0
-offset_right = 225.0
-offset_bottom = 371.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 12
-text = "SYSTEM TELEMETRY:"
-
-[node name="DiagSpecsDetails" type="Label" parent="ApparatusInspectorWindow/Model" unique_id=1936183157]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 380.0
-offset_right = 225.0
-offset_bottom = 665.0
-theme_override_colors/font_color = Color(0.2, 0.4, 0.2, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-text = "INTEGRITY: NOMINAL
-EMPATHY: 98.4%
-CLOCK RATE: 8.87MHz
-ALLOCATED: 64KB RAM
-OEC LINK: ONLINE
-TEMP: 37.4C (STABLE)
-LOGIC STACK: PASS
-THREAT INDEX: SCANNED
-CHAMBER LOCK: SECURE
-
------------------
-APPARATUS OS v4.98
-SYSTEM READY."
-autowrap_mode = 3
-
 [node name="NotepadWindow" type="NinePatchRect" parent="." unique_id=202610160]
 unique_name_in_owner = true
 visible = false
@@ -1736,7 +1738,14 @@ offset_left = 10.0
 offset_top = 42.0
 offset_right = 490.0
 offset_bottom = 390.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/selection_color = Color(0, 0, 0.5, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_notepad_bg")
 placeholder_text = "Type notes here..."
 wrap_mode = 1
 
@@ -1849,7 +1858,7 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_terminal_bg")
+theme_override_styles/normal = ExtResource("StyleBox_Inner_Frame")
 caret_blink = true
 
 [node name="MinesweeperWindow" type="NinePatchRect" parent="." unique_id=202610180]
@@ -1918,12 +1927,34 @@ offset_right = 288.0
 offset_bottom = 40.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
-[node name="MineLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=1244020032]
+[node name="MinePanel" type="Panel" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=1244020033]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 68.0
-offset_bottom = 32.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 70.0
+offset_bottom = 34.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="MineBg" type="ColorRect" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/MinePanel" unique_id=1244020034]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MineLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/MinePanel" unique_id=1244020032]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 16
@@ -1949,12 +1980,34 @@ theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = ExtResource("StyleBox_Button_Hover")
 text = ":)"
 
-[node name="TimerLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=82244008]
+[node name="TimerPanel" type="Panel" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=82244009]
 layout_mode = 0
-offset_left = 220.0
-offset_top = 8.0
-offset_right = 280.0
-offset_bottom = 32.0
+offset_left = 218.0
+offset_top = 6.0
+offset_right = 282.0
+offset_bottom = 34.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="TimerBg" type="ColorRect" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/TimerPanel" unique_id=82244010]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TimerLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/TimerPanel" unique_id=82244008]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 16

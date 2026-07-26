@@ -3,18 +3,22 @@
 [ext_resource type="Script" uid="uid://cdcrbk3k45oct" path="res://Scripts/ChatBubble.gd" id="1_46vr1"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="2_p5v4p"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p5v4p"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chat_bubble"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.96, 0.96, 0.96, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7, 0.7, 0.7, 1)
 
 [node name="ChatBubble" type="PanelContainer" unique_id=1543406601]
-custom_minimum_size = Vector2(200, 30)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -730.0
-offset_bottom = -944.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_p5v4p")
+custom_minimum_size = Vector2(200, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_chat_bubble")
 script = ExtResource("1_46vr1")
 
 [node name="Label" type="Label" parent="." unique_id=1411707274]

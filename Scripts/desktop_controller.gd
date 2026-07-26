@@ -69,7 +69,7 @@ func _ready():
 	browser_window.patch_margin_top = 12
 	browser_window.patch_margin_right = 12
 	browser_window.patch_margin_bottom = 12
-	browser_window.position = Vector2(250, 150)
+	browser_window.position = Vector2(300, 100)
 	get_parent().call_deferred("add_child", browser_window)
 	browser_window.visible = false
 
@@ -459,7 +459,8 @@ func _adjust_start_menu_height():
 		
 	var list_height = program_list.get_combined_minimum_size().y
 	var new_height = list_height + 8 # Top/bottom margins of HBox inside NinePatchRect
-	var bottom_y = 970.0 # Standard Y coordinate right above taskbar top edge
+	var parent_h = size.y if size.y > 0 else 1080.0
+	var bottom_y = parent_h - 48.0 # Standard Y coordinate right above taskbar top edge
 	
 	start_menu.size.y = new_height
 	start_menu.position.y = bottom_y - new_height

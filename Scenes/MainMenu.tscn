@@ -13,6 +13,7 @@
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner_Frame"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_screensaver"]
 shader = ExtResource("13_screensaver_shader")
@@ -86,12 +87,38 @@ theme_override_fonts/font = ExtResource("5_if7li")
 theme_override_font_sizes/font_size = 12
 text = "System Briefing"
 
-[node name="BriefingLabel" type="Label" parent="Background" unique_id=383054646]
+[node name="BriefingPanel" type="Panel" parent="Background" unique_id=383054647]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 42.0
-offset_right = 633.0
-offset_bottom = 278.0
+offset_right = 647.0
+offset_bottom = 300.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="BriefingBg" type="ColorRect" parent="Background/BriefingPanel" unique_id=383054648]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+
+[node name="BriefingLabel" type="Label" parent="Background/BriefingPanel" unique_id=383054646]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 14

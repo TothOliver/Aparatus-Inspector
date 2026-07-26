@@ -1,9 +1,9 @@
 extends Control
 
 @onready var grid_container = $GridContainer
-@onready var mine_label = $HeaderPanel/MineLabel
+@onready var mine_label = get_node_or_null("HeaderPanel/MinePanel/MineLabel") if has_node("HeaderPanel/MinePanel/MineLabel") else get_node_or_null("HeaderPanel/MineLabel")
 @onready var face_button = $HeaderPanel/FaceButton
-@onready var timer_label = $HeaderPanel/TimerLabel
+@onready var timer_label = get_node_or_null("HeaderPanel/TimerPanel/TimerLabel") if has_node("HeaderPanel/TimerPanel/TimerLabel") else get_node_or_null("HeaderPanel/TimerLabel")
 
 var grid_size: int = 9
 var total_mines: int = 10
@@ -52,7 +52,8 @@ func _ready():
 func _process(delta):
 	if timer_active:
 		time_elapsed += delta
-		timer_label.text = "%03d" % int(time_elapsed)
+		if timer_label:
+			timer_label.text = "%03d" % int(time_elapsed)
 
 func reset_game():
 	# Clear old buttons
@@ -68,9 +69,12 @@ func reset_game():
 	game_over = false
 	time_elapsed = 0.0
 	timer_active = false
-	timer_label.text = "000"
-	mine_label.text = "%02d" % total_mines
-	face_button.text = ":)" # Smiley face
+	if timer_label:
+		timer_label.text = "000"
+	if mine_label:
+		mine_label.text = "%02d" % total_mines
+	if face_button:
+		face_button.text = ":)" # Smiley face
 	
 	# Initialize arrays
 	for r in range(grid_size):
@@ -210,7 +214,8 @@ func toggle_flag(r: int, c: int):
 	for row in flagged:
 		for flag in row:
 			if flag: flags_placed += 1
-	mine_label.text = "%02d" % max(0, total_mines - flags_placed)
+	if mine_label:
+		mine_label.text = "%02d" % max(0, total_mines - flags_placed)
 
 func trigger_game_over(won: bool):
 	game_over = true

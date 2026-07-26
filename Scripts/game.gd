@@ -178,18 +178,16 @@ func _ready():
 			
 			# Compact and space fields cleanly inside Model to prevent text overlap
 			var fields = {
-				"NameFieldLabel": 15,
-				"NamePanel": 31,
-				"ModelFieldLabel": 65,
-				"ModelPanel": 81,
-				"StatusFieldLabel": 115,
-				"StatusPanel": 131,
-				"ManuFieldLabel": 165,
-				"ManuPanel": 181,
-				"QuotaFieldLabel": 215,
-				"QuotaPanel": 233,
-				"DiagSpecsTitle": 275,
-				"DiagSpecsDetails": 295
+				"NameFieldLabel": 20,
+				"NamePanel": 40,
+				"ModelFieldLabel": 105,
+				"ModelPanel": 125,
+				"StatusFieldLabel": 190,
+				"StatusPanel": 210,
+				"ManuFieldLabel": 275,
+				"ManuPanel": 295,
+				"QuotaFieldLabel": 360,
+				"QuotaPanel": 380
 			}
 			
 			for f_name in fields.keys():
@@ -198,12 +196,7 @@ func _ready():
 					f_node.position.y = fields[f_name]
 					f_node.position.x = 10
 					if f_name.ends_with("Panel"):
-						f_node.size.x = 220
-					elif f_name == "DiagSpecsDetails":
-						var lbl = f_node as Label
-						if lbl:
-							lbl.text = "INTEGRITY: NOMINAL\nEMPATHY: 98.4%\nTEMP: 37.4C (STABLE)\nOEC LINK: ONLINE\nLOCK: SECURE\n\n-----------------\nAPPARATUS OS v4.98\nSYSTEM READY."
-							lbl.size = Vector2(220, 160)
+						f_node.size = Vector2(220, 36)
 						
 		# Now re-register all child margins so dragging scales properly
 		if inspector.has_method("register_child_margins"):
@@ -439,7 +432,7 @@ func handle_last_terminal_chat():
 		final_message = true
 
 func _on_quit_button_button_up() -> void:
-	var parent_size = size if size != Vector2.ZERO else Vector2(1280, 1024)
+	var parent_size = size if size != Vector2.ZERO else Vector2(1920, 1080)
 	
 	var overlay = ColorRect.new()
 	overlay.color = Color(0, 0, 0, 0.4)

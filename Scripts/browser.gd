@@ -14,7 +14,7 @@ var websites = {
 	"www.apparatusexplorer.net": {
 		"title": "Apparatus Explorer Network Portal",
 		"content": """[center][img=48]res://Sprites/icon_browser.png[/img]
-[font_size=20][color=navy][b]APPARATUS NET FINDER[/b][/color][/font_size]
+[font_size=24][color=navy][b]APPARATUS NET FINDER[/b][/color][/font_size]
 [color=#333333]Your Gateway to the Intranet • Ver 1.0b[/color][/center]
 [hr]
 Welcome to the Apparatus Explorer Portal! This portal index lists all active web servers running on the local network segment. Please verify your NetGate wifi router connection before browsing.
@@ -58,7 +58,7 @@ Welcome to the Apparatus Explorer Portal! This portal index lists all active web
 	"www.robot-factory.corp": {
 		"title": "Apparatus Robotics - Building the Future",
 		"content": """[center][img=128]res://Sprites/robot4.png[/img]
-[font_size=20][color=darkblue][b]APPARATUS ROBOTICS[/b][/color][/font_size]
+[font_size=24][color=darkblue][b]APPARATUS ROBOTICS[/b][/color][/font_size]
 [color=teal][i]Safety • Efficiency • Compliance[/i][/color][/center]
 [hr]
 At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist humanity in high-risk environments. Our signature chassis models include the [b]Larry[/b] social testbed and the [b]Walter[/b] security frame.
@@ -77,7 +77,7 @@ At Apparatus Robotics, we engineer state-of-the-art synthetic models to assist h
 	},
 	"www.robot-factory.corp/registry": {
 		"title": "Aethelgard Robotics - Core & Spec Registry",
-		"content": """[center][font_size=20][color=darkblue][b]OFFICIAL SPECIFICATIONS REGISTRY[/b][/color][/font_size]
+		"content": """[center][font_size=24][color=darkblue][b]OFFICIAL SPECIFICATIONS REGISTRY[/b][/color][/font_size]
 [color=teal][b]SECURE SERVER - READ-ONLY[/b][/color][/center]
 [hr]
 Use this registry to verify active robot specs. If a unit's specs or core signature do not match the database, it has been compromised by the Prime-0 network worm and must be [color=red][b]EXTERMINATED[/b][/color].
@@ -116,7 +116,7 @@ Inspectors must carefully check the unit telemetry for these 4 types of spec cor
 	"www.inspections-database.org": {
 		"title": "Inspector Archives & Logs",
 		"content": """[center][img=48]res://Sprites/icon_inspector.png[/img]
-[font_size=20][color=purple][b]INSPECTOR ARCHIVES DATABASE[/b][/color][/font_size]
+[font_size=24][color=purple][b]INSPECTOR ARCHIVES DATABASE[/b][/color][/font_size]
 [color=darkred][b]CONFIDENTIAL - INTERNAL USE ONLY[/b][/color][/center]
 [hr]
 [b]ADDITIONAL ARCHIVE DIAGNOSTICS:[/b]
@@ -136,7 +136,7 @@ Inspectors must carefully check the unit telemetry for these 4 types of spec cor
 	},
 	"www.inspections-database.org/behavior": {
 		"title": "Aethelgard Whistleblower Logs - Behavioral Anomalies",
-		"content": """[center][font_size=20][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
+		"content": """[center][font_size=24][color=darkred][b]WHISTLEBLOWER BEHAVIORAL PROFILER[/b][/color][/font_size]
 [color=red][b]RESTRICTED INTELLIGENCE DOCUMENT - INTERNAL USE ONLY[/b][/color][/center]
 [hr]
 Prime-0 is capable of faking hardware specs on infected units. If a unit's core signature matches the official registry on Day 1 (or has clean telemetry), check for these cognitive dialogue tells during questioning:
@@ -216,7 +216,7 @@ If you want to bypass the firewall and see the root controls, I host a mirror at
 	"www.weather-central.net": {
 		"title": "Metro Weather Station",
 		"content": """[center][img=128]res://Sprites/think.jpg[/img]
-[font_size=20][color=darkcyan][b]METRO WEATHER STATION[/b][/color][/font_size]
+[font_size=24][color=darkcyan][b]METRO WEATHER STATION[/b][/color][/font_size]
 [color=#333333]Satellite Atmospheric Diagnostics[/color][/center]
 [hr]
 [color=red][b]SOLAR EM ANOMALY WARNING[/b][/color]
@@ -230,7 +230,7 @@ During blackouts, the power grid will reboot automatically when it reaches 10% c
 	"www.retro-slots-cheats.info": {
 		"title": "Casino Slots Cheats & Tips",
 		"content": """[center][img=48]res://Sprites/icon_slots.png[/img]
-[font_size=20][color=darkgreen][b]CASINO SLOTS CHEATS & STRATEGY[/b][/color][/font_size]
+[font_size=24][color=darkgreen][b]CASINO SLOTS CHEATS & STRATEGY[/b][/color][/font_size]
 [color=orange][b]DOUBLE PAYOUT GUIDE[/b][/color][/center]
 [hr]
 The slots application on the PC is rigged! But there are some hidden things in the code:
@@ -242,7 +242,7 @@ The slots application on the PC is rigged! But there are some hidden things in t
 	"www.creepy-cryptid-forum.org": {
 		"title": "Local Area Cryptid Forum",
 		"content": """[center][img=128]res://Sprites/monkey.jpg[/img]
-[font_size=20][color=indigo][b]VENTS & VAPORS DISCUSSION FORUM[/b][/color][/font_size]
+[font_size=24][color=indigo][b]VENTS & VAPORS DISCUSSION FORUM[/b][/color][/font_size]
 [color=#333333]Thread: Strange Scraping Sound in Room Vents[/color][/center]
 [hr]
 [b]User_8832[/b]: "Does anyone else hear clanking inside the vents at night?"
@@ -256,7 +256,7 @@ The slots application on the PC is rigged! But there are some hidden things in t
 	"www.router-support.corp": {
 		"title": "NetGate WiFi Router User Manual",
 		"content": """[center][img=16]res://Sprites/wifi_on.png[/img]
-[font_size=20][color=navy][b]NETGATE ROUTER USER MANUAL[/b][/color][/font_size]
+[font_size=24][color=navy][b]NETGATE ROUTER USER MANUAL[/b][/color][/font_size]
 [color=teal]Model NG-100 Troubleshooting[/color][/center]
 [hr]
 Your router on the desk provides network connectivity to the PC Explorer browser.
@@ -271,7 +271,7 @@ To toggle router power, click the physical button on top of the router device in
 	"www.the-archivist.net": {
 		"title": "The Archivist's Diary",
 		"content": """[center][img=128]res://Sprites/ojoj.png[/img]
-[font_size=20][color=darkred][b]THE ARCHIVIST'S DIARY[/b][/color][/font_size]
+[font_size=24][color=darkred][b]THE ARCHIVIST'S DIARY[/b][/color][/font_size]
 [color=#333333]Decrypted Fragment[/color][/center]
 [hr]
 I have hidden the decryption keys across these fan pages and conspiracy blogs where corporate won't look. The Larry shrine and the Walter files host the keys.
@@ -286,7 +286,7 @@ P.S. I managed to mirror the prototype specs of the stalker chassis before they 
 	"www.funny-monkey.meme": {
 		"title": "Monkey Meme Land",
 		"content": """[center][img=250]res://Sprites/hehe.jpg[/img]
-[font_size=20][color=darkorange][b]MONKEY MEME LAND[/b][/color][/font_size]
+[font_size=24][color=darkorange][b]MONKEY MEME LAND[/b][/color][/font_size]
 [color=darkgreen]Best laughs of 1998!!![/color][/center]
 [hr]
 Look at this funny monkey! Haha! He looks like he just got decommissioned for admitting a rogue unit! 
@@ -298,7 +298,7 @@ Look at this funny monkey! Haha! He looks like he just got decommissioned for ad
 	"www.hunter-origin.spec": {
 		"title": "Hunter Chassis Prototype Specs",
 		"content": """[center][img=128]res://Sprites/robot9.png[/img]
-[font_size=20][color=darkred][b]HUNTER CHASSIS PROTOTYPE SPECS[/b][/color][/font_size]
+[font_size=24][color=darkred][b]HUNTER CHASSIS PROTOTYPE SPECS[/b][/color][/font_size]
 [color=#333333]CLASSIFIED DOCUMENT - MODEL H-198[/color][/center]
 [hr]
 [b]PROJECT HUNTER ORIGIN[/b]
@@ -313,7 +313,7 @@ Look at this funny monkey! Haha! He looks like he just got decommissioned for ad
 	"www.system-backdoor.hack": {
 		"title": "Apparatus System Backdoor",
 		"content": """[center][img=48]res://Sprites/icon_settings.png[/img]
-[font_size=20][color=red][b]⚠️ APPARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
+[font_size=24][color=red][b]⚠️ APPARATUS SYSTEM BACKDOOR ⚠️[/b][/color][/font_size]
 [color=darkgreen]Connection: SECURE BACKDOOR TACK[/color][/center]
 [hr]
 Welcome to the backdoor terminal console. This page intercepts active telemetry and system parameters from the main PC mainframe.
@@ -332,8 +332,8 @@ Welcome to the backdoor terminal console. This page intercepts active telemetry 
 func _ready():
 	is_scalable = true
 	# Dynamically assemble the browser UI components inside this NinePatchRect window.
-	custom_minimum_size = Vector2(800, 600)
-	size = Vector2(800, 600)
+	custom_minimum_size = Vector2(450, 300)
+	size = Vector2(800, 580)
 	
 	# Load retro styling resources
 	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
@@ -449,7 +449,7 @@ func _ready():
 	url_field.text = current_url
 	url_field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	url_field.add_theme_font_override("font", font_regular)
-	url_field.add_theme_font_size_override("font_size", 12)
+	url_field.add_theme_font_size_override("font_size", 14)
 	url_field.add_theme_color_override("font_color", Color(0,0,0,1))
 	url_field.add_theme_stylebox_override("normal", inner_frame)
 	url_field.text_submitted.connect(on_url_submitted)
@@ -460,7 +460,7 @@ func _ready():
 	go_btn.text = "Go"
 	go_btn.custom_minimum_size = Vector2(35, 24)
 	go_btn.add_theme_font_override("font", font_regular)
-	go_btn.add_theme_font_size_override("font_size", 10)
+	go_btn.add_theme_font_size_override("font_size", 12)
 	go_btn.add_theme_color_override("font_color", Color(0,0,0,1))
 	go_btn.add_theme_stylebox_override("normal", btn_normal)
 	go_btn.add_theme_stylebox_override("hover", btn_hover)
@@ -494,8 +494,8 @@ func _ready():
 	content_label.custom_minimum_size = Vector2(200, 200)
 	content_label.add_theme_font_override("normal_font", font_regular)
 	content_label.add_theme_font_override("bold_font", font_bold)
-	content_label.add_theme_font_size_override("normal_font_size", 12)
-	content_label.add_theme_font_size_override("bold_font_size", 16)
+	content_label.add_theme_font_size_override("normal_font_size", 16)
+	content_label.add_theme_font_size_override("bold_font_size", 20)
 	content_label.add_theme_color_override("default_color", Color(0, 0, 0, 1))
 	content_label.add_theme_color_override("hyperlink_color", Color(0, 0, 0.8, 1))
 	content_label.meta_clicked.connect(on_link_clicked)
@@ -545,7 +545,7 @@ func _load_current_page(_update_history_buttons: bool = true):
 			"3. Retry navigating to the website after network connection is restored."
 	elif websites.has(current_url):
 		var site = websites[current_url]
-		content_label.text = "[font_size=20][b]" + site["title"] + "[/b][/font_size]\n\n" + site["content"]
+		content_label.text = "[font_size=24][b]" + site["title"] + "[/b][/font_size]\n\n" + site["content"]
 	else:
 		content_label.text = "[color=darkred][b]404 Page Not Found[/b][/color]\n\n" + \
 			"The requested URL '" + current_url + "' could not be found on this server. Please check the spelling and try again.\n\n" + \

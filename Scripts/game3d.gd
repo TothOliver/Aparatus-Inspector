@@ -520,22 +520,22 @@ func _on_viewport_container_resized():
 	if H <= 0 or W <= 0:
 		return
 		
-	# ALWAYS keep SubViewport fixed at its native 1280x1024 design resolution
+	# ALWAYS keep SubViewport fixed at its native 1920x1080 design resolution
 	# to prevent internal UI/font scaling distortion
 	if sub_viewport and not viewport_container.stretch:
-		if sub_viewport.size != Vector2i(1280, 1024):
-			sub_viewport.size = Vector2i(1280, 1024)
+		if sub_viewport.size != Vector2i(1920, 1080):
+			sub_viewport.size = Vector2i(1920, 1080)
 
-	var target_w = 1280.0
-	var target_h = 1024.0
+	var target_w = 1920.0
+	var target_h = 1080.0
 	
-	if W >= 1280.0 and H >= 1024.0:
+	if W >= 1920.0 and H >= 1080.0:
 		# Native 1:1 pixel mapping (unscaled 100% size centered on screen)
-		target_w = 1280.0
-		target_h = 1024.0
+		target_w = 1920.0
+		target_h = 1080.0
 	else:
-		# Scale to fit smaller screens while preserving 5:4 aspect ratio
-		var target_aspect = 1.25
+		# Scale to fit smaller screens while preserving 16:9 aspect ratio
+		var target_aspect = 16.0 / 9.0
 		var current_aspect = W / H
 		if current_aspect > target_aspect:
 			target_h = H

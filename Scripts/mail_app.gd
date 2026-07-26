@@ -28,7 +28,7 @@ var font_regular: Font
 
 func _ready():
 	is_scalable = true
-	custom_minimum_size = Vector2(650, 450)
+	custom_minimum_size = Vector2(400, 280)
 	size = Vector2(650, 450)
 	
 	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
