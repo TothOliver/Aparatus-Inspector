@@ -28,8 +28,8 @@ var font_regular: Font
 
 func _ready():
 	is_scalable = true
-	custom_minimum_size = Vector2(400, 280)
-	size = Vector2(650, 450)
+	custom_minimum_size = Vector2(450, 320)
+	size = Vector2(850, 560)
 	
 	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
 	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
@@ -87,8 +87,9 @@ func _ready():
 	
 	# Left Inbox Frame Panel
 	var left_panel = Panel.new()
+	left_panel.name = "LeftPanel"
 	left_panel.position = Vector2(12, 44)
-	left_panel.size = Vector2(220, 394)
+	left_panel.size = Vector2(260, size.y - 56)
 	left_panel.add_theme_stylebox_override("panel", inner_frame)
 	add_child(left_panel)
 	
@@ -107,8 +108,9 @@ func _ready():
 	
 	# Right Reading Frame Panel
 	var right_panel = Panel.new()
-	right_panel.position = Vector2(244, 44)
-	right_panel.size = Vector2(394, 394)
+	right_panel.name = "RightPanel"
+	right_panel.position = Vector2(284, 44)
+	right_panel.size = Vector2(size.x - 296, size.y - 56)
 	right_panel.add_theme_stylebox_override("panel", inner_frame)
 	add_child(right_panel)
 	
@@ -118,8 +120,8 @@ func _ready():
 	reading_panel.bbcode_enabled = true
 	reading_panel.add_theme_font_override("normal_font", font_regular)
 	reading_panel.add_theme_font_override("bold_font", font_bold)
-	reading_panel.add_theme_font_size_override("normal_font_size", 12)
-	reading_panel.add_theme_font_size_override("bold_font_size", 16)
+	reading_panel.add_theme_font_size_override("normal_font_size", 16)
+	reading_panel.add_theme_font_size_override("bold_font_size", 18)
 	reading_panel.add_theme_color_override("default_color", Color(0,0,0,1))
 	reading_panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	reading_panel.offset_left = 10
@@ -156,14 +158,14 @@ func render_inbox():
 		# Create email item button
 		var item_btn = Button.new()
 		item_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		item_btn.custom_minimum_size = Vector2(0, 36)
+		item_btn.custom_minimum_size = Vector2(0, 42)
 		item_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		item_btn.add_theme_color_override("font_color", Color(0,0,0,1))
 		item_btn.add_theme_color_override("font_hover_color", Color(0,0,0,1))
 		item_btn.add_theme_color_override("font_pressed_color", Color(0,0,0,1))
 		item_btn.add_theme_color_override("font_focus_color", Color(0,0,0,1))
 		item_btn.add_theme_font_override("font", font_regular)
-		item_btn.add_theme_font_size_override("font_size", 10)
+		item_btn.add_theme_font_size_override("font_size", 12)
 		
 		item_btn.add_theme_stylebox_override("normal", btn_normal)
 		item_btn.add_theme_stylebox_override("hover", btn_hover)
@@ -184,7 +186,7 @@ func render_inbox():
 		rtl.offset_bottom = -4
 		rtl.add_theme_font_override("normal_font", font_regular)
 		rtl.add_theme_font_override("bold_font", font_bold)
-		rtl.add_theme_font_size_override("normal_font_size", 12)
+		rtl.add_theme_font_size_override("normal_font_size", 14)
 		rtl.add_theme_font_size_override("bold_font_size", 16)
 		rtl.add_theme_color_override("default_color", Color(0,0,0,1))
 		rtl.text = prefix + (email_data.subject if not is_unread else "[b]" + email_data.subject + "[/b]")

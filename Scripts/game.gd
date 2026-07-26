@@ -180,14 +180,14 @@ func _ready():
 			var fields = {
 				"NameFieldLabel": 20,
 				"NamePanel": 40,
-				"ModelFieldLabel": 105,
-				"ModelPanel": 125,
-				"StatusFieldLabel": 190,
-				"StatusPanel": 210,
-				"ManuFieldLabel": 275,
-				"ManuPanel": 295,
-				"QuotaFieldLabel": 360,
-				"QuotaPanel": 380
+				"ModelFieldLabel": 90,
+				"ModelPanel": 110,
+				"StatusFieldLabel": 160,
+				"StatusPanel": 180,
+				"ManuFieldLabel": 230,
+				"ManuPanel": 250,
+				"QuotaFieldLabel": 300,
+				"QuotaPanel": 320
 			}
 			
 			for f_name in fields.keys():
@@ -196,7 +196,7 @@ func _ready():
 					f_node.position.y = fields[f_name]
 					f_node.position.x = 10
 					if f_name.ends_with("Panel"):
-						f_node.size = Vector2(220, 36)
+						f_node.size = Vector2(220, 34)
 						
 		# Now re-register all child margins so dragging scales properly
 		if inspector.has_method("register_child_margins"):
