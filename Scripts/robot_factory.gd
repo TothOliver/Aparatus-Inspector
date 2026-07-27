@@ -28,6 +28,42 @@ static func create_walter_robot() -> RobotData:
 	_compile_infected_dialogue(r, "Walter")
 	return r
 
+static func create_day2_first_robot() -> RobotData:
+	var r = RobotData.new()
+	r.is_good = false
+	
+	var first_names = ["Alpha", "Beta", "Sigma", "Omega", "Gamma", "Delta", "Theta", "Zeta", "Kappa", "Psi"]
+	var last_names = ["-90", "-100", "-500", " Prime", " v2", " 800", " Core", " Unit", " Prototype", " Mark-III"]
+	r.name = first_names.pick_random() + last_names.pick_random()
+	
+	var approved_configs = [
+		{"model": "T1337", "manufacturer": "AgselAB", "core_hash": "0xFA82", "status": "Faulted", "sprite": "res://Sprites/robot1.png"},
+		{"model": "PAAST22", "manufacturer": "BTH", "core_hash": "0xBB99", "status": "Correct", "sprite": "res://Sprites/robot8.png"},
+		{"model": "TT69", "manufacturer": "TT Robotics", "core_hash": "0x77E1", "status": "Faulted", "sprite": "res://Sprites/robot5.png"},
+		{"model": "Last", "manufacturer": "Someone", "core_hash": "0x88CC", "status": "Done", "sprite": "res://Sprites/robot6.png"}
+	]
+	var config = approved_configs.pick_random()
+	r.model = config.model
+	r.manufacturer = config.manufacturer
+	r.core_hash = config.core_hash
+	r.status = config.status
+	r.sprite = load(config.sprite)
+	
+	# Apply 1 spec fault (Model, Manufacturer, or Core Hash anomaly)
+	var anomaly_type = randi() % 3
+	match anomaly_type:
+		0:
+			r.model = config.model + "x" if config.model != "T1337" else "T1338"
+		1:
+			r.manufacturer = config.manufacturer + "s" if config.manufacturer != "AgselAB" else "AgsselAB"
+		2:
+			r.core_hash = config.core_hash.substr(0, 5) + "9"
+			
+	# Perfectly clean (non-evil) dialogue text
+	_compile_clean_dialogue(r)
+	return r
+
+
 static func generate_random_robot(is_good_unit: bool) -> RobotData:
 	var r = RobotData.new()
 	r.is_good = is_good_unit

@@ -152,14 +152,17 @@ func _create_difficulty_popup() -> Control:
 	title_bar.add_child(title_label)
 	
 	var close_btn = Button.new()
-	close_btn.position = Vector2(414, 5)
-	close_btn.custom_minimum_size = Vector2(20, 20)
-	close_btn.size = Vector2(20, 20)
+	close_btn.name = "CloseButton"
+	close_btn.position = Vector2(410, 4)
+	close_btn.custom_minimum_size = Vector2(22, 22)
+	close_btn.size = Vector2(22, 22)
 	close_btn.icon = exit_icon
+	close_btn.expand_icon = true
 	close_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	close_btn.add_theme_stylebox_override("normal", btn_normal)
 	close_btn.add_theme_stylebox_override("hover", btn_hover)
 	close_btn.add_theme_stylebox_override("pressed", btn_pressed)
+	close_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	close_btn.pressed.connect(func(): _close_difficulty_popup())
 	title_bar.add_child(close_btn)
 	

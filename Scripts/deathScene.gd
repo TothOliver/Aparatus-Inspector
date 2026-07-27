@@ -63,14 +63,13 @@ func calculate_grade(score: int) -> String:
 		return "F"
 
 func _on_restart_pressed() -> void:
-	if GameStats.is_permadeath():
-		GameStats.reset_game_state()
-		GameStats.delete_save_game()
-	elif GameStats.has_save_file():
-		GameStats.load_game()
+	if GameStats.difficulty_mode == GameStats.DifficultyMode.NORMAL:
+		GameStats.reset_current_day_state()
 	else:
 		GameStats.reset_game_state()
-	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
+		GameStats.delete_save_game()
+	get_tree().paused = false
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/Game3D.tscn")
 
 func _on_main_menu_pressed() -> void:
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/MainMenu.tscn")

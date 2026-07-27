@@ -29,6 +29,7 @@ var pressed_tex = preload("res://RetroWindowsGUI/Windows_Button_Pressed.png")
 
 var robots: Array[RobotData] = []
 var current_robot: RobotData
+var last_robot: RobotData = null
 var is_waiting_for_replay = false
 var final_message = false
 var is_processing_choice = false
@@ -364,18 +365,38 @@ func spawn_next_robot():
 		print("Error: No robots found in the 'robots' array.")
 		
 func pick_next_robot() -> RobotData:
-	if day_manager.current_day == 1 and day_manager.processed_today == 2:
-		current_robot = RobotFactory.create_walter_robot()
-		return current_robot
+	var next_robot: RobotData = null
 
-	if robots.is_empty():
-		current_robot = null
-		return null
+	if day_manager.current_day == 1 and day_manager.processed_today == 3:
+		next_robot = RobotFactory.create_walter_robot()
+	elif day_manager.current_day == 2 and day_manager.processed_today == 0:
+		next_robot = RobotFactory.create_day2_first_robot()
+	else:
+		if robots.is_empty():
+			current_robot = null
+			return null
 
-	var index := randi_range(0, robots.size() - 1)
-	current_robot = robots[index]
-	robots.remove_at(index)
+		var valid_indices: Array[int] = []
+		if last_robot != null:
+			for i in range(robots.size()):
+				var r = robots[i]
+				var same_sprite = (r.sprite != null and last_robot.sprite != null and r.sprite.resource_path == last_robot.sprite.resource_path)
+				var same_model = (r.model == last_robot.model)
+				var same_name = (r.name == last_robot.name)
+				if not same_sprite and not same_model and not same_name:
+					valid_indices.append(i)
 
+		var chosen_index: int
+		if valid_indices.size() > 0:
+			chosen_index = valid_indices.pick_random()
+		else:
+			chosen_index = randi_range(0, robots.size() - 1)
+
+		next_robot = robots[chosen_index]
+		robots.remove_at(chosen_index)
+
+	current_robot = next_robot
+	last_robot = current_robot
 	return current_robot
 	
 func trigger_walter_escape():
