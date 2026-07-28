@@ -141,13 +141,13 @@ func _ready():
 				input.size = Vector2(425, 34)
 				input.placeholder_text = "Type question..."
 				var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
-				var inner_frame = preload("res://RetroWindowsGUI/StyleBox_Inner_Frame.tres")
+				var sunken_field = preload("res://RetroWindowsGUI/StyleBox_Sunken_Field.tres")
 				input.add_theme_font_override("font", font_bold)
 				input.add_theme_font_size_override("font_size", 16)
 				input.add_theme_color_override("font_color", Color(0, 0, 0, 1))
 				input.add_theme_color_override("font_placeholder_color", Color(0.4, 0.4, 0.4, 1))
 				input.add_theme_color_override("caret_color", Color(0, 0, 0, 1))
-				input.add_theme_stylebox_override("normal", inner_frame)
+				input.add_theme_stylebox_override("normal", sunken_field)
 				input.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 
 			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button

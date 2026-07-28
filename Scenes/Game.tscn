@@ -1373,8 +1373,9 @@ theme_override_colors/font_placeholder_color = Color(0.4, 0.4, 0.4, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/normal = ExtResource("StyleBox_Sunken_Field")
 placeholder_text = "Type question..."
+caret_blink = true
 
 [node name="SubmitQuestionButton" type="Button" parent="ApparatusInspectorWindow/Option" unique_id=155730944]
 unique_name_in_owner = true

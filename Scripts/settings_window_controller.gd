@@ -888,8 +888,6 @@ func style_retro_option_button(btn: OptionButton):
 	
 	var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
 	var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
-	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
-	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
 	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
 
 	btn.add_theme_font_override("font", font_bold)

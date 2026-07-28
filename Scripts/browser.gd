@@ -421,7 +421,10 @@ func _ready():
 	url_field.add_theme_font_override("font", font_regular)
 	url_field.add_theme_font_size_override("font_size", 14)
 	url_field.add_theme_color_override("font_color", Color(0,0,0,1))
-	url_field.add_theme_stylebox_override("normal", inner_frame)
+	url_field.add_theme_color_override("caret_color", Color(0,0,0,1))
+	url_field.caret_blink = true
+	var sunken_white = preload("res://RetroWindowsGUI/StyleBox_Sunken_Field.tres")
+	url_field.add_theme_stylebox_override("normal", sunken_white)
 	url_field.text_submitted.connect(on_url_submitted)
 	addr_container.add_child(url_field)
 	
@@ -442,18 +445,18 @@ func _ready():
 	# Content Border Panel
 	var content_panel = Panel.new()
 	content_panel.name = "content_panel"
-	content_panel.position = Vector2(12, 74)
-	content_panel.size = Vector2(size.x - 24, size.y - 86)
+	content_panel.position = Vector2(12, 80)
+	content_panel.size = Vector2(size.x - 24, size.y - 92)
 	content_panel.add_theme_stylebox_override("panel", inner_frame)
 	add_child(content_panel)
 	
 	# Scroll Container
 	var scroll = ScrollContainer.new()
 	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
-	scroll.offset_left = 8
-	scroll.offset_top = 8
-	scroll.offset_right = -8
-	scroll.offset_bottom = -8
+	scroll.offset_left = 10
+	scroll.offset_top = 12
+	scroll.offset_right = -10
+	scroll.offset_bottom = -10
 	content_panel.add_child(scroll)
 	
 	# RichTextLabel
