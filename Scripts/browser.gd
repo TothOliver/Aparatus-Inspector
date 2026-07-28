@@ -37,7 +37,6 @@ var websites = {
 
 • [url=www.walter-files.com][b]The Walter Files[/b][/url] [color=#666666]- Whistleblower blog & encryption keys[/color]
 • [url=www.larry-shrine.fans][b]Larry Fan Club[/b][/url] [color=#666666]- Fan site & decryption hints[/color]
-• [url=www.retro-slots-cheats.info][b]Slots Strategy Guide[/b][/url] [color=#666666]- Payout tips & easter eggs[/color]
 • [url=www.router-support.corp][b]NetGate Router Manual[/b][/url] [color=#666666]- WiFi network device guide[/color]
 • [url=www.the-archivist.net][b]The Archivist's Diary[/b][/url] [color=#666666]- Vent sounds & secret files[/color]
 • [url=www.weather-central.net][b]Metro Weather Station[/b][/url] [color=#666666]- Power grid & EM spike alerts[/color]
@@ -204,18 +203,6 @@ Type: `decrypt classified_02.enc walter` in terminal.
 [color=#cc0000][b]ELECTROMAGNETIC SPIKE ALERT:[/b][/color]
 Severe EM spikes are overloading the grid. Power blackouts will occur.
 During blackouts, breaker box resets at 10% charge. Keep computer screen off to save power!
-
-[hr]
-[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
-	},
-	"www.retro-slots-cheats.info": {
-		"title": "Casino Slots Cheats & Tips",
-		"content": """[center][img=48]res://Sprites/icon_slots.png[/img]
-[font_size=18][color=#006600][b]CASINO SLOTS CHEATS & STRATEGY[/b][/color][/font_size][/center]
-[hr]
-
-• 5% chance reels glitch to display triple [color=#cc0000]ROBOT[/color] symbols.
-• [b]WARNING:[/b] Triple robots trigger immediate Hunter deployment! Be prepared to hide under the desk!
 
 [hr]
 [center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""

@@ -7,7 +7,6 @@ class_name DesktopController
 @onready var minesweeper_window = %MinesweeperWindow
 @onready var snake_window = %SnakeWindow
 @onready var cctv_window = %CCTVWindow
-@onready var slot_machine_window = %SlotMachineWindow
 @onready var settings_window = %SettingsWindow
 @onready var scribble_window = get_node_or_null("%ScribbleWindow")
 
@@ -17,7 +16,6 @@ class_name DesktopController
 @onready var minesweeper_tab = %MinesweeperTab
 @onready var snake_tab = %SnakeTab
 @onready var cctv_tab = %CCTVTab
-@onready var slots_tab = %SlotsTab
 @onready var settings_tab = %SettingsTab
 @onready var browser_tab = %BrowserTab
 @onready var mail_tab = %MailTab
@@ -45,14 +43,13 @@ func _ready():
 	if taskbar:
 		taskbar.z_index = 9
 
-	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Slots, Inspector
+	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Inspector
 	inspector_window.visible = false
 	notepad_window.visible = false
 	terminal_window.visible = false
 	minesweeper_window.visible = false
 	snake_window.visible = false
 	cctv_window.visible = false
-	slot_machine_window.visible = false
 	settings_window.visible = false
 	if scribble_window:
 		scribble_window.visible = false
@@ -390,7 +387,6 @@ func _ready():
 		[minesweeper_window, minesweeper_tab],
 		[snake_window, snake_tab],
 		[cctv_window, cctv_tab],
-		[slot_machine_window, slots_tab],
 		[settings_window, settings_tab]
 	]
 	if browser_window and browser_tab:
@@ -555,7 +551,6 @@ func _get_window_by_name(window_name: String) -> Control:
 		"Minesweeper": return minesweeper_window
 		"Snake": return snake_window
 		"CCTV": return cctv_window
-		"Slots": return slot_machine_window
 		"Settings": return settings_window
 		"Browser": return browser_window
 		"ShiftVerify": return shift_verify_window
@@ -596,7 +591,6 @@ func _get_tab_by_name(tab_name: String) -> Button:
 		"Minesweeper": return minesweeper_tab
 		"Snake": return snake_tab
 		"CCTV": return cctv_tab
-		"Slots": return slots_tab
 		"Settings": return settings_tab
 		"Browser": return browser_tab
 		"ShiftVerify": return shift_verify_tab
@@ -619,7 +613,7 @@ func _update_top_window_focus():
 	var highest_index = -1
 	var top_window_node = null
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail", "Scribble"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Settings", "Browser", "Mail", "Scribble"]:
 		var window = _get_window_by_name(app_name)
 		if window and window.visible:
 			var idx = window.get_index()
@@ -631,7 +625,7 @@ func _update_top_window_focus():
 	active_window = top_window_node
 	_update_window_focus_visuals(top_window_name)
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail", "Scribble"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Settings", "Browser", "Mail", "Scribble"]:
 		var tab = _get_tab_by_name(app_name)
 		_update_tab_state(tab, app_name == top_window_name)
 
@@ -645,7 +639,7 @@ func _update_window_focus_visuals(active_app_name: String):
 		if root_scene and root_scene.has_method("close_question_dropdown"):
 			root_scene.close_question_dropdown()
 
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail", "Scribble"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Settings", "Browser", "Mail", "Scribble"]:
 		var window = _get_window_by_name(app_name)
 		if window:
 			var title_bar = window.get_node_or_null("TitleBar") as NinePatchRect

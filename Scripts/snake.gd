@@ -133,7 +133,6 @@ func game_tick():
 		_play_sfx(eat_stream)
 		score += 10
 		score_label.text = "Score: " + str(score)
-		GameStats.casino_balance = round(GameStats.casino_balance + 1.0)
 		spawn_food()
 	else:
 		_play_sfx(tick_stream)

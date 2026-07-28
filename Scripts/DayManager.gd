@@ -100,11 +100,9 @@ func process_robot(robot: RobotData, player_choice_pass: bool):
 			if robot.sprite:
 				GameStats.let_through_bad_sprites.append(robot.sprite)
 			print("SECURITY BREACH! Bad AI admitted and is now roaming. Total errors: ", bad_ai_let_in_count)
-			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 		else:
 			print("Success! Good robot admitted.")
 			GameStats.good_robots_through += 1
-			GameStats.casino_balance += 20.0
 	else:
 		if is_good_robot:
 			# EXTERMINATED / REJECTED A GOOD AI
@@ -112,12 +110,10 @@ func process_robot(robot: RobotData, player_choice_pass: bool):
 			bad_ai_let_in_count += 1
 			GameStats.innocent_robots_killed += 1
 			print("Fail! You rejected a perfectly good robot. Total errors: ", bad_ai_let_in_count)
-			GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 		else:
 			print("Success! You caught a bad robot.")
 			bad_ai_killed += 1
 			GameStats.bad_robots_terminated = bad_ai_killed
-			GameStats.casino_balance += 20.0
 
 	if is_error:
 		GameStats.total_security_breaches = bad_ai_let_in_count

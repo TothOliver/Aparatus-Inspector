@@ -360,7 +360,6 @@ func trigger_game_over(won: bool):
 	if won:
 		_play_sfx(win_stream)
 		_set_face(FaceState.WON)
-		GameStats.casino_balance = round(GameStats.casino_balance + 15.0)
 	else:
 		_play_sfx(explosion_stream)
 		_set_face(FaceState.DEAD)

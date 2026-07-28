@@ -25,12 +25,10 @@
 [ext_resource type="Texture2D" uid="uid://c2i7t3dkl3gqy" path="res://Sprites/scribble_assistant.png" id="Icon_ScribbleAssistant"]
 [ext_resource type="Texture2D" path="res://Sprites/scribble_bg.png" id="Icon_ScribbleBG"]
 [ext_resource type="Texture2D" uid="uid://bngxjt5tmmnxl" path="res://Sprites/icon_settings.png" id="Icon_Settings"]
-[ext_resource type="Texture2D" uid="uid://cvrd4ikgp4inr" path="res://Sprites/icon_slots.png" id="Icon_Slots"]
 [ext_resource type="Texture2D" uid="uid://ddbweqgeyt4w4" path="res://Sprites/icon_snake.png" id="Icon_Snake"]
 [ext_resource type="Texture2D" uid="uid://cleddp5u7r572" path="res://Sprites/icon_terminal.png" id="Icon_Terminal"]
 [ext_resource type="Texture2D" uid="uid://25t5jfpxhhqa" path="res://RetroWindowsGUI/win_flag.png" id="Icon_WinFlag"]
 [ext_resource type="Script" uid="uid://diq7o0og5jjjl" path="res://Scripts/scribble_controller.gd" id="Scribble_Controller_Script"]
-[ext_resource type="Script" uid="uid://dnj20u5tp0byf" path="res://Scripts/slot_machine.gd" id="Script_Slots"]
 [ext_resource type="Texture2D" uid="uid://5mv4cirwk1if" path="res://RetroWindowsGUI/Windows_SideBar_Underside.png" id="Sidebar_Texture"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Hover.tres" id="StyleBox_Button_Hover"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
@@ -344,9 +342,9 @@ vertical_alignment = 1
 [node name="MinesweeperIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=388072426]
 layout_mode = 0
 offset_left = 25.0
-offset_top = 670.0
+offset_top = 790.0
 offset_right = 149.0
-offset_bottom = 775.0
+offset_bottom = 895.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -383,9 +381,9 @@ vertical_alignment = 1
 [node name="SnakeIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=441548481]
 layout_mode = 0
 offset_left = 25.0
-offset_top = 790.0
+offset_top = 910.0
 offset_right = 149.0
-offset_bottom = 895.0
+offset_bottom = 1015.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
 theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
@@ -416,46 +414,6 @@ theme_override_constants/line_spacing = -4
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 16
 text = "Snake"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SlotsIcon" type="Button" parent="DesktopOS/DesktopIcons" unique_id=119958942]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 910.0
-offset_right = 149.0
-offset_bottom = 1015.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_icon_focus")
-theme_override_styles/hover = SubResource("StyleBoxFlat_icon_focus")
-theme_override_styles/focus = SubResource("StyleBoxFlat_icon_focus")
-
-[node name="VBox" type="VBoxContainer" parent="DesktopOS/DesktopIcons/SlotsIcon" unique_id=162348357]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 2
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="DesktopOS/DesktopIcons/SlotsIcon/VBox" unique_id=631343800]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("Icon_Slots")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="DesktopOS/DesktopIcons/SlotsIcon/VBox" unique_id=1711360425]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
-text = "Casino
-Slots"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -766,14 +724,6 @@ icon = ExtResource("Icon_CCTV")
 icon_alignment = 1
 expand_icon = true
 
-[node name="SlotsTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs" unique_id=988186331]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-icon = ExtResource("Icon_Slots")
-icon_alignment = 1
-expand_icon = true
-
 [node name="SettingsTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs" unique_id=2040480060]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
@@ -947,22 +897,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
 text = " Security Feed"
 icon = ExtResource("Icon_CCTV")
-alignment = 0
-expand_icon = true
-
-[node name="SlotsBtn" type="Button" parent="DesktopOS/StartMenu/HBox/ProgramList" unique_id=219951184]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_icon")
-theme_override_styles/hover = SubResource("StyleBoxFlat_menu_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_menu_hover")
-text = " Casino Slots"
-icon = ExtResource("Icon_Slots")
 alignment = 0
 expand_icon = true
 
@@ -2366,406 +2300,6 @@ theme_override_font_sizes/font_size = 16
 text = "Corridor"
 vertical_alignment = 1
 
-[node name="SlotMachineWindow" type="NinePatchRect" parent="." unique_id=202610220]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
-offset_left = 220.0
-offset_top = 140.0
-offset_right = 720.0
-offset_bottom = 600.0
-texture = ExtResource("2_b2bpf")
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
-script = ExtResource("11_window")
-
-[node name="TitleBar" type="NinePatchRect" parent="SlotMachineWindow" unique_id=121289078]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 494.0
-offset_bottom = 36.0
-mouse_filter = 0
-texture = ExtResource("2_7lihs")
-region_rect = Rect2(0, 0, 48, 25)
-patch_margin_left = 5
-patch_margin_top = 3
-patch_margin_right = 5
-patch_margin_bottom = 3
-
-[node name="Title" type="Label" parent="SlotMachineWindow/TitleBar" unique_id=1713825695]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 6.0
-offset_right = 300.0
-offset_bottom = 26.0
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
-text = "Casino Slots 98"
-
-[node name="CloseButton" type="Button" parent="SlotMachineWindow/TitleBar" unique_id=1984850038]
-layout_mode = 0
-offset_left = 460.0
-offset_top = 4.0
-offset_right = 482.0
-offset_bottom = 26.0
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
-icon = ExtResource("7_2irst")
-icon_alignment = 1
-expand_icon = true
-
-
-[node name="SlotBody" type="Control" parent="SlotMachineWindow" unique_id=1651647555]
-unique_name_in_owner = true
-anchors_preset = 0
-offset_left = 12.0
-offset_top = 42.0
-offset_right = 488.0
-offset_bottom = 448.0
-script = ExtResource("Script_Slots")
-
-[node name="SlotBorder" type="Panel" parent="SlotMachineWindow/SlotBody" unique_id=2106401403]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="BevelSlots" type="Panel" parent="SlotMachineWindow/SlotBody" unique_id=229810550]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 456.0
-offset_bottom = 120.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="HBoxReels" type="HBoxContainer" parent="SlotMachineWindow/SlotBody/BevelSlots" unique_id=526675629]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 15
-alignment = 1
-
-[node name="ReelPanel1" type="Panel" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels" unique_id=694066343]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="ColorRect" type="ColorRect" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel1" unique_id=669971976]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Reel1" type="Label" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel1" unique_id=2108966165]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
-text = "[ CHERRY ]"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ReelPanel2" type="Panel" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels" unique_id=1549181857]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="ColorRect" type="ColorRect" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel2" unique_id=391198060]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Reel2" type="Label" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel2" unique_id=220815157]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
-text = "[DIAMOND]"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ReelPanel3" type="Panel" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels" unique_id=853335154]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="ColorRect" type="ColorRect" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel3" unique_id=901410632]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Reel3" type="Label" parent="SlotMachineWindow/SlotBody/BevelSlots/HBoxReels/ReelPanel3" unique_id=37170771]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
-text = "[  BAR  ]"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SpinButton" type="Button" parent="SlotMachineWindow/SlotBody" unique_id=1713008829]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 330.0
-offset_top = 135.0
-offset_right = 456.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-text = "SPIN"
-
-[node name="BetPanel" type="Panel" parent="SlotMachineWindow/SlotBody" unique_id=302939050]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 135.0
-offset_right = 160.0
-offset_bottom = 185.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="BetLabel" type="Label" parent="SlotMachineWindow/SlotBody/BetPanel" unique_id=1588098028]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 14
-text = "Bet: $10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BetMinusBtn" type="Button" parent="SlotMachineWindow/SlotBody" unique_id=1238974213]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 170.0
-offset_top = 135.0
-offset_right = 210.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-text = "-"
-
-[node name="BetPlusBtn" type="Button" parent="SlotMachineWindow/SlotBody" unique_id=1652375743]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 220.0
-offset_top = 135.0
-offset_right = 260.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-text = "+"
-
-[node name="StatsPanel" type="Panel" parent="SlotMachineWindow/SlotBody" unique_id=826398715]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 200.0
-offset_right = 456.0
-offset_bottom = 260.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
-
-[node name="HBoxStats" type="HBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel" unique_id=65658104]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="VBoxBalance" type="VBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats" unique_id=418141297]
-layout_mode = 2
-alignment = 1
-
-[node name="BalTitle" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxBalance" unique_id=92918857]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 0.6)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 10
-text = "BALANCE"
-horizontal_alignment = 1
-
-[node name="BalanceLabel" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxBalance" unique_id=114039926]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.5, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 18
-text = "$100"
-horizontal_alignment = 1
-
-[node name="VBoxOutcome" type="VBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats" unique_id=1404282679]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="WinLabel" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxOutcome" unique_id=343591846]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 12
-text = "Spin to win!"
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="VBoxSecurity" type="VBoxContainer" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats" unique_id=1857641220]
-layout_mode = 2
-alignment = 1
-
-[node name="SecurityTitle" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxSecurity" unique_id=1781339234]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 0.6)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 10
-text = "STATUS"
-horizontal_alignment = 1
-
-[node name="SecurityStatusLabel" type="Label" parent="SlotMachineWindow/SlotBody/StatsPanel/HBoxStats/VBoxSecurity" unique_id=153257668]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 14
-text = "Status: OK"
-horizontal_alignment = 1
-
-[node name="LoanButton" type="Button" parent="SlotMachineWindow/SlotBody" unique_id=1483157194]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
-offset_left = 180.0
-offset_top = 135.0
-offset_right = 320.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-text = "Get Loan ($10)"
-
-[node name="ShopTitle" type="Label" parent="SlotMachineWindow/SlotBody" unique_id=1324215322]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 275.0
-offset_right = 200.0
-offset_bottom = 295.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 12
-text = "Prize Shop:"
-
-[node name="Divider" type="ColorRect" parent="SlotMachineWindow/SlotBody" unique_id=907550323]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 295.0
-offset_right = 456.0
-offset_bottom = 297.0
-color = Color(0.5, 0.5, 0.5, 1)
-
-[node name="BuyRepairBtn" type="Button" parent="SlotMachineWindow/SlotBody" unique_id=726370915]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 30.0
-offset_top = 315.0
-offset_right = 230.0
-offset_bottom = 375.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 11
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-text = "Repair Security ($50)
-[-1 Breach]"
-
-[node name="BuyBatteryBtn" type="Button" parent="SlotMachineWindow/SlotBody" unique_id=1883612284]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 246.0
-offset_top = 315.0
-offset_right = 446.0
-offset_bottom = 375.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 11
-theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
-theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
-theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
-text = "Buy Battery Booster ($40)
-[+25% Power]"
-
 [node name="SettingsWindow" type="NinePatchRect" parent="." unique_id=202610230]
 unique_name_in_owner = true
 visible = false
@@ -3058,7 +2592,6 @@ mouse_filter = 2
 [connection signal="pressed" from="DesktopOS/DesktopIcons/MinesweeperIcon" to="DesktopOS" method="open_app" binds= ["Minesweeper"]]
 [connection signal="pressed" from="DesktopOS/DesktopIcons/SnakeIcon" to="DesktopOS" method="open_app" binds= ["Snake"]]
 [connection signal="pressed" from="DesktopOS/DesktopIcons/CCTVIcon" to="DesktopOS" method="open_app" binds= ["CCTV"]]
-[connection signal="pressed" from="DesktopOS/DesktopIcons/SlotsIcon" to="DesktopOS" method="open_app" binds= ["Slots"]]
 [connection signal="pressed" from="DesktopOS/DesktopIcons/SettingsIcon" to="DesktopOS" method="open_app" binds= ["Settings"]]
 [connection signal="pressed" from="DesktopOS/Taskbar/StartButton" to="DesktopOS" method="_on_start_button_pressed"]
 [connection signal="button_up" from="DesktopOS/Taskbar/QuitButton" to="." method="_on_quit_button_button_up"]
@@ -3068,7 +2601,6 @@ mouse_filter = 2
 [connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/MinesweeperTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Minesweeper"]]
 [connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SnakeTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Snake"]]
 [connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/CCTVTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["CCTV"]]
-[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SlotsTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Slots"]]
 [connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/SettingsTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Settings"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/InspectorBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Inspector"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/NotepadBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Notepad"]]
@@ -3076,7 +2608,6 @@ mouse_filter = 2
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/MinesweeperBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Minesweeper"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SnakeBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Snake"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/CCTVBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["CCTV"]]
-[connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SlotsBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Slots"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/SettingsBtn" to="DesktopOS" method="_on_start_menu_app_selected" binds= ["Settings"]]
 [connection signal="pressed" from="DesktopOS/StartMenu/HBox/ProgramList/ShutdownBtn" to="DesktopOS" method="shutdown_computer"]
 [connection signal="pressed" from="ApparatusInspectorWindow/TitleBar/CloseButton" to="ApparatusInspectorWindow" method="close"]
@@ -3093,6 +2624,5 @@ mouse_filter = 2
 [connection signal="pressed" from="CCTVWindow/CameraControls/Cam2Button" to="DesktopOS" method="_on_cam2_pressed"]
 [connection signal="pressed" from="CCTVWindow/CameraControls/Cam3Button" to="DesktopOS" method="_on_cam3_pressed"]
 [connection signal="pressed" from="CCTVWindow/CameraControls/CCTVLightButton" to="DesktopOS" method="_on_cctv_light_pressed"]
-[connection signal="pressed" from="SlotMachineWindow/TitleBar/CloseButton" to="SlotMachineWindow" method="close"]
 [connection signal="pressed" from="SettingsWindow/TitleBar/CloseButton" to="SettingsWindow" method="close"]
 [connection signal="pressed" from="HackerAlert/TerminalButton" to="DesktopOS" method="_on_hacker_alert_terminal_pressed"]

@@ -468,19 +468,15 @@ func trigger_walter_escape(player_choice_pass: bool = false):
 		if player_choice_pass:
 			if not is_good_robot:
 				day_manager.bad_ai_let_in_count += 1
-				GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 			else:
 				GameStats.good_robots_through += 1
-				GameStats.casino_balance += 20.0
 		else:
 			if is_good_robot:
 				day_manager.bad_ai_let_in_count += 1
 				GameStats.innocent_robots_killed += 1
-				GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
 			else:
 				day_manager.bad_ai_killed += 1
 				GameStats.bad_robots_terminated = day_manager.bad_ai_killed
-				GameStats.casino_balance += 20.0
 		current_robot = null
 	
 	spawn_next_robot()
