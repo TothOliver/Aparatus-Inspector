@@ -408,6 +408,14 @@ func trigger_walter_escape(player_choice_pass: bool = false):
 	chat_button1.text = ""
 	chat_button2.text = ""
 	
+	# Immediately increment processed count & update quota label to 4 / 4 so progress is accurate
+	day_manager.processed_today += 1
+	var quota = 4
+	if day_manager.current_day in day_manager.day_configs:
+		quota = day_manager.day_configs[day_manager.current_day].quota
+	if quotaLabel:
+		quotaLabel.text = "%d / %d" % [day_manager.processed_today, quota]
+	
 	# Disappear the robot's viewport mesh/texture immediately
 	robot_texture.texture = null
 	nameInfo.text = "ERROR"
@@ -426,9 +434,25 @@ func trigger_walter_escape(player_choice_pass: bool = false):
 	await get_tree().create_timer(3.0).timeout
 	if not is_inside_tree(): return
 	
-	# Process Walter escape in DayManager and continue shift until quota complete
+	# Update stats for Walter decision
 	if current_robot:
-		day_manager.process_robot(current_robot, player_choice_pass)
+		var is_good_robot = current_robot.is_good
+		if player_choice_pass:
+			if not is_good_robot:
+				day_manager.bad_ai_let_in_count += 1
+				GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
+			else:
+				GameStats.good_robots_through += 1
+				GameStats.casino_balance += 20.0
+		else:
+			if is_good_robot:
+				day_manager.bad_ai_let_in_count += 1
+				GameStats.innocent_robots_killed += 1
+				GameStats.casino_balance = max(0.0, GameStats.casino_balance - 15.0)
+			else:
+				day_manager.bad_ai_killed += 1
+				GameStats.bad_robots_terminated = day_manager.bad_ai_killed
+				GameStats.casino_balance += 20.0
 		current_robot = null
 	
 	spawn_next_robot()
