@@ -48,6 +48,10 @@ func _ready():
 	# Bring to front on clicking anywhere on the window
 	gui_input.connect(_on_window_gui_input)
 	
+	# Connect gui_input recursively to all child controls so clicking anywhere on the application body focuses it
+	child_entered_tree.connect(_on_child_entered_tree)
+	_connect_children_gui_input(self)
+	
 	if is_scalable:
 		# Set up resize handles
 		_setup_resize_handles()
@@ -264,6 +268,23 @@ func _on_window_gui_input(event: InputEvent):
 		move_to_front()
 		focused.emit()
 
+func _connect_children_gui_input(node: Node):
+	if node is Control:
+		if not node.gui_input.is_connected(_on_child_gui_input):
+			node.gui_input.connect(_on_child_gui_input)
+	if not node.child_entered_tree.is_connected(_on_child_entered_tree):
+		node.child_entered_tree.connect(_on_child_entered_tree)
+	for child in node.get_children():
+		_connect_children_gui_input(child)
+
+func _on_child_entered_tree(node: Node):
+	_connect_children_gui_input(node)
+
+func _on_child_gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed:
+		move_to_front()
+		focused.emit()
+
 func _start_resizing():
 	resize_start_size = size
 	resize_start_pos = position
@@ -354,6 +375,7 @@ func _process(_delta):
 		_margins_registered = true
 		_update_resize_handles_positions()
 		update_child_positions()
+		_connect_children_gui_input(self)
 		
 	# Safety release in case mouse up occurred outside focus
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

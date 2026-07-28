@@ -557,6 +557,7 @@ func _get_window_by_name(window_name: String) -> Control:
 		"Browser": return browser_window
 		"ShiftVerify": return shift_verify_window
 		"Mail": return mail_window
+		"Scribble": return scribble_window
 	return null
 
 func shutdown_computer():
@@ -615,7 +616,7 @@ func _update_top_window_focus():
 	var highest_index = -1
 	var top_window_node = null
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail", "Scribble"]:
 		var window = _get_window_by_name(app_name)
 		if window and window.visible:
 			var idx = window.get_index()
@@ -627,7 +628,7 @@ func _update_top_window_focus():
 	active_window = top_window_node
 	_update_window_focus_visuals(top_window_name)
 	
-	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail"]:
+	for app_name in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Slots", "Settings", "Browser", "Mail", "Scribble"]:
 		var tab = _get_tab_by_name(app_name)
 		_update_tab_state(tab, app_name == top_window_name)
 

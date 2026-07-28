@@ -89,6 +89,7 @@ func _ready():
 	# Left Inbox Frame Panel
 	var left_panel = Panel.new()
 	left_panel.name = "LeftPanel"
+	left_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	left_panel.position = Vector2(12, 44)
 	left_panel.size = Vector2(260, size.y - 56)
 	left_panel.add_theme_stylebox_override("panel", inner_frame)
@@ -96,6 +97,7 @@ func _ready():
 	
 	# Left Inbox ScrollContainer
 	var scroll = ScrollContainer.new()
+	scroll.mouse_filter = Control.MOUSE_FILTER_PASS
 	left_panel.add_child(scroll)
 	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
 	scroll.offset_left = 5
@@ -104,12 +106,14 @@ func _ready():
 	scroll.offset_bottom = -5
 	
 	inbox_list_container = VBoxContainer.new()
+	inbox_list_container.mouse_filter = Control.MOUSE_FILTER_PASS
 	inbox_list_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(inbox_list_container)
 	
 	# Right Reading Frame Panel
 	var right_panel = Panel.new()
 	right_panel.name = "RightPanel"
+	right_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	right_panel.position = Vector2(284, 44)
 	right_panel.size = Vector2(size.x - 296, size.y - 56)
 	right_panel.add_theme_stylebox_override("panel", inner_frame)
@@ -117,6 +121,7 @@ func _ready():
 	
 	# Right Reading RichTextLabel
 	reading_panel = RichTextLabel.new()
+	reading_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	right_panel.add_child(reading_panel)
 	reading_panel.bbcode_enabled = true
 	reading_panel.add_theme_font_override("normal_font", font_regular)
@@ -135,6 +140,9 @@ func _ready():
 	
 	# Display default helper message
 	reading_panel.text = "[color=#555555]Select an email from the inbox list to read daily instructions.[/color]"
+	
+	# Ensure focus listeners are attached to all UI elements
+	_connect_children_gui_input(self)
 
 func render_inbox():
 	# Clear existing children
@@ -205,6 +213,7 @@ func render_inbox():
 				desktop.refresh_mail_notifications()
 		)
 		inbox_list_container.add_child(item_btn)
+	_connect_children_gui_input(inbox_list_container)
 
 func display_email(d: int):
 	var email_data = emails[d]
