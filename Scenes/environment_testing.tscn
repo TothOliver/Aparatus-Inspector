@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://f7nptsuhcbv2"]
+
+[ext_resource type="PackedScene" uid="uid://kply7fqyhbid" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Alarm.glb" id="1_h0mug"]
+[ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="2_7vlc4"]
+[ext_resource type="PackedScene" uid="uid://1ii3dpq4uqo5" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher_Box.glb" id="3_weteo"]
+[ext_resource type="PackedScene" uid="uid://c1sno4js2cp3a" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Hose_Spool.glb" id="4_ulprn"]
+[ext_resource type="PackedScene" uid="uid://div68fleih80y" path="res://assets/Warehouse/SM_WM00238-Height_Warning_Pole.glb" id="5_y72ga"]
+[ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="6_xj333"]
+[ext_resource type="PackedScene" uid="uid://cigdauiyitwjc" path="res://assets/Warehouse/SM_WM00232-Scanner.glb" id="7_aomxr"]
+[ext_resource type="PackedScene" uid="uid://nrsc45eiu1u8" path="res://assets/Warehouse/SM_WM00232-Printer.glb" id="8_jctfy"]
+[ext_resource type="PackedScene" uid="uid://bnpghd40n8078" path="res://assets/Warehouse/SM_WM00232-PC.glb" id="9_w3ssc"]
+[ext_resource type="PackedScene" uid="uid://c7yqpwbs4171g" path="res://assets/Warehouse/SM_WM00232-Desk.glb" id="10_kyc6h"]
+[ext_resource type="PackedScene" uid="uid://bllybcq3jme4r" path="res://assets/Warehouse/SM_WM00231_Warehouse_Tables_Square.glb" id="11_cgdhv"]
+[ext_resource type="PackedScene" uid="uid://dcbpfgwo6x25i" path="res://assets/Warehouse/SM_WM00231_Warehouse_Tables_Short.glb" id="12_c28o1"]
+[ext_resource type="PackedScene" uid="uid://do558kv0f31kk" path="res://assets/Warehouse/SM_WM00230-Plastic_Waste_Bin_Large.glb" id="13_vgobe"]
+[ext_resource type="PackedScene" uid="uid://cxatfeyho8yh0" path="res://assets/Warehouse/SM_WM00228-Industrial_Ceiling_light.glb" id="14_4xwai"]
+
+[node name="EnvironmentTesting" type="Node3D" unique_id=236438102]
+
+[node name="SM_WM00225-Fire_Fighting_Alarm" parent="." unique_id=679962209 instance=ExtResource("1_h0mug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
+
+[node name="SM_WM00225-Fire_Fighting_Fire_extinguisher" parent="." unique_id=1195181866 instance=ExtResource("2_7vlc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
+
+[node name="SM_WM00225-Fire_Fighting_Fire_extinguisher_Box" parent="." unique_id=572492832 instance=ExtResource("3_weteo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
+
+[node name="SM_WM00225-Fire_Fighting_Hose_Spool" parent="." unique_id=88834768 instance=ExtResource("4_ulprn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
+
+[node name="SM_WM00238-Height_Warning_Pole" parent="." unique_id=589230065 instance=ExtResource("5_y72ga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42042404, 0, 0.5386381)
+
+[node name="SM_WM00234-Smoke_Detector" parent="." unique_id=1225250231 instance=ExtResource("6_xj333")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4698249, 0, 2.8254414)
+
+[node name="SM_WM00232-Scanner" parent="." unique_id=1854196230 instance=ExtResource("7_aomxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.050739966, 0, 2.6623034)
+
+[node name="SM_WM00232-Printer" parent="." unique_id=1937720151 instance=ExtResource("8_jctfy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49692726, 1.1920929e-07, 3.075013)
+
+[node name="SM_WM00232-PC" parent="." unique_id=898097354 instance=ExtResource("9_w3ssc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6002379, 0, 2.5291286)
+
+[node name="SM_WM00232-Desk" parent="." unique_id=1364103350 instance=ExtResource("10_kyc6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9525182, -5.9604645e-08, 2.366012)
+
+[node name="SM_WM00231_Warehouse_Tables_Square" parent="." unique_id=152438425 instance=ExtResource("11_cgdhv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9206524, 0, 2.4585655)
+
+[node name="SM_WM00231_Warehouse_Tables_Short" parent="." unique_id=1467364211 instance=ExtResource("12_c28o1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1377716, 0, 2.4048362)
+
+[node name="SM_WM00230-Plastic_Waste_Bin_Large" parent="." unique_id=1191118314 instance=ExtResource("13_vgobe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5561004, 0, 3.0022366)
+
+[node name="SM_WM00228-Industrial_Ceiling_light" parent="." unique_id=740447500 instance=ExtResource("14_4xwai")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7287755, -1.1920929e-07, -3.2893949)

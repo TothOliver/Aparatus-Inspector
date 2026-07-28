@@ -18,8 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://bw0ck34pu3164" path="res://assets/officeAmbience/trashbag_1k.gltf/trashbag_1k.gltf" id="10_3uorb"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
 [ext_resource type="PackedScene" uid="uid://fh5mshlhk12l" path="res://Scenes/breakerCloset.tscn" id="11_47omi"]
+[ext_resource type="PackedScene" uid="uid://cxatfeyho8yh0" path="res://assets/Warehouse/SM_WM00228-Industrial_Ceiling_light.glb" id="11_bdicf"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
-[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
+[ext_resource type="PackedScene" uid="uid://bhko7288f6akj" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="PackedScene" uid="uid://0ub7akbpcn26" path="res://assets/TempRobot/TempModel1.glb" id="28_r4ocn"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
@@ -71,19 +72,14 @@ size = Vector3(1.7, 1.1, 0.1)
 albedo_color = Color(0.22, 0.2, 0.18, 1)
 roughness = 0.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
-albedo_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
-metallic = 1.0
-normal_enabled = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
-size = Vector3(0.15, 0.15, 0.15)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_light_switch_glow"]
 albedo_color = Color(0.95, 0.8, 0.25, 1)
 emission_enabled = true
 emission = Color(0.95, 0.8, 0.25, 1)
 emission_energy_multiplier = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
+size = Vector3(0.15, 0.15, 0.15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_switch_glow"]
 albedo_color = Color(0.25, 0.85, 0.95, 1)
@@ -91,14 +87,14 @@ emission_enabled = true
 emission = Color(0.25, 0.85, 0.95, 1)
 emission_energy_multiplier = 0.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing_gray"]
-albedo_color = Color(0.15, 0.15, 0.15, 1)
-roughness = 0.8
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_casing"]
 top_radius = 0.08
 bottom_radius = 0.08
 height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_casing_gray"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+roughness = 0.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_bulb"]
 radius = 0.05
@@ -146,7 +142,7 @@ roughness = 0.15
 [sub_resource type="BoxShape3D" id="BoxShape3D_blinds_hitbox"]
 size = Vector3(1.7, 1, 0.1)
 
-[node name="Game3D2" type="Node3D" unique_id=1133432829]
+[node name="Game3D" type="Node3D" unique_id=1133432829]
 script = ExtResource("1_game3d")
 
 [node name="CCTVViewport" type="SubViewport" parent="." unique_id=574545020]
@@ -373,23 +369,27 @@ shape = SubResource("BoxShape3D_switch")
 [node name="CeilingFixture" type="Node3D" parent="Office" unique_id=80498322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.1)
 
+[node name="SM_WM00228-Industrial_Ceiling_light" parent="Office/CeilingFixture" unique_id=740447500 instance=ExtResource("11_bdicf")]
+transform = Transform3D(-0.3, 0, -2.6226834e-08, 0, 0.3, 0, 2.6226834e-08, 0, -0.3, 0, 0.69007516, 0)
+
 [node name="Casing" type="MeshInstance3D" parent="Office/CeilingFixture" unique_id=839536954]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+visible = false
 mesh = SubResource("CylinderMesh_casing")
 surface_material_override/0 = SubResource("StandardMaterial3D_casing_gray")
 
 [node name="Bulb" type="MeshInstance3D" parent="Office/CeilingFixture" unique_id=1047560640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0)
+visible = false
 mesh = SubResource("SphereMesh_bulb")
 surface_material_override/0 = SubResource("StandardMaterial3D_bulb_glow")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Office/CeilingFixture" unique_id=270516414]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1784904, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20905352, 0)
 stream = ExtResource("7_ynh6o")
 volume_db = -12.0
 autoplay = true
 max_distance = 5.0
-bus = &"Ambient"
 
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
 transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 0.0035234764, 1.4971647, 7.3903174)
@@ -482,7 +482,7 @@ pixel_size = 0.0055
 [node name="Lighting" type="Node3D" parent="." unique_id=344344158]
 
 [node name="DeskLight" type="SpotLight3D" parent="Lighting" unique_id=1599754461]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.2, 0.1)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.2731805, 0.1)
 light_color = Color(1, 0.95, 0.85, 1)
 light_energy = 3.5
 spot_angle = 80.0
@@ -622,7 +622,6 @@ icon = ExtResource("Icon_ExitBtn")
 icon_alignment = 1
 expand_icon = true
 
-
 [node name="SettingsBody" parent="HUD/PauseMenu/PauseWindow" unique_id=1549779638 instance=ExtResource("12_settings_body")]
 layout_mode = 0
 offset_left = 12.0
@@ -657,7 +656,6 @@ spawn_markers = [NodePath("../Phase1Spawn1"), NodePath("../Phase1Spawn2"), NodeP
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase1" unique_id=703376037]
-bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase1" unique_id=1439095790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -680,7 +678,6 @@ phase2_spawn_markers = [NodePath("../Phase2Spawn1"), NodePath("../Phase2Spawn2")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase2" unique_id=1068180620]
-bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase2" unique_id=1686748764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -702,7 +699,6 @@ script = ExtResource("5_hunter_p3")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase3" unique_id=14583762]
-bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase3" unique_id=2137436410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -724,7 +720,6 @@ script = ExtResource("11_hunter_p4")
 shape = SubResource("CapsuleShape3D_player")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="HunterPhase4" unique_id=14583763]
-bus = &"SFX"
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase4" unique_id=2137436411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -739,30 +734,6 @@ transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
 visible = false
 
 [node name="Room2" type="Node3D" parent="." unique_id=1588998239]
-
-[node name="Floor" type="CSGBox3D" parent="Room2" unique_id=1907307179]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -0.05, 1.5)
-use_collision = true
-size = Vector3(6, 0.1, 6)
-material = ExtResource("3_5wfhr")
-
-[node name="Ceiling" type="CSGBox3D" parent="Room2" unique_id=1902898497]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.55, 1.5)
-use_collision = true
-size = Vector3(6, 0.1, 6)
-material = ExtResource("4_ds5qe")
-
-[node name="RightWall" type="CSGBox3D" parent="Room2" unique_id=207609147]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05, 1.25, 1.5)
-use_collision = true
-size = Vector3(0.1, 2.6, 6)
-material = ExtResource("10_r4ocn")
-
-[node name="FrontWall" type="CSGBox3D" parent="Room2" unique_id=1223432380]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.25, 4.55)
-use_collision = true
-size = Vector3(6, 2.6, 0.1)
-material = ExtResource("10_r4ocn")
 
 [node name="BackWall_Bottom" type="CSGBox3D" parent="Room2" unique_id=832031471]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, -1.55)
@@ -792,22 +763,6 @@ material = ExtResource("10_r4ocn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.54)
 mesh = SubResource("QuadMesh_glass_window")
 surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
-
-[node name="Curtain2Interactable" type="StaticBody3D" parent="Room2" unique_id=359624791]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.52)
-script = ExtResource("4_switch")
-target_node_path = NodePath("../..")
-target_method = "toggle_curtain2"
-interact_name = "Window Curtain"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room2/Curtain2Interactable" unique_id=1416336689]
-shape = SubResource("BoxShape3D_blinds_hitbox")
-
-[node name="LightSwitch2" type="StaticBody3D" parent="Room2" unique_id=2030006293]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.2, 1.5)
-script = ExtResource("4_switch")
-target_method = "toggle_room2_lights"
-interact_name = "Light Switch"
 
 [node name="Room3" type="Node3D" parent="." unique_id=2071024996]
 
@@ -849,11 +804,5 @@ interact_name = "Window Curtain"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room3/Curtain3Interactable" unique_id=395686372]
 shape = SubResource("BoxShape3D_blinds_hitbox")
-
-[node name="LightSwitch3" type="StaticBody3D" parent="Room3" unique_id=178953809]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 4.7)
-script = ExtResource("4_switch")
-target_method = "toggle_room3_lights"
-interact_name = "Light Switch"
 
 [connection signal="pressed" from="HUD/PauseMenu/PauseWindow/TitleBar/CloseButton" to="Player" method="handle_settings_shortcut"]
