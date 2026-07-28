@@ -236,10 +236,13 @@ func _ready():
 	var database_panel = get_node_or_null("ApparatusInspectorWindow/Model")
 	if database_panel:
 		if current_day == 1:
-			# Hide all sub-controls of Model except InfoPanel
+			# Hide core specs controls on Day 1 but keep Quota progress visible
+			var spec_nodes = ["NameFieldLabel", "NamePanel", "ModelFieldLabel", "ModelPanel", "StatusFieldLabel", "StatusPanel", "ManuFieldLabel", "ManuPanel"]
 			for child in database_panel.get_children():
-				if child.name != "InfoPanel":
+				if child.name in spec_nodes:
 					child.visible = false
+				elif child.name != "OfflineLabel":
+					child.visible = true
 			
 			# Create/ensure offline placeholder label
 			var offline_label = database_panel.get_node_or_null("OfflineLabel") as Label
@@ -247,21 +250,19 @@ func _ready():
 				offline_label = Label.new()
 				offline_label.name = "OfflineLabel"
 				offline_label.add_theme_font_override("font", preload("res://RetroWindowsGUI/M 8pt.ttf"))
-				offline_label.add_theme_font_size_override("font_size", 14)
+				offline_label.add_theme_font_size_override("font_size", 13)
 				offline_label.add_theme_color_override("font_color", Color(0.8, 0, 0, 1)) # red text
 				offline_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 				offline_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 				offline_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-				offline_label.text = "\n\nDATABASE OFFLINE\n-----------------\nShift 1:\nCalibration Mode\n\nNo telemetry data\navailable.\n\nInspect via dialogue\ntells only."
+				offline_label.text = "DATABASE OFFLINE\n-----------------\nShift 1: Calibration Mode\n\nNo telemetry data available.\n\nInspect via dialogue tells only."
 				
-				# Position label cleanly inside InfoPanel
-				offline_label.set_anchors_preset(Control.PRESET_FULL_RECT)
-				offline_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
-				offline_label.grow_vertical = Control.GROW_DIRECTION_BOTH
-				offline_label.offset_left = 15
-				offline_label.offset_top = 15
-				offline_label.offset_right = -15
-				offline_label.offset_bottom = -15
+				# Position label cleanly in upper area of InfoPanel above Quota
+				offline_label.set_anchors_preset(Control.PRESET_TOP_WIDE)
+				offline_label.offset_left = 10
+				offline_label.offset_top = 20
+				offline_label.offset_right = -10
+				offline_label.offset_bottom = 280
 				database_panel.add_child(offline_label)
 			offline_label.visible = true
 		else:
@@ -279,6 +280,8 @@ func _ready():
 		scribble.visible = true
 		if scribble.has_method("move_to_front"):
 			scribble.move_to_front()
+		if scribble.has_signal("focused"):
+			scribble.focused.emit()
 
 func spawn_next_robot():
 	if not is_inside_tree():
@@ -399,7 +402,7 @@ func pick_next_robot() -> RobotData:
 	last_robot = current_robot
 	return current_robot
 	
-func trigger_walter_escape():
+func trigger_walter_escape(player_choice_pass: bool = false):
 	good_button.disabled = true
 	bad_button.disabled = true
 	chat_button1.text = ""
@@ -423,8 +426,12 @@ func trigger_walter_escape():
 	await get_tree().create_timer(3.0).timeout
 	if not is_inside_tree(): return
 	
-	# Transition directly to the next day
-	day_manager.end_day()
+	# Process Walter escape in DayManager and continue shift until quota complete
+	if current_robot:
+		day_manager.process_robot(current_robot, player_choice_pass)
+		current_robot = null
+	
+	spawn_next_robot()
 		
 func handle_chat_choice(player_text: String, robot_reply: String):
 	if is_waiting_for_replay == true:
@@ -547,7 +554,7 @@ func _on_good_button_pressed() -> void:
 	print("Button Pressed: GOOD (Pass)")
 	if current_robot:
 		if (current_robot.name == "Walter" or current_robot.model == "H.U.G.O") and day_manager.current_day == 1:
-			trigger_walter_escape()
+			trigger_walter_escape(true)
 			return
 		day_manager.process_robot(current_robot, true)
 		current_robot = null
@@ -563,7 +570,7 @@ func _on_bad_button_pressed() -> void:
 	print("Button Pressed: BAD (Reject)")
 	if current_robot:
 		if (current_robot.name == "Walter" or current_robot.model == "H.U.G.O") and day_manager.current_day == 1:
-			trigger_walter_escape()
+			trigger_walter_escape(false)
 			return
 		day_manager.process_robot(current_robot, false)
 		current_robot = null

@@ -398,6 +398,8 @@ func _ready():
 		apps.append([shift_verify_window, shift_verify_tab])
 	if mail_window and mail_tab:
 		apps.append([mail_window, mail_tab])
+	if scribble_window:
+		apps.append([scribble_window, null])
 		
 	for app in apps:
 		var window = app[0]
