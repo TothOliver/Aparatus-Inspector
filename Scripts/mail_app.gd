@@ -167,7 +167,7 @@ func render_inbox():
 		# Create email item button
 		var item_btn = Button.new()
 		item_btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		item_btn.custom_minimum_size = Vector2(0, 42)
+		item_btn.custom_minimum_size = Vector2(0, 54)
 		item_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		item_btn.add_theme_color_override("font_color", Color(0,0,0,1))
 		item_btn.add_theme_color_override("font_hover_color", Color(0,0,0,1))
@@ -187,16 +187,17 @@ func render_inbox():
 		
 		var rtl = RichTextLabel.new()
 		rtl.bbcode_enabled = true
+		rtl.scroll_active = false
 		rtl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		rtl.set_anchors_preset(Control.PRESET_FULL_RECT)
 		rtl.offset_left = 6
 		rtl.offset_top = 4
 		rtl.offset_right = -6
-		rtl.offset_bottom = -4
+		rtl.offset_bottom = -2
 		rtl.add_theme_font_override("normal_font", font_regular)
 		rtl.add_theme_font_override("bold_font", font_bold)
-		rtl.add_theme_font_size_override("normal_font_size", 14)
-		rtl.add_theme_font_size_override("bold_font_size", 16)
+		rtl.add_theme_font_size_override("normal_font_size", 13)
+		rtl.add_theme_font_size_override("bold_font_size", 14)
 		rtl.add_theme_color_override("default_color", Color(0,0,0,1))
 		rtl.text = prefix + (email_data.subject if not is_unread else "[b]" + email_data.subject + "[/b]")
 		item_btn.add_child(rtl)
