@@ -13,10 +13,10 @@ const Day1Pages = [
 ]
 
 const Day2Pages = [
-	"Welcome back for Shift 2, Inspector! Scribble here with a quick system update for your desktop.",
-	"The database in the Apparatus Inspector app has come back online. The specs shown are what the AI claims it has",
-	"Check if its true by typing scan in the AE-DOS terminal",
-	"Thats all, good luck on your second shift!"
+	"Welcome back for Shift 2, Inspector! Scribble here with a quick system update for your workstation.",
+	"The core specs on the Inspector app are now locked by default. Type 'scan' in the AE-DOS terminal for each unit to retrieve what the robot ACTUALLY has.",
+	"Then open the Web Browser to www.robot-factory.corp/registry to compare against what the robot SHOULD have!",
+	"Stay vigilant and good luck on your second shift!"
 ]
 
 const Day3Pages = [

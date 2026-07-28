@@ -268,8 +268,8 @@ func _ready():
 		row_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 		row_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 		row_btn.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
-		row_btn.add_theme_stylebox_override("normal", btn_normal)
-		row_btn.add_theme_stylebox_override("hover", btn_hover)
+		row_btn.add_theme_stylebox_override("normal", btn_pressed)
+		row_btn.add_theme_stylebox_override("hover", btn_pressed)
 		row_btn.add_theme_stylebox_override("pressed", btn_pressed)
 		row_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 		row_btn.position = Vector2(240, 22 + idx * 38)
@@ -308,6 +308,16 @@ func _ready():
 	update_ui_from_stats()
 	
 	if quit_button:
+		quit_button.add_theme_font_override("font", font_bold)
+		quit_button.add_theme_font_size_override("font_size", 12)
+		quit_button.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		quit_button.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
+		quit_button.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+		quit_button.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
+		quit_button.add_theme_stylebox_override("normal", btn_normal)
+		quit_button.add_theme_stylebox_override("hover", btn_hover)
+		quit_button.add_theme_stylebox_override("pressed", btn_pressed)
+		quit_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 		quit_button.pressed.connect(_on_quit_pressed)
 
 	if is_pause_menu:
@@ -888,8 +898,8 @@ func style_retro_option_button(btn: OptionButton):
 	btn.add_theme_color_override("font_hover_color", Color(0, 0, 0, 1))
 	btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 	btn.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
-	btn.add_theme_stylebox_override("normal", btn_normal)
-	btn.add_theme_stylebox_override("hover", btn_hover)
+	btn.add_theme_stylebox_override("normal", btn_pressed)
+	btn.add_theme_stylebox_override("hover", btn_pressed)
 	btn.add_theme_stylebox_override("pressed", btn_pressed)
 	btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 

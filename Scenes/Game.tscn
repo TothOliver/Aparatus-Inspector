@@ -36,6 +36,7 @@
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="StyleBox_Button_Normal"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Pressed.tres" id="StyleBox_Button_Pressed"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Inner_Frame.tres" id="StyleBox_Inner_Frame"]
+[ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Sunken_Field.tres" id="StyleBox_Sunken_Field"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
@@ -60,8 +61,8 @@ bg_color = Color(0, 0, 0.501961, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GroupLabel"]
 bg_color = Color(0.83137, 0.81568, 0.78431, 1)
-expand_margin_left = 4.0
-expand_margin_right = 4.0
+expand_margin_left = 3.0
+expand_margin_right = 3.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxFlat_terminal_bg"]
 
@@ -561,9 +562,10 @@ offset_left = 15.0
 offset_top = 68.0
 offset_right = 195.0
 offset_bottom = 98.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/panel = ExtResource("StyleBox_Button_Pressed")
 
 [node name="BreachBg" type="ColorRect" parent="DesktopOS/SystemMonitor/Health/BreachPanel" unique_id=1602687785]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -612,7 +614,7 @@ offset_right = 195.0
 offset_bottom = 165.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_styles/background = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/background = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/fill = SubResource("StyleBoxFlat_71axn")
 
 [node name="Taskbar" type="NinePatchRect" parent="DesktopOS" unique_id=1630729155]
@@ -698,13 +700,15 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 1770.0
 offset_top = 6.0
-offset_right = 1806.0
-offset_bottom = 42.0
+offset_right = 1800.0
+offset_bottom = 36.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("7_2irst")
 icon_alignment = 1
+expand_icon = true
 
 [node name="ActiveTabs" type="HBoxContainer" parent="DesktopOS/Taskbar" unique_id=368376694]
 layout_mode = 0
@@ -1435,9 +1439,10 @@ offset_left = 15.0
 offset_top = 40.0
 offset_right = 365.0
 offset_bottom = 74.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/panel = ExtResource("StyleBox_Button_Pressed")
 
 [node name="NameFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=1366362932]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1448,6 +1453,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.83, 0.82, 0.78, 1)
 
 [node name="StaticNameLabel" type="Label" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=766496088]
 layout_mode = 0
@@ -1455,9 +1461,9 @@ offset_left = 8.0
 offset_top = 5.0
 offset_right = 90.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 13
 text = "ID:"
 
 [node name="NameLabel" type="Label" parent="ApparatusInspectorWindow/Model/NamePanel" unique_id=2063255729]
@@ -1467,7 +1473,7 @@ offset_left = 35.0
 offset_top = 5.0
 offset_right = 340.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
 
@@ -1488,9 +1494,10 @@ offset_left = 15.0
 offset_top = 110.0
 offset_right = 365.0
 offset_bottom = 144.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/panel = ExtResource("StyleBox_Button_Pressed")
 
 [node name="ModelFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=16655454]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1501,6 +1508,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.83, 0.82, 0.78, 1)
 
 [node name="StaticModelLabel" type="Label" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=835369628]
 layout_mode = 0
@@ -1508,9 +1516,9 @@ offset_left = 8.0
 offset_top = 5.0
 offset_right = 90.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 13
 text = "TYPE:"
 
 [node name="ModelLabel" type="Label" parent="ApparatusInspectorWindow/Model/ModelPanel" unique_id=303726268]
@@ -1520,7 +1528,7 @@ offset_left = 55.0
 offset_top = 5.0
 offset_right = 340.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
 
@@ -1541,9 +1549,10 @@ offset_left = 15.0
 offset_top = 180.0
 offset_right = 365.0
 offset_bottom = 214.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/panel = ExtResource("StyleBox_Button_Pressed")
 
 [node name="StatusFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=1243743410]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1554,6 +1563,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.83, 0.82, 0.78, 1)
 
 [node name="StaticStatusLabel" type="Label" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=114314964]
 layout_mode = 0
@@ -1561,9 +1571,9 @@ offset_left = 8.0
 offset_top = 5.0
 offset_right = 90.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 13
 text = "ALIGN:"
 
 [node name="StatusLabel" type="Label" parent="ApparatusInspectorWindow/Model/StatusPanel" unique_id=958371121]
@@ -1573,7 +1583,7 @@ offset_left = 65.0
 offset_top = 5.0
 offset_right = 340.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
 
@@ -1594,9 +1604,10 @@ offset_left = 15.0
 offset_top = 250.0
 offset_right = 365.0
 offset_bottom = 284.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/panel = ExtResource("StyleBox_Button_Pressed")
 
 [node name="ManuFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1815463333]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1607,6 +1618,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.83, 0.82, 0.78, 1)
 
 [node name="StaticManuLabel" type="Label" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1674359586]
 layout_mode = 0
@@ -1614,9 +1626,9 @@ offset_left = 8.0
 offset_top = 5.0
 offset_right = 90.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 13
 text = "CORP:"
 
 [node name="ManuLabel" type="Label" parent="ApparatusInspectorWindow/Model/ManuPanel" unique_id=1969003573]
@@ -1626,7 +1638,7 @@ offset_left = 55.0
 offset_top = 5.0
 offset_right = 340.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
 
@@ -1647,9 +1659,10 @@ offset_left = 15.0
 offset_top = 320.0
 offset_right = 365.0
 offset_bottom = 354.0
-theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+theme_override_styles/panel = ExtResource("StyleBox_Button_Pressed")
 
 [node name="QuotaFieldBg" type="ColorRect" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=533492106]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1660,6 +1673,7 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.83, 0.82, 0.78, 1)
 
 [node name="StaticQuotaLabel" type="Label" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=1674359599]
 layout_mode = 0
@@ -1667,9 +1681,9 @@ offset_left = 8.0
 offset_top = 5.0
 offset_right = 90.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
-theme_override_fonts/font = ExtResource("9_71axn")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 13
 text = "GOAL:"
 
 [node name="QuotaLabel" type="Label" parent="ApparatusInspectorWindow/Model/QuotaPanel" unique_id=1969003599]
@@ -1679,7 +1693,7 @@ offset_left = 55.0
 offset_top = 5.0
 offset_right = 340.0
 offset_bottom = 29.0
-theme_override_colors/font_color = Color(0, 0, 0.5, 1)
+theme_override_colors/font_color = Color(0, 0, 0.55, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 14
 [node name="NotepadWindow" type="NinePatchRect" parent="." unique_id=202610160]
@@ -1871,11 +1885,12 @@ caret_blink = true
 [node name="MinesweeperWindow" type="NinePatchRect" parent="." unique_id=202610180]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(246, 328)
 layout_mode = 0
 offset_left = 480.0
 offset_top = 200.0
-offset_right = 792.0
-offset_bottom = 600.0
+offset_right = 726.0
+offset_bottom = 528.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -1887,7 +1902,7 @@ script = ExtResource("11_window")
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 306.0
+offset_right = 240.0
 offset_bottom = 36.0
 mouse_filter = 0
 texture = ExtResource("2_7lihs")
@@ -1901,7 +1916,7 @@ patch_margin_bottom = 3
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
-offset_right = 200.0
+offset_right = 180.0
 offset_bottom = 26.0
 theme_override_fonts/font = ExtResource("5_fgofq")
 theme_override_font_sizes/font_size = 16
@@ -1909,9 +1924,9 @@ text = "Minesweeper"
 
 [node name="CloseButton" type="Button" parent="MinesweeperWindow/TitleBar" unique_id=1418388159]
 layout_mode = 0
-offset_left = 272.0
+offset_left = 210.0
 offset_top = 4.0
-offset_right = 294.0
+offset_right = 232.0
 offset_bottom = 26.0
 theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
@@ -1921,27 +1936,26 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 expand_icon = true
 
-
 [node name="MinesweeperBody" type="Control" parent="MinesweeperWindow" unique_id=395274733]
 anchors_preset = 0
-offset_left = 12.0
+offset_left = 9.0
 offset_top = 42.0
-offset_right = 300.0
-offset_bottom = 388.0
+offset_right = 237.0
+offset_bottom = 320.0
 script = ExtResource("14_minesweeper")
 
 [node name="HeaderPanel" type="Panel" parent="MinesweeperWindow/MinesweeperBody" unique_id=1652225307]
 layout_mode = 0
-offset_right = 288.0
-offset_bottom = 40.0
+offset_right = 228.0
+offset_bottom = 44.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="MinePanel" type="Panel" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=1244020033]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 6.0
-offset_right = 70.0
-offset_bottom = 34.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 39.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="MineBg" type="ColorRect" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/MinePanel" unique_id=1244020034]
@@ -1957,6 +1971,20 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="MineUnlitLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/MinePanel" unique_id=1244020035]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.25, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+text = "888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MineLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/MinePanel" unique_id=1244020032]
 layout_mode = 1
 anchors_preset = 15
@@ -1966,17 +1994,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "010"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FaceButton" type="Button" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=789917683]
 layout_mode = 0
-offset_left = 124.0
-offset_top = 5.0
-offset_right = 164.0
-offset_bottom = 35.0
+offset_left = 98.0
+offset_top = 7.0
+offset_right = 130.0
+offset_bottom = 37.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -1987,14 +2015,13 @@ theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
 theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = ExtResource("StyleBox_Button_Hover")
-text = ":)"
 
 [node name="TimerPanel" type="Panel" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel" unique_id=82244009]
 layout_mode = 0
-offset_left = 218.0
-offset_top = 6.0
-offset_right = 282.0
-offset_bottom = 34.0
+offset_left = 164.0
+offset_top = 5.0
+offset_right = 222.0
+offset_bottom = 39.0
 theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="TimerBg" type="ColorRect" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/TimerPanel" unique_id=82244010]
@@ -2010,6 +2037,20 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="TimerUnlitLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/TimerPanel" unique_id=82244011]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.25, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_fgofq")
+theme_override_font_sizes/font_size = 18
+text = "888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TimerLabel" type="Label" parent="MinesweeperWindow/MinesweeperBody/HeaderPanel/TimerPanel" unique_id=82244008]
 layout_mode = 1
 anchors_preset = 15
@@ -2019,18 +2060,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_fgofq")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="MinesweeperWindow/MinesweeperBody" unique_id=2122574453]
+[node name="GridFrame" type="Panel" parent="MinesweeperWindow/MinesweeperBody" unique_id=2122574454]
 layout_mode = 0
 offset_top = 50.0
-offset_right = 288.0
-offset_bottom = 338.0
-theme_override_constants/h_separation = 1
-theme_override_constants/v_separation = 1
+offset_right = 228.0
+offset_bottom = 278.0
+theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
+
+[node name="GridContainer" type="GridContainer" parent="MinesweeperWindow/MinesweeperBody/GridFrame" unique_id=2122574453]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 222.0
+offset_bottom = 222.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 9
 
 [node name="SnakeWindow" type="NinePatchRect" parent="." unique_id=202610190]

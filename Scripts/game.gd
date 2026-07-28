@@ -46,11 +46,12 @@ func _ready():
 		
 		var title_bar_node = inspector.get_node_or_null("TitleBar") as Control
 		if title_bar_node:
-			title_bar_node.size.x = 1008
+			title_bar_node.position = Vector2(3, 3)
+			title_bar_node.size.x = 1014
 			var close_btn = title_bar_node.get_node_or_null("CloseButton") as Button
 			if close_btn:
-				close_btn.position = Vector2(981, 4)
-				close_btn.size = Vector2(22, 22)
+				close_btn.size = Vector2(26, 22)
+				close_btn.position = Vector2(title_bar_node.size.x - 28, 2)
 		
 		# Left side: Picture & AcceptTerminate (Width = 230)
 		var pic = inspector.get_node_or_null("Picture") as Control
@@ -344,28 +345,55 @@ func spawn_next_robot():
 		# Only update texture if one exists
 		if current_robot.sprite:
 			robot_texture.texture = current_robot.sprite
-		#update inforamtion on the robots
+		# Update information on the robots
 		if current_robot.name:
 			nameInfo.text = current_robot.name
 		else:
 			nameInfo.text = "Unknown"
 		
-		if current_robot.model:
-			modelInfo.text = current_robot.model
+		if day_manager.current_day >= 2:
+			modelInfo.text = "?"
+			statusInfo.text = "?"
+			manuInfo.text = "?"
 		else:
-			modelInfo.text = "Unknown"
-		
-		if current_robot.status:
-			statusInfo.text = current_robot.status
-		else:
-			statusInfo.text = "Unknown"
-		
-		if current_robot.manufacturer:
-			manuInfo.text = current_robot.manufacturer
-		else:
-			manuInfo.text = "Unknown"
+			modelInfo.text = "N/A"
+			statusInfo.text = "N/A"
+			manuInfo.text = "N/A"
 	else:
 		print("Error: No robots found in the 'robots' array.")
+
+func scan_active_unit() -> String:
+	if not current_robot:
+		return "Scan failed: No active unit loaded in testing chamber."
+		
+	if current_robot.model:
+		modelInfo.text = current_robot.model
+	else:
+		modelInfo.text = "Unknown"
+		
+	if current_robot.status:
+		statusInfo.text = current_robot.status
+	else:
+		statusInfo.text = "Unknown"
+		
+	if current_robot.manufacturer:
+		manuInfo.text = current_robot.manufacturer
+	else:
+		manuInfo.text = "Unknown"
+		
+	var core_val = current_robot.core_hash if ("core_hash" in current_robot and current_robot.core_hash) else "UNKNOWN_CORE_ERR"
+	
+	return ("===============================================\n" +
+		"  AE-DOS HARDWARE TELEMETRY SCANNER v2.1\n" +
+		"===============================================\n" +
+		"  ACTIVE UNIT:     " + current_robot.name + "\n" +
+		"  MODEL:           " + current_robot.model + "\n" +
+		"  MANUFACTURER:    " + current_robot.manufacturer + "\n" +
+		"  STATUS:          " + current_robot.status + "\n" +
+		"  CORE SIGNATURE:  " + core_val + "\n" +
+		"===============================================\n" +
+		"  Cross-reference specs & core hash against\n" +
+		"  www.robot-factory.corp/registry on Web Browser!")
 		
 func pick_next_robot() -> RobotData:
 	var next_robot: RobotData = null

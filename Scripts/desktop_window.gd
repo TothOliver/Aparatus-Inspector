@@ -42,8 +42,10 @@ func _ready():
 	if title_bar:
 		title_bar.gui_input.connect(_on_title_bar_gui_input)
 		var close_btn = title_bar.get_node_or_null("CloseButton")
-		if close_btn and not close_btn.pressed.is_connected(close):
-			close_btn.pressed.connect(close)
+		if close_btn:
+			close_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+			if not close_btn.pressed.is_connected(close):
+				close_btn.pressed.connect(close)
 	
 	# Bring to front on clicking anywhere on the window
 	gui_input.connect(_on_window_gui_input)
@@ -190,6 +192,11 @@ func register_child_margins():
 				if bottom_margin < min_margin:
 					bottom_margin = min_margin
 			
+			if child.name == "TitleBar":
+				left_margin = 3.0
+				top_margin = 3.0
+				right_margin = 3.0
+			
 			child_margins[child] = {
 				"left": left_margin,
 				"top": top_margin,
@@ -238,10 +245,15 @@ func update_child_positions():
 			
 			# Special handling for TitleBar to move the CloseButton
 			if child.name == "TitleBar":
+				child.position = Vector2(3, 3)
+				child.size.x = max(10, size.x - 6)
 				var close_btn = child.get_node_or_null("CloseButton")
 				if close_btn and close_btn is Control:
-					close_btn.position.x = child.size.x - close_btn.size.x - 5
-					close_btn.position.y = 4
+					var btn_h = clamp(child.size.y - 4.0, 14.0, 20.0)
+					var btn_w = clamp(btn_h * 1.15, 16.0, 22.0)
+					close_btn.size = Vector2(btn_w, btn_h)
+					close_btn.position.x = child.size.x - close_btn.size.x - 3.0
+					close_btn.position.y = floor((child.size.y - close_btn.size.y) / 2.0)
 
 func _on_window_resized():
 	if not _margins_registered:
@@ -256,6 +268,12 @@ func _on_title_bar_gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				if title_bar:
+					var close_btn = title_bar.get_node_or_null("CloseButton")
+					if close_btn and close_btn is Control:
+						var close_rect = close_btn.get_global_rect()
+						if close_rect.has_point(event.global_position):
+							return
 				dragging = true
 				drag_offset = get_local_mouse_position()
 				move_to_front()
@@ -270,6 +288,8 @@ func _on_window_gui_input(event: InputEvent):
 
 func _connect_children_gui_input(node: Node):
 	if node is Control:
+		if node.name == "CloseButton" or (node.get_parent() and node.get_parent().name == "TitleBar"):
+			return
 		if not node.gui_input.is_connected(_on_child_gui_input):
 			node.gui_input.connect(_on_child_gui_input)
 	if not node.child_entered_tree.is_connected(_on_child_entered_tree):

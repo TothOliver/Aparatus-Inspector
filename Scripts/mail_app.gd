@@ -11,7 +11,7 @@ var emails = {
 		"sender": "Supervisor Donald",
 		"subject": "Shift 2 Instructions: Scanner Online",
 		"date": "07-Jul-1998",
-		"body": "Julian,\n\nShift 1 complete. Additional tools are now enabled.\n\nBe on high alert: A rogue unit is currently roaming the facility corridors.\n\n===========================\nDAILY CHECKLIST (SHIFT 2)\n===========================\n• Quota: Inspect 4 units.\n• Tools: Database Specs & Terminal Scanner ('scan' command) are ONLINE.\n• Verification: Run 'scan' in terminal and compare telemetry against www.robot-factory.corp/registry.\n• Anomaly Defense: Use CCTV cameras to monitor Sector B. If a roaming unit approaches on camera or near the window, flash your flashlight (F) to scare it away!\n===========================\n\nWatch power levels and CCTV.\n- Donald"
+		"body": "Julian,\n\nShift 1 complete. Additional tools are now enabled.\n\nBe on high alert: A rogue unit is currently roaming the facility corridors.\n\n===========================\nDAILY CHECKLIST (SHIFT 2)\n===========================\n• Quota: Inspect 4 units.\n• Tools: AE-DOS Terminal Scanner ('scan' command) & Web Browser Registry are ONLINE.\n• Investigation Workflow:\n  1. Type 'scan' in the AE-DOS terminal to read what the active unit ACTUALLY has.\n  2. Open www.robot-factory.corp/registry on the Web Browser to check what the unit SHOULD have.\n  3. If Model, Mfr, or Core Signature Hash do not match the web registry, EXTERMINATE!\n• Anomaly Defense: Use CCTV cameras to monitor Sector B. If a roaming unit approaches on camera or near the window, flash your flashlight (F) to scare it away!\n===========================\n\nWatch power levels and CCTV.\n- Donald"
 	},
 	3: {
 		"sender": "Supervisor Donald",
@@ -81,8 +81,8 @@ func _ready():
 	close_btn.icon = preload("res://RetroWindowsGUI/ExitButton.png")
 	close_btn.expand_icon = true
 	close_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	close_btn.position = Vector2(title_bar_rect.size.x - 27, 4)
-	close_btn.size = Vector2(22, 22)
+	close_btn.size = Vector2(26, 22)
+	close_btn.position = Vector2(title_bar_rect.size.x - 28, 2)
 	close_btn.pressed.connect(func(): close())
 	title_bar_rect.add_child(close_btn)
 	

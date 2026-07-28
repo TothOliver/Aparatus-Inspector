@@ -359,8 +359,8 @@ func _ready():
 	close_btn.icon = preload("res://RetroWindowsGUI/ExitButton.png")
 	close_btn.expand_icon = true
 	close_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	close_btn.position = Vector2(title_bar_rect.size.x - 27, 4)
-	close_btn.size = Vector2(22, 22)
+	close_btn.size = Vector2(26, 22)
+	close_btn.position = Vector2(title_bar_rect.size.x - 28, 2)
 	close_btn.pressed.connect(func(): close())
 	title_bar_rect.add_child(close_btn)
 	

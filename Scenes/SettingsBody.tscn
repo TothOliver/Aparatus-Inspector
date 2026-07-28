@@ -14,8 +14,8 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GroupLabel"]
 bg_color = Color(0.83137, 0.81568, 0.78431, 1)
-expand_margin_left = 4.0
-expand_margin_right = 4.0
+expand_margin_left = 3.0
+expand_margin_right = 3.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
 
@@ -85,9 +85,9 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("9_btn_normal")
+theme_override_styles/normal = ExtResource("11_btn_pressed")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
-theme_override_styles/hover = ExtResource("10_btn_hover")
+theme_override_styles/hover = ExtResource("11_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 
 [node name="ResolutionLabel" type="Label" parent="GeneralContainer" unique_id=1363772269]
@@ -114,9 +114,9 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("9_btn_normal")
+theme_override_styles/normal = ExtResource("11_btn_pressed")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
-theme_override_styles/hover = ExtResource("10_btn_hover")
+theme_override_styles/hover = ExtResource("11_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 
 [node name="FPSLabel" type="Label" parent="GeneralContainer" unique_id=450396356]
@@ -143,9 +143,9 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_font_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("9_btn_normal")
+theme_override_styles/normal = ExtResource("11_btn_pressed")
 theme_override_styles/pressed = ExtResource("11_btn_pressed")
-theme_override_styles/hover = ExtResource("10_btn_hover")
+theme_override_styles/hover = ExtResource("11_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 
 [node name="VSyncCheckbox" type="CheckBox" parent="GeneralContainer" unique_id=1733142024]

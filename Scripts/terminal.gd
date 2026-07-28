@@ -113,16 +113,19 @@ func _process(delta):
 		else:
 			if not system_locked_out:
 				input_field.editable = true
-			if not input_field.has_focus():
+			
+			var title_bar = parent_window.get_node_or_null("TitleBar")
+			var close_btn = title_bar.get_node_or_null("CloseButton") if title_bar else null
+			var is_mouse_over_close = false
+			if close_btn and close_btn is Control:
+				is_mouse_over_close = close_btn.get_global_rect().has_point(get_global_mouse_position())
+				
+			if not input_field.has_focus() and not is_mouse_over_close:
 				var is_top = is_top_window()
 				var viewport = get_viewport()
 				var focused_node = viewport.gui_get_focus_owner() if viewport else null
-				var focused_name = focused_node.name if focused_node else "null"
-				log_debug("Process check: has_focus=false is_top=" + str(is_top) + " focused=" + focused_name)
-				if is_top:
-					if focused_node == null or not (focused_node is Button):
-						log_debug("Process calling grab_input_focus")
-						grab_input_focus()
+				if is_top and (focused_node == null or not (focused_node is Button)):
+					grab_input_focus()
 	
 	# Ensure prompt prefix is always present
 	if input_field and not system_locked_out:
@@ -337,14 +340,9 @@ func _on_command_submitted(new_text: String):
 				var game_3d = null
 				if is_inside_tree() and get_tree():
 					game_3d = get_tree().current_scene
-				if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.current_robot:
-					var robot = game_3d.game_2d.current_robot
-					print_to_terminal("Scanning active unit in test chamber...\n" +
-						"  NAME:         " + robot.name + "\n" +
-						"  MODEL:        " + robot.model + "\n" +
-						"  MANUFACTURER: " + robot.manufacturer + "\n" +
-						"  STATUS:       " + robot.status + "\n" +
-						"  CORE SIGNATURE: " + (robot.core_hash if "core_hash" in robot and robot.core_hash else "UNKNOWN_CORE_ERR"))
+				if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.has_method("scan_active_unit"):
+					var result = game_3d.game_2d.scan_active_unit()
+					print_to_terminal(result)
 				else:
 					print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
 		"lock":

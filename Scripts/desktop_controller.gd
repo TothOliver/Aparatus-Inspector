@@ -38,6 +38,7 @@ var shift_verify_tab: Button = null
 var mail_window: Control = null
 
 func _ready():
+	call_deferred("_update_cctv_button_styles", 1)
 	if start_menu:
 		start_menu.z_index = 10
 	var taskbar = get_node_or_null("Taskbar")
@@ -720,9 +721,30 @@ func trigger_cctv_swap_glitch() -> void:
 				m.set_shader_parameter("time", Time.get_ticks_msec() / 1000.0)
 	, 1.0, 0.0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+func _update_cctv_button_styles(active_cam_idx: int):
+	var cam1_btn = get_node_or_null("%CCTVWindow/CameraControls/Cam1Button") as Button
+	var cam2_btn = get_node_or_null("%CCTVWindow/CameraControls/Cam2Button") as Button
+	var cam3_btn = get_node_or_null("%CCTVWindow/CameraControls/Cam3Button") as Button
+	
+	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+	
+	var buttons = [cam1_btn, cam2_btn, cam3_btn]
+	for i in range(buttons.size()):
+		var btn = buttons[i]
+		if btn:
+			if i + 1 == active_cam_idx:
+				btn.add_theme_stylebox_override("normal", btn_pressed)
+				btn.add_theme_stylebox_override("hover", btn_pressed)
+			else:
+				btn.add_theme_stylebox_override("normal", btn_normal)
+				btn.add_theme_stylebox_override("hover", btn_hover)
+
 func _on_cam1_pressed():
 	trigger_cctv_swap_glitch()
 	update_cctv_texture_feed()
+	_update_cctv_button_styles(1)
 	var vp = get_cctv_viewport()
 	if vp:
 		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
@@ -739,6 +761,7 @@ func _on_cam1_pressed():
 func _on_cam2_pressed():
 	trigger_cctv_swap_glitch()
 	update_cctv_texture_feed()
+	_update_cctv_button_styles(2)
 	var vp = get_cctv_viewport()
 	if vp:
 		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
@@ -755,6 +778,7 @@ func _on_cam2_pressed():
 func _on_cam3_pressed():
 	trigger_cctv_swap_glitch()
 	update_cctv_texture_feed()
+	_update_cctv_button_styles(3)
 	var vp = get_cctv_viewport()
 	if vp:
 		var cam1 = vp.get_node_or_null("CCTVCamera1") as Camera3D
@@ -801,12 +825,20 @@ func update_cctv_light_state():
 		
 	var light_btn = get_node_or_null("%CCTVWindow/CameraControls/CCTVLightButton") as Button
 	if light_btn:
+		var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+		var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+		var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+		
 		if GameStats.cctv_light_on:
-			light_btn.text = "LIGHT: ON"
-			light_btn.add_theme_color_override("font_color", Color(0, 0.5, 0, 1))
+			light_btn.text = "LIGHT"
+			light_btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+			light_btn.add_theme_stylebox_override("normal", btn_pressed)
+			light_btn.add_theme_stylebox_override("hover", btn_pressed)
 		else:
 			light_btn.text = "LIGHT"
 			light_btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+			light_btn.add_theme_stylebox_override("normal", btn_normal)
+			light_btn.add_theme_stylebox_override("hover", btn_hover)
 
 func refresh_mail_notifications():
 	var has_unread = GameStats.has_unread_mail()
