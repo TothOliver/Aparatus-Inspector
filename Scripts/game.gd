@@ -391,9 +391,7 @@ func scan_active_unit() -> String:
 		"  MANUFACTURER:    " + current_robot.manufacturer + "\n" +
 		"  STATUS:          " + current_robot.status + "\n" +
 		"  CORE SIGNATURE:  " + core_val + "\n" +
-		"===============================================\n" +
-		"  Cross-reference specs & core hash against\n" +
-		"  www.robot-factory.corp/registry on Web Browser!")
+		"===============================================")
 		
 func pick_next_robot() -> RobotData:
 	var next_robot: RobotData = null

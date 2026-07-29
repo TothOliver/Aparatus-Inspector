@@ -25,6 +25,7 @@ var cctv_light_on: bool = false
 var door_locked: bool = false
 var hack_active: bool = false
 var hack_progress: float = 0.0
+var is_scanning: bool = false
 var is_victory: bool = false
 var wifi_on: bool = true
 var player_health: float = 100.0

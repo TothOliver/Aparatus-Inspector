@@ -484,7 +484,7 @@ func _process(_delta):
 		
 	# Manage hacker alert visibility
 	if hacker_alert:
-		if GameStats.hack_active:
+		if GameStats.hack_active and not GameStats.is_scanning:
 			if not last_hack_active:
 				hacker_alert_dismissed = false
 			
@@ -496,7 +496,8 @@ func _process(_delta):
 				hacker_alert.visible = false
 		else:
 			hacker_alert.visible = false
-			hacker_alert_dismissed = false
+			if not GameStats.hack_active:
+				hacker_alert_dismissed = false
 		
 		last_hack_active = GameStats.hack_active
 
@@ -713,7 +714,7 @@ func trigger_cctv_swap_glitch() -> void:
 			if m:
 				m.set_shader_parameter("glitch_intensity", val)
 				m.set_shader_parameter("time", Time.get_ticks_msec() / 1000.0)
-	, 1.0, 0.0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	, 1.0, 0.0, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func _update_cctv_button_styles(active_cam_idx: int):
 	var cam1_btn = get_node_or_null("%CCTVWindow/CameraControls/Cam1Button") as Button

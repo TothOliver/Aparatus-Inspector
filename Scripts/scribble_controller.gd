@@ -28,6 +28,10 @@ const Day3Pages = [
 
 var active_pages: Array = []
 var current_page = 0
+var is_typing: bool = false
+var typing_speed: float = 75.0 # characters per second
+var typing_progress: float = 0.0
+var target_text: String = ""
 
 func _ready():
 	_setup_active_pages()
@@ -36,21 +40,39 @@ func _ready():
 		next_button.pressed.connect(_on_next_pressed)
 	
 	var parent = get_parent()
-	if close_bubble_button:
-		close_bubble_button.pressed.connect(func():
-			if parent and parent.has_method("close"):
-				parent.close()
-			else:
-				get_parent().visible = false
+	if parent:
+		if close_bubble_button:
+			close_bubble_button.pressed.connect(func():
+				if parent.has_method("close"):
+					parent.close()
+				else:
+					parent.visible = false
+			)
+		
+		# Reset and restart typing when window becomes visible
+		parent.visibility_changed.connect(func():
+			if parent.visible:
+				current_page = 0
+				_setup_active_pages()
+				_update_page()
 		)
-	
-	# Close window on close button or exit
-	if parent and parent.has_signal("closed"):
-		parent.closed.connect(func():
-			current_page = 0
-			_setup_active_pages()
-			_update_page()
-		)
+		
+		if parent.has_signal("closed"):
+			parent.closed.connect(func():
+				current_page = 0
+				_setup_active_pages()
+				_update_page()
+			)
+
+func _process(delta):
+	if is_typing and dialog_label:
+		typing_progress += delta * typing_speed
+		var count = int(typing_progress)
+		if count >= target_text.length():
+			dialog_label.visible_characters = -1
+			is_typing = false
+		else:
+			dialog_label.visible_characters = count
 
 func _setup_active_pages():
 	var day = GameStats.current_day
@@ -64,18 +86,66 @@ func _setup_active_pages():
 		_:
 			active_pages = Day1Pages
 
+func _prewrap_text(raw_text: String) -> String:
+	if not dialog_label:
+		return raw_text
+	var font = dialog_label.get_theme_font("font")
+	var font_size = dialog_label.get_theme_font_size("font_size")
+	if not font:
+		return raw_text
+		
+	var max_width = dialog_label.size.x
+	if max_width <= 0:
+		max_width = 302.0
+	max_width -= 6.0
+	
+	var lines = raw_text.split("\n")
+	var result_lines: Array[String] = []
+	
+	for line in lines:
+		var words = line.split(" ")
+		var current_line = ""
+		for word in words:
+			if word == "":
+				continue
+			var test_line = (current_line + " " + word).strip_edges()
+			var string_size = font.get_string_size(test_line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
+			if string_size.x <= max_width or current_line == "":
+				current_line = test_line
+			else:
+				result_lines.append(current_line)
+				current_line = word
+		if current_line != "":
+			result_lines.append(current_line)
+			
+	return "\n".join(result_lines)
+
 func _update_page():
 	if not dialog_label or not next_button:
 		return
 	if active_pages.size() == 0:
 		_setup_active_pages()
-	dialog_label.text = active_pages[current_page]
+	
+	var raw_page_text = active_pages[current_page]
+	target_text = _prewrap_text(raw_page_text)
+	dialog_label.text = target_text
+	dialog_label.visible_characters = 0
+	is_typing = true
+	typing_progress = 0.0
+	
 	if current_page == active_pages.size() - 1:
 		next_button.text = "Close"
 	else:
 		next_button.text = "Next"
 
 func _on_next_pressed():
+	if is_typing:
+		# Complete current page typing immediately
+		if dialog_label:
+			dialog_label.visible_characters = -1
+		is_typing = false
+		return
+		
 	if current_page < active_pages.size() - 1:
 		current_page += 1
 		_update_page()

@@ -48,7 +48,7 @@ func _process(delta):
 				GameStats.hack_progress = 0.0
 				print("Intrusion connection aborted (WiFi turned off).")
 		else:
-			if not GameStats.hack_active:
+			if not GameStats.hack_active and not GameStats.is_scanning:
 				hack_timer -= delta
 				if hack_timer <= 0:
 					# Trigger system breach!

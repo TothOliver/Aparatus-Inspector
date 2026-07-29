@@ -8,6 +8,11 @@ var hack_warning_printed: bool = false
 var system_locked_out: bool = false
 var lockout_timer: float = 0.0
 
+var scan_in_progress: bool = false
+var scan_elapsed_time: float = 0.0
+var scan_total_time: float = 30.0
+var scan_target_robot = null
+
 var prompt_prefix: String = "C:\\> "
 
 var files = {
@@ -111,8 +116,10 @@ func _process(delta):
 				input_field.release_focus()
 			input_field.editable = false
 		else:
-			if not system_locked_out:
+			if not system_locked_out and not scan_in_progress:
 				input_field.editable = true
+			else:
+				input_field.editable = false
 			
 			var title_bar = parent_window.get_node_or_null("TitleBar")
 			var close_btn = title_bar.get_node_or_null("CloseButton") if title_bar else null
@@ -128,12 +135,52 @@ func _process(delta):
 					grab_input_focus()
 	
 	# Ensure prompt prefix is always present
-	if input_field and not system_locked_out:
+	if input_field and not system_locked_out and not scan_in_progress:
 		if not input_field.text.begins_with(prompt_prefix):
 			_set_prompt()
 	
+	# Handle scan progress updates
+	GameStats.is_scanning = scan_in_progress
+	if scan_in_progress:
+		if system_locked_out:
+			scan_in_progress = false
+			GameStats.is_scanning = false
+			update_last_terminal_line("SCAN ABORTED: System security lockout engaged.")
+		else:
+			var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
+			var game_2d = game_3d.game_2d if (game_3d and "game_2d" in game_3d) else null
+			var active_robot = game_2d.current_robot if (game_2d and "current_robot" in game_2d) else null
+			
+			if active_robot != scan_target_robot or active_robot == null:
+				scan_in_progress = false
+				GameStats.is_scanning = false
+				update_last_terminal_line("SCAN ABORTED: Active unit changed or removed from testing chamber.")
+				if input_field and not system_locked_out:
+					input_field.editable = true
+					_set_prompt()
+					call_deferred("grab_input_focus")
+			else:
+				scan_elapsed_time += delta
+				if scan_elapsed_time >= scan_total_time:
+					scan_elapsed_time = scan_total_time
+					update_last_terminal_line(_build_progress_bar_string(scan_total_time, scan_total_time))
+					scan_in_progress = false
+					GameStats.is_scanning = false
+					
+					var result = game_2d.scan_active_unit()
+					print_to_terminal("\nScan complete. Results retrieved:\n" + result)
+					
+					if input_field and not system_locked_out:
+						input_field.editable = true
+						_set_prompt()
+						call_deferred("grab_input_focus")
+				else:
+					update_last_terminal_line(_build_progress_bar_string(scan_elapsed_time, scan_total_time))
+	
 	# Handle Lockout countdown
 	if system_locked_out:
+		if scan_in_progress:
+			scan_in_progress = false
 		lockout_timer -= delta
 		if lockout_timer <= 0:
 			system_locked_out = false
@@ -225,7 +272,7 @@ func _check_and_restore_focus():
 			grab_input_focus()
 
 func grab_input_focus():
-	if not can_grab_focus():
+	if not can_grab_focus() or system_locked_out or scan_in_progress:
 		if input_field and input_field.has_focus():
 			input_field.release_focus()
 		return
@@ -242,6 +289,41 @@ func print_to_terminal(text: String):
 		await get_tree().create_timer(0.05).timeout
 	if is_inside_tree() and output_log:
 		output_log.scroll_to_line(output_log.get_line_count() - 1)
+
+func update_last_terminal_line(new_line: String):
+	if output_log:
+		var text = output_log.text
+		if text.ends_with("\n"):
+			text = text.left(text.length() - 1)
+		var last_nl = text.rfind("\n")
+		if last_nl != -1:
+			output_log.text = text.left(last_nl + 1) + new_line + "\n"
+		else:
+			output_log.text = new_line + "\n"
+		if is_inside_tree() and output_log:
+			output_log.scroll_to_line(output_log.get_line_count() - 1)
+
+func _build_progress_bar_string(elapsed: float, total: float) -> String:
+	var ratio = clamp(elapsed / total, 0.0, 1.0)
+	var pct = int(ratio * 100.0)
+	var bar_width = 30
+	var filled_len = int(ratio * bar_width)
+	var empty_len = bar_width - filled_len
+	
+	var filled_str = ""
+	for i in range(filled_len):
+		filled_str += "#"
+	
+	var empty_str = ""
+	for i in range(empty_len):
+		empty_str += "-"
+		
+	var cur_sec = int(elapsed)
+	var tot_sec = int(total)
+	var time_str = "%02d:%02d / %02d:%02d" % [cur_sec / 60, cur_sec % 60, tot_sec / 60, tot_sec % 60]
+	
+	var pct_str = "%3d" % pct
+	return "SCANNING: [" + filled_str + empty_str + "] " + pct_str + "% [" + time_str + "]"
 
 func format_help_line(cmd: String, desc: String) -> String:
 	var padded_cmd = cmd
@@ -336,13 +418,25 @@ func _on_command_submitted(new_text: String):
 		"scan":
 			if GameStats.current_day == 1:
 				print_to_terminal("ERROR: 'scan' diagnostic utility is LOCKED during Day 1 calibration protocols.")
+			elif GameStats.hack_active:
+				print_to_terminal("ERROR: Cannot initiate scan while security intrusion is active. Purge required.")
+			elif scan_in_progress:
+				print_to_terminal("[SYSTEM BUSY] Diagnostic scan already in progress...")
 			else:
 				var game_3d = null
 				if is_inside_tree() and get_tree():
 					game_3d = get_tree().current_scene
-				if game_3d and "game_2d" in game_3d and game_3d.game_2d and game_3d.game_2d.has_method("scan_active_unit"):
-					var result = game_3d.game_2d.scan_active_unit()
-					print_to_terminal(result)
+				var game_2d = game_3d.game_2d if (game_3d and "game_2d" in game_3d) else null
+				if game_2d and "current_robot" in game_2d and game_2d.current_robot and game_2d.has_method("scan_active_unit"):
+					scan_in_progress = true
+					GameStats.is_scanning = true
+					scan_elapsed_time = 0.0
+					scan_target_robot = game_2d.current_robot
+					if input_field:
+						input_field.editable = false
+						input_field.text = "SCANNING IN PROGRESS..."
+					print_to_terminal("Initiating hardware telemetry scan on unit '" + scan_target_robot.name + "'...")
+					print_to_terminal(_build_progress_bar_string(0.0, scan_total_time))
 				else:
 					print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
 		"lock":

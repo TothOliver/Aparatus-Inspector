@@ -2364,9 +2364,9 @@ offset_bottom = 448.0
 [node name="ScribbleWindow" type="NinePatchRect" parent="." unique_id=987654320]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 720.0
+offset_left = 1080.0
 offset_top = 340.0
-offset_right = 970.0
+offset_right = 1330.0
 offset_bottom = 660.0
 texture = ExtResource("2_b2bpf")
 patch_margin_left = 12
