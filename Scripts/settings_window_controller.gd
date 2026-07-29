@@ -189,8 +189,8 @@ func _ready():
 		parent.custom_minimum_size = Vector2(450, 460)
 		parent.size = Vector2(450, 460)
 		var viewport_size = get_viewport_rect().size
-		parent.position.x = (viewport_size.x - 450) / 2.0
-		parent.position.y = clamp((viewport_size.y - 460) / 2.0, 10.0, max(10.0, viewport_size.y - 470))
+		parent.position.x = (float(viewport_size.x) - 450.0) / 2.0
+		parent.position.y = clamp((float(viewport_size.y) - 460.0) / 2.0, 10.0, max(10.0, float(viewport_size.y) - 470.0))
 		
 		# Update TitleBar
 		var title_bar = parent.get_node_or_null("TitleBar")
@@ -349,6 +349,11 @@ func _ready():
 	
 	_reposition_general_container_layout()
 
+func _fit_group_label(label: Label):
+	if label:
+		label.custom_minimum_size.x = 0
+		label.size.x = label.get_combined_minimum_size().x
+
 func _reposition_general_container_layout():
 	if not general_container:
 		return
@@ -357,11 +362,12 @@ func _reposition_general_container_layout():
 	var display_group = general_container.get_node_or_null("DisplayGroup")
 	if display_group:
 		display_group.position = Vector2(10, 55)
-		display_group.size = Vector2(406, 265)
+		display_group.size = Vector2(406, 258)
 		
 	var display_label = general_container.get_node_or_null("DisplayGroupLabel")
 	if display_label:
 		display_label.position = Vector2(20, 47)
+		_fit_group_label(display_label)
 		
 	var disp_mode_lbl = general_container.get_node_or_null("DisplayModeLabel")
 	if disp_mode_lbl: disp_mode_lbl.position = Vector2(25, 70)
@@ -399,80 +405,85 @@ func _reposition_general_container_layout():
 	# Audio Group
 	var audio_group = general_container.get_node_or_null("AudioGroup")
 	if audio_group:
-		audio_group.position = Vector2(10, 335)
-		audio_group.size = Vector2(406, 340)
+		audio_group.position = Vector2(10, 326)
+		audio_group.size = Vector2(406, 312)
 		
 	var audio_label = general_container.get_node_or_null("AudioGroupLabel")
 	if audio_label:
-		audio_label.position = Vector2(20, 327)
+		audio_label.position = Vector2(20, 318)
+		_fit_group_label(audio_label)
 		
 	var audio_out_lbl = general_container.get_node_or_null("AudioOutputLabel")
-	if audio_out_lbl: audio_out_lbl.position = Vector2(25, 350)
+	if audio_out_lbl: audio_out_lbl.position = Vector2(25, 341)
 	var audio_out_opt = general_container.get_node_or_null("AudioOutputOption")
-	if audio_out_opt: audio_out_opt.position = Vector2(25, 371)
+	if audio_out_opt: audio_out_opt.position = Vector2(25, 362)
 	
 	var vol_lbl = general_container.get_node_or_null("VolumeLabel")
-	if vol_lbl: vol_lbl.position = Vector2(25, 407)
+	if vol_lbl: vol_lbl.position = Vector2(25, 398)
 	var vol_val = general_container.get_node_or_null("VolumeValueLabel")
-	if vol_val: vol_val.position = Vector2(160, 407)
+	if vol_val: vol_val.position = Vector2(160, 398)
 	var vol_sld = general_container.get_node_or_null("VolumeSlider")
-	if vol_sld: vol_sld.position = Vector2(25, 430)
+	if vol_sld: vol_sld.position = Vector2(25, 421)
 	
 	var music_lbl = general_container.get_node_or_null("MusicVolumeLabel")
-	if music_lbl: music_lbl.position = Vector2(25, 467)
+	if music_lbl: music_lbl.position = Vector2(25, 458)
 	var music_val = general_container.get_node_or_null("MusicVolumeValueLabel")
-	if music_val: music_val.position = Vector2(160, 467)
+	if music_val: music_val.position = Vector2(160, 458)
 	var music_sld = general_container.get_node_or_null("MusicVolumeSlider")
-	if music_sld: music_sld.position = Vector2(25, 490)
+	if music_sld: music_sld.position = Vector2(25, 481)
 	
 	var sfx_lbl = general_container.get_node_or_null("SfxVolumeLabel") if general_container.get_node_or_null("SfxVolumeLabel") else general_container.get_node_or_null("VfxVolumeLabel")
-	if sfx_lbl: sfx_lbl.position = Vector2(25, 527)
+	if sfx_lbl: sfx_lbl.position = Vector2(25, 518)
 	var sfx_val = general_container.get_node_or_null("SfxVolumeValueLabel") if general_container.get_node_or_null("SfxVolumeValueLabel") else general_container.get_node_or_null("VfxVolumeValueLabel")
-	if sfx_val: sfx_val.position = Vector2(160, 527)
+	if sfx_val: sfx_val.position = Vector2(160, 518)
 	var sfx_sld = general_container.get_node_or_null("SfxVolumeSlider") if general_container.get_node_or_null("SfxVolumeSlider") else general_container.get_node_or_null("VfxVolumeSlider")
-	if sfx_sld: sfx_sld.position = Vector2(25, 550)
+	if sfx_sld: sfx_sld.position = Vector2(25, 541)
 	
 	var amb_lbl = general_container.get_node_or_null("AmbientVolumeLabel")
-	if amb_lbl: amb_lbl.position = Vector2(25, 587)
+	if amb_lbl: amb_lbl.position = Vector2(25, 578)
 	var amb_val = general_container.get_node_or_null("AmbientVolumeValueLabel")
-	if amb_val: amb_val.position = Vector2(160, 587)
+	if amb_val: amb_val.position = Vector2(160, 578)
 	var amb_sld = general_container.get_node_or_null("AmbientVolumeSlider")
-	if amb_sld: amb_sld.position = Vector2(25, 610)
+	if amb_sld: amb_sld.position = Vector2(25, 601)
 
 	# Mouse & Camera Group
 	var mouse_group = general_container.get_node_or_null("MouseGroup")
 	if mouse_group:
-		mouse_group.position = Vector2(10, 690)
-		mouse_group.size = Vector2(406, 175)
+		mouse_group.position = Vector2(10, 655)
+		mouse_group.size = Vector2(406, 194)
 		
 	var mouse_label = general_container.get_node_or_null("MouseGroupLabel")
 	if mouse_label:
-		mouse_label.position = Vector2(20, 682)
+		mouse_label.position = Vector2(20, 647)
+		_fit_group_label(mouse_label)
 		
 	var sens_lbl = general_container.get_node_or_null("SensitivityLabel")
-	if sens_lbl: sens_lbl.position = Vector2(25, 705)
+	if sens_lbl: sens_lbl.position = Vector2(25, 670)
 	var sens_val = general_container.get_node_or_null("SensitivityValueLabel")
-	if sens_val: sens_val.position = Vector2(175, 705)
+	if sens_val: sens_val.position = Vector2(175, 670)
 	var sens_sld = general_container.get_node_or_null("SensitivitySlider")
-	if sens_sld: sens_sld.position = Vector2(25, 726)
+	if sens_sld: sens_sld.position = Vector2(25, 691)
 	
 	var fov_lbl = general_container.get_node_or_null("FovLabel")
-	if fov_lbl: fov_lbl.position = Vector2(25, 765)
+	if fov_lbl: fov_lbl.position = Vector2(25, 728)
 	var fov_val = general_container.get_node_or_null("FovValueLabel")
-	if fov_val: fov_val.position = Vector2(175, 765)
+	if fov_val: fov_val.position = Vector2(175, 728)
 	var fov_sld = general_container.get_node_or_null("FovSlider")
-	if fov_sld: fov_sld.position = Vector2(25, 786)
+	if fov_sld: fov_sld.position = Vector2(25, 749)
 	
 	var inv_x = general_container.get_node_or_null("InvertXCheckbox")
-	if inv_x: inv_x.position = Vector2(25, 820)
+	if inv_x: inv_x.position = Vector2(25, 783)
 	var inv_y = general_container.get_node_or_null("InvertYCheckbox")
-	if inv_y: inv_y.position = Vector2(25, 848)
+	if inv_y: inv_y.position = Vector2(25, 811)
 
-	general_container.custom_minimum_size = Vector2(410, 890)
-	general_container.size = Vector2(410, 890)
+	if controls_label:
+		_fit_group_label(controls_label)
 
-	# Connect visibility signals & initialize tabs
-	visibility_changed.connect(update_ui_from_stats)
+	general_container.custom_minimum_size = Vector2(410, 860)
+	general_container.size = Vector2(410, 860)
+
+	if not visibility_changed.is_connected(update_ui_from_stats):
+		visibility_changed.connect(update_ui_from_stats)
 	update_ui_from_stats()
 	
 	if quit_button:
@@ -486,7 +497,8 @@ func _reposition_general_container_layout():
 		quit_button.add_theme_stylebox_override("hover", btn_hover)
 		quit_button.add_theme_stylebox_override("pressed", btn_pressed)
 		quit_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-		quit_button.pressed.connect(_on_quit_pressed)
+		if not quit_button.pressed.is_connected(_on_quit_pressed):
+			quit_button.pressed.connect(_on_quit_pressed)
 
 	if is_pause_menu:
 		# Divert TitleBar CloseButton (x) to unpause the tree
@@ -979,11 +991,7 @@ func _on_tab_changed(tab_name: String):
 	_update_tab_visuals()
 
 func _update_tab_visuals():
-	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
-	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
-	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
-	var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
-	var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
+	# Using class-level preloaded fonts and styleboxes
 
 	if current_tab == "General":
 		general_tab_btn.add_theme_stylebox_override("normal", btn_hover)
@@ -1077,9 +1085,7 @@ func style_retro_option_button(btn: OptionButton):
 	if not btn:
 		return
 	
-	var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
-	var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
-	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+	# Using class-level preloaded fonts and styleboxes
 
 	btn.add_theme_font_override("font", font_bold)
 	btn.add_theme_font_size_override("font_size", 12)

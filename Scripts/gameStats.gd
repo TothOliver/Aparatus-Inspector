@@ -50,6 +50,7 @@ var vsync_enabled: bool = true
 var fps_limit: int = 0 # 0 = Unlimited
 var current_wallpaper: String = "teal_solid"
 
+@warning_ignore("unused_signal")
 signal wallpaper_changed(wallpaper_name: String)
 var resolution_width: int = 1920
 var resolution_height: int = 1080

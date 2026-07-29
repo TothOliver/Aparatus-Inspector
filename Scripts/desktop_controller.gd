@@ -693,6 +693,11 @@ func _on_hacker_alert_terminal_pressed():
 		hacker_alert.visible = false
 	open_app("Terminal")
 
+func _on_hacker_alert_close_pressed():
+	hacker_alert_dismissed = true
+	if hacker_alert:
+		hacker_alert.visible = false
+
 func _on_gui_focus_changed(control: Control):
 	if not control:
 		return

@@ -14,7 +14,7 @@ const Day1Pages = [
 
 const Day2Pages = [
 	"Welcome back for Shift 2, Inspector! Scribble here with a quick system update for your workstation.",
-	"The core specs on the Inspector app are now locked by default. Type 'scan' in the AE-DOS terminal for each unit to retrieve what the robot ACTUALLY has.",
+	"The core specs on the Inspector app are now locked by default. Type 'scan' in the AE-DOS terminal to show core specs",
 	"Then open the Web Browser to www.robot-factory.corp/registry to compare against what the robot SHOULD have!",
 	"Stay vigilant and good luck on your second shift!"
 ]
