@@ -39,15 +39,18 @@ var invert_mouse_y: bool = false
 var fov: float = 70.0
 var crt_effect_enabled: bool = true
 var brightness: float = 100.0
-var master_volume: float = 80.0
-var music_volume: float = 80.0
-var sfx_volume: float = 80.0
-var ambient_volume: float = 80.0
+var master_volume: float = 50.0
+var music_volume: float = 50.0
+var sfx_volume: float = 50.0
+var ambient_volume: float = 50.0
 var audio_output_device: String = "Default"
 var fullscreen_enabled: bool = true
 var display_mode: int = 2 # 0 = Windowed, 1 = Borderless, 2 = Fullscreen
 var vsync_enabled: bool = true
 var fps_limit: int = 0 # 0 = Unlimited
+var current_wallpaper: String = "teal_solid"
+
+signal wallpaper_changed(wallpaper_name: String)
 var resolution_width: int = 1920
 var resolution_height: int = 1080
 
@@ -103,6 +106,7 @@ func save_settings():
 	config.set_value("Settings", "fps_limit", fps_limit)
 	config.set_value("Settings", "resolution_width", resolution_width)
 	config.set_value("Settings", "resolution_height", resolution_height)
+	config.set_value("Settings", "wallpaper", current_wallpaper)
 	
 	for action in custom_keybinds.keys():
 		config.set_value("Keybinds", action, custom_keybinds[action])
@@ -152,6 +156,7 @@ func load_settings():
 		fps_limit = config.get_value("Settings", "fps_limit", primary_refresh)
 		resolution_width = config.get_value("Settings", "resolution_width", primary_res.x)
 		resolution_height = config.get_value("Settings", "resolution_height", primary_res.y)
+		current_wallpaper = config.get_value("Settings", "wallpaper", "teal_solid")
 		
 		if config.has_section("Keybinds"):
 			for action in config.get_section_keys("Keybinds"):

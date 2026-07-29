@@ -5,7 +5,34 @@ extends Control
 @onready var fps_option = get_node_or_null("GeneralContainer/FPSOption")
 @onready var vsync_checkbox = get_node_or_null("GeneralContainer/VSyncCheckbox")
 @onready var crt_checkbox = get_node_or_null("GeneralContainer/CRTCheckbox")
+@onready var wallpaper_option = get_node_or_null("GeneralContainer/WallpaperOption")
 @onready var brightness_slider = get_node_or_null("GeneralContainer/BrightnessSlider")
+
+const WALLPAPER_KEYS = [
+	"teal_solid",
+	"teal_grid",
+	"bricks",
+	"navy_checkers",
+	"forest_hatch",
+	"purple_diamonds",
+	"charcoal_slate"
+]
+
+const WALLPAPER_NAMES = [
+	"Teal Solid (Win95)",
+	"Teal Matrix Grid",
+	"Classic Red Bricks",
+	"Navy Blue Checkers",
+	"Forest Green Weave",
+	"Purple Diamonds",
+	"Charcoal Slate"
+]
+var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
+var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
+var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+
 @onready var brightness_value_label = get_node_or_null("GeneralContainer/BrightnessValueLabel")
 
 @onready var volume_slider = get_node_or_null("GeneralContainer/VolumeSlider")
@@ -46,6 +73,7 @@ func _setup_scroll_containers():
 		general_scroll.size = Vector2(426, 335)
 		general_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		general_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		general_scroll.clip_contents = true
 		
 		var parent_node = general_container.get_parent()
 		if parent_node:
@@ -67,6 +95,7 @@ func _setup_scroll_containers():
 		controls_scroll.size = Vector2(426, 335)
 		controls_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		controls_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		controls_scroll.clip_contents = true
 		controls_scroll.visible = false
 		
 		var parent_node = controls_container.get_parent()
@@ -154,13 +183,6 @@ func _ready():
 			crt.add_to_group("CRTOverlays")
 			crt.visible = GameStats.crt_effect_enabled
 
-	# Load retro assets
-	var font_bold = preload("res://RetroWindowsGUI/windows-bold[1].ttf")
-	var font_regular = preload("res://RetroWindowsGUI/M 8pt.ttf")
-	var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
-	var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
-	var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
-
 	# Dynamic resize and positioning of parent settings window
 	var parent = get_parent()
 	if parent and parent is Control:
@@ -192,6 +214,28 @@ func _ready():
 	if quit_button:
 		quit_button.position = Vector2(153, 385)
 		quit_button.size = Vector2(120, 26)
+
+	# Dynamic creation of Wallpaper option if missing from scene node tree
+	if wallpaper_option == null and general_container:
+		var wp_lbl = Label.new()
+		wp_lbl.name = "WallpaperLabel"
+		wp_lbl.text = "Wallpaper Pattern:"
+		wp_lbl.position = Vector2(25, 282)
+		wp_lbl.size = Vector2(145, 20)
+		wp_lbl.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		wp_lbl.add_theme_font_override("font", font_regular)
+		wp_lbl.add_theme_font_size_override("font_size", 12)
+		general_container.add_child(wp_lbl)
+		
+		var wp_opt = OptionButton.new()
+		wp_opt.name = "WallpaperOption"
+		wp_opt.position = Vector2(180, 278)
+		wp_opt.size = Vector2(210, 26)
+		general_container.add_child(wp_opt)
+		wallpaper_option = wp_opt
+		style_retro_option_button(wallpaper_option)
+
+	_reposition_general_container_layout()
 
 	# Dynamic creation of FOV slider if missing from scene node tree
 	if fov_slider == null and general_container:
@@ -302,6 +346,130 @@ func _ready():
 	# Configure tab buttons pressed callbacks
 	general_tab_btn.pressed.connect(func(): _on_tab_changed("General"))
 	controls_tab_btn.pressed.connect(func(): _on_tab_changed("Controls"))
+	
+	_reposition_general_container_layout()
+
+func _reposition_general_container_layout():
+	if not general_container:
+		return
+		
+	# Display Group
+	var display_group = general_container.get_node_or_null("DisplayGroup")
+	if display_group:
+		display_group.position = Vector2(10, 55)
+		display_group.size = Vector2(406, 265)
+		
+	var display_label = general_container.get_node_or_null("DisplayGroupLabel")
+	if display_label:
+		display_label.position = Vector2(20, 47)
+		
+	var disp_mode_lbl = general_container.get_node_or_null("DisplayModeLabel")
+	if disp_mode_lbl: disp_mode_lbl.position = Vector2(25, 70)
+	var disp_mode_opt = general_container.get_node_or_null("DisplayModeOption")
+	if disp_mode_opt: disp_mode_opt.position = Vector2(180, 66)
+	
+	var res_lbl = general_container.get_node_or_null("ResolutionLabel")
+	if res_lbl: res_lbl.position = Vector2(25, 103)
+	var res_opt = general_container.get_node_or_null("ResolutionOption")
+	if res_opt: res_opt.position = Vector2(180, 99)
+	
+	var fps_lbl = general_container.get_node_or_null("FPSLabel")
+	if fps_lbl: fps_lbl.position = Vector2(25, 136)
+	var fps_opt = general_container.get_node_or_null("FPSOption")
+	if fps_opt: fps_opt.position = Vector2(180, 132)
+	
+	var vsync_cb = general_container.get_node_or_null("VSyncCheckbox")
+	if vsync_cb: vsync_cb.position = Vector2(25, 167)
+	
+	var crt_cb = general_container.get_node_or_null("CRTCheckbox")
+	if crt_cb: crt_cb.position = Vector2(25, 195)
+	
+	var bright_lbl = general_container.get_node_or_null("BrightnessLabel")
+	if bright_lbl: bright_lbl.position = Vector2(25, 224)
+	var bright_val = general_container.get_node_or_null("BrightnessValueLabel")
+	if bright_val: bright_val.position = Vector2(160, 224)
+	var bright_sld = general_container.get_node_or_null("BrightnessSlider")
+	if bright_sld: bright_sld.position = Vector2(25, 247)
+	
+	var wp_lbl = general_container.get_node_or_null("WallpaperLabel")
+	if wp_lbl: wp_lbl.position = Vector2(25, 282)
+	var wp_opt = general_container.get_node_or_null("WallpaperOption")
+	if wp_opt: wp_opt.position = Vector2(180, 278)
+
+	# Audio Group
+	var audio_group = general_container.get_node_or_null("AudioGroup")
+	if audio_group:
+		audio_group.position = Vector2(10, 335)
+		audio_group.size = Vector2(406, 340)
+		
+	var audio_label = general_container.get_node_or_null("AudioGroupLabel")
+	if audio_label:
+		audio_label.position = Vector2(20, 327)
+		
+	var audio_out_lbl = general_container.get_node_or_null("AudioOutputLabel")
+	if audio_out_lbl: audio_out_lbl.position = Vector2(25, 350)
+	var audio_out_opt = general_container.get_node_or_null("AudioOutputOption")
+	if audio_out_opt: audio_out_opt.position = Vector2(25, 371)
+	
+	var vol_lbl = general_container.get_node_or_null("VolumeLabel")
+	if vol_lbl: vol_lbl.position = Vector2(25, 407)
+	var vol_val = general_container.get_node_or_null("VolumeValueLabel")
+	if vol_val: vol_val.position = Vector2(160, 407)
+	var vol_sld = general_container.get_node_or_null("VolumeSlider")
+	if vol_sld: vol_sld.position = Vector2(25, 430)
+	
+	var music_lbl = general_container.get_node_or_null("MusicVolumeLabel")
+	if music_lbl: music_lbl.position = Vector2(25, 467)
+	var music_val = general_container.get_node_or_null("MusicVolumeValueLabel")
+	if music_val: music_val.position = Vector2(160, 467)
+	var music_sld = general_container.get_node_or_null("MusicVolumeSlider")
+	if music_sld: music_sld.position = Vector2(25, 490)
+	
+	var sfx_lbl = general_container.get_node_or_null("SfxVolumeLabel") if general_container.get_node_or_null("SfxVolumeLabel") else general_container.get_node_or_null("VfxVolumeLabel")
+	if sfx_lbl: sfx_lbl.position = Vector2(25, 527)
+	var sfx_val = general_container.get_node_or_null("SfxVolumeValueLabel") if general_container.get_node_or_null("SfxVolumeValueLabel") else general_container.get_node_or_null("VfxVolumeValueLabel")
+	if sfx_val: sfx_val.position = Vector2(160, 527)
+	var sfx_sld = general_container.get_node_or_null("SfxVolumeSlider") if general_container.get_node_or_null("SfxVolumeSlider") else general_container.get_node_or_null("VfxVolumeSlider")
+	if sfx_sld: sfx_sld.position = Vector2(25, 550)
+	
+	var amb_lbl = general_container.get_node_or_null("AmbientVolumeLabel")
+	if amb_lbl: amb_lbl.position = Vector2(25, 587)
+	var amb_val = general_container.get_node_or_null("AmbientVolumeValueLabel")
+	if amb_val: amb_val.position = Vector2(160, 587)
+	var amb_sld = general_container.get_node_or_null("AmbientVolumeSlider")
+	if amb_sld: amb_sld.position = Vector2(25, 610)
+
+	# Mouse & Camera Group
+	var mouse_group = general_container.get_node_or_null("MouseGroup")
+	if mouse_group:
+		mouse_group.position = Vector2(10, 690)
+		mouse_group.size = Vector2(406, 175)
+		
+	var mouse_label = general_container.get_node_or_null("MouseGroupLabel")
+	if mouse_label:
+		mouse_label.position = Vector2(20, 682)
+		
+	var sens_lbl = general_container.get_node_or_null("SensitivityLabel")
+	if sens_lbl: sens_lbl.position = Vector2(25, 705)
+	var sens_val = general_container.get_node_or_null("SensitivityValueLabel")
+	if sens_val: sens_val.position = Vector2(175, 705)
+	var sens_sld = general_container.get_node_or_null("SensitivitySlider")
+	if sens_sld: sens_sld.position = Vector2(25, 726)
+	
+	var fov_lbl = general_container.get_node_or_null("FovLabel")
+	if fov_lbl: fov_lbl.position = Vector2(25, 765)
+	var fov_val = general_container.get_node_or_null("FovValueLabel")
+	if fov_val: fov_val.position = Vector2(175, 765)
+	var fov_sld = general_container.get_node_or_null("FovSlider")
+	if fov_sld: fov_sld.position = Vector2(25, 786)
+	
+	var inv_x = general_container.get_node_or_null("InvertXCheckbox")
+	if inv_x: inv_x.position = Vector2(25, 820)
+	var inv_y = general_container.get_node_or_null("InvertYCheckbox")
+	if inv_y: inv_y.position = Vector2(25, 848)
+
+	general_container.custom_minimum_size = Vector2(410, 890)
+	general_container.size = Vector2(410, 890)
 
 	# Connect visibility signals & initialize tabs
 	visibility_changed.connect(update_ui_from_stats)
@@ -488,6 +656,22 @@ func update_ui_from_stats():
 		crt_checkbox.button_pressed = GameStats.crt_effect_enabled
 		crt_checkbox.toggled.connect(_on_crt_toggled)
 
+	# Wallpaper Option
+	if wallpaper_option:
+		style_retro_option_button(wallpaper_option)
+		if wallpaper_option.item_selected.is_connected(_on_wallpaper_selected):
+			wallpaper_option.item_selected.disconnect(_on_wallpaper_selected)
+		wallpaper_option.clear()
+		
+		var cur_wp = GameStats.current_wallpaper
+		var sel_idx = 0
+		for i in range(WALLPAPER_KEYS.size()):
+			wallpaper_option.add_item(WALLPAPER_NAMES[i])
+			if WALLPAPER_KEYS[i] == cur_wp:
+				sel_idx = i
+		wallpaper_option.selected = sel_idx
+		wallpaper_option.item_selected.connect(_on_wallpaper_selected)
+
 	# Brightness Slider
 	if brightness_slider:
 		for conn in brightness_slider.value_changed.get_connections():
@@ -644,6 +828,13 @@ func _on_vsync_toggled(toggled_on: bool):
 	GameStats.vsync_enabled = toggled_on
 	GameStats.apply_all_settings()
 	GameStats.save_settings()
+
+func _on_wallpaper_selected(index: int):
+	if index >= 0 and index < WALLPAPER_KEYS.size():
+		var wp_key = WALLPAPER_KEYS[index]
+		GameStats.current_wallpaper = wp_key
+		GameStats.wallpaper_changed.emit(wp_key)
+		GameStats.save_settings()
 
 func _on_crt_toggled(toggled_on: bool):
 	GameStats.crt_effect_enabled = toggled_on

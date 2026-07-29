@@ -68,7 +68,7 @@ func _ready():
 			)
 
 func _process(delta):
-	if is_typing and dialog_label:
+	if is_typing and dialog_label and _is_player_on_pc():
 		typing_progress += delta * typing_speed
 		var count = int(typing_progress)
 		if count >= target_text.length():
@@ -76,6 +76,21 @@ func _process(delta):
 			is_typing = false
 		else:
 			dialog_label.visible_characters = count
+
+func _is_player_on_pc() -> bool:
+	var tree = get_tree()
+	if not tree or not tree.root:
+		return true
+		
+	var player = tree.root.find_child("Player", true, false)
+	if player and "current_state" in player and "State" in player:
+		return player.current_state == player.State.COMPUTER_VIEW
+		
+	var game_3d = tree.root.find_child("Game3D", true, false)
+	if game_3d and "viewport_container" in game_3d and game_3d.viewport_container:
+		return game_3d.viewport_container.visible
+		
+	return true
 
 func _setup_active_pages():
 	var day = GameStats.current_day

@@ -387,6 +387,11 @@ func _ready():
 	if start_menu:
 		start_menu.visible = false
 		
+	# Setup desktop wallpaper background
+	if not GameStats.wallpaper_changed.is_connected(_update_desktop_wallpaper):
+		GameStats.wallpaper_changed.connect(_update_desktop_wallpaper)
+	_update_desktop_wallpaper(GameStats.current_wallpaper)
+		
 	# Setup window list for focus & tab management
 	open_apps["Inspector"] = true
 	
@@ -978,3 +983,20 @@ func create_envelope_icon(icon_size: Vector2) -> Control:
 		c.draw_line(Vector2(ex + ew - 1, ey + eh - 1), center, line_color, 1.0)
 	)
 	return c
+
+func _update_desktop_wallpaper(wallpaper_name: String):
+	var bg_node = get_node_or_null("DesktopBackground") as TextureRect
+	if not bg_node:
+		bg_node = TextureRect.new()
+		bg_node.name = "DesktopBackground"
+		bg_node.set_anchors_preset(Control.PRESET_FULL_RECT)
+		bg_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(bg_node)
+		move_child(bg_node, 0)
+		
+	var path = "res://Sprites/wallpapers/wp_" + wallpaper_name + ".png"
+	if ResourceLoader.exists(path):
+		var tex = load(path) as Texture2D
+		if tex:
+			bg_node.texture = tex
+			bg_node.stretch_mode = TextureRect.STRETCH_TILE
