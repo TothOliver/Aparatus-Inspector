@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bwe8iquljpjp2" path="res://Scripts/DayManager.gd" id="2_xkndl"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="5_fgofq"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="7_2irst"]
+[ext_resource type="Texture2D" path="res://RetroWindowsGUI/MinimizeButton.png" id="Icon_MinimizeButton"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="9_71axn"]
 [ext_resource type="Script" uid="uid://bgf1j7g7pud2b" path="res://Scripts/desktop_window.gd" id="11_window"]
 [ext_resource type="Script" uid="uid://cqahvpj01sjgl" path="res://Scripts/desktop_controller.gd" id="12_desktop"]
@@ -747,6 +748,14 @@ layout_mode = 2
 icon_alignment = 1
 expand_icon = true
 
+[node name="ScribbleTab" type="Button" parent="DesktopOS/Taskbar/ActiveTabs" unique_id=2040480063]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("Icon_ScribbleAssistant")
+icon_alignment = 1
+expand_icon = true
+
 [node name="StartMenu" type="NinePatchRect" parent="DesktopOS" unique_id=443402356]
 unique_name_in_owner = true
 visible = false
@@ -990,6 +999,20 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 expand_icon = true
 
+
+[node name="MinimizeButton" type="Button" parent="ApparatusInspectorWindow/TitleBar"]
+layout_mode = 0
+offset_left = 1495.0
+offset_top = 4.0
+offset_right = 1517.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Picture" type="Control" parent="ApparatusInspectorWindow" unique_id=2014082233]
 anchors_preset = 0
@@ -1686,6 +1709,20 @@ icon_alignment = 1
 expand_icon = true
 
 
+[node name="MinimizeButton" type="Button" parent="NotepadWindow/TitleBar"]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 4.0
+offset_right = 457.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
+icon_alignment = 1
+expand_icon = true
+
 [node name="TextEdit" type="TextEdit" parent="NotepadWindow" unique_id=990905804]
 layout_mode = 0
 offset_left = 10.0
@@ -1757,6 +1794,20 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 expand_icon = true
 
+
+[node name="MinimizeButton" type="Button" parent="TerminalWindow/TitleBar"]
+layout_mode = 0
+offset_left = 675.0
+offset_top = 4.0
+offset_right = 697.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
+icon_alignment = 1
+expand_icon = true
 
 [node name="TerminalBody" type="Control" parent="TerminalWindow" unique_id=1387085980]
 anchors_preset = 0
@@ -1868,6 +1919,20 @@ theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("7_2irst")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MinimizeButton" type="Button" parent="MinesweeperWindow/TitleBar"]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 4.0
+offset_right = 207.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
 icon_alignment = 1
 expand_icon = true
 
@@ -2071,6 +2136,20 @@ icon_alignment = 1
 expand_icon = true
 
 
+[node name="MinimizeButton" type="Button" parent="SnakeWindow/TitleBar"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 4.0
+offset_right = 337.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
+icon_alignment = 1
+expand_icon = true
+
 [node name="SnakeBody" type="Control" parent="SnakeWindow" unique_id=1226819989]
 anchors_preset = 0
 offset_left = 10.0
@@ -2188,6 +2267,20 @@ theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
 theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
 icon = ExtResource("7_2irst")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MinimizeButton" type="Button" parent="CCTVWindow/TitleBar"]
+layout_mode = 0
+offset_left = 582.0
+offset_top = 4.0
+offset_right = 604.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
 icon_alignment = 1
 expand_icon = true
 
@@ -2354,6 +2447,20 @@ icon_alignment = 1
 expand_icon = true
 
 
+[node name="MinimizeButton" type="Button" parent="SettingsWindow/TitleBar"]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 4.0
+offset_right = 409.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
+icon_alignment = 1
+expand_icon = true
+
 [node name="SettingsBody" parent="SettingsWindow" unique_id=765543776 instance=ExtResource("12_settings_body")]
 layout_mode = 0
 offset_left = 12.0
@@ -2414,6 +2521,20 @@ icon = ExtResource("7_2irst")
 icon_alignment = 1
 expand_icon = true
 
+
+[node name="MinimizeButton" type="Button" parent="ScribbleWindow/TitleBar"]
+layout_mode = 0
+offset_left = 193.0
+offset_top = 4.0
+offset_right = 215.0
+offset_bottom = 26.0
+theme_override_styles/normal = ExtResource("StyleBox_Button_Normal")
+theme_override_styles/pressed = ExtResource("StyleBox_Button_Pressed")
+theme_override_styles/hover = ExtResource("StyleBox_Button_Hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+icon = ExtResource("Icon_MinimizeButton")
+icon_alignment = 1
+expand_icon = true
 
 [node name="ScribbleBody" type="Control" parent="ScribbleWindow" unique_id=987654324]
 anchors_preset = 0
@@ -2625,4 +2746,6 @@ mouse_filter = 2
 [connection signal="pressed" from="CCTVWindow/CameraControls/Cam3Button" to="DesktopOS" method="_on_cam3_pressed"]
 [connection signal="pressed" from="CCTVWindow/CameraControls/CCTVLightButton" to="DesktopOS" method="_on_cctv_light_pressed"]
 [connection signal="pressed" from="SettingsWindow/TitleBar/CloseButton" to="SettingsWindow" method="close"]
+[connection signal="pressed" from="ScribbleWindow/TitleBar/CloseButton" to="ScribbleWindow" method="close"]
+[connection signal="pressed" from="DesktopOS/Taskbar/ActiveTabs/ScribbleTab" to="DesktopOS" method="toggle_window_from_tab" binds= ["Scribble"]]
 [connection signal="pressed" from="HackerAlert/TerminalButton" to="DesktopOS" method="_on_hacker_alert_terminal_pressed"]

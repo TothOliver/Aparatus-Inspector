@@ -41,11 +41,7 @@ var _margins_registered: bool = false
 func _ready():
 	if title_bar:
 		title_bar.gui_input.connect(_on_title_bar_gui_input)
-		var close_btn = title_bar.get_node_or_null("CloseButton")
-		if close_btn:
-			close_btn.mouse_filter = Control.MOUSE_FILTER_STOP
-			if not close_btn.pressed.is_connected(close):
-				close_btn.pressed.connect(close)
+		_ensure_titlebar_buttons()
 	
 	# Bring to front on clicking anywhere on the window
 	gui_input.connect(_on_window_gui_input)
@@ -60,6 +56,42 @@ func _ready():
 		
 		# Connect resized signal
 		resized.connect(_on_window_resized)
+
+func _ensure_titlebar_buttons():
+	if not title_bar:
+		return
+
+	var close_btn = title_bar.get_node_or_null("CloseButton")
+	if close_btn:
+		close_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+		if not close_btn.pressed.is_connected(close):
+			close_btn.pressed.connect(close)
+
+	var min_btn = title_bar.get_node_or_null("MinimizeButton")
+	if not min_btn:
+		min_btn = Button.new()
+		min_btn.name = "MinimizeButton"
+		title_bar.add_child(min_btn)
+
+	if min_btn and min_btn is Button:
+		min_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+		var min_icon = preload("res://RetroWindowsGUI/MinimizeButton.png")
+		min_btn.icon = min_icon
+		min_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		min_btn.expand_icon = true
+		
+		var btn_normal = preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres")
+		var btn_hover = preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres")
+		var btn_pressed = preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres")
+		var btn_focus = StyleBoxEmpty.new()
+		
+		min_btn.add_theme_stylebox_override("normal", btn_normal)
+		min_btn.add_theme_stylebox_override("hover", btn_hover)
+		min_btn.add_theme_stylebox_override("pressed", btn_pressed)
+		min_btn.add_theme_stylebox_override("focus", btn_focus)
+		
+		if not min_btn.pressed.is_connected(minimize):
+			min_btn.pressed.connect(minimize)
 
 func _setup_resize_handles():
 	if not is_scalable:
@@ -177,7 +209,7 @@ func _update_resize_handles_positions():
 
 func register_child_margins():
 	child_margins.clear()
-	var handle_names = ["LeftBorder", "RightBorder", "TopBorder", "BottomBorder", "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "CornerBorder"]
+	var handle_names = ["LeftBorder", "RightBorder", "TopBorder", "BottomBorder", "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "CornerBorder", "CloseButton", "MinimizeButton"]
 	for child in get_children():
 		if child is Control and not child.name in handle_names:
 			var left_margin = child.position.x
@@ -243,17 +275,29 @@ func update_child_positions():
 					child.position.y = m.top
 				child.size.y = m.orig_height
 			
-			# Special handling for TitleBar to move the CloseButton
+			# Special handling for TitleBar to move the CloseButton and MinimizeButton
 			if child.name == "TitleBar":
 				child.position = Vector2(3, 3)
 				child.size.x = max(10, size.x - 6)
-				var close_btn = child.get_node_or_null("CloseButton")
-				if close_btn and close_btn is Control:
-					var btn_h = clamp(child.size.y - 4.0, 14.0, 20.0)
-					var btn_w = clamp(btn_h * 1.15, 16.0, 22.0)
+				var close_btn = child.get_node_or_null("CloseButton") as Control
+				var min_btn = child.get_node_or_null("MinimizeButton") as Control
+				if not min_btn:
+					_ensure_titlebar_buttons()
+					min_btn = child.get_node_or_null("MinimizeButton") as Control
+				
+				var btn_h = clamp(child.size.y - 4.0, 14.0, 20.0)
+				var btn_w = clamp(btn_h * 1.15, 16.0, 22.0)
+				
+				if close_btn and is_instance_valid(close_btn):
 					close_btn.size = Vector2(btn_w, btn_h)
 					close_btn.position.x = child.size.x - close_btn.size.x - 3.0
 					close_btn.position.y = floor((child.size.y - close_btn.size.y) / 2.0)
+					
+				if min_btn and is_instance_valid(min_btn):
+					min_btn.size = Vector2(btn_w, btn_h)
+					var right_offset = (close_btn.size.x + 5.0) if (close_btn and close_btn.visible) else 3.0
+					min_btn.position.x = child.size.x - min_btn.size.x - right_offset
+					min_btn.position.y = floor((child.size.y - min_btn.size.y) / 2.0)
 
 func _on_window_resized():
 	if not _margins_registered:
@@ -274,6 +318,11 @@ func _on_title_bar_gui_input(event: InputEvent):
 						var close_rect = close_btn.get_global_rect()
 						if close_rect.has_point(event.global_position):
 							return
+					var min_btn = title_bar.get_node_or_null("MinimizeButton")
+					if min_btn and min_btn is Control:
+						var min_rect = min_btn.get_global_rect()
+						if min_rect.has_point(event.global_position):
+							return
 				dragging = true
 				drag_offset = get_local_mouse_position()
 				move_to_front()
@@ -288,7 +337,7 @@ func _on_window_gui_input(event: InputEvent):
 
 func _connect_children_gui_input(node: Node):
 	if node is Control:
-		if node.name == "CloseButton" or (node.get_parent() and node.get_parent().name == "TitleBar"):
+		if node.name in ["CloseButton", "MinimizeButton"] or (node.get_parent() and node.get_parent().name == "TitleBar" and node.name in ["CloseButton", "MinimizeButton"]):
 			return
 		if not node.gui_input.is_connected(_on_child_gui_input):
 			node.gui_input.connect(_on_child_gui_input)

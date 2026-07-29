@@ -19,6 +19,7 @@ class_name DesktopController
 @onready var settings_tab = %SettingsTab
 @onready var browser_tab = %BrowserTab
 @onready var mail_tab = %MailTab
+@onready var scribble_tab = get_node_or_null("%ScribbleTab")
 
 @onready var cctv_texture = %CCTVTexture
 @onready var power_bar = %PowerBar
@@ -34,6 +35,7 @@ var browser_window: Control = null
 var shift_verify_window: Control = null
 var shift_verify_tab: Button = null
 var mail_window: Control = null
+var open_apps: Dictionary = {}
 
 func _ready():
 	call_deferred("_update_cctv_button_styles", 1)
@@ -380,6 +382,14 @@ func _ready():
 	# 		program_list.move_child(verify_btn, divider_node.get_index())
 	
 	# Connect window signals to update taskbar tabs and focus state
+	_update_top_window_focus()
+	call_deferred("_update_cctv_button_styles", 1)
+	if start_menu:
+		start_menu.visible = false
+		
+	# Setup window list for focus & tab management
+	open_apps["Inspector"] = true
+	
 	var apps = [
 		[inspector_window, inspector_tab],
 		[notepad_window, notepad_tab],
@@ -395,21 +405,36 @@ func _ready():
 		apps.append([shift_verify_window, shift_verify_tab])
 	if mail_window and mail_tab:
 		apps.append([mail_window, mail_tab])
-	if scribble_window:
-		apps.append([scribble_window, null])
+	if scribble_window and scribble_tab:
+		apps.append([scribble_window, scribble_tab])
 		
 	for app in apps:
 		var window = app[0]
 		var tab = app[1]
+		var app_name = ""
+		for name_key in ["Inspector", "Notepad", "Terminal", "Minesweeper", "Snake", "CCTV", "Settings", "Browser", "Mail", "Scribble", "ShiftVerify"]:
+			if _get_window_by_name(name_key) == window:
+				app_name = name_key
+				break
+
+		if window and window.visible:
+			open_apps[app_name] = true
+
 		window.closed.connect(func(): 
+			if app_name != "":
+				open_apps[app_name] = false
 			_update_tab_state(tab, false)
 			_update_top_window_focus()
 		)
 		window.minimized.connect(func(): 
+			if app_name != "":
+				open_apps[app_name] = true
 			_update_tab_state(tab, false)
 			_update_top_window_focus()
 		)
 		window.focused.connect(func():
+			if app_name != "":
+				open_apps[app_name] = true
 			_update_top_window_focus()
 		)
 	
@@ -524,25 +549,22 @@ func _update_tab_state(tab: Button, active: bool):
 		tab.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
 		tab.add_theme_color_override("font_focus_color", Color(0, 0, 0, 1))
 
+		var is_open = open_apps.get(app_name, false)
 		
-		if active:
+		if is_open:
 			tab.visible = true
-			tab.add_theme_stylebox_override("normal", pressed_style)
-			tab.add_theme_stylebox_override("hover", pressed_style)
-			tab.add_theme_stylebox_override("pressed", pressed_style)
-			tab.add_theme_stylebox_override("focus", pressed_style)
-		else:
-			var window = _get_window_by_name(app_name)
-			if window and window.visible:
-				tab.visible = true
+			if active:
+				tab.add_theme_stylebox_override("normal", pressed_style)
+				tab.add_theme_stylebox_override("hover", pressed_style)
+				tab.add_theme_stylebox_override("pressed", pressed_style)
+				tab.add_theme_stylebox_override("focus", pressed_style)
 			else:
-				# Keep tab visible for quick restore from taskbar
-				tab.visible = true
-			
-			tab.add_theme_stylebox_override("normal", normal_style)
-			tab.add_theme_stylebox_override("hover", hover_style)
-			tab.add_theme_stylebox_override("pressed", pressed_style)
-			tab.add_theme_stylebox_override("focus", hover_style)
+				tab.add_theme_stylebox_override("normal", normal_style)
+				tab.add_theme_stylebox_override("hover", hover_style)
+				tab.add_theme_stylebox_override("pressed", pressed_style)
+				tab.add_theme_stylebox_override("focus", hover_style)
+		else:
+			tab.visible = false
 
 func _get_window_by_name(window_name: String) -> Control:
 	match window_name:
@@ -572,17 +594,21 @@ func open_app(app_name: String):
 		return
 	var window = _get_window_by_name(app_name)
 	if window:
+		open_apps[app_name] = true
 		window.restore()
+		_update_top_window_focus()
 
 func toggle_window_from_tab(app_name: String):
 	if GameStats.current_day == 1 and (app_name == "Terminal" or app_name == "CCTV"):
 		return
 	var window = _get_window_by_name(app_name)
 	if window:
-		if window.visible:
+		open_apps[app_name] = true
+		if window.visible and active_window == window:
 			window.minimize()
 		else:
 			window.restore()
+		_update_top_window_focus()
 
 func _get_tab_by_name(tab_name: String) -> Button:
 	match tab_name:
@@ -596,6 +622,7 @@ func _get_tab_by_name(tab_name: String) -> Button:
 		"Browser": return browser_tab
 		"ShiftVerify": return shift_verify_tab
 		"Mail": return mail_tab
+		"Scribble": return scribble_tab
 	return null
 
 func _on_start_button_pressed():

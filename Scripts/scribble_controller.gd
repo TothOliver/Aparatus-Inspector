@@ -49,12 +49,15 @@ func _ready():
 					parent.visible = false
 			)
 		
-		# Reset and restart typing when window becomes visible
+		# Preserve current page when un-minimizing / restoring window
 		parent.visibility_changed.connect(func():
 			if parent.visible:
-				current_page = 0
-				_setup_active_pages()
-				_update_page()
+				if target_text == "" or dialog_label.text == "":
+					_update_page()
+				elif is_typing and dialog_label:
+					dialog_label.visible_characters = int(typing_progress)
+				elif not is_typing and dialog_label:
+					dialog_label.visible_characters = -1
 		)
 		
 		if parent.has_signal("closed"):

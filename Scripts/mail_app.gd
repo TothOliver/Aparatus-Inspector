@@ -86,6 +86,22 @@ func _ready():
 	close_btn.pressed.connect(func(): close())
 	title_bar_rect.add_child(close_btn)
 	
+	# Title bar Minimize button
+	var min_btn = Button.new()
+	min_btn.name = "MinimizeButton"
+	min_btn.theme_type_variation = "FlatButton"
+	min_btn.add_theme_stylebox_override("normal", btn_normal)
+	min_btn.add_theme_stylebox_override("hover", btn_hover)
+	min_btn.add_theme_stylebox_override("pressed", btn_pressed)
+	min_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	min_btn.icon = preload("res://RetroWindowsGUI/MinimizeButton.png")
+	min_btn.expand_icon = true
+	min_btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	min_btn.size = Vector2(26, 22)
+	min_btn.position = Vector2(title_bar_rect.size.x - 56, 2)
+	min_btn.pressed.connect(func(): minimize())
+	title_bar_rect.add_child(min_btn)
+	
 	# Left Inbox Frame Panel
 	var left_panel = Panel.new()
 	left_panel.name = "LeftPanel"
