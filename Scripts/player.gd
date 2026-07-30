@@ -175,21 +175,21 @@ func _input(event):
 		if is_interact_pressed:
 			if interaction_ray.is_colliding():
 				var collider = interaction_ray.get_collider()
-				if collider:
+				if collider and is_interactable(collider):
 					if collider.has_method("interact"):
 						collider.interact(self)
 					elif collider.get_node_or_null("SwitchInteractable") and collider.get_node_or_null("SwitchInteractable").has_method("interact"):
 						collider.get_node_or_null("SwitchInteractable").interact(self)
 					elif collider.get_node_or_null("WifiButton/SwitchInteractable") and collider.get_node_or_null("WifiButton/SwitchInteractable").has_method("interact"):
 						collider.get_node_or_null("WifiButton/SwitchInteractable").interact(self)
-					elif collider.name.contains("Screen") or collider.name.contains("Computer") or collider.name.contains("Monitor"):
+					elif _is_computer_node(collider):
 						if not is_power_off():
 							interact_with_computer()
-					elif collider.name.contains("Breaker") or collider.name.contains("Fuse"):
+					elif _is_breaker_node(collider):
 						var parent = get_parent()
 						if parent and parent.has_method("reset_breaker"):
 							parent.reset_breaker()
-					elif collider.name.to_lower().contains("wifi") or collider.name.to_lower().contains("router"):
+					elif _is_wifi_node(collider):
 						var game_3d = get_tree().current_scene
 						if game_3d and game_3d.has_method("toggle_wifi"):
 							game_3d.toggle_wifi()
@@ -200,8 +200,59 @@ func is_power_off() -> bool:
 		return game_3d.is_blackout
 	return false
 
+func _is_computer_node(node: Node) -> bool:
+	if not node:
+		return false
+	var n = node
+	for i in range(2):
+		if n:
+			var lname = n.name.to_lower()
+			if lname.contains("screen") or lname.contains("computer") or lname.contains("monitor"):
+				return true
+			n = n.get_parent()
+	return false
+
+func _is_breaker_node(node: Node) -> bool:
+	if not node:
+		return false
+	var n = node
+	for i in range(2):
+		if n:
+			var lname = n.name.to_lower()
+			if lname == "breakercloset" or lname.contains("closet"):
+				n = n.get_parent()
+				continue
+			if lname.contains("breakerbox") or lname.contains("breakerlever") or lname == "breaker" or lname.contains("fuse"):
+				return true
+			n = n.get_parent()
+	return false
+
+func _is_wifi_node(node: Node) -> bool:
+	if not node:
+		return false
+	var n = node
+	for i in range(2):
+		if n:
+			var lname = n.name.to_lower()
+			if lname.contains("wifi") or lname.contains("router"):
+				return true
+			n = n.get_parent()
+	return false
+
+func _is_curtain_node(node: Node) -> bool:
+	if not node:
+		return false
+	var n = node
+	for i in range(2):
+		if n:
+			var lname = n.name.to_lower()
+			if lname.contains("curtain"):
+				return true
+			n = n.get_parent()
+	return false
+
 func is_interactable(collider) -> bool:
-	if not collider:
+	if not collider or not (collider is Node):
 		return false
 	if collider.has_method("interact"):
 		return true
@@ -212,15 +263,10 @@ func is_interactable(collider) -> bool:
 	if wifi_switch and wifi_switch.has_method("interact"):
 		return true
 	
-	# Check collider and parent nodes up the hierarchy for computer/monitor/screen/curtain/breaker/wifi
-	var curr: Node = collider
-	while curr and curr != get_tree().root:
-		var name_lower = curr.name.to_lower()
-		if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor"):
-			return not is_power_off()
-		if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse") or name_lower.contains("wifi") or name_lower.contains("router"):
-			return true
-		curr = curr.get_parent()
+	if _is_computer_node(collider):
+		return not is_power_off()
+	if _is_breaker_node(collider) or _is_wifi_node(collider) or _is_curtain_node(collider):
+		return true
 		
 	return false
 
@@ -239,8 +285,12 @@ func check_interaction():
 				target_name = collider.get_node_or_null("SwitchInteractable").get_interact_name()
 			elif collider.get_node_or_null("WifiButton/SwitchInteractable") and collider.get_node_or_null("WifiButton/SwitchInteractable").has_method("get_interact_name"):
 				target_name = collider.get_node_or_null("WifiButton/SwitchInteractable").get_interact_name()
-			elif collider.name.to_lower().contains("wifi") or collider.name.to_lower().contains("router"):
+			elif _is_wifi_node(collider):
 				target_name = "Wifi Router"
+			elif _is_breaker_node(collider):
+				target_name = "Circuit Breaker"
+			elif _is_computer_node(collider):
+				target_name = "Computer Terminal"
 			else:
 				target_name = collider.name
 			
