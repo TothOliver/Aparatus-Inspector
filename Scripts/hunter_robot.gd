@@ -367,17 +367,12 @@ func kill_player():
 		ap.pitch_scale = 1.0
 		ap.play()
 	
-	# Swing door open physically
+	# Keep door closed
 	var dm = get_door_mesh()
-	if dm:
-		dm.rotation.y = deg_to_rad(90.0)
-	
-	# Trigger game over after brief freeze
-	await get_tree().create_timer(1.2).timeout
-	
 	if dm:
 		dm.rotation.y = 0.0
 		
+	await get_tree().create_timer(1.2).timeout
 	GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 
 func handle_footsteps(delta):

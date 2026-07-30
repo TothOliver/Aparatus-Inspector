@@ -12,6 +12,8 @@ var scan_in_progress: bool = false
 var scan_elapsed_time: float = 0.0
 var scan_total_time: float = 30.0
 var scan_target_robot = null
+var scanned_units: Array = []
+var scanned_unit_names: Array = []
 
 var prompt_prefix: String = "C:\\> "
 
@@ -166,6 +168,7 @@ func _process(delta):
 					update_last_terminal_line(_build_progress_bar_string(scan_total_time, scan_total_time))
 					scan_in_progress = false
 					GameStats.is_scanning = false
+					_mark_unit_scanned(scan_target_robot)
 					
 					var result = game_2d.scan_active_unit()
 					print_to_terminal("\nScan complete. Results retrieved:\n" + result)
@@ -428,15 +431,19 @@ func _on_command_submitted(new_text: String):
 					game_3d = get_tree().current_scene
 				var game_2d = game_3d.game_2d if (game_3d and "game_2d" in game_3d) else null
 				if game_2d and "current_robot" in game_2d and game_2d.current_robot and game_2d.has_method("scan_active_unit"):
-					scan_in_progress = true
-					GameStats.is_scanning = true
-					scan_elapsed_time = 0.0
-					scan_target_robot = game_2d.current_robot
-					if input_field:
-						input_field.editable = false
-						input_field.text = "SCANNING IN PROGRESS..."
-					print_to_terminal("Initiating hardware telemetry scan on unit '" + scan_target_robot.name + "'...")
-					print_to_terminal(_build_progress_bar_string(0.0, scan_total_time))
+					var target_robot = game_2d.current_robot
+					if _is_unit_scanned(target_robot):
+						print_to_terminal("ERROR: Telemetry scan quota exceeded for '" + target_robot.name + "'. Each unit can only be scanned once.")
+					else:
+						scan_in_progress = true
+						GameStats.is_scanning = true
+						scan_elapsed_time = 0.0
+						scan_target_robot = target_robot
+						if input_field:
+							input_field.editable = false
+							input_field.text = "SCANNING IN PROGRESS..."
+						print_to_terminal("Initiating hardware telemetry scan on unit '" + scan_target_robot.name + "'...")
+						print_to_terminal(_build_progress_bar_string(0.0, scan_total_time))
 				else:
 					print_to_terminal("Scan failed: No active unit loaded in testing chamber.")
 		"lock":
@@ -481,3 +488,21 @@ func _on_command_submitted(new_text: String):
 		await get_tree().create_timer(0.12).timeout
 	if is_inside_tree():
 		grab_input_focus()
+
+func _is_unit_scanned(robot) -> bool:
+	if not robot:
+		return false
+	if scanned_units.has(robot):
+		return true
+	if "name" in robot and scanned_unit_names.has(robot.name + "_" + str(robot.get_instance_id())):
+		return true
+	return false
+
+func _mark_unit_scanned(robot):
+	if robot:
+		if not scanned_units.has(robot):
+			scanned_units.append(robot)
+		if "name" in robot:
+			var key = robot.name + "_" + str(robot.get_instance_id())
+			if not scanned_unit_names.has(key):
+				scanned_unit_names.append(key)
