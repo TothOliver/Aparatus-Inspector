@@ -94,15 +94,16 @@ func _ready():
 				bad_btn.size = Vector2(210, 46)
 
 		# Middle side: ChatManager and Option (Width = 500)
+		var is_day3_or_later: bool = day_manager != null and day_manager.current_day >= 3
 		var chat_manager_node = inspector.get_node_or_null("ChatManager") as Control
 		if chat_manager_node:
 			chat_manager_node.position = Vector2(255, 45)
-			chat_manager_node.size = Vector2(500, 435)
+			chat_manager_node.size = Vector2(500, 435 if is_day3_or_later else 480)
 			
 		var option_node = inspector.get_node_or_null("Option") as Control
 		if option_node:
-			option_node.position = Vector2(255, 490)
-			option_node.size = Vector2(500, 115)
+			option_node.position = Vector2(255, 490 if is_day3_or_later else 535)
+			option_node.size = Vector2(500, 115 if is_day3_or_later else 70)
 
 			var ans_panel = option_node.get_node_or_null("AnswerPanel") as Panel
 			if ans_panel:
@@ -136,7 +137,7 @@ func _ready():
 
 			var input = option_node.get_node_or_null("QuestionInput") as LineEdit
 			if input:
-				input.visible = true
+				input.visible = is_day3_or_later
 				input.position = Vector2(10, 64)
 				input.size = Vector2(425, 34)
 				input.placeholder_text = "Type question..."
@@ -152,7 +153,7 @@ func _ready():
 
 			var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 			if submit:
-				submit.visible = true
+				submit.visible = is_day3_or_later
 				submit.position = Vector2(445, 64)
 				submit.size = Vector2(45, 34)
 				submit.text = ">"
@@ -769,13 +770,13 @@ func submit_question_text(text: String) -> void:
 	refocus_question_input()
 
 func refocus_question_input() -> void:
-	if question_input == null or not is_inside_tree():
+	if question_input == null or not is_inside_tree() or not question_input.visible:
 		return
 	question_input.grab_focus()
 	question_input.caret_column = question_input.text.length()
 	if is_inside_tree() and get_tree():
 		await get_tree().create_timer(0.12).timeout
-	if question_input and is_inside_tree():
+	if question_input and is_inside_tree() and question_input.visible:
 		question_input.grab_focus()
 		question_input.caret_column = question_input.text.length()
 
@@ -798,11 +799,14 @@ func _on_option_resized() -> void:
 	if btn2:
 		btn2.visible = false
 		btn2.disabled = true
+	var is_day3_or_later: bool = day_manager != null and day_manager.current_day >= 3
 	var submit = option_node.get_node_or_null("SubmitQuestionButton") as Button
 	if submit:
+		submit.visible = is_day3_or_later
 		submit.position = Vector2(w - 10 - submit.size.x, 64)
 	var input = option_node.get_node_or_null("QuestionInput") as LineEdit
 	if input:
+		input.visible = is_day3_or_later
 		input.position = Vector2(10, 64)
 		input.size.x = max(50, w - 20 - 10 - (submit.size.x if submit else 45))
 	
