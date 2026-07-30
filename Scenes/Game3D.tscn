@@ -17,11 +17,31 @@
 [ext_resource type="PackedScene" uid="uid://bb8l0glb4umiu" path="res://Scenes/boxRubble.tscn" id="9_cu4db"]
 [ext_resource type="PackedScene" uid="uid://bw0ck34pu3164" path="res://assets/officeAmbience/trashbag_1k.gltf/trashbag_1k.gltf" id="10_3uorb"]
 [ext_resource type="Material" uid="uid://jeghoqt1s4wf" path="res://materials/office_walls.tres" id="10_r4ocn"]
+[ext_resource type="PackedScene" uid="uid://c5l3d1lj0wc81" path="res://assets/Military/SM_Metal_Door_Frame_Double_01a.glb" id="11_5ixxh"]
 [ext_resource type="PackedScene" uid="uid://fh5mshlhk12l" path="res://Scenes/breakerCloset.tscn" id="11_47omi"]
+[ext_resource type="PackedScene" uid="uid://cg6p6sj3npjqc" path="res://assets/Military/SM_KeyPad_01a.glb" id="11_76w7r"]
 [ext_resource type="PackedScene" uid="uid://cxatfeyho8yh0" path="res://assets/Warehouse/SM_WM00228-Industrial_Ceiling_light.glb" id="11_bdicf"]
 [ext_resource type="Script" uid="uid://fhtow1t28qhg" path="res://Scripts/hunter_phase4.gd" id="11_hunter_p4"]
+[ext_resource type="PackedScene" uid="uid://blpn6vshj2yph" path="res://assets/Military/SM_Metal_Door_01b.glb" id="12_mpkvh"]
 [ext_resource type="PackedScene" uid="uid://bhko7288f6akj" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
+[ext_resource type="PackedScene" uid="uid://kply7fqyhbid" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Alarm.glb" id="12_tqjcx"]
+[ext_resource type="PackedScene" uid="uid://dscscqrn7qlva" path="res://assets/Military/Vents/SM_Air_Vent_01a.glb" id="13_47omi"]
+[ext_resource type="PackedScene" uid="uid://ddu0qbvr4oj8k" path="res://assets/Military/SM_Metal_Door_01a.glb" id="13_i78fe"]
+[ext_resource type="PackedScene" uid="uid://clfpsfn75q748" path="res://assets/Military/Vents/SM_Air_Vent_01c.glb" id="14_3uorb"]
+[ext_resource type="PackedScene" uid="uid://ccimva4a6ejt4" path="res://assets/Military/Vents/SM_Air_Vent_01b.glb" id="15_3uorb"]
+[ext_resource type="PackedScene" uid="uid://b5t5ofp1sod01" path="res://assets/Military/SM_Floor_Mat_01a.glb" id="15_32lqa"]
+[ext_resource type="PackedScene" uid="uid://c8ivrxspvfa7s" path="res://assets/Military/SM_Metal_Door_Frame_Single_01a.glb" id="15_wxplm"]
+[ext_resource type="PackedScene" uid="uid://cjxk4ychblcbk" path="res://assets/Military/SM_Metal_Door_03a.glb" id="16_32lqa"]
+[ext_resource type="PackedScene" uid="uid://dmu5gb4ne1al1" path="res://assets/Military/Vents/SM_Pipes_03a.glb" id="16_pkqiv"]
+[ext_resource type="PackedScene" uid="uid://cehxux23ngc28" path="res://assets/Military/Vents/SM_Pipes_03k.glb" id="17_5ixxh"]
+[ext_resource type="PackedScene" uid="uid://bdpndv4m0li3e" path="res://assets/Military/Vents/SM_Pipes_03i.glb" id="18_rjwxw"]
+[ext_resource type="PackedScene" uid="uid://1ii3dpq4uqo5" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher_Box.glb" id="23_jmfu2"]
+[ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="24_wxplm"]
+[ext_resource type="PackedScene" uid="uid://bf217xqhwtfyt" path="res://assets/Military/SM_Sign_02f.glb" id="25_32lqa"]
 [ext_resource type="PackedScene" uid="uid://0ub7akbpcn26" path="res://assets/TempRobot/TempModel1.glb" id="28_r4ocn"]
+[ext_resource type="PackedScene" uid="uid://dl6tnj1ucmgev" path="res://assets/Military/Vents/SM_Metal_Pipe_02i.glb" id="28_xd3w3"]
+[ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="29_j67j6"]
+[ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
@@ -200,6 +220,7 @@ target_position = Vector3(0, 0, -1.8)
 
 [node name="DoorLight" type="MeshInstance3D" parent="Office" unique_id=1542004563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 2.3, 2.5)
+visible = false
 mesh = SubResource("SphereMesh_door_light")
 surface_material_override/0 = SubResource("StandardMaterial3D_door_light")
 
@@ -242,21 +263,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 1.5)
 use_collision = true
 
 [node name="LeftWall_Back" type="CSGBox3D" parent="Office/LeftWall" unique_id=950467585]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -2.0899048)
 use_collision = true
-size = Vector3(0.1, 2.6, 2)
+size = Vector3(0.1, 2.6, 1.8201904)
 material = ExtResource("10_r4ocn")
 
 [node name="LeftWall_Front" type="CSGBox3D" parent="Office/LeftWall" unique_id=1533867000]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 2.0898438)
 use_collision = true
-size = Vector3(0.1, 2.6, 2)
+size = Vector3(0.1, 2.6, 1.8203125)
 material = ExtResource("10_r4ocn")
 
 [node name="LeftWall_Top" type="CSGBox3D" parent="Office/LeftWall" unique_id=1179087102]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3898923, 0)
 use_collision = true
-size = Vector3(0.1, 0.4, 2)
+size = Vector3(0.1, 0.32, 2.36)
 material = ExtResource("10_r4ocn")
 
 [node name="Floor" type="CSGBox3D" parent="Office" unique_id=1722852080]
@@ -276,21 +297,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.55)
 use_collision = true
 
 [node name="FrontWall_Left" type="CSGBox3D" parent="Office/FrontWall" unique_id=96908341]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 1.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8252319, 1.25, 0)
 use_collision = true
-size = Vector3(2.4, 2.6, 0.1)
+size = Vector3(2.3495362, 2.6, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="FrontWall_Right" type="CSGBox3D" parent="Office/FrontWall" unique_id=461388211]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8250488, 1.25, 0)
 use_collision = true
-size = Vector3(2.4, 2.6, 0.1)
+size = Vector3(2.3499024, 2.6, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="LeftWall_Top" type="CSGBox3D" parent="Office/FrontWall" unique_id=1701210090]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3850584, 0)
 use_collision = true
-size = Vector3(1.2, 0.4, 0.1)
+size = Vector3(1.3, 0.33, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
@@ -317,7 +338,7 @@ shape = SubResource("BoxShape3D_curtain")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 
 [node name="MetalRack" parent="Office" unique_id=744250992 instance=ExtResource("8_bdicf")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6509933, 0, 0.9378439)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.651, 0, 2.3)
 
 [node name="BoxRubble" parent="Office" unique_id=895906964 instance=ExtResource("9_cu4db")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.678174, 0, 4.095018)
@@ -326,13 +347,43 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.67
 transform = Transform3D(0.88302135, 0, -0.46933287, 0, 1, 0, 0.46933287, 0, 0.88302135, 2.6953888, 0.0014541671, -1.2155142)
 
 [node name="LeftDoor" type="Node3D" parent="Office" unique_id=409843211]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 2.5)
 
 [node name="DoorMesh" type="CSGBox3D" parent="Office/LeftDoor" unique_id=891369027]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -1)
+visible = false
 use_collision = true
 size = Vector3(0.08, 2.2, 2)
 material = SubResource("StandardMaterial3D_door")
+
+[node name="SM_KeyPad_01a" parent="Office/LeftDoor" unique_id=1322083635 instance=ExtResource("11_76w7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.4000001)
+
+[node name="SM_WM00225-Fire_Fighting_Alarm" parent="Office/LeftDoor" unique_id=679962209 instance=ExtResource("12_tqjcx")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.3, -2.5)
+
+[node name="SM_Sign_02f" parent="Office/LeftDoor/SM_WM00225-Fire_Fighting_Alarm" unique_id=1138749538 instance=ExtResource("25_32lqa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075966924, -0.18976188, 0)
+
+[node name="SM_Metal_Door_Frame_Double_01a" parent="Office/LeftDoor" unique_id=1689265109 instance=ExtResource("11_5ixxh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0.204)
+
+[node name="SM_Metal_Door_01b" parent="Office/LeftDoor/SM_Metal_Door_Frame_Double_01a" unique_id=1406279289 instance=ExtResource("12_mpkvh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.01, 2.26, 0, 0)
+
+[node name="SM_Metal_Door_01a" parent="Office/LeftDoor/SM_Metal_Door_Frame_Double_01a" unique_id=190547148 instance=ExtResource("13_i78fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.01, 0.12, 0, 0)
+
+[node name="SM_Floor_Mat_01a" parent="Office/LeftDoor" unique_id=49412805 instance=ExtResource("15_32lqa")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.5437937, 0, 0)
+
+[node name="ClosetDoor" type="Node3D" parent="Office" unique_id=1551098249]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.67076045, 0, 4.502253)
+
+[node name="SM_Metal_Door_Frame_Single_01a" parent="Office/ClosetDoor" unique_id=792155049 instance=ExtResource("15_wxplm")]
+
+[node name="SM_Metal_Door_03a" parent="Office/ClosetDoor" unique_id=1583465240 instance=ExtResource("16_32lqa")]
+transform = Transform3D(-0.89651746, 0, -0.44300863, 0, 1, 0, 0.44300863, 0, -0.89651746, 0.12569743, 0, 0.017951488)
 
 [node name="LightSwitch" type="CSGBox3D" parent="Office" unique_id=886701734]
 transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.8)
@@ -350,6 +401,7 @@ shape = SubResource("BoxShape3D_switch")
 
 [node name="DoorSwitch" type="CSGBox3D" parent="Office" unique_id=128374912]
 transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.5)
+visible = false
 size = Vector3(0.08, 0.12, 0.02)
 material = SubResource("StandardMaterial3D_door_switch_glow")
 
@@ -386,6 +438,81 @@ stream = ExtResource("7_ynh6o")
 volume_db = -12.0
 autoplay = true
 max_distance = 5.0
+
+[node name="airPipes" type="Node3D" parent="Office" unique_id=1780578019]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8701599, 2.1527252, 3.6558228)
+
+[node name="SM_Air_Vent_01a" parent="Office/airPipes" unique_id=1342651766 instance=ExtResource("13_47omi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.042521715, 0.8432112)
+
+[node name="SM_Air_Vent_01c" parent="Office/airPipes" unique_id=245480063 instance=ExtResource("14_3uorb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.046230555, 0.2877884)
+
+[node name="SM_Air_Vent_01c2" parent="Office/airPipes" unique_id=787677113 instance=ExtResource("14_3uorb")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.6393987, -0.046230555, -0.40716982)
+
+[node name="SM_Air_Vent_01b" parent="Office/airPipes" unique_id=367586286 instance=ExtResource("15_3uorb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03362894, 0.46228123)
+
+[node name="wallPipes" type="Node3D" parent="Office" unique_id=1447274199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8245237, 0, 4.3623595)
+
+[node name="SM_Pipes_03a" parent="Office/wallPipes" unique_id=1418086217 instance=ExtResource("16_pkqiv")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="SM_Pipes_03k" parent="Office/wallPipes" unique_id=120468744 instance=ExtResource("17_5ixxh")]
+transform = Transform3D(-3.7855173e-08, 0.8660254, 0.5, -1, -4.371139e-08, 0, 2.1855694e-08, -0.5, 0.8660254, 0, 0.4875517, 0)
+
+[node name="SM_Pipes_03i" parent="Office/wallPipes" unique_id=322365004 instance=ExtResource("18_rjwxw")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="SM_Pipes_03a2" parent="Office/wallPipes" unique_id=94990404 instance=ExtResource("16_pkqiv")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, -5.67)
+
+[node name="SM_Pipes_03k2" parent="Office/wallPipes" unique_id=179133213 instance=ExtResource("17_5ixxh")]
+transform = Transform3D(-3.7855173e-08, 0.8660254, -0.5, -1, -4.371139e-08, 0, -2.1855694e-08, 0.5, 0.8660254, 0, 0.4875517, -5.67)
+
+[node name="SM_Pipes_03i2" parent="Office/wallPipes" unique_id=504569900 instance=ExtResource("18_rjwxw")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, -5.67)
+
+[node name="roofPipes" type="Node3D" parent="Office" unique_id=1417692354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4422889, -0.802467)
+
+[node name="SM_Metal_Pipe_02i" parent="Office/roofPipes" unique_id=1513008078 instance=ExtResource("28_xd3w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="SM_Metal_Pipe_02i2" parent="Office/roofPipes" unique_id=230079884 instance=ExtResource("28_xd3w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="SM_Metal_Pipe_02i3" parent="Office/roofPipes" unique_id=1014548616 instance=ExtResource("28_xd3w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+
+[node name="SM_Metal_Pipe_02j" parent="Office/roofPipes" unique_id=601019618 instance=ExtResource("29_j67j6")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2.5, 0, 0)
+
+[node name="SM_Metal_Pipe_02j2" parent="Office/roofPipes" unique_id=1980883669 instance=ExtResource("29_j67j6")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1, 0, 0)
+
+[node name="SM_Metal_Pipe_02j3" parent="Office/roofPipes" unique_id=234139468 instance=ExtResource("29_j67j6")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1, 0, 0)
+
+[node name="SM_Metal_Pipe_02j4" parent="Office/roofPipes" unique_id=1877428903 instance=ExtResource("29_j67j6")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 2.5, 0, 0)
+
+[node name="FireSaftey" type="Node3D" parent="Office" unique_id=1116364788]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 0.7, -1.347)
+
+[node name="SM_WM00225-Fire_Fighting_Fire_extinguisher_Box" parent="Office/FireSaftey" unique_id=572492832 instance=ExtResource("23_jmfu2")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="SM_WM00225-Fire_Fighting_Fire_extinguisher" parent="Office/FireSaftey" unique_id=1195181866 instance=ExtResource("24_wxplm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="SM_Sign_02f" parent="Office/FireSaftey" unique_id=33312570 instance=ExtResource("25_32lqa")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.061, 1.1, 0.149)
+
+[node name="SM_WM00234-Smoke_Detector" parent="Office/FireSaftey" unique_id=1225250231 instance=ExtResource("30_imclu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.801, -3)
 
 [node name="BreakerBox" type="StaticBody3D" parent="Office" unique_id=237491289]
 transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 0.0035234764, 1.4971647, 7.3903174)

@@ -1,60 +1,108 @@
 [gd_scene format=3 uid="uid://f7nptsuhcbv2"]
 
-[ext_resource type="PackedScene" uid="uid://kply7fqyhbid" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Alarm.glb" id="1_h0mug"]
-[ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="2_7vlc4"]
-[ext_resource type="PackedScene" uid="uid://1ii3dpq4uqo5" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher_Box.glb" id="3_weteo"]
-[ext_resource type="PackedScene" uid="uid://c1sno4js2cp3a" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Hose_Spool.glb" id="4_ulprn"]
-[ext_resource type="PackedScene" uid="uid://div68fleih80y" path="res://assets/Warehouse/SM_WM00238-Height_Warning_Pole.glb" id="5_y72ga"]
-[ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="6_xj333"]
 [ext_resource type="PackedScene" uid="uid://cigdauiyitwjc" path="res://assets/Warehouse/SM_WM00232-Scanner.glb" id="7_aomxr"]
 [ext_resource type="PackedScene" uid="uid://nrsc45eiu1u8" path="res://assets/Warehouse/SM_WM00232-Printer.glb" id="8_jctfy"]
 [ext_resource type="PackedScene" uid="uid://bnpghd40n8078" path="res://assets/Warehouse/SM_WM00232-PC.glb" id="9_w3ssc"]
-[ext_resource type="PackedScene" uid="uid://c7yqpwbs4171g" path="res://assets/Warehouse/SM_WM00232-Desk.glb" id="10_kyc6h"]
-[ext_resource type="PackedScene" uid="uid://bllybcq3jme4r" path="res://assets/Warehouse/SM_WM00231_Warehouse_Tables_Square.glb" id="11_cgdhv"]
-[ext_resource type="PackedScene" uid="uid://dcbpfgwo6x25i" path="res://assets/Warehouse/SM_WM00231_Warehouse_Tables_Short.glb" id="12_c28o1"]
-[ext_resource type="PackedScene" uid="uid://do558kv0f31kk" path="res://assets/Warehouse/SM_WM00230-Plastic_Waste_Bin_Large.glb" id="13_vgobe"]
+[ext_resource type="PackedScene" uid="uid://dscscqrn7qlva" path="res://assets/Military/Vents/SM_Air_Vent_01a.glb" id="13_qiu4c"]
 [ext_resource type="PackedScene" uid="uid://cxatfeyho8yh0" path="res://assets/Warehouse/SM_WM00228-Industrial_Ceiling_light.glb" id="14_4xwai"]
+[ext_resource type="PackedScene" uid="uid://ccimva4a6ejt4" path="res://assets/Military/Vents/SM_Air_Vent_01b.glb" id="14_u33t2"]
+[ext_resource type="PackedScene" uid="uid://clfpsfn75q748" path="res://assets/Military/Vents/SM_Air_Vent_01c.glb" id="15_pcqgd"]
+[ext_resource type="PackedScene" uid="uid://lbonwan2fhib" path="res://assets/Military/Vents/SM_Air_Vent_01d.glb" id="16_edbj5"]
+[ext_resource type="PackedScene" uid="uid://lcjluskceb3u" path="res://assets/Military/Vents/SM_Air_Vent_01e.glb" id="17_hlf1e"]
+[ext_resource type="PackedScene" uid="uid://biqx6mfbbfu6s" path="res://assets/Military/Vents/SM_Air_Vent_01f.glb" id="18_s3q6n"]
+[ext_resource type="PackedScene" uid="uid://d11o2fjetagtg" path="res://assets/Military/Vents/SM_Air_Vent_01g.glb" id="19_ll5r0"]
+[ext_resource type="PackedScene" uid="uid://m1jl3f84inof" path="res://assets/Military/Vents/SM_Air_Vent_01h.glb" id="20_rrwev"]
+[ext_resource type="PackedScene" uid="uid://cp3quk26glukt" path="res://assets/Military/Vents/SM_Air_Vent_01i.glb" id="21_pr70n"]
+[ext_resource type="PackedScene" uid="uid://dt63an342je16" path="res://assets/Military/Vents/SM_Air_Vent_01j.glb" id="22_rojwc"]
+[ext_resource type="PackedScene" uid="uid://cfwdycr6lonbw" path="res://assets/Military/Vents/SM_Air_Vent_01k.glb" id="23_3ti50"]
+[ext_resource type="PackedScene" uid="uid://cim6xg8tlmxnh" path="res://assets/Military/Vents/SM_Air_Vent_01l.glb" id="24_8wnjc"]
+[ext_resource type="PackedScene" uid="uid://b5nvdvou23wlk" path="res://assets/Military/Vents/SM_Air_Vent_01m.glb" id="25_7xtcp"]
+[ext_resource type="PackedScene" uid="uid://bngs5onlpv47l" path="res://assets/Military/Vents/SM_Air_Vent_01n.glb" id="26_kng1k"]
+[ext_resource type="PackedScene" uid="uid://5wg1ikltsgin" path="res://assets/Military/Vents/SM_Air_Vent_01o.glb" id="27_ou13u"]
+[ext_resource type="PackedScene" uid="uid://bydve5xr8vl4f" path="res://assets/Military/Vents/SM_Air_Vent_01p.glb" id="28_1yk6h"]
+[ext_resource type="PackedScene" uid="uid://drtcybvu3v8vn" path="res://assets/Military/SM_Sign_01d.glb" id="28_fxg6e"]
+[ext_resource type="PackedScene" uid="uid://cebgq3fm8m1dk" path="res://assets/Military/Vents/SM_Air_Vent_01q.glb" id="29_2xi75"]
+[ext_resource type="PackedScene" uid="uid://cjxk4ychblcbk" path="res://assets/Military/SM_Metal_Door_03a.glb" id="29_o7cl6"]
+[ext_resource type="PackedScene" uid="uid://dl6tnj1ucmgev" path="res://assets/Military/Vents/SM_Metal_Pipe_02i.glb" id="30_df3w1"]
+[ext_resource type="PackedScene" uid="uid://c8ivrxspvfa7s" path="res://assets/Military/SM_Metal_Door_Frame_Single_01a.glb" id="30_qiu4c"]
+[ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="31_4f80w"]
 
 [node name="EnvironmentTesting" type="Node3D" unique_id=236438102]
 
-[node name="SM_WM00225-Fire_Fighting_Alarm" parent="." unique_id=679962209 instance=ExtResource("1_h0mug")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
-
-[node name="SM_WM00225-Fire_Fighting_Fire_extinguisher" parent="." unique_id=1195181866 instance=ExtResource("2_7vlc4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
-
-[node name="SM_WM00225-Fire_Fighting_Fire_extinguisher_Box" parent="." unique_id=572492832 instance=ExtResource("3_weteo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
-
-[node name="SM_WM00225-Fire_Fighting_Hose_Spool" parent="." unique_id=88834768 instance=ExtResource("4_ulprn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2269812, 0, 1.944079)
-
-[node name="SM_WM00238-Height_Warning_Pole" parent="." unique_id=589230065 instance=ExtResource("5_y72ga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42042404, 0, 0.5386381)
-
-[node name="SM_WM00234-Smoke_Detector" parent="." unique_id=1225250231 instance=ExtResource("6_xj333")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4698249, 0, 2.8254414)
-
 [node name="SM_WM00232-Scanner" parent="." unique_id=1854196230 instance=ExtResource("7_aomxr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.050739966, 0, 2.6623034)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48290548, 0, 3.7228682)
 
 [node name="SM_WM00232-Printer" parent="." unique_id=1937720151 instance=ExtResource("8_jctfy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49692726, 1.1920929e-07, 3.075013)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04016292, 1.1920929e-07, 3.808189)
 
 [node name="SM_WM00232-PC" parent="." unique_id=898097354 instance=ExtResource("9_w3ssc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6002379, 0, 2.5291286)
-
-[node name="SM_WM00232-Desk" parent="." unique_id=1364103350 instance=ExtResource("10_kyc6h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9525182, -5.9604645e-08, 2.366012)
-
-[node name="SM_WM00231_Warehouse_Tables_Square" parent="." unique_id=152438425 instance=ExtResource("11_cgdhv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9206524, 0, 2.4585655)
-
-[node name="SM_WM00231_Warehouse_Tables_Short" parent="." unique_id=1467364211 instance=ExtResource("12_c28o1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1377716, 0, 2.4048362)
-
-[node name="SM_WM00230-Plastic_Waste_Bin_Large" parent="." unique_id=1191118314 instance=ExtResource("13_vgobe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5561004, 0, 3.0022366)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.80924684, 0, 3.8609104)
 
 [node name="SM_WM00228-Industrial_Ceiling_light" parent="." unique_id=740447500 instance=ExtResource("14_4xwai")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7287755, -1.1920929e-07, -3.2893949)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23671222, -1.1920929e-07, 0.17060089)
+
+[node name="SM_Air_Vent_01a" parent="." unique_id=1342651766 instance=ExtResource("13_qiu4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.901652, 0, 2.632166)
+
+[node name="SM_Air_Vent_01b" parent="." unique_id=367586286 instance=ExtResource("14_u33t2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.89212, 0, 1.9500878)
+
+[node name="SM_Air_Vent_01c" parent="." unique_id=245480063 instance=ExtResource("15_pcqgd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.815044, -1.1920929e-07, 1.4987943)
+
+[node name="SM_Air_Vent_01d" parent="." unique_id=773189345 instance=ExtResource("16_edbj5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6321588, 0, 1.5079483)
+
+[node name="SM_Air_Vent_01e" parent="." unique_id=1152171263 instance=ExtResource("17_hlf1e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.044976, 0, -0.40742278)
+
+[node name="SM_Air_Vent_01f" parent="." unique_id=2115550062 instance=ExtResource("18_s3q6n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.366621, 0, -0.43293178)
+
+[node name="SM_Air_Vent_01g" parent="." unique_id=767469799 instance=ExtResource("19_ll5r0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.700717, 0, -0.4836341)
+
+[node name="SM_Air_Vent_01h" parent="." unique_id=1127139964 instance=ExtResource("20_rrwev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.07468, 0, -0.49075228)
+
+[node name="SM_Air_Vent_01i" parent="." unique_id=1109313028 instance=ExtResource("21_pr70n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.445509, 0, -0.48057622)
+
+[node name="SM_Air_Vent_01j" parent="." unique_id=1135538073 instance=ExtResource("22_rojwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0295715, 0, -0.5116118)
+
+[node name="SM_Air_Vent_01k" parent="." unique_id=1970604610 instance=ExtResource("23_3ti50")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.566238, 0, -0.54324317)
+
+[node name="SM_Air_Vent_01l" parent="." unique_id=738019369 instance=ExtResource("24_8wnjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1639295, 0, -0.58704865)
+
+[node name="SM_Air_Vent_01m" parent="." unique_id=1195763487 instance=ExtResource("25_7xtcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.762102, 0, -0.62543285)
+
+[node name="SM_Air_Vent_01n" parent="." unique_id=2052077193 instance=ExtResource("26_kng1k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.146755, 0, -0.6789603)
+
+[node name="SM_Air_Vent_01o" parent="." unique_id=900608264 instance=ExtResource("27_ou13u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6823864, 0, -0.7244749)
+
+[node name="SM_Air_Vent_01p" parent="." unique_id=1261261964 instance=ExtResource("28_1yk6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.168835, 0, -0.7139523)
+
+[node name="SM_Air_Vent_01q" parent="." unique_id=574490370 instance=ExtResource("29_2xi75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7265909, 0, -0.77017653)
+
+[node name="SM_Metal_Pipe_02i" parent="." unique_id=1513008078 instance=ExtResource("30_df3w1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.637948, 0, -3.4300966)
+
+[node name="SM_Metal_Pipe_02j" parent="." unique_id=601019618 instance=ExtResource("31_4f80w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.061373, 0, -3.1031492)
+
+[node name="SM_Sign_01d" parent="." unique_id=1564233535 instance=ExtResource("28_fxg6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.117356, 0, 0.4654398)
+
+[node name="SM_Metal_Door_03a" parent="." unique_id=1583465240 instance=ExtResource("29_o7cl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2826784, 0, -2.9659703)
+
+[node name="SM_Metal_Door_Frame_Single_01a" parent="." unique_id=792155049 instance=ExtResource("30_qiu4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6182077, 0, -2.8519762)
