@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b6jy5w4hyitgg" path="res://assets/deskSetup/metal_office_desk_1k.gltf/metal_office_desk_1k.gltf" id="1_2ahxm"]
 [ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="1_o0rpj"]
+[ext_resource type="PackedScene" uid="uid://cghv4c7iypiun" path="res://assets/Warehouse/SM_MM142_PC_Monitor.glb" id="1_yty5h"]
+[ext_resource type="PackedScene" uid="uid://b37i5gvvcwv8" path="res://assets/Warehouse/SM_MM42_Keyboard.glb" id="2_8nv07"]
 [ext_resource type="Texture2D" uid="uid://3gy330gscfxm" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_diff_1k.jpg" id="2_c6e7y"]
 [ext_resource type="PackedScene" uid="uid://cjgeami31t3uy" path="res://assets/deskSetup/standing_picture_frame_01_1k.gltf/standing_picture_frame_01_1k.gltf" id="3_0aqei"]
 [ext_resource type="Texture2D" uid="uid://bowwh66e6ju4d" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_arm_1k.jpg" id="3_hw8yg"]
@@ -420,12 +422,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0.2)
 
 [node name="Casing" type="CSGBox3D" parent="placeholder/ComputerMonitor" unique_id=55683007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3339924, -0.15)
+visible = false
 use_collision = true
 size = Vector3(0.5, 0.4, 0.35)
 material = SubResource("StandardMaterial3D_hlte0")
 
+[node name="SM_MM142_PC_Monitor" parent="placeholder/ComputerMonitor" unique_id=896929721 instance=ExtResource("1_yty5h")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.1259886, -0.15)
+
+[node name="SM_MM42_Keyboard" parent="placeholder/ComputerMonitor" unique_id=1220077077 instance=ExtResource("2_8nv07")]
+transform = Transform3D(0.93802804, 0, -0.3465591, 0, 1, 0, 0.3465591, 0, 0.93802804, -0.05898457, 1.1256466, 0.09763475)
+
 [node name="Screen" type="MeshInstance3D" parent="placeholder/ComputerMonitor" unique_id=537184410]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3350096, 0.027)
+transform = Transform3D(1.36, 0, 0, 0, 0.9958749, 0.090736866, 0, -0.090736866, 0.9958749, -0.0072230883, 1.4338698, -0.0813636)
 mesh = SubResource("QuadMesh_0aqei")
 surface_material_override/0 = SubResource("StandardMaterial3D_cxmlp")
 
