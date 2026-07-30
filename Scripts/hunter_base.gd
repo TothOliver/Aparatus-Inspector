@@ -13,8 +13,8 @@ class_name HunterBase
 @export var door_mesh_override: Node3D  # The door mesh to swing open
 @export var custom_audio_player: AudioStreamPlayer3D # Audio override (defaults to child)
 
-@onready var audio_player = $AudioStreamPlayer3D
-@onready var door_mesh = $"../Office/LeftDoor" # Default scene fallback
+@onready var audio_player = get_node_or_null("AudioStreamPlayer3D")
+@onready var door_mesh = get_node_or_null("../Office/LeftDoor") # Default scene fallback
 
 # --- BACKWARD COMPATIBILITY FALLBACKS ---
 var start_x: float = -15.0
@@ -73,9 +73,10 @@ func _ready():
 	concrete_step_stream = _generate_concrete_step_sound()
 	bush_rustle_stream = _generate_bush_rustle_sound()
 	
-	audio_player.unit_size = 4.0
-	audio_player.max_db = 3.0
-	audio_player.bus = "SFX"
+	if audio_player:
+		audio_player.unit_size = 4.0
+		audio_player.max_db = 3.0
+		audio_player.bus = "SFX"
 	
 	set_monster_visible(false)
 	var model = get_node_or_null("TempModel1")

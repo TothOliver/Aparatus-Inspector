@@ -14,8 +14,8 @@ class_name HunterRobot
 @export var door_mesh_override: Node3D  # The door mesh to swing open
 @export var custom_audio_player: AudioStreamPlayer3D # Audio override (defaults to child)
 
-@onready var audio_player = $AudioStreamPlayer3D
-@onready var door_mesh = $"../Office/LeftDoor" # Default scene fallback
+@onready var audio_player = get_node_or_null("AudioStreamPlayer3D")
+@onready var door_mesh = get_node_or_null("../Office/LeftDoor") # Default scene fallback
 
 enum State {
 	PATROLLING,
@@ -99,8 +99,9 @@ func _ready():
 	screech_stream = _generate_screech_sound()
 	rattle_stream = _generate_rattle_sound()
 	
-	audio_player.unit_size = 4.0
-	audio_player.max_db = 3.0
+	if audio_player:
+		audio_player.unit_size = 4.0
+		audio_player.max_db = 3.0
 	
 	global_position = get_start_pos()
 
@@ -150,9 +151,10 @@ func _physics_process(delta):
 		if next_investigation_time <= 3.0 and not warning_played:
 			warning_played = true
 			var ap = get_active_audio_player()
-			ap.stream = screech_stream
-			ap.pitch_scale = 0.75
-			ap.play()
+			if ap:
+				ap.stream = screech_stream
+				ap.pitch_scale = 0.75
+				ap.play()
 			
 	# State Machine Logic
 	match current_state:
@@ -226,7 +228,7 @@ func handle_approaching(delta):
 		current_state = State.DOOR_RATTLE
 		wait_at_door_timer = 2.0
 		var ap = get_active_audio_player()
-		if ap.stream != rattle_stream or not ap.playing:
+		if ap and (ap.stream != rattle_stream or not ap.playing):
 			ap.stream = rattle_stream
 			ap.play()
 
@@ -258,9 +260,10 @@ func handle_breaking_in(delta):
 	if state_timer <= 0:
 		# Bang on the door
 		var ap = get_active_audio_player()
-		ap.stream = screech_stream
-		ap.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
-		ap.play()
+		if ap:
+			ap.stream = screech_stream
+			ap.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
+			ap.play()
 		
 		# Drain power
 		GameStats.power_level = max(0.0, GameStats.power_level - 15.0)
@@ -330,9 +333,10 @@ func retreat_and_reset():
 	
 	# Play rapid footsteps walking away quickly (pitch_scale = 1.4)
 	var ap = get_active_audio_player()
-	ap.stream = step_stream
-	ap.pitch_scale = 1.4
-	ap.play()
+	if ap:
+		ap.stream = step_stream
+		ap.pitch_scale = 1.4
+		ap.play()
 
 func start_chase():
 	# Slot machine threat trigger: immediately warp to the door and start rattling!
@@ -344,7 +348,9 @@ func start_chase():
 
 func kill_player():
 	# Make sure sprite is visible
-	$Sprite3D.visible = true
+	var sprite = get_node_or_null("Sprite3D")
+	if sprite:
+		sprite.visible = true
 	
 	# Warp to jumpscare position
 	global_position = get_jumpscare_pos()
@@ -356,9 +362,10 @@ func kill_player():
 	
 	# Play jumpscare sound
 	var ap = get_active_audio_player()
-	ap.stream = screech_stream
-	ap.pitch_scale = 1.0
-	ap.play()
+	if ap:
+		ap.stream = screech_stream
+		ap.pitch_scale = 1.0
+		ap.play()
 	
 	# Swing door open physically
 	var dm = get_door_mesh()
@@ -389,9 +396,10 @@ func handle_footsteps(delta):
 			
 		if is_moving:
 			var ap = get_active_audio_player()
-			ap.stream = step_stream
-			ap.pitch_scale = randf_range(0.85, 1.15)
-			ap.play()
+			if ap:
+				ap.stream = step_stream
+				ap.pitch_scale = randf_range(0.85, 1.15)
+				ap.play()
 
 # === PROCEDURAL AUDIO GENERATION ===
 

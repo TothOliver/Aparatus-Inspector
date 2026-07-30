@@ -42,15 +42,17 @@ func activate(is_door_retreat: bool = false):
 	look_at_player()
 	
 	# Ensure texture is loaded
-	if GameStats.let_through_bad_sprites.size() > 0:
-		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
+	var sprite = get_node_or_null("Sprite3D") as Sprite3D
+	if sprite and GameStats.let_through_bad_sprites.size() > 0:
+		sprite.texture = GameStats.let_through_bad_sprites[0]
 	set_monster_visible(true)
 	
 	# Play heavy heavy concrete step sound to show it moved closer
 	var ap = get_active_audio_player()
-	ap.stream = concrete_step_stream
-	ap.pitch_scale = randf_range(0.7, 0.9)
-	ap.play()
+	if ap:
+		ap.stream = concrete_step_stream
+		ap.pitch_scale = randf_range(0.7, 0.9)
+		ap.play()
 	
 	# Duration to stare before advancing (longer if retreating from door to prevent instant respawn)
 	if is_door_retreat:

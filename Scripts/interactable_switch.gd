@@ -6,6 +6,8 @@ class_name InteractableSwitch
 @export var interact_name: String = "Switch"
 
 func get_interact_name() -> String:
+	if target_method == "toggle_door_lock":
+		return "Unlock Door" if GameStats.door_locked else "Lock Door"
 	return interact_name
 
 func interact(_player):

@@ -49,9 +49,10 @@ func activate(_peek_loc: PeekLocation):
 	wait_at_door_timer = 6.0
 	
 	var ap = get_active_audio_player()
-	ap.stream = rattle_stream
-	ap.pitch_scale = 1.0
-	ap.play()
+	if ap:
+		ap.stream = rattle_stream
+		ap.pitch_scale = 1.0
+		ap.play()
 	
 	set_physics_process(true)
  

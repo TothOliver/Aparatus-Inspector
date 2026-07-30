@@ -211,11 +211,17 @@ func is_interactable(collider) -> bool:
 	var wifi_switch = collider.get_node_or_null("WifiButton/SwitchInteractable")
 	if wifi_switch and wifi_switch.has_method("interact"):
 		return true
-	var name_lower = collider.name.to_lower()
-	if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor"):
-		return not is_power_off()
-	if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse") or name_lower.contains("wifi") or name_lower.contains("router"):
-		return true
+	
+	# Check collider and parent nodes up the hierarchy for computer/monitor/screen/curtain/breaker/wifi
+	var curr: Node = collider
+	while curr and curr != get_tree().root:
+		var name_lower = curr.name.to_lower()
+		if name_lower.contains("screen") or name_lower.contains("computer") or name_lower.contains("monitor"):
+			return not is_power_off()
+		if name_lower.contains("curtain") or name_lower.contains("breaker") or name_lower.contains("fuse") or name_lower.contains("wifi") or name_lower.contains("router"):
+			return true
+		curr = curr.get_parent()
+		
 	return false
 
 func check_interaction():

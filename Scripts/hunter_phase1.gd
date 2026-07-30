@@ -68,9 +68,10 @@ func handle_patrol(delta):
 		if next_investigation_time <= 3.0 and not warning_played:
 			warning_played = true
 			var ap = get_active_audio_player()
-			ap.stream = screech_stream
-			ap.pitch_scale = 0.75
-			ap.play()
+			if ap:
+				ap.stream = screech_stream
+				ap.pitch_scale = 0.75
+				ap.play()
 
 func _input(event):
 	# Spawn checks are only run if:
@@ -122,20 +123,22 @@ func spawn_and_stare():
 	look_at_player()
 	
 	# Assign texture if loaded
-	if GameStats.let_through_bad_sprites.size() > 0:
-		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
+	var sprite = get_node_or_null("Sprite3D") as Sprite3D
+	if sprite and GameStats.let_through_bad_sprites.size() > 0:
+		sprite.texture = GameStats.let_through_bad_sprites[0]
 	set_monster_visible(true)
 	
 	# Cue Sound: Location-based or random selection
 	var ap = get_active_audio_player()
-	if spawn_idx == 2:
-		# Rustling bushes (Garden entry)
-		ap.stream = bush_rustle_stream
-	else:
-		# Concrete footsteps (Fence entry)
-		ap.stream = concrete_step_stream
-	ap.pitch_scale = randf_range(0.9, 1.1)
-	ap.play()
+	if ap:
+		if spawn_idx == 2:
+			# Rustling bushes (Garden entry)
+			ap.stream = bush_rustle_stream
+		else:
+			# Concrete footsteps (Fence entry)
+			ap.stream = concrete_step_stream
+		ap.pitch_scale = randf_range(0.9, 1.1)
+		ap.play()
 	
 	# Set duration to stare before advancing to Phase 2 (exactly 30 seconds)
 	stare_duration_timer = 30.0
@@ -242,9 +245,10 @@ func disappear_and_reset():
 	
 	# Play distant footstep sound moving away
 	var ap = get_active_audio_player()
-	ap.stream = step_stream
-	ap.pitch_scale = 1.3
-	ap.play()
+	if ap:
+		ap.stream = step_stream
+		ap.pitch_scale = 1.3
+		ap.play()
 
 func advance_to_phase2():
 	set_monster_visible(false)

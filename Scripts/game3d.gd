@@ -221,12 +221,9 @@ func _process(delta):
 	# Update door light mesh material based on global lock state
 	_update_door_light_material(GameStats.door_locked)
 
-	# Update door rotation: open (90 deg) unless locked (0 deg)
+	# Door remains closed in doorway; lock state toggles pneumatic lock
 	if door_mesh:
-		if GameStats.door_locked:
-			door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, 0.0, 10.0 * delta)
-		else:
-			door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, deg_to_rad(90.0), 10.0 * delta)
+		door_mesh.rotation.y = lerp_angle(door_mesh.rotation.y, 0.0, 10.0 * delta)
 
 	if curtain_node:
 		curtain_node.scale.x = lerp(curtain_node.scale.x, target_curtain_scale_x, 8.0 * delta)

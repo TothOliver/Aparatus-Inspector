@@ -50,9 +50,10 @@ func _physics_process(delta):
 	if state_timer <= 0:
 		# Bang on the door
 		var ap = get_active_audio_player()
-		ap.stream = screech_stream
-		ap.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
-		ap.play()
+		if ap:
+			ap.stream = screech_stream
+			ap.pitch_scale = randf_range(0.4, 0.6) # Low pitch thud/bang sound
+			ap.play()
 		
 		# Drain power
 		GameStats.power_level = max(0.0, GameStats.power_level - 15.0)
@@ -86,8 +87,9 @@ func kill_player():
 	
 	# Make sure monster is visible
 	set_monster_visible(true)
-	if GameStats.let_through_bad_sprites.size() > 0:
-		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
+	var sprite = get_node_or_null("Sprite3D") as Sprite3D
+	if sprite and GameStats.let_through_bad_sprites.size() > 0:
+		sprite.texture = GameStats.let_through_bad_sprites[0]
 	
 	# Warp to jumpscare position
 	global_position = get_jumpscare_pos()
@@ -99,9 +101,10 @@ func kill_player():
 	
 	# Play jumpscare sound
 	var ap = get_active_audio_player()
-	ap.stream = screech_stream
-	ap.pitch_scale = 1.0
-	ap.play()
+	if ap:
+		ap.stream = screech_stream
+		ap.pitch_scale = 1.0
+		ap.play()
 	
 	# Swing door open physically
 	var dm = get_door_mesh()

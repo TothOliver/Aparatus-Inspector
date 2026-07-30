@@ -16,10 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://cjhwwxnawq7pr" path="res://assets/deskSetup/industrial_pipe_lamp_1k.gltf/industrial_pipe_lamp_1k.gltf" id="9_hw8yg"]
 [ext_resource type="PackedScene" uid="uid://cyiyahfkq5oto" path="res://assets/deskSetup/plastic_monobloc_chair_01_1k.gltf/plastic_monobloc_chair_01_1k.gltf" id="13_an31x"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlte0"]
-albedo_color = Color(0.42, 0.42, 0.39, 1)
-roughness = 0.65
-
 [sub_resource type="QuadMesh" id="QuadMesh_0aqei"]
 size = Vector2(0.44, 0.33)
 
@@ -33,7 +29,7 @@ albedo_texture = SubResource("ViewportTexture_utein")
 texture_filter = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y33b3"]
-size = Vector3(0.5, 0.4, 0.1)
+size = Vector3(0.47657472, 0.3757019, 0.053387452)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6e7y"]
 albedo_color = Color(0.15, 0.15, 0.15, 1)
@@ -420,13 +416,6 @@ size = Vector3(1.8, 0.94, 0.9)
 [node name="ComputerMonitor" type="Node3D" parent="placeholder" unique_id=91620697]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18, 0.2)
 
-[node name="Casing" type="CSGBox3D" parent="placeholder/ComputerMonitor" unique_id=55683007]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3339924, -0.15)
-visible = false
-use_collision = true
-size = Vector3(0.5, 0.4, 0.35)
-material = SubResource("StandardMaterial3D_hlte0")
-
 [node name="SM_MM142_PC_Monitor" parent="placeholder/ComputerMonitor" unique_id=896929721 instance=ExtResource("1_yty5h")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.1259886, -0.15)
 
@@ -434,13 +423,14 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1
 transform = Transform3D(0.93802804, 0, -0.3465591, 0, 1, 0, 0.3465591, 0, 0.93802804, -0.05898457, 1.1256466, 0.09763475)
 
 [node name="Screen" type="MeshInstance3D" parent="placeholder/ComputerMonitor" unique_id=537184410]
-transform = Transform3D(1.36, 0, 0, 0, 0.9958749, 0.090736866, 0, -0.090736866, 0.9958749, -0.0072230883, 1.4338698, -0.0813636)
+transform = Transform3D(1.36, 0, 0, 0, 0.9961855, 0.08726004, 0, -0.08726004, 0.9961855, -0.0072230883, 1.4338698, -0.08279176)
 mesh = SubResource("QuadMesh_0aqei")
 surface_material_override/0 = SubResource("StandardMaterial3D_cxmlp")
 
 [node name="Computer" type="StaticBody3D" parent="placeholder/ComputerMonitor/Screen" unique_id=1317682807]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/ComputerMonitor/Screen/Computer" unique_id=78732863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0021789586, -0.0053560734, -0.015749991)
 shape = SubResource("BoxShape3D_y33b3")
 
 [node name="WifiRouter" type="CSGBox3D" parent="placeholder" unique_id=1034697675]
