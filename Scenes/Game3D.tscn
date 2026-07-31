@@ -39,7 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://1ii3dpq4uqo5" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher_Box.glb" id="23_jmfu2"]
 [ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="24_wxplm"]
 [ext_resource type="PackedScene" uid="uid://bf217xqhwtfyt" path="res://assets/Military/SM_Sign_02f.glb" id="25_32lqa"]
-[ext_resource type="PackedScene" uid="uid://0ub7akbpcn26" path="res://assets/TempRobot/TempModel1.glb" id="28_r4ocn"]
+[ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="28_r4ocn"]
 [ext_resource type="PackedScene" uid="uid://dl6tnj1ucmgev" path="res://assets/Military/Vents/SM_Metal_Pipe_02i.glb" id="28_xd3w3"]
 [ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="29_j67j6"]
 [ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
@@ -149,6 +149,8 @@ size = Vector3(0.18, 0.3036499, 0.08)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_monster"]
+
 [sub_resource type="QuadMesh" id="QuadMesh_glass_window"]
 size = Vector2(1.6, 1)
 
@@ -161,7 +163,7 @@ roughness = 0.15
 [sub_resource type="BoxShape3D" id="BoxShape3D_blinds_hitbox"]
 size = Vector3(1.7, 1, 0.1)
 
-[node name="Game3D" type="Node3D" unique_id=1133432829]
+[node name="Game3D2" type="Node3D" unique_id=1133432829]
 script = ExtResource("1_game3d")
 
 [node name="CCTVViewport" type="SubViewport" parent="." unique_id=574545020]
@@ -213,7 +215,6 @@ shape = SubResource("CapsuleShape3D_player")
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=224191488]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0.20042527)
-current = true
 fov = 70.0
 
 [node name="InteractionRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1002061143]
@@ -746,27 +747,31 @@ offset_right = 438.0
 offset_bottom = 448.0
 
 [node name="Phase1Spawn1" type="Marker3D" parent="." unique_id=1136143014]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 1, -4.8296156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, -0.126525, -4.8296156)
 
 [node name="Phase1Spawn2" type="Marker3D" parent="." unique_id=873404773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.606148, 1, -16.328611)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, -0.126525, -2.9788694)
 
 [node name="Phase1Spawn3" type="Marker3D" parent="." unique_id=1721085230]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, 1, 15.279053)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8399444, -0.126525, 1.2411251)
 
 [node name="Phase2Spawn1" type="Marker3D" parent="." unique_id=121111111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.126525, -2.1)
 
 [node name="Phase2Spawn2" type="Marker3D" parent="." unique_id=121111112]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425512, 1, -1.974645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425512, -0.126525, -1.974645)
 
 [node name="Phase2Spawn3" type="Marker3D" parent="." unique_id=121111113]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10306537, 1, 11.188381)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9334297, -0.126525, 2.2253227)
 
 [node name="HunterPhase1" type="CharacterBody3D" parent="." unique_id=500476820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("3_hunter_p1")
 spawn_markers = [NodePath("../Phase1Spawn1"), NodePath("../Phase1Spawn2"), NodePath("../Phase1Spawn3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase1" unique_id=1959529781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_monster")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase1" unique_id=1439095790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -777,13 +782,17 @@ double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
 [node name="TempModel1" parent="HunterPhase1" unique_id=13664639 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
 visible = false
 
 [node name="HunterPhase2" type="CharacterBody3D" parent="." unique_id=1703336048]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("4_hunter_p2")
 phase2_spawn_markers = [NodePath("../Phase2Spawn1"), NodePath("../Phase2Spawn2"), NodePath("../Phase2Spawn3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase2" unique_id=1959529782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_monster")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase2" unique_id=1686748764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -794,12 +803,16 @@ double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
 [node name="TempModel1" parent="HunterPhase2" unique_id=1527894940 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
 visible = false
 
 [node name="HunterPhase3" type="CharacterBody3D" parent="." unique_id=734618851]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("5_hunter_p3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase3" unique_id=1959529783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_monster")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase3" unique_id=2137436410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -810,12 +823,16 @@ double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
 [node name="TempModel1" parent="HunterPhase3" unique_id=153182440 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
 visible = false
 
 [node name="HunterPhase4" type="CharacterBody3D" parent="." unique_id=74488888]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
 script = ExtResource("11_hunter_p4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HunterPhase4" unique_id=1959529784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_monster")
 
 [node name="Sprite3D" type="Sprite3D" parent="HunterPhase4" unique_id=2137436411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -826,7 +843,7 @@ double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
 [node name="TempModel1" parent="HunterPhase4" unique_id=383103983 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
 visible = false
 
 [node name="Room3" type="Node3D" parent="." unique_id=2071024996]

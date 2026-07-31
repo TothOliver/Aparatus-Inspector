@@ -11,4 +11,4 @@ func _ready():
 	var hunter = get_node_or_null("HunterPhase1")
 	if hunter:
 		hunter.is_active = true
-		hunter.spawn_and_stare()
+		hunter.spawn_and_stare(0)

@@ -85,22 +85,22 @@ size = Vector3(2.5830078, 2.6, 0.1)
 material = SubResource("StandardMaterial3D_walls")
 
 [node name="Phase1Spawn4" type="Marker3D" parent="." index="16" unique_id=1136143014]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 1, -4.8296156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, -0.126525, -4.8296156)
 
 [node name="Phase1Spawn5" type="Marker3D" parent="." index="17" unique_id=873404773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3115807, 1, -16.328611)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3115807, -0.126525, -16.328611)
 
 [node name="Phase1Spawn6" type="Marker3D" parent="." index="18" unique_id=1721085230]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, 1, 15.279053)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, -0.126525, 15.279053)
 
 [node name="Phase2Spawn4" type="Marker3D" parent="." index="19" unique_id=121111111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.126525, -2.1)
 
 [node name="Phase2Spawn5" type="Marker3D" parent="." index="20" unique_id=121111112]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.130946, 1, -1.974645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.130946, -0.126525, -1.974645)
 
 [node name="Phase2Spawn6" type="Marker3D" parent="." index="21" unique_id=121111113]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10306537, 1, 11.188381)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10306537, -0.126525, 11.188381)
 
 [node name="Room4" type="Node3D" parent="." index="26" unique_id=1588998239]
 

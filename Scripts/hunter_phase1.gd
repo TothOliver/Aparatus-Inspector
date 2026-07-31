@@ -104,23 +104,36 @@ func is_player_at_computer() -> bool:
 		return player.current_state == player.State.COMPUTER_VIEW
 	return false
 
-func spawn_and_stare():
+func get_all_spawn_markers() -> Array[Marker3D]:
+	var markers: Array[Marker3D] = []
+	for marker_path in spawn_markers:
+		var m = get_node_or_null(marker_path) as Marker3D
+		if m:
+			markers.append(m)
+			
+	if markers.is_empty() and get_parent():
+		for child in get_parent().get_children():
+			if child is Marker3D and child.name.begins_with("Phase1Spawn"):
+				markers.append(child as Marker3D)
+				
+	return markers
+
+func spawn_and_stare(specific_marker_idx: int = -1):
 	current_state = State.SPAWNED
 	warning_played = false
+	next_investigation_time = 0.0
 			
-	# Pick random spawn location
+	# Pick spawn location
+	var markers = get_all_spawn_markers()
 	var spawn_pos = get_start_pos()
 	var spawn_idx = 0
-	if spawn_markers.size() > 0:
-		spawn_idx = randi() % spawn_markers.size()
-		var marker_path = spawn_markers[spawn_idx]
-		var marker = get_node_or_null(marker_path) as Marker3D
-		if marker:
-			spawn_pos = marker.global_position
+	if not markers.is_empty():
+		if specific_marker_idx >= 0 and specific_marker_idx < markers.size():
+			spawn_idx = specific_marker_idx
+		else:
+			spawn_idx = randi() % markers.size()
+		spawn_pos = markers[spawn_idx].global_position
 	global_position = spawn_pos
-
-	# Look directly at the player
-	look_at_player()
 	
 	# Assign texture if loaded
 	var sprite = get_node_or_null("Sprite3D") as Sprite3D

@@ -81,8 +81,7 @@ func _ready():
 	set_monster_visible(false)
 	var model = get_node_or_null("TempModel1")
 	if model:
-		model.scale = Vector3(0.3, 0.3, 0.3)
-		model.rotation_degrees.y = 90.0
+		model.scale = Vector3(0.1, 0.1, 0.1)
 
 func set_monster_visible(vis: bool) -> void:
 	var sprite = get_node_or_null("Sprite3D")
@@ -91,8 +90,7 @@ func set_monster_visible(vis: bool) -> void:
 	var model = get_node_or_null("TempModel1")
 	if model:
 		model.visible = vis
-		model.scale = Vector3(0.3, 0.3, 0.3)
-		model.rotation_degrees.y = 90.0
+		model.scale = Vector3(0.1, 0.1, 0.1)
 
 func look_at_player() -> void:
 	var player = get_tree().root.find_child("Player", true, false)

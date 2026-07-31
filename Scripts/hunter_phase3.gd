@@ -42,8 +42,6 @@ func activate(_peek_loc: PeekLocation):
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 	
 	global_position = get_door_pos()
-	# Face the player
-	look_at_player()
 		
 	set_monster_visible(true)
 	wait_at_door_timer = 6.0

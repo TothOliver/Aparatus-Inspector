@@ -25,21 +25,31 @@ func _ready():
 	if not phase3_robot:
 		phase3_robot = get_node_or_null("../HunterPhase3")
 
+func get_all_spawn_markers() -> Array[Marker3D]:
+	var markers: Array[Marker3D] = []
+	for marker_path in phase2_spawn_markers:
+		var m = get_node_or_null(marker_path) as Marker3D
+		if m:
+			markers.append(m)
+			
+	if markers.is_empty() and get_parent():
+		for child in get_parent().get_children():
+			if child is Marker3D and child.name.begins_with("Phase2Spawn"):
+				markers.append(child as Marker3D)
+				
+	return markers
+
 func activate(is_door_retreat: bool = false):
 	current_state = State.SPAWNED
 	look_duration = 0.0
 	
 	# Pick random closer spawn location
+	var markers = get_all_spawn_markers()
 	var spawn_pos = get_start_pos()
-	if phase2_spawn_markers.size() > 0:
-		var marker_path = phase2_spawn_markers[randi() % phase2_spawn_markers.size()]
-		var marker = get_node_or_null(marker_path) as Marker3D
-		if marker:
-			spawn_pos = marker.global_position
+	if not markers.is_empty():
+		var marker = markers[randi() % markers.size()]
+		spawn_pos = marker.global_position
 	global_position = spawn_pos
-	
-	# Look directly at the player
-	look_at_player()
 	
 	# Ensure texture is loaded
 	var sprite = get_node_or_null("Sprite3D") as Sprite3D

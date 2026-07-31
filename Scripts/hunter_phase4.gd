@@ -26,9 +26,6 @@ func activate():
 	current_state = State.BREAKING_IN
 	global_position = get_door_pos()
 	
-	# Face the player
-	look_at_player()
-	
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 		

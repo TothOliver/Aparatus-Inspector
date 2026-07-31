@@ -177,8 +177,7 @@ func set_monster_visible(vis: bool) -> void:
 	var model = get_node_or_null("TempModel1")
 	if model:
 		model.visible = vis
-		model.scale = Vector3(0.3, 0.3, 0.3)
-		model.rotation_degrees.y = 90.0
+		model.scale = Vector3(0.1, 0.1, 0.1)
 
 func look_at_player() -> void:
 	var player = get_tree().root.find_child("Player", true, false)
@@ -222,8 +221,6 @@ func handle_approaching(delta):
 			global_position = camera_peek_marker.global_position
 		else:
 			global_position = get_door_pos()
-			
-		look_at_player()
 			
 		current_state = State.DOOR_RATTLE
 		wait_at_door_timer = 2.0
