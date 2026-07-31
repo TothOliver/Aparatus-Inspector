@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://dmu5gb4ne1al1" path="res://assets/Military/Vents/SM_Pipes_03a.glb" id="16_pkqiv"]
 [ext_resource type="PackedScene" uid="uid://cehxux23ngc28" path="res://assets/Military/Vents/SM_Pipes_03k.glb" id="17_5ixxh"]
 [ext_resource type="PackedScene" uid="uid://bdpndv4m0li3e" path="res://assets/Military/Vents/SM_Pipes_03i.glb" id="18_rjwxw"]
+[ext_resource type="PackedScene" uid="uid://lbonwan2fhib" path="res://assets/Military/Vents/SM_Air_Vent_01d.glb" id="20_j67j6"]
 [ext_resource type="PackedScene" uid="uid://1ii3dpq4uqo5" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher_Box.glb" id="23_jmfu2"]
 [ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="24_wxplm"]
 [ext_resource type="PackedScene" uid="uid://bf217xqhwtfyt" path="res://assets/Military/SM_Sign_02f.glb" id="25_32lqa"]
@@ -42,6 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://dl6tnj1ucmgev" path="res://assets/Military/Vents/SM_Metal_Pipe_02i.glb" id="28_xd3w3"]
 [ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="29_j67j6"]
 [ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
+[ext_resource type="PackedScene" uid="uid://m6qv3n0uh5b4" path="res://Scenes/cameraRoom1.tscn" id="35_t0n0n"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
@@ -178,7 +180,7 @@ light_energy = 4.0
 spot_range = 25.0
 
 [node name="CCTVCamera2" type="Camera3D" parent="CCTVViewport" unique_id=98721498]
-transform = Transform3D(1, 0, 0, 0, 0.9848078, 0.17364796, 0, -0.17364796, 0.9848078, 6, 1.2965627, 0.49045503)
+transform = Transform3D(0.76604444, -0.111618906, 0.63302225, 0, 0.98480785, 0.1736482, -0.6427876, -0.13302223, 0.75440663, 9, 1.9949504, 0.5)
 fov = 65.0
 
 [node name="CCTVLight2" type="SpotLight3D" parent="CCTVViewport/CCTVCamera2" unique_id=98721497]
@@ -256,6 +258,12 @@ material = ExtResource("10_r4ocn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05, 1.25, 1.5)
 use_collision = true
 size = Vector3(0.1, 2.6, 6)
+material = ExtResource("10_r4ocn")
+
+[node name="RightWallBlock" type="CSGBox3D" parent="Office/RightWall" unique_id=492833720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16400003, 0, -1.0806823)
+use_collision = true
+size = Vector3(0.428, 2.6, 1)
 material = ExtResource("10_r4ocn")
 
 [node name="LeftWall" type="CSGCombiner3D" parent="Office" unique_id=1880565312]
@@ -384,6 +392,12 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.67
 
 [node name="SM_Metal_Door_03a" parent="Office/ClosetDoor" unique_id=1583465240 instance=ExtResource("16_32lqa")]
 transform = Transform3D(-0.89651746, 0, -0.44300863, 0, 1, 0, 0.44300863, 0, -0.89651746, 0.12569743, 0, 0.017951488)
+
+[node name="vent" type="Node3D" parent="Office" unique_id=1405086141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.69, 2.37, 0.6250215)
+
+[node name="SM_Air_Vent_01d" parent="Office/vent" unique_id=773189345 instance=ExtResource("20_j67j6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -0.2)
 
 [node name="LightSwitch" type="CSGBox3D" parent="Office" unique_id=886701734]
 transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.8)
@@ -534,14 +548,6 @@ shape = SubResource("BoxShape3D_breaker_col")
 [node name="BreakerCloset" parent="." unique_id=1619679942 instance=ExtResource("11_47omi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
-[node name="DoorMarker" type="Marker3D" parent="." unique_id=2015219190]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 1, 1.5)
-
-[node name="HunterRobot#CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1202728272]
-shape = SubResource("CapsuleShape3D_player")
-
-[node name="HunterRobot#AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=617537311]
-
 [node name="RobotChamber" type="Node3D" parent="." unique_id=534640245]
 
 [node name="ChamberFloor" type="CSGBox3D" parent="RobotChamber" unique_id=808811918]
@@ -578,12 +584,25 @@ material = ExtResource("10_r4ocn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -3)
 pixel_size = 0.0055
 
+[node name="CameraRoom1" parent="." unique_id=1487305147 instance=ExtResource("35_t0n0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
+
+[node name="DoorMarker" type="Marker3D" parent="." unique_id=2015219190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 1, 1.5)
+
+[node name="HunterRobot#CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1202728272]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="HunterRobot#AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=617537311]
+
 [node name="Lighting" type="Node3D" parent="." unique_id=344344158]
 
 [node name="DeskLight" type="SpotLight3D" parent="Lighting" unique_id=1599754461]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.2731805, 0.1)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.1963582, 0.1)
 light_color = Color(1, 0.95, 0.85, 1)
 light_energy = 3.5
+shadow_enabled = true
+shadow_reverse_cull_face = true
 spot_angle = 80.0
 
 [node name="ChamberLight" type="SpotLight3D" parent="Lighting" unique_id=444097396]
@@ -726,7 +745,7 @@ offset_bottom = 448.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 1, -4.8296156)
 
 [node name="Phase1Spawn2" type="Marker3D" parent="." unique_id=873404773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3115807, 1, -16.328611)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.606148, 1, -16.328611)
 
 [node name="Phase1Spawn3" type="Marker3D" parent="." unique_id=1721085230]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, 1, 15.279053)
@@ -735,7 +754,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19321346, 1, 15.279053)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.1)
 
 [node name="Phase2Spawn2" type="Marker3D" parent="." unique_id=121111112]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.130946, 1, -1.974645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425512, 1, -1.974645)
 
 [node name="Phase2Spawn3" type="Marker3D" parent="." unique_id=121111113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10306537, 1, 11.188381)
@@ -807,6 +826,8 @@ transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
 visible = false
 
 [node name="Room2" type="Node3D" parent="." unique_id=1588998239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2945666, 0, 0)
+visible = false
 
 [node name="BackWall_Bottom" type="CSGBox3D" parent="Room2" unique_id=832031471]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, -1.55)
