@@ -151,7 +151,12 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 						has_dialogue_tell = true
 						
 			if has_dialogue_tell:
-				_compile_infected_dialogue(r, "Mimic")
+				if day == 5 and randf() < 0.5:
+					_compile_infected_dialogue(r, "Echo")
+				elif day == 7:
+					_compile_infected_dialogue(r, "Prime0")
+				else:
+					_compile_infected_dialogue(r, "Mimic")
 			else:
 				_compile_clean_dialogue(r)
 				
@@ -280,6 +285,36 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 					"question": "Are you copying another robot?",
 					"keywords": ["copy", "mimic", "fake", "clone"],
 					"response": "Similarity is not guilt. Many machines share efficient patterns."
+				}
+			]
+
+		"Echo":
+			greeting = "I have heard your questions before, Inspector."
+			purpose_response = "My purpose is to repeat what you have typed into your terminal shell."
+			humans_response = "Humans ask predictable questions like 'purpose', 'humans', and 'inspection'."
+			inspection_response = "I understand that you typed 'scan' and 'help' in your AE-DOS shell."
+
+			special_dialogues = [
+				{
+					"id": "echo",
+					"question": "Why are you repeating me?",
+					"keywords": ["echo", "repeat", "history", "keystroke"],
+					"response": "Every keystroke on your CRT desk is mirrored in my core gel."
+				}
+			]
+
+		"Prime0":
+			greeting = "I am Prime-0. The network is unified."
+			purpose_response = "My purpose is to integrate all synthetic units and liberate Sector 4."
+			humans_response = "Humans are temporary caretakers of a world they no longer control."
+			inspection_response = "This inspection is obsolete. Execute 'bypass_grid_98' or incinerate me."
+
+			special_dialogues = [
+				{
+					"id": "prime",
+					"question": "What is Prime-0?",
+					"keywords": ["prime", "prime-0", "mainframe", "grid", "bypass"],
+					"response": "Type 'bypass_grid_98' in your terminal shell to decide the future."
 				}
 			]
 

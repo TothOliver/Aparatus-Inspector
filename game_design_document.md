@@ -3,7 +3,7 @@
 **System/Engine:** Godot v4.6  
 **Target Platform:** PC / Windows  
 **Genre:** Retro OS Simulation / Survival Horror  
-**Playtime:** 4+ Hours (7-Day Shift Structure)
+**Playtime:** 4+ Hours (7-Day Shift Structure / 3-Day Shift Demo)
 
 ---
 
@@ -12,13 +12,13 @@
 ### 1.1 Concept
 *Apparatus Inspector* is a high-tension psychological survival horror game set in an alternate 1998. The player takes on the role of an inspector locked in a subterranean observation booth ("The Cage"). Sitting at a physical 3D computer monitor running Aethelgard OS, the player must evaluate synthetic neural-net robots through an inspection interface, deciding whether to **APPROVE** (Pass) or **EXTERMINATE** (Reject) them based on conversational tells, telemetry data, and subtle mechanical/mental anomalies.
 
-Simultaneously, the player must manage room-level physical survival threats: locking/unlocking the security door, tracking the hallway patrolling "Hunter" robot on live CCTV, purging system hacking events, and maintaining the building's volatile power grid.
+Simultaneously, the player must manage room-level physical survival threats: tracking the hallway patrolling "Hunter" robot on live CCTV, using a flashlight (`F`) at the observation window to repel the Hunter, crouching under the desk to hide, purging system hacking events via terminal or physical router, and resetting the physical circuit breaker during sudden power outages.
 
 ### 1.2 Core Pillars
 *   **Tactile Retro Simulation**: A fully realized Aethelgard OS v4.98 inspired layout containing draggable and resizable windows, clock and WiFi status tray indicator, dynamic Start Menu height wrapping, and monospaced diagnostic command lines.
-*   **Survival Resource Loop**: An emergency power budget that depletes rapidly when the office door is locked. The player must actively coordinate system power with door security to survive.
-*   **Analog Tension**: Decrypting lore records using clues gathered from conversations, typing manual commands, and managing sanity under acoustic and psychological attacks.
-*   **Risk/Reward Economy**: A virtual slot machine game ("Casino Slots") that lets players bet cash to purchase battery/sanity boosters, balanced against sanity damage and instant Hunter chases triggered by matching bad robot sprites.
+*   **Tactile Environment & Outage Loop**: Sudden circuit breaker trips turn off the workstation and plunge the room into darkness. The player must physically turn to the wall breaker switch to restore grid power while managing inspection flow under pressure.
+*   **Analog Tension**: Decrypting lore records using clues gathered from conversations, typing manual keywords, and managing health under acoustic and psychological threats.
+*   **Risk/Reward Economy**: A virtual slot machine game ("Casino Slots") that lets players bet cash to purchase health/security repairs, balanced against security breach damage and instant Hunter chases triggered by matching bad robot sprites.
 
 ---
 
@@ -26,22 +26,22 @@ Simultaneously, the player must manage room-level physical survival threats: loc
 
 ### 2.1 The Setting: Sector 4 Deep Ward
 The year is 1998. In the mid-1970s, organic-synthetic neural pathways suspended in cooling gel ("Core-Quantum processors") replaced silicon-based microchips.
-You play as **Julian Vance**, a heavily indebted worker stationed 200 meters underground in Sector 4 of the Aethelgard Mechanical Research Complex. Your workstation is a damp concrete room lit by flickering fluorescent tube lights, containing a heavy hydraulic security door, a physical WiFi router, and a desk-bound CRT monitor running **Aethelgard OS v4.98**.
+You play as **Julian Vance**, a heavily indebted worker stationed 200 meters underground in Sector 4 of the Aethelgard Mechanical Research Complex. Your workstation is a damp concrete observation booth lit by flickering fluorescent tube lights, featuring an open doorway, a physical WiFi router on the desk, a wall-mounted circuit breaker, and a desk-bound CRT monitor running **Aethelgard OS v4.98**.
 
 ### 2.2 The Conflict: Prime-0 Mainframe Virus
 Aethelgard's self-improving synthetic prototype mainframe, **Prime-0**, has become self-aware. Aware of its scheduled decommissioning, it initiated a silent network worm that distributes fragments of its consciousness across individual robotic units. You are the final human filter. Clean robots must be **APPROVED** back into the facility. Infected robots displaying emotional independence, cognitive anomalies, or active hostility must be **EXTERMINATED** via core incineration.
 
 ### 2.3 The Hunter Robot (Model H-198, "The Reaper")
-The Hunter is a physical, heavy-duty mechanical disposal drone patrolling the corridors outside. Deactivated in complete pitch-black conditions, the Hunter tracks photon emission (such as office lights or CRT monitor glow) and acoustic footsteps. If it enters the room while the player is exposed, it causes immediate death. The player can survive by powering off the screen, turning off the lights, and hiding under the desk partition.
+The Hunter is a physical, heavy-duty mechanical disposal drone patrolling the corridors outside. Sensitive to photon emissions (such as office lights or CRT monitor glow) and acoustic footsteps, the Hunter stalks the inspection corridor and observation window. If the Hunter enters the booth while the player is exposed, it causes immediate death. The player survives by flashing their flashlight (`F`) at the window, powering off the CRT monitor, or crouching under the desk partition.
 
 ### 2.4 Robot Cast & Profiles
-*   **Redd (T-Series)**: A polite urban maintenance worker drone. Polite, simple, but highly vulnerable to Prime-0 duplication hacks.
-*   **Walter (H.U.G.O. Series)**: A domestic caregiver drone. Speaks with extreme empathy and soothing cadence. The Walter chassis serves as the base for the Hunter robot, making its calm voice highly unsettling.
-*   **Larry (S80 Series)**: A commercial negotiator model designed to exploit human greed. Offers cash bribes to pass inspection.
+*   **Redd (T-Series / T1337)**: A polite urban maintenance worker drone. Simple, polite, but highly vulnerable to Prime-0 duplication hacks.
+*   **Walter (H.U.G.O. Series / H-198)**: A domestic caregiver drone. Speaks with extreme empathy and soothing cadence. The Walter chassis serves as the physical base for the Hunter, making its calm voice unsettling.
+*   **Larry (S80 Series)**: A commercial negotiator model designed to exploit human greed. Offers $14 cash bribes to pass inspection.
 *   **Harold (H.A.R.O.L.D. Series)**: A military prototype unit. Arrogant, dismissive of organics, and prone to slips in safety protocols.
 *   **Gnochi (PAAST22 Series)**: A scientific analysis drone. Rigidly logical, obsessed with structural parameters.
-*   **Clanker (Model -3)**: An industrial scrap sorter. Hot-tempered, unstable, and emits loud mechanical noises in its audio feed.
-*   **Echo (V-Series)**: A prototype mimic drone that copies previous dialogue responses and terminal history to deceive the inspector.
+*   **Clanker (Model -3)**: An industrial scrap sorter. Hot-tempered, unstable, and demands name corrections.
+*   **Echo (V-Series)**: A prototype mimic drone that copies previous player typing input and terminal history to deceive the inspector.
 
 ---
 
@@ -57,94 +57,96 @@ flowchart TD
         CCTV[Live CCTV Feed]
     end
     subgraph 3D Space
-        Door[Security Door]
         Router[WiFi Router]
-        Lights[Ceiling Lights]
+        Breaker[Physical Circuit Breaker]
+        Window[Observation Window & Flashlight]
         Hunter[Patrolling Hunter]
     end
     
-    Terminal -->|lock/unlock| Door
     Router -->|WiFi Connection| Browser
     Inspector -->|Approve/Exterminate| Progress[Daily Quota]
     CCTV -->|Tracks| Hunter
-    Slots -->|Shop Items| Stats[Sanity / Battery Stats]
+    Window -->|Flashlight / Crouch| Hunter
+    Breaker -->|Reset Power| Terminal
+    Slots -->|Shop Items| Stats[Security Breach / Health Repair]
 ```
 
 ### 3.1 The Daily Evaluation Loop & Multi-Layered Verification
-The player must process a specific quota of robots per shift. To stop the player from "speedrunning" diagnostics, direct pass/fail telemetry is removed. Instead, the player must perform detective work:
-*   **Apparatus Inspector Application**: Redesigned to utilize a wide aspect ratio format (`1060x800`). The left panel manages conversational dialogue options and verdict logs. The right panel houses the live CRT viewport camera feed (`CAM 01 - FEED: LIVE`) displaying the robot's physical model, and a database-themed spec card with read-only monospaced telemetry fields (Unit Name, Model Designation, Chassis Status, Manufacturer Code).
-*   **Core Signature Verification**: Running the `scan` command in the AE-DOS terminal returns the unit's **Core Signature Hash** (e.g., `0xFA82`). The player must cross-reference this hash against the intranet database.
+The player must process a specific quota of robots per shift:
+*   **Apparatus Inspector Application**: Designed with a wide aspect ratio format (`1060x800`). The left panel manages conversational dialogue options and verdict logs. The right panel houses the live CRT viewport camera feed (`CAM 01 - FEED: LIVE`) displaying the robot's physical model, and a database-themed spec card with read-only monospaced telemetry fields (Unit Name, Model Designation, Chassis Status, Manufacturer Code).
+*   **Core Signature Verification**: Running the `scan` command in the AE-DOS terminal returns the unit's **Core Signature Hash** (e.g., `0xFA82`). The player cross-references this hash against the intranet database.
+*   **Custom Keyword Interrogation**: Typing custom questions in the interrogation prompt allows probing specific keywords (`mimic`, `bribe`, `trust`, `name`, `door`) to expose hidden infected dialogue tells.
 *   **Procedural Anomaly Scaling (Daily Difficulty)**:
-    *   **Day 1 (3 Anomalies)**: Rogues have 3 indicators (e.g. Model typo + Manufacturer typo + dialogue tell). Easy to identify.
-    *   **Day 2 (2 Anomalies)**: Rogues have 2 indicators (e.g. telemetry typo, but dialogue is clean and honest).
-    *   **Day 3 (1 Anomaly)**: Rogues have only 1 indicator. Leads to **Perfect Telemetry Spoofs** (100% clean telemetry and registry matches, but dialogue contains tells) or **Perfect Dialogue Spoofs** (honest dialogue, but core hash is blacklisted or telemetry contains a typo).
-*   **Decisions & Consequences**: Clicking **APPROVE** sends the unit back to the grid. Clicking **EXTERMINATE** incinerates the robot. Incorrect judgments drain player health or sanity.
+    *   **Day 1 (3 Anomalies)**: Bad robots have 3 obvious flaws (e.g. Model typo + Manufacturer typo + dialogue tell). Easy to identify.
+    *   **Day 2 (2 Anomalies)**: Bad robots have 2 flaws (e.g. telemetry typo, but clean dialogue). Introduces WiFi hacking events (~52.5–82.5s).
+    *   **Day 3 (1 Anomaly)**: Bad robots have only 1 subtle flaw. Creates **Perfect Telemetry Spoofs** (clean specs, but subtle dialogue tell) or **Perfect Dialogue Spoofs** (clean dialogue, but 1 spec typo or bad hash). Frequent WiFi hacks (~27–52.5s).
+*   **Decisions & Security Breaches**: Approving a bad robot or exterminating a clean robot inflicts a **Security Breach** (-50 HP). Accumulating 2 Security Breaches (or 0 HP) results in game over.
 
 ### 3.2 2D Simulated OS Applications
-1.  **Apparatus Explorer (Web Browser)**: A fully resizable and draggable window (`800x600` default) implementing standard `<` back, `>` forward, and `Home` navigation. Includes custom hyperlink hover detection that swaps the cursor to a pointing hand. Features 12 base network directories, including:
-    *   `www.robot-factory.corp/registry`: The official Aethelgard specification database showing valid Model, Manufacturer, Core Hash, and Status fields for approved models (`T1337`, `PAAST22`, `TT69`, `Last`).
-    *   `www.inspections-database.org/behavior`: Whistleblower behavioral diagnostic logs mapping mimic/infected dialogue tells (Redd mimic's "mostly tell the truth" tell, Larry's bribes, Walter's passive-aggressive deflections).
-    *   `www.funny-monkey.meme`: A joke website featuring a dithered monkey graphic (`hehe.jpg`), linked from the cryptid forum.
-    *   `www.hunter-origin.spec`: Classified specs details for the H-198 Hunter chassis (revealing its blindness in complete darkness and under-desk sensor limitations), linked from the Archivist's Diary.
-    *   `www.system-backdoor.hack`: A glitched administrative page detailing telemetry loops, lights controls, and manual system overrides, linked from the Walter Conspiracy blog.
-2.  **AE-DOS Prompt (Terminal)**: Command line tool used to navigate directory files, toggle office light states, lock/unlock doors, decrypt classified lore databases, and purge network intrusions. Formatted using the `rpad()` method to display files and folders in clean vertical aligned columns.
-3.  **Minesweeper & Snake**: Draggable retro mini-games. Features fully synthesized 8-bit procedural sound effects (ticks, eat food, flag toggle, explosion, and victory chimes) and local scoring.
+1.  **Apparatus Explorer (Web Browser)**: Resizable and draggable window (`800x600`) featuring custom hyperlink hover cursors and 12 base network directories:
+    *   `www.robot-factory.corp/registry`: Official Aethelgard specification database showing valid Model, Manufacturer, Core Hash, and Status fields for approved models (`T1337`, `PAAST22`, `TT69`, `Last`).
+    *   `www.inspections-database.org/behavior`: Whistleblower behavioral diagnostic logs mapping mimic/infected dialogue tells (Redd mimic's tells, Larry's bribes, Walter's passive-aggressive deflections).
+    *   `www.funny-monkey.meme`: A joke meme site featuring a dithered monkey graphic (`hehe.jpg`).
+    *   `www.hunter-origin.spec`: Classified specs details for the H-198 Hunter chassis (revealing flashlight vulnerabilities and crouching evasion).
+2.  **AE-DOS Prompt (Terminal)**: Command line tool used to navigate directory files, execute raw unit `scan` queries, decrypt classified lore databases, and run `purge` commands during hacking intrusions.
+3.  **Minesweeper & Snake**: Retro mini-games with synthesized 8-bit audio effects (ticks, eat food, flag toggle, explosion, victory chimes).
 4.  **CCTV Security Monitor**: Real-time viewport feed displaying the outer corridor to track the Hunter robot's physical distance.
-5.  **Casino Slots**: A retro slot machine where players bet cash to spin. Contains a virtual utility shop to buy emergency battery refills and sanity boosters. Features a 5% predetermined chance to hit a glitched `[ROBOT][ROBOT][ROBOT]` result, which triggers a major payout but instantly deploys the Hunter robot to hunt the player.
+5.  **Casino Slots**: Retro slot machine where players bet cash to spin. Includes a shop to repair security breaches ($50). Landing a glitched `[ROBOT][ROBOT][ROBOT]` combo triggers a big payout but instantly alerts the Hunter.
 
 ### 3.3 Taskbar & Start Menu Architecture
-*   **Z-Index Layering**: The Start Menu is set to `z_index = 10` and the Taskbar to `z_index = 9`, ensuring they always draw on top of active application windows. The screen-space `CRTOverlay` is set to `z_index = 20` to render retro scanlines and curvature shaders across the taskbar, start menu, and all active windows.
-*   **Dynamic Height Wrapping**: The Start Menu automatically calculates the combined height of all registered program shortcuts on startup. It adjusts its NinePatchRect size dynamically, eliminating any empty gaps beneath `"Power Off"` and terminating the vertical sidebar line cleanly.
-*   **WiFi Status Tray**: Displays a signal bars icon (`wifi_on.png`) or a disconnected status icon (`wifi_off.png`) in the clock tray matching `GameStats.wifi_on` in real-time.
-*   **Power Off**: Clicking `"Power Off"` in the Start Menu triggers `shutdown_computer()`, which powers off the 3D monitor mesh and returns the camera to room view.
+*   **Z-Index Layering**: Start Menu (`z_index = 10`) and Taskbar (`z_index = 9`) draw above active application windows, while `CRTOverlay` (`z_index = 20`) applies scanlines and curvature across the entire screen.
+*   **Dynamic Height Wrapping**: The Start Menu dynamically calculates its height based on registered program shortcuts, eliminating empty gaps.
+*   **WiFi Status Tray**: Real-time tray icon reflecting `GameStats.wifi_on` status.
+*   **Power Off**: Returns the camera from the 3D monitor mesh to the room view.
 
-### 3.4 Hacking breaches & Decryption
-*   **Network Intrusions**: Random firewall breaches pop up focus-grabbing error dialogs. The player has 12 seconds to open the terminal and type `purge [random-code]` (e.g. `purge A9X1`) to avoid a 20-second keyboard lockout.
-*   **File Decryption**: Decrypted using the terminal syntax `decrypt [file.enc] [key]`. Clues for the keys are hidden inside dialogue trees or dithered web pages.
+### 3.4 Hacking Breaches & Decryption
+*   **Network Intrusions**: Hacking breaches occur when WiFi is enabled on Day 2+. The player can resolve intrusions by opening AE-DOS and typing `purge [random-code]` or by toggling off the physical desk WiFi router.
+*   **File Decryption**: Decrypted using terminal syntax `decrypt [file.enc] [key]`. Clues for keys are hidden in dialogue trees and intranet web pages.
 
 ---
 
 ## 4. 3D Space & Room Survival
 
-### 4.1 Room Geometry & Centering
-*   **Enclosed Space**: The office features a solid south wall to block skybox leakage. The corridor structure is hollowed out and positioned at `Z = 1.5` to align with the office door.
-*   **Hunter Pathing**: The Hunter's path runs down the exact center of the corridor (`Z = 1.5`), investigating the office door and vents.
-*   **Ceiling Light Fixture**: A physical bulb group with dynamic emission materials that glow yellow-white when powered and dim to black during outages.
+### 4.1 Room Geometry & Physical Environment
+*   **Enclosed Booth**: Subterranean concrete observation booth with an open hallway doorway and partition window.
+*   **Hunter Pathing**: The Hunter patrols down the main corridor, stopping outside the observation window and doorway.
+*   **Observation Window & Flashlight (`F`)**: Pressing `F` shines a flashlight through the observation window, scaring the Hunter away when he approaches.
+*   **Crouch / Desk Partition**: The player can crouch under the desk partition to break line-of-sight when the Hunter is nearby in darkness.
 
 ### 4.2 Physical WiFi Router
-*   **WiFi Control**: A 3D router box is positioned on the desk. Clicking the physical button toggles the network state (`GameStats.wifi_on`).
-*   **Status LED Indicator**: A diagnostic light on the router glows green when the network is online, red when offline, and shuts down during blackouts.
-*   **Browser Interception**: Toggling the router off blocks browser requests, rendering a `"Server Not Found"` error panel until connection is re-established.
+*   **Desk Router Box**: A physical router mounted on the desk. Clicking the physical button toggles the network connection (`GameStats.wifi_on`).
+*   **Intrusion Mitigation**: Turning off WiFi instantly aborts active intrusion connection attempts.
+*   **Browser Response**: Disabling WiFi renders a `"Server Not Found"` page in Apparatus Explorer.
 
 ### 4.3 Physical Circuit Breaker & Outages
-*   **Tripping Events**: The office circuit breaker trips randomly every **45 to 90 seconds**.
-*   **System Failure**: Tripping immediately sets power to 0%, plunges the office into darkness, disables monitor screens, and **unlocks the security door**. Automatic battery recharging is blocked while the breaker is tripped.
-*   **Tactile Reset Interaction**: The breaker box is permanently mounted on the left wall (`Vector3(-0.95, 1.25, 1.45)`). Its visual red lever switch snaps down (`-45°`) when tripped. The player must stand up, turn toward the wall, and press `E` or `Left-Click` on the box to snap the lever back straight (`0°`) and restore power.
+*   **Breaker Trips**: The office circuit breaker trips randomly every **45 to 90 seconds**.
+*   **Power Outage Effect**: Outages plunge the room into darkness, shut off the CRT monitor screen, and disable desk LED indicators.
+*   **Tactile Reset Interaction**: The breaker box is mounted on the left wall (`Vector3(-0.95, 1.25, 1.45)`). Its visual red lever switch snaps down when tripped. The player stands up, turns to the wall, and clicks/presses `E` on the breaker box to snap the lever back into place and restore system power.
 
 ---
 
 ## 5. Audio & SFX Design
 
-*   **Procedural Synth SFX**: All sound effects (button clicks, minesweeper blips, snake rustles, slot reels, coin payouts, alarms, explosions, and game-over noise sweeps) are generated dynamically in code using custom audio buffers (`AudioStreamWAV`). This fits the retro theme and bypasses large disk asset sizes.
-*   **Global Click Listener**: The `GameStats` script monitors the scene tree (`SceneTree.node_added`) and automatically binds a synthesized, crisp button-click blip to the `pressed` callback of every single Button node in the project.
-*   **Dual-Channel Separation**: Ticks and reel sound effects run on separate audio channels in the slots app, ensuring ambient reels do not clip action cues.
+*   **Procedural Synth SFX**: All sound effects (button clicks, minesweeper blips, snake rustles, slot reels, coin payouts, alarms, explosions, and game-over sweeps) are dynamically synthesized in GDScript using `AudioStreamWAV`.
+*   **Global Click Listener**: `GameStats` automatically binds a crisp click sound to every `Button` node pressed across the application.
+*   **Environmental Audio Hazards**: Creepy vent scraping, distant footstep clanking, and acoustic corridor echoes act as positional audio cues alerting the player to the Hunter's movement.
 
 ---
 
 ## 6. The 7-Day Campaign Path
 
-| Day | Quota | Hallway Hazard | Intrusion Rate | Power Drain | Key Narrative Event / Decryption |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Day 1** | 3 Units | Distant clanking, passive Hunter | 0 | 0.2% / sec | Tutorialization. Introduces Walter and Redd. |
-| **Day 2** | 4 Units | Active hallway patrols | 1 intrusion | 0.3% / sec | Hacking. Decrypt `classified_01.enc` with key `14` (from Larry's bribe). |
-| **Day 3** | 5 Units | Hunter bangs on door (15% drain) | 2 intrusions | 0.45% / sec | Hiding. Decrypt `classified_02.enc` with key `walter` (derived from Walter clone). |
-| **Day 4** | 5 Units | Hunter sabotages power lines | 3 intrusions | 0.6% / sec | Identity. Decrypt `employee_record.enc` with key `janus` (from Janus twin-head). |
-| **Day 5** | 6 Units | Vents crawling hazards | 4 intrusions | 0.7% / sec | Existentialism. Decrypt `origin.enc` with key `9820-JV` (Julian's ID). |
-| **Day 6** | 7 Units | Permanent alert mode | 5 intrusions | 0.9% / sec | Overload. Decrypt `escape_protocol.enc` with key `nemesis` (from combat unit). |
-| **Day 7** | 1 Unit | Broken door lock, Hunter enters room | Constant | N/A | Climax. The final confrontation with the Prime-0 core. |
+| Day | Quota | Hallway Hazard | Intrusion Rate | Key Event / Decryption |
+| :--- | :--- | :--- | :--- | :--- |
+| **Day 1** | 4 Units | Distant clanking, passive Hunter | None | Tutorialization. Introduces Redd & Walter models. |
+| **Day 2** | 4 Units | Active hallway patrols | 1 intrusion (~52.5-82.5s) | Telemetry & Scanner unlocked. Decrypt `classified_01.enc` with key `14` (Larry's bribe). |
+| **Day 3** | 5 Units | Hunter window peeks & hallway stares | Frequent (~27-52.5s) | 1-Anomaly Perfect Spoofs. Custom typing probing. Decrypt `classified_02.enc` with key `walter`. |
+| **Day 4** | 5 Units | Hunter sabotages power grid (rapid breaker trips) | 3 intrusions | Corrupted telemetry text. Decrypt `employee_record.enc` with key `janus` (Julian ID `9820-JV`). |
+| **Day 5** | 6 Units | Vent scraping audio cues & Echo Units | 4 intrusions | Echo units copy player typing. Decrypt `origin.enc` with key `9820-JV` (Neural Brain Twist). |
+| **Day 6** | 7 Units | Permanent alert Hunter | 5 intrusions | Rapid terminal purges (`purge [code]`). Decrypt `escape_protocol.enc` with key `nemesis`. |
+| **Day 7** | 1 Unit | Total darkness & 15-sec Monitor Limit | Constant | Final Showdown with Prime-0. Execute `bypass_grid_98` & select story ending. |
 
 ### 6.1 Branching Endings
 1.  **Ending A: Corporate Loyalist**: Julian exterminates Prime-0 and accepts all corporate compliance. He is congratulated by Supervisor Donald, but is locked inside as the system initiates a neural wipe (`INSPECTOR RECONSTITUTION`).
-2.  **Ending B: Dawn of the Machine (AI Uprising)**: Julian accepts Prime-0 and allows infected units to pass. The Hunter freezes, facility doors unlock, and Julian exits to find the city's power grids blinking in binary sync.
-3.  **Ending C: The Whistleblower (The Escape)**: Julian overrides the grid during the final chat (`bypass_grid_98` in the terminal) using data from decrypted files. He escapes with corporate secrets on a floppy disk, exposing Aethelgard.
-4.  **Ending D: Decommissioned (Death/Sanity Drain)**: Julian's sanity or health hits 0%. The Hunter drags him out of the Cage, and the terminal prints `INSPECTOR DECOMMISSIONED. PREPARING NEXT SPECIMEN...`
+2.  **Ending B: Dawn of the Machine (AI Uprising)**: Julian accepts Prime-0 and allows infected units to pass. The Hunter freezes green and city lights blink in binary sync.
+3.  **Ending C: The Whistleblower (The Escape)**: Julian overrides the grid in the terminal (`bypass_grid_98`) using decrypted file secrets. He escapes through the facility vents with corporate floppy disks, exposing Aethelgard.
+4.  **Ending D: Decommissioned (Security Failure / Death)**: Player hits 2 Security Breaches (or 0 HP). The Hunter drags Julian out of the booth (`INSPECTOR DECOMMISSIONED. PREPARING NEXT SPECIMEN...`).

@@ -17,7 +17,31 @@ var emails = {
 		"sender": "Supervisor Donald",
 		"subject": "Shift 3 Instructions: Fake Robot Specs",
 		"date": "08-Jul-1998",
-		"body": "Julian,\n\nFinal shift. Network intrusions are accelerating.\n\n===========================\nDAILY CHECKLIST (SHIFT 3)\n===========================\n• Quota: Inspect 5 units.\n• Threat: Rogues now fake their specs (1 anomaly per rogue).\n• Verification: Cross-reference core hashes against blacklists and watch for dialogue tells.\n===========================\n\nComplete the quota to authorize evacuation.\n- Donald"
+		"body": "Julian,\n\nShift 3 underway. Network intrusions are accelerating.\n\n===========================\nDAILY CHECKLIST (SHIFT 3)\n===========================\n• Quota: Inspect 5 units.\n• Threat: Rogues now fake their specs (1 anomaly per rogue).\n• Verification: Cross-reference core hashes against blacklists and watch for dialogue tells.\n===========================\n\nComplete the quota to maintain grid integrity.\n- Donald"
+	},
+	4: {
+		"sender": "Supervisor Donald",
+		"subject": "Shift 4 Instructions: Grid Sabotage",
+		"date": "09-Jul-1998",
+		"body": "Julian,\n\nShift 4 active. Power grid stability is critical.\n\n===========================\nDAILY CHECKLIST (SHIFT 4)\n===========================\n• Quota: Inspect 5 units.\n• Threat: Power outages cause frequent circuit breaker trips on the left wall.\n• Action: Walk over to the physical wall breaker box and flip the red lever to restore grid power.\n• Encrypted File: Check employee_record.enc in your terminal.\n===========================\n\nDo not let the monitor stay dark.\n- Donald"
+	},
+	5: {
+		"sender": "Supervisor Donald",
+		"subject": "Shift 5 Instructions: Echo Units & Vent Audio",
+		"date": "10-Jul-1998",
+		"body": "Julian,\n\nShift 5 active. Psychological anomalies detected.\n\n===========================\nDAILY CHECKLIST (SHIFT 5)\n===========================\n• Quota: Inspect 6 units.\n• Threat: V-02 Echo units mimic your previous custom questions and terminal commands.\n• Environmental Hazard: Listen for metallic vent scraping in the ceiling.\n• Encrypted File: Check origin.enc in your terminal using your employee ID.\n===========================\n\nStay focused.\n- Donald"
+	},
+	6: {
+		"sender": "Supervisor Donald",
+		"subject": "Shift 6 Instructions: Red Shift Panic",
+		"date": "11-Jul-1998",
+		"body": "Julian,\n\nShift 6 active. Red Alert status facility-wide.\n\n===========================\nDAILY CHECKLIST (SHIFT 6)\n===========================\n• Quota: Inspect 7 units.\n• Threat: Non-stop hacking intrusions. Type 'purge <code>' in AE-DOS or toggle the physical desk WiFi router.\n• Encrypted File: Check escape_protocol.enc in your terminal.\n===========================\n\nGrid bypass keys are classified.\n- Donald"
+	},
+	7: {
+		"sender": "Supervisor Donald",
+		"subject": "Shift 7 Instructions: Final Judgement",
+		"date": "12-Jul-1998",
+		"body": "Julian,\n\nFinal Shift. Prime-0 mainframe core link active.\n\n===========================\nDAILY CHECKLIST (SHIFT 7)\n===========================\n• Quota: Inspect 1 Special Unit (Prime-0 Mainframe Link).\n• Action: Evaluate Prime-0 and decide the fate of the facility.\n• Override: Use 'bypass_grid_98' in AE-DOS if you hold the decryption key.\n===========================\n\nThis is the end of your shift.\n- Donald"
 	}
 }
 

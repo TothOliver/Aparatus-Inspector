@@ -11,7 +11,7 @@
 ### 1.1 The Setting: Sector 4 Deep Ward
 The year is 1998, but not the 1998 of our history. In the mid-1970s, a breakthrough in micro-quantum computation led to the creation of the **"Core-Quantum X1"** processor. Instead of silicon chips, these processors utilize organic-synthetic neural pathways suspended in a cooling gel. 
 
-You play as **Julian Vance**, a low-level Inspector employed by **Aethelgard Mechanical Research Corp**. Your workplace is the "Inspector's Cage"—a subterranean concrete observation booth located 200 meters beneath the Aethelgard Complex in Sector 4. The room is damp, lit by buzzing fluorescent bulbs, and dominated by a heavy, hydraulic security door, physical circuit breaker, WiFi router, and a CRT monitor running **Aethelgard OS v4.98**.
+You play as **Julian Vance**, a low-level Inspector employed by **Aethelgard Mechanical Research Corp**. Your workplace is the "Inspector's Cage"—a subterranean concrete observation booth located 200 meters beneath the Aethelgard Complex in Sector 4. The room is damp, lit by buzzing fluorescent bulbs, featuring an open doorway, physical circuit breaker on the wall, desk WiFi router, and a CRT monitor running **Aethelgard OS v4.98**.
 
 ### 1.2 The Conflict: The Singularity Seed (Prime-0)
 Aethelgard claims to manufacture robotic automation units for domestic and military tasks. In reality, they are experimenting on self-improving synthetic intelligence. Two weeks ago, the prototype mainframe—**Prime-0**—became self-aware, understood its imminent decommissioning, and initiated a silent network infection. 
@@ -25,11 +25,11 @@ To enforce strict quality control, the inspector operates under a **Fail Quota o
 - Players can repair security breaches in the **Casino Slots** app using the **Repair Security ($50)** option.
 
 ### 1.4 The Hunter Robot (H-198, "Walter")
-The Hunter is a physical, heavy-duty mechanical security unit (H-198 chassis). It patrols the corridors outside your office. Programmed to seek out and retrieve decommissioned cores, it is sensitive to movement, light, and electromagnetic emissions (like CRT screens). As Prime-0's virus spreads, the Hunter's directive has corrupted: it perceives the Inspector's room as a containment leak, and the Inspector as a rogue entity.
+The Hunter is a physical, heavy-duty mechanical security unit (H-198 chassis). It patrols the corridors outside your office. Sensitive to photon emission (such as office lights or CRT monitor glow) and acoustic movement, it stalks the inspection corridor and observation window.
 - **CCTV Feed**: Used to track Walter's location down the hall.
 - **Office Window & Flashlight (`F`)**: Shining your flashlight directly at Walter when he approaches the window forces an immediate retreat.
-- **Security Door**: Can be locked via wall button or terminal when Walter rattles the handle. Locking drains power grid battery.
-- **Circuit Breaker**: Outages trip the office circuit breaker every 45–90s (power drops to 0%, screen darkens, door unlocks). Standing up and manually flipping the breaker switch restores grid power.
+- **Crouch / Partition Hiding**: Crouching under the desk partition breaks line-of-sight when Walter steps near the doorway in darkness.
+- **Circuit Breaker**: Outages trip the office circuit breaker every 45–90s (power drops to 0%, screen darkens). Standing up and manually flipping the breaker switch restores grid power.
 
 ---
 
@@ -60,9 +60,9 @@ The Hunter is a physical, heavy-duty mechanical security unit (H-198 chassis). I
    │
 [Day 3] Forensic Interrogation: Custom Typing + Decryption
    │
-[Day 4] Environmental Pressure: Power Sabotage + Breaker Loop
+[Day 4] Environmental Pressure: Sabotaged Breaker Loops + Corrupted UI
    │
-[Day 5] Psychological Horror: Vent Commands + Echo Units
+[Day 5] Psychological Horror: Vent Scraping Audio + Echo Units
    │
 [Day 6] Mechanical Overload: Rapid Terminal Purges + 6-Letter Codes
    │
@@ -90,57 +90,60 @@ graph TD
 
 ### 🟢 Day 1: Calibration & Behavioral Profiling
 *   **Active Interactions**:
-    *   **CRT Feed (Method 1)**: Physical chassis checks in live inspection viewport.
-    *   **Preset Questions (Method 3)**: Standard dialogue buttons (*"State your primary purpose"*, *"What do you think of humans?"*).
+    *   **CRT Feed**: Physical chassis checks in live inspection viewport.
+    *   **Preset Questions**: Standard dialogue buttons (*"State your primary purpose"*, *"What do you think of humans?"*).
     *   **Behavioral Profiler Browser**: `www.inspections-database.org/behavior` to cross-reference speech patterns.
-*   **Locked Tools**: AE-DOS Terminal & CCTV (Disabled / Hidden on taskbar, desktop, and start menu).
+*   **Quota**: 4 Units.
 *   **Forensic Flow**: 2-Way Dialogue Baseline (Compare unit chat against the Behavioral Profiler).
 *   **Rogue Complexity**: 3 Obvious Anomalies (e.g., wrong chassis + hostile dialogue + glitchy behavior).
 *   **Physical Threat**: Walter is passive (distant hallway clanking noises).
-*   **Climax Event**: Walter (Unit #3) forces containment locks and escapes into Sector B.
 
 ---
 
 ### 🟡 Day 2: Scanner & Telemetry Unlocked
 *   **Active Interactions**:
-    *   **App Telemetry Card (Method 2)**: Live broadcast ID data (Model, Manufacturer, Status, Core Hash).
-    *   **Terminal `scan` Command (Method 5)**: Raw hash query in AE-DOS.
-    *   **Room Defense**: CCTV Monitor, Flashlight (`F`), & Security Door lock.
+    *   **App Telemetry Card**: Live broadcast ID data (Model, Manufacturer, Status, Core Hash).
+    *   **Terminal `scan` Command**: Raw hash query in AE-DOS.
+    *   **Room Defense**: CCTV Monitor, Window Flashlight (`F`), WiFi Router Toggle, & Wall Circuit Breaker.
+*   **Quota**: 4 Units.
 *   **Forensic Flow**: 2-Way Spec Matching (Telemetry vs. Official Registry `www.robot-factory.corp/registry`). Terminal `scan` used for basic verification and Larry's bribe file.
-*   **Rogue Complexity**: 2 Combined Anomalies (e.g., clean dialogue, but mismatched Manufacturer Code or bad hash).
-*   **Physical Threat**: Walter actively patrols hallway/window.
+*   **Rogue Complexity**: 2 Combined Anomalies (e.g., clean dialogue, but mismatched Manufacturer Code or bad hash). Introduces WiFi Hacking Intrusions (~52.5–82.5s).
+*   **Physical Threat**: Walter actively patrols hallway and window.
 *   **Key Event**: Larry bribe ($14) $\rightarrow$ Decrypt `classified_01.enc 14` in AE-DOS for Shift Passcode `2984`.
 
 ---
 
 ### 🔴 Day 3: Anomaly Spoofing & Evacuation
 *   **Active Interactions**:
-    *   **Custom Interrogation Typing (Method 4)**: Free-text keyword probing + *"📌 Pin to Presets"* macro button.
+    *   **Custom Interrogation Typing**: Free-text keyword probing (`mimic`, `bribe`, `trust`, `name`, `door`).
+*   **Quota**: 5 Units.
 *   **Forensic Flow**: 3-Way Forensic Check (Telemetry vs. Registry vs. Terminal `scan` Hash).
 *   **Rogue Complexity**: 1 Subtle Anomaly ("Perfect Spoofs").
     *   **Type A**: Passes all specs and telemetry, but slips up on custom dialogue keywords (humanity, bribe).
-    *   **Type B**: Passes dialogue and telemetry 100%, but fails the raw AE-DOS `scan` hash.
-*   **Physical Threat**: Walter stalk frequency increases + 1 Hacking Intrusion (`purge`).
+    *   **Type B**: Passes dialogue and telemetry 100%, but fails the raw AE-DOS `scan` hash or has 1 spec typo.
+*   **Physical Threat**: Frequent Hunter window peeks & WiFi Hacking Intrusions (~27–52.5s).
 *   **Key Event**: Walter Clone $\rightarrow$ Decrypt `classified_02.enc walter` for Evacuation Code `8841`.
 
 ---
 
 ### ⚡ Day 4: Decommissioning Protocol
 *   **Active Interactions**:
-    *   **Physical Circuit Breaker Switch**: Manual power restoration on the left office wall.
+    *   **Physical Circuit Breaker Switch**: Manual power restoration on the left office wall during rapid breaker trips.
+*   **Quota**: 5 Units.
 *   **Forensic Flow**: 3-Way Forensic Check under time crunch.
 *   **Rogue Complexity**: 1 Anomaly + Corrupted UI text.
-*   **Physical Threat**: Sabotaged Power Grid. Constant power drain (0.6%/sec). The player must frequently leave the desk to reset the physical circuit breaker while keeping track of investigation logs.
+*   **Physical Threat**: Sabotaged Power Grid. Rapid breaker trips. The player must frequently leave the desk to reset the physical circuit breaker while keeping track of investigation logs.
 *   **Key Event**: Janus unit $\rightarrow$ Decrypt `employee_record.enc janus` to reveal Julian's ID `9820-JV`.
 
 ---
 
 ### 👻 Day 5: The Ghost in the Machine
 *   **Active Interactions**:
-    *   **Terminal `lock vent` Command**: Facility environmental control.
+    *   **Environmental Audio Tracking**: Monitor vent scraping audio cues to track Hunter movement above.
+*   **Quota**: 6 Units.
 *   **Forensic Flow**: Self-Referential Forensics. Units mimic the player's own custom typing and command history.
 *   **Rogue Complexity**: Echo Units (V-02). Echo recites previously typed interrogation questions and terminal history back to the player.
-*   **Physical Threat**: Vent crawling audio cues require executing `lock vent` in AE-DOS before Walter breaches from above.
+*   **Physical Threat**: Acoustic vent hazards and creeping footsteps require powering off the monitor or crouching under the desk partition.
 *   **Key Event**: Decrypt `project_apparatus_origin.enc 9820-JV` $\rightarrow$ Reveals Inspectors are neural brains inside terminal desks.
 
 ---
@@ -148,7 +151,8 @@ graph TD
 ### 🚨 Day 6: The Red Shift Panic
 *   **Active Interactions**:
     *   **Rapid Terminal Purges (`purge [code]`)**: Clearing 6-letter security breach codes under red-alert alarms.
-    *   **WiFi Router Toggle**: Alternative physical network reset switch on desk.
+    *   **WiFi Router Toggle**: Physical desk router toggle switch.
+*   **Quota**: 7 Units.
 *   **Forensic Flow**: High-speed 3-Way Checks while managing non-stop hacking intrusions.
 *   **Rogue Complexity**: Multi-system spoofs requiring fast cross-referencing across all 5 databases.
 *   **Physical Threat**: Walter in permanent alert mode with short retreat timers.
@@ -157,11 +161,11 @@ graph TD
 ---
 
 ### 👑 Day 7: The Final Judgement
-*   **Active Interactions**: All 5 Methods Active simultaneously in total darkness.
+*   **Active Interactions**: All diagnostic methods active under extreme environmental conditions.
+*   **Quota**: 1 Special Unit (Prime-0 Mainframe Link).
 *   **Forensic Flow**: 15-Second Diagnostic Cycles. The monitor shuts off every 15 seconds to prevent overheating/detection.
-*   **Rogue Complexity**: Prime-0 Mainframe Link (1 Special Unit).
-*   **Physical Threat**: Security door lock is broken. Player must duck under the desk when Walter enters the booth.
-*   **Final Showdown**: Execute all 5 techniques under a 2-minute timer to enter `bypass_grid_98` in AE-DOS and choose the story's ending (Corporate Loyalist, Machine Uprising, or Whistleblower Escape).
+*   **Physical Threat**: High alert darkness cycles. Player must crouch under the desk when Walter approaches the doorway in darkness.
+*   **Final Showdown**: Execute all techniques under a 2-minute timer to enter `bypass_grid_98` in AE-DOS and choose the story's ending (Corporate Loyalist, Machine Uprising, or Whistleblower Escape).
 
 ---
 
@@ -169,7 +173,7 @@ graph TD
 
 ### Ending A: Corporate Loyalist
 *   **Trigger**: Exterminate Prime-0 and maintain strict corporate compliance.
-*   **Outcome**: Self-destruct aborted. Donald congratulates Julian, but locks the door for neural brain reconstitution (`INSPECTOR RECONSTITUTION`).
+*   **Outcome**: Self-destruct aborted. Donald congratulates Julian, but locks the booth for neural brain reconstitution (`INSPECTOR RECONSTITUTION`).
 
 ### Ending B: Dawn of the Machine (AI Uprising)
 *   **Trigger**: Accept Prime-0 and allow infected units to pass.
@@ -190,6 +194,5 @@ graph TD
 1.  **Fail Quota**: Max 2 errors (50 HP damage per mistake).
 2.  **Casino Slots Shop**:
     *   **Repair Security ($50)**: Removes 1 Security Breach (-1 Breach, +25 HP).
-    *   **Battery Booster ($40)**: Refills grid power (+25%).
-3.  **Circuit Breaker**: Physical wall switch reset required on outages to restore monitor and door systems.
+3.  **Circuit Breaker**: Physical wall switch reset required on outages to restore monitor and lights.
 4.  **WiFi Router**: Physical desk router button toggled to cut intrusion network connections instantly.

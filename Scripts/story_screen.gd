@@ -7,7 +7,11 @@ extends Control
 
 var stories = {
 	1: "=== SHIFT 1 COMPLETE ===\n\nCalibration complete.\n\nINCIDENT REPORT: Unit #3 (Walter) has broken containment locks and escaped into Sector B. Facility alert status raised to YELLOW.",
-	2: "=== SHIFT 2 COMPLETE ===\n\nFacility Quarantine: CRITICAL.\n\nINCIDENT REPORT: Remote intrusions are escalating and containment breaches remain active. The evacuation shuttle will arrive at the end of Shift 3.\n\nHold your station for one final shift."
+	2: "=== SHIFT 2 COMPLETE ===\n\nFacility Quarantine: CRITICAL.\n\nINCIDENT REPORT: Remote intrusions are escalating and containment breaches remain active. Sector B power grid unstable.",
+	3: "=== SHIFT 3 COMPLETE ===\n\nPower Grid Sabotage Alert.\n\nINCIDENT REPORT: The Hunter has begun physically tripping breaker boxes. Circuit breaker resets required during outages.",
+	4: "=== SHIFT 4 COMPLETE ===\n\nIdentity Verification Complete.\n\nINCIDENT REPORT: Employee records decrypted. Neural brain monitoring telemetry synchronized for Shift 5.",
+	5: "=== SHIFT 5 COMPLETE ===\n\nPsychological Containment Warning.\n\nINCIDENT REPORT: Echo units detected in the inspection chamber. Non-stop firewall intrusions initiated.",
+	6: "=== SHIFT 6 COMPLETE ===\n\nRED SHIFT EMERGENCY ALERT.\n\nINCIDENT REPORT: Facility quarantine overridden. Prepare for the final confrontation with Prime-0 on Shift 7."
 }
 
 func _ready():

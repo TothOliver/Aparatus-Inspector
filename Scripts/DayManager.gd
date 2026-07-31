@@ -7,7 +7,7 @@ var missed_robots_score: int = 0
 var processed_today: int = 0
 # Day Progression
 var current_day: int = 1
-var max_days: int = 3
+var max_days: int = 7
 
 # BAD AI let in
 var bad_ai_let_in_count: int = 0
@@ -27,10 +27,20 @@ const MAX_ALLOWED_BAD_AI = 2
 var day_configs = {
 	1: {"quota": 4, "difficulty": 1},
 	2: {"quota": 4, "difficulty": 2},
-	3: {"quota": 5, "difficulty": 3}
+	3: {"quota": 5, "difficulty": 3},
+	4: {"quota": 5, "difficulty": 4},
+	5: {"quota": 6, "difficulty": 5},
+	6: {"quota": 7, "difficulty": 6},
+	7: {"quota": 1, "difficulty": 7}
 }
 
 var hack_timer: float = 0.0
+
+func jump_to_day(target_day: int) -> void:
+	current_day = clamp(target_day, 1, max_days)
+	GameStats.current_day = current_day
+	start_new_day()
+	print("Jumped to Day ", current_day)
 
 func _ready():
 	current_day = GameStats.current_day

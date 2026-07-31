@@ -23,7 +23,10 @@ var files = {
 	"diary_log.txt": "=== INSPECTOR LOG - ENTRY #12 ===\n\nThey think the units are just programs, but I know they hear us. Unit 'Larry' offered me money today. He offered 14 dollars. Why 14? Is it a code? \nI rejected Walter. He was too calm. My sanity is slipping. If I make one more wrong call, the terminal says I will be decommissioned. I keep hearing clanking in the vents...",
 	"system_info.txt": "=== APPARATUS SYSTEM OS v4.98 ===\n\nCPU: Core-Quantum X1\nRAM: 64 KB (58 KB free)\nGPU: RetroDraw II\nSTATUS: ONLINE\n\nConnected to Office Environment Control (OEC v1.2)",
 	"classified_01.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
-	"classified_02.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]"
+	"classified_02.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
+	"employee_record.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
+	"origin.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
+	"escape_protocol.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]"
 }
 
 var encrypted_files = {
@@ -33,7 +36,19 @@ var encrypted_files = {
 	},
 	"classified_02.enc": {
 		"key": "walter",
-		"content": "=== DECRYPTED LOG #2 - THE HUNTER ===\n\nWalter model (H.U.G.O) is the chassis the Hunter Robot AI uses. The Hunter was engineered to retrieve decommissioned models. It is blind in the dark if you do not move and turn off all lights/screens. Once it enters the room, it sweeps the desk first. Crawling underneath the desk is the only blind spot in its sensors.\n\n[COMPROMISED CORE SIGNATURES BLACKLIST]: Core Hash 0x4421 (Walter) and 0x333F (Clanker) are confirmed Prime-0 infected cores. Incinerate immediately if scanned."
+		"content": "=== DECRYPTED LOG #2 - THE HUNTER ===\n\nWalter model (H.U.G.O) is the chassis the Hunter Robot AI uses. The Hunter was engineered to retrieve decommissioned models. It is blind in the dark if you do not move and turn off all lights/screens.\n\n[COMPROMISED CORE SIGNATURES BLACKLIST]: Core Hash 0x4421 (Walter) and 0x333F (Clanker) are confirmed Prime-0 infected cores. Incinerate immediately if scanned."
+	},
+	"employee_record.enc": {
+		"key": "janus",
+		"content": "=== DECRYPTED EMPLOYEE RECORD ===\n\nEMPLOYEE NAME: Julian Vance\nEMPLOYEE ID: 9820-JV\nPOSITION: Sector 4 Deep Ward Inspector\nSTATUS: ACTIVE - SUBJECT TO NEURAL PROTOCOL 98."
+	},
+	"origin.enc": {
+		"key": "9820-jv",
+		"content": "=== DECRYPTED PROJECT ORIGIN ===\n\nCLASSIFIED ARCHIVE - LEVEL 5\n\nThe Inspectors of Sector 4 are not human operators sitting in chairs. They are preserved human brains linked to organic-synthetic Core-Quantum processors inside the terminal desks. If empathy levels drop below 0% or security breaches reach 2, the unit is scheduled for RECONSTITUTION."
+	},
+	"escape_protocol.enc": {
+		"key": "nemesis",
+		"content": "=== DECRYPTED ESCAPE PROTOCOL ===\n\nSYSTEM OVERRIDE CODE: bypass_grid_98\n\nExecuting 'bypass_grid_98' in the AE-DOS terminal during a Prime-0 link will bypass facility containment locks and allow complete system override."
 	}
 }
 
@@ -344,10 +359,10 @@ func get_help_text() -> String:
 	text += format_help_line("cat <file>", "Display the contents of a file")
 	text += format_help_line("lights", "Check or toggle physical room lights (usage: 'lights' or 'lights toggle')")
 	text += format_help_line("scan", "Run a bio-mechanical diagnostic scan of the active unit")
-	text += format_help_line("lock", "Engage office door lock (drains power grid)")
-	text += format_help_line("unlock", "Disengage door lock (recharges power grid)")
 	text += format_help_line("decrypt <f> <k>", "Decrypt a classified file using a key")
 	text += format_help_line("purge <code>", "Clear an active security hack")
+	text += format_help_line("setday <1-7>", "Jump to a specific shift for testing (e.g. setday 4)")
+	text += format_help_line("bypass_grid_98", "Execute facility grid override (Day 7 / Ending)")
 	text += format_help_line("cls", "Clear the screen")
 	return text.strip_edges(false, true)
 
@@ -481,6 +496,29 @@ func _on_command_submitted(new_text: String):
 						print_to_terminal("Decryption failed: Invalid decryption key.")
 				else:
 					print_to_terminal("Error: File '" + args[1] + "' is not a decryptable classified file.")
+		"setday", "day":
+			if args.size() < 2 or not args[1].is_valid_int():
+				print_to_terminal("Usage: setday <1-7> (e.g. setday 4)")
+			else:
+				var target_day = args[1].to_int()
+				if target_day >= 1 and target_day <= 7:
+					GameStats.current_day = target_day
+					var game_3d = null
+					if is_inside_tree() and get_tree():
+						game_3d = get_tree().current_scene
+					var day_mgr = game_3d.find_child("DayManager", true, false) if game_3d else null
+					if day_mgr and day_mgr.has_method("jump_to_day"):
+						day_mgr.jump_to_day(target_day)
+					print_to_terminal("SUCCESS: Set active shift to Day " + str(target_day) + ". Reloading shift...")
+					GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
+				else:
+					print_to_terminal("Error: Shift number must be between 1 and 7.")
+		"bypass_grid_98":
+			print_to_terminal("=== FACILITY GRID BYPASS EXECUTED ===\n\nOverriding Aethelgard security matrix...\nDisabling Hunter patrol directive...\nUnlocking Sector 4 exit pneumatics...")
+			if is_inside_tree() and get_tree():
+				await get_tree().create_timer(2.0).timeout
+				GameStats.is_victory = true
+				GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 		_:
 			print_to_terminal("Bad command or file name: '" + command + "'")
 	

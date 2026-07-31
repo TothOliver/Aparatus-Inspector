@@ -242,6 +242,16 @@ func _process(delta):
 		curtain3.position.x = lerp(curtain3.position.x, target_curtain3_pos_x, 8.0 * delta)
 
 func _input(event):
+	# Debug hotkeys: F1 through F7 to jump to any day instantly
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode >= KEY_F1 and event.keycode <= KEY_F7:
+			var target_day = event.keycode - KEY_F1 + 1
+			GameStats.current_day = target_day
+			print("Debug Hotkey Pressed: Switching to Day ", target_day)
+			GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
+			get_viewport().set_input_as_handled()
+			return
+
 	# Handle closing settings/pause menu when pressing Escape and the menu is open
 	var pause_menu = get_node_or_null("HUD/PauseMenu")
 	if pause_menu and pause_menu.visible and event.is_action_pressed("ui_cancel"):
