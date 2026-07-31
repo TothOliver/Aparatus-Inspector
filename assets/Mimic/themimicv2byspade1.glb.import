@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://8kgjlv6gtmcu"
-path="res://.godot/imported/themimicv2byspade1.glb-da23a224d4bab09487cc8e39cbad932b.scn"
+path="res://.godot/imported/themimicv2byspade1.glb-14d64bfddeae6762a7dc11bdca46198c.scn"
 
 [deps]
 
-source_file="res://assets/themimicv2byspade1.glb"
-dest_files=["res://.godot/imported/themimicv2byspade1.glb-da23a224d4bab09487cc8e39cbad932b.scn"]
+source_file="res://assets/Mimic/themimicv2byspade1.glb"
+dest_files=["res://.godot/imported/themimicv2byspade1.glb-14d64bfddeae6762a7dc11bdca46198c.scn"]
 
 [params]
 

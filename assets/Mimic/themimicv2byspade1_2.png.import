@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1vxi4x57gqds"
-path.s3tc="res://.godot/imported/themimicv2byspade1_2.png-10e09f4ac52a3a684e7eafb5012dd29e.s3tc.ctex"
-path.etc2="res://.godot/imported/themimicv2byspade1_2.png-10e09f4ac52a3a684e7eafb5012dd29e.etc2.ctex"
+path.s3tc="res://.godot/imported/themimicv2byspade1_2.png-16bdf07e05496d13418f33032d8fd00d.s3tc.ctex"
+path.etc2="res://.godot/imported/themimicv2byspade1_2.png-16bdf07e05496d13418f33032d8fd00d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/themimicv2byspade1_2.png"
-dest_files=["res://.godot/imported/themimicv2byspade1_2.png-10e09f4ac52a3a684e7eafb5012dd29e.s3tc.ctex", "res://.godot/imported/themimicv2byspade1_2.png-10e09f4ac52a3a684e7eafb5012dd29e.etc2.ctex"]
+source_file="res://assets/Mimic/themimicv2byspade1_2.png"
+dest_files=["res://.godot/imported/themimicv2byspade1_2.png-16bdf07e05496d13418f33032d8fd00d.s3tc.ctex", "res://.godot/imported/themimicv2byspade1_2.png-16bdf07e05496d13418f33032d8fd00d.etc2.ctex"]
 
 [params]
 
