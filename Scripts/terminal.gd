@@ -97,6 +97,8 @@ func _ready():
 		)
 
 func can_grab_focus() -> bool:
+	if not is_inside_tree() or not get_tree():
+		return false
 	var game_3d = get_tree().current_scene
 	if game_3d and game_3d.name == "Game3D":
 		var player = game_3d.get_node_or_null("Player")

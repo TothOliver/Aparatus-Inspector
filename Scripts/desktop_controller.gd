@@ -825,7 +825,7 @@ func _on_cam3_pressed():
 	update_cctv_light_state()
 
 func _on_cctv_light_pressed():
-	var game_3d = get_tree().current_scene
+	var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
 	var is_blackout = game_3d and "is_blackout" in game_3d and game_3d.is_blackout
 	if GameStats.power_level <= 0.0 or is_blackout:
 		GameStats.cctv_light_on = false
@@ -834,7 +834,7 @@ func _on_cctv_light_pressed():
 	update_cctv_light_state()
 
 func update_cctv_light_state():
-	var game_3d = get_tree().current_scene
+	var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
 	var is_blackout = game_3d and "is_blackout" in game_3d and game_3d.is_blackout
 	if GameStats.power_level <= 0.0 or is_blackout:
 		GameStats.cctv_light_on = false

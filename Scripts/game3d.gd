@@ -480,7 +480,7 @@ func _on_aspect_overlay_resized():
 		return
 		
 	var target_aspect = 16.0 / 9.0
-	var current_aspect = W / H
+	var current_aspect = float(W) / float(H)
 	
 	if current_aspect > target_aspect:
 		# The screen is wider than 16:9 (pillarbox on sides)
@@ -533,7 +533,7 @@ func _on_viewport_container_resized():
 	else:
 		# Scale to fit smaller screens while preserving 16:9 aspect ratio
 		var target_aspect = 16.0 / 9.0
-		var current_aspect = W / H
+		var current_aspect = float(W) / float(H)
 		if current_aspect > target_aspect:
 			target_h = H
 			target_w = H * target_aspect
