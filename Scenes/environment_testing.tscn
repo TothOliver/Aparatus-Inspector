@@ -31,6 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://c8ivrxspvfa7s" path="res://assets/Military/SM_Metal_Door_Frame_Single_01a.glb" id="30_qiu4c"]
 [ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="31_4f80w"]
 [ext_resource type="PackedScene" uid="uid://c8sjlaxj2fs8c" path="res://assets/Military/SM_Wall_Light_02a.glb" id="31_qiu4c"]
+[ext_resource type="PackedScene" uid="uid://dml2ttqaw6jk1" path="res://assets/Warehouse/SM_WM00217_Pallet_Small.glb" id="32_pcqgd"]
+[ext_resource type="PackedScene" uid="uid://7p7fcm7o8uoy" path="res://assets/Warehouse/SM_WM00221-Scatter_Boxes_2.glb" id="33_edbj5"]
 
 [node name="EnvironmentTesting" type="Node3D" unique_id=236438102]
 
@@ -215,3 +217,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.083365, 0, 0.4079864)
 
 [node name="SM_Wall_Light_02a" parent="." unique_id=18407779 instance=ExtResource("31_qiu4c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1379066, 0, 0.19758654)
+
+[node name="SM_WM00217_Pallet_Small" parent="." unique_id=320275689 instance=ExtResource("32_pcqgd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.756325, 0, 3.8501463)
+
+[node name="SM_WM00221-Scatter_Boxes_2" parent="." unique_id=1486105775 instance=ExtResource("33_edbj5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.829358, 0, 3.8109632)

@@ -44,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="29_j67j6"]
 [ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
 [ext_resource type="PackedScene" uid="uid://m6qv3n0uh5b4" path="res://Scenes/cameraRoom1.tscn" id="35_t0n0n"]
+[ext_resource type="PackedScene" uid="uid://cxcqtqpdjilb1" path="res://Scenes/cameraHallway.tscn" id="36_n3yx3"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
@@ -190,7 +191,7 @@ light_energy = 4.0
 spot_range = 25.0
 
 [node name="CCTVCamera3" type="Camera3D" parent="CCTVViewport" unique_id=98721499]
-transform = Transform3D(-1, 1.518079e-08, -8.609465e-08, 0, 0.9848078, 0.17364796, 8.74228e-08, 0.17364796, -0.9848078, 0, 1.5478749, 9.224833)
+transform = Transform3D(-4.371139e-08, 0.1736482, -0.9848078, 0, 0.9848078, 0.1736482, 1, 7.590404e-09, -4.3047315e-08, -11, 2, 0.7128264)
 fov = 65.0
 
 [node name="CCTVLight3" type="SpotLight3D" parent="CCTVViewport/CCTVCamera3" unique_id=98721500]
@@ -454,7 +455,7 @@ autoplay = true
 max_distance = 5.0
 
 [node name="airPipes" type="Node3D" parent="Office" unique_id=1780578019]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8701599, 2.1527252, 3.6558228)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 2.153, 3.656)
 
 [node name="SM_Air_Vent_01a" parent="Office/airPipes" unique_id=1342651766 instance=ExtResource("13_47omi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.042521715, 0.8432112)
@@ -586,6 +587,9 @@ pixel_size = 0.0055
 
 [node name="CameraRoom1" parent="." unique_id=1487305147 instance=ExtResource("35_t0n0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
+
+[node name="CameraHallway" parent="." unique_id=1325100202 instance=ExtResource("36_n3yx3")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.085, 0, 1.5)
 
 [node name="DoorMarker" type="Marker3D" parent="." unique_id=2015219190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 1, 1.5)
@@ -824,39 +828,6 @@ texture = ExtResource("6_hunter_sprite")
 [node name="TempModel1" parent="HunterPhase4" unique_id=383103983 instance=ExtResource("28_r4ocn")]
 transform = Transform3D(0, 0, -0.3, 0, 0.3, 0, 0.3, 0, 0, 0, -0.9, 0)
 visible = false
-
-[node name="Room2" type="Node3D" parent="." unique_id=1588998239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2945666, 0, 0)
-visible = false
-
-[node name="BackWall_Bottom" type="CSGBox3D" parent="Room2" unique_id=832031471]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, -1.55)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="BackWall_Top" type="CSGBox3D" parent="Room2" unique_id=2049056237]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.15, -1.55)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="BackWall_Left" type="CSGBox3D" parent="Room2" unique_id=1801655747]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3, -1.55)
-use_collision = true
-size = Vector3(2.2, 1, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="BackWall_Right" type="CSGBox3D" parent="Room2" unique_id=149357665]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, 1.3, -1.55)
-use_collision = true
-size = Vector3(2.2, 1, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="GlassWindow2" type="MeshInstance3D" parent="Room2" unique_id=1649990895]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, -1.54)
-mesh = SubResource("QuadMesh_glass_window")
-surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
 
 [node name="Room3" type="Node3D" parent="." unique_id=2071024996]
 

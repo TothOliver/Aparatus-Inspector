@@ -229,9 +229,6 @@ material = ExtResource("3_mgm0k")
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1021812180]
 mesh = SubResource("ArrayMesh_mgm0k")
 
-[node name="SM_Metal_Stool_01a" parent="." unique_id=830634558 instance=ExtResource("2_yyxgt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33004153, 0, -2.5340009)
-
 [node name="wallPipes" type="Node3D" parent="." unique_id=1607576370]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7064917, 0, -2.6812873)
 
@@ -253,9 +250,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3053889, 0, -2.4212196)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17019576, 0)
 
 [node name="SM_WM00222-Round_Container_wraped_Plastic" parent="roundContainerPallet/SM_WM00222-Round_Container_wraped" unique_id=94082613 instance=ExtResource("9_l8eje")]
-
-[node name="SM_WM00230-Plastic_Waste_Bin_Large" parent="." unique_id=1191118314 instance=ExtResource("10_rinuq")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.3630404, 0, -0.6929591)
 
 [node name="FireSaftey" type="Node3D" parent="." unique_id=940746993]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.8010025, 0.7, 0.68099904)
@@ -294,8 +288,14 @@ mesh = SubResource("ArrayMesh_s3ya5")
 [node name="trashbag_1k" parent="cornerTrash" unique_id=1250868738 instance=ExtResource("17_mfni3")]
 transform = Transform3D(2.865552e-08, -0.6555618, -0.45851785, -0.79999995, -3.4969112e-08, 5.387205e-16, -2.0042458e-08, 0.45851785, -0.6555618, 0.30460793, 0.19386995, -0.08782172)
 
+[node name="SM_Metal_Stool_01a" parent="." unique_id=830634558 instance=ExtResource("2_yyxgt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33004153, 0, -2.5340009)
+
 [node name="portable_welding_cart_1k" parent="." unique_id=182786542 instance=ExtResource("19_e8h2f")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.5625621, -1.1920929e-07, -2.5352118)
+
+[node name="SM_WM00230-Plastic_Waste_Bin_Large" parent="." unique_id=1191118314 instance=ExtResource("10_rinuq")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.3630404, 0, -0.6929591)
 
 [node name="lights" type="Node3D" parent="." unique_id=544386014]
 
