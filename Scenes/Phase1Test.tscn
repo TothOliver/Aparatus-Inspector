@@ -2,15 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://cpompt0m35ptf" path="res://Scenes/JohanTest.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://bbepv7iggyorx" path="res://Scripts/phase1_test.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="3_urn1b"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c713f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux8wi"]
 resource_local_to_scene = true
 albedo_color = Color(0, 1, 0, 1)
 emission_enabled = true
 emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_urn1b"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wglud"]
 resource_local_to_scene = true
 albedo_color = Color(1, 1, 0.9, 1)
 emission_enabled = true
@@ -20,11 +21,20 @@ emission_energy_multiplier = 2.0
 [node name="Game3D" unique_id=562749692 instance=ExtResource("1_base")]
 script = ExtResource("2_script")
 
+[node name="CCTVLight1" parent="CCTVViewport/CCTVCamera1" parent_id_path=PackedInt32Array(1651515989) index="0" unique_id=1651515990]
+shadow_enabled = true
+
+[node name="CCTVLight2" parent="CCTVViewport/CCTVCamera2" parent_id_path=PackedInt32Array(98721498) index="0" unique_id=98721497]
+shadow_enabled = true
+
+[node name="CCTVLight3" parent="CCTVViewport/CCTVCamera3" parent_id_path=PackedInt32Array(98721499) index="0" unique_id=98721500]
+shadow_enabled = true
+
 [node name="DoorLight" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="0" unique_id=1542004563]
-surface_material_override/0 = SubResource("StandardMaterial3D_c713f")
+surface_material_override/0 = SubResource("StandardMaterial3D_ux8wi")
 
 [node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="2" unique_id=1047560640]
-surface_material_override/0 = SubResource("StandardMaterial3D_urn1b")
+surface_material_override/0 = SubResource("StandardMaterial3D_wglud")
 
 [node name="ChamberFloor" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="0" unique_id=808811918]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.49919, -3.5)
@@ -40,3 +50,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.918274, 1.25, -3.525)
 
 [node name="ChamberRightWall" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="4" unique_id=1206405157]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.545198, 1.25, -3.525)
+
+[node name="AmbientLight" parent="Lighting" parent_id_path=PackedInt32Array(344344158) index="2" unique_id=651361840]
+visible = false
+shadow_enabled = true
+
+[node name="TempModel1" parent="HunterPhase1" parent_id_path=PackedInt32Array(500476820) index="2" unique_id=13664639 instance=ExtResource("3_urn1b")]
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 0, 0)
+visible = false
+
+[node name="TempModel1" parent="HunterPhase2" parent_id_path=PackedInt32Array(1703336048) index="2" unique_id=1527894940 instance=ExtResource("3_urn1b")]
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 0, 0)
+visible = false
+
+[node name="TempModel1" parent="HunterPhase3" parent_id_path=PackedInt32Array(734618851) index="2" unique_id=153182440 instance=ExtResource("3_urn1b")]
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 0, 0)
+visible = false
+
+[node name="TempModel1" parent="HunterPhase4" parent_id_path=PackedInt32Array(74488888) index="2" unique_id=383103983 instance=ExtResource("3_urn1b")]
+transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 0, 0)
+visible = false
