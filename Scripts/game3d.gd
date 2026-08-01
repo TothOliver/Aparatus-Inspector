@@ -6,6 +6,8 @@ extends Node3D
 @onready var game_2d = get_node_or_null("SubViewportContainer/SubViewport/Control2")
 
 @onready var desk_light = get_node_or_null("Lighting/DeskLight")
+@onready var desk_light2 = get_node_or_null("Lighting/DeskLight2")
+@onready var ambient_light_node = get_node_or_null("Lighting/AmbientLight")
 @export var screen_mesh: MeshInstance3D
 @onready var corridor_light = get_node_or_null("Lighting/CorridorLight")
 @onready var door_light = get_node_or_null("Office/DoorLight")
@@ -324,11 +326,18 @@ func toggle_monitor_power():
 
 func _update_lights_visibility():
 	var is_lit = is_ceiling_light_on and not is_blackout
-	if desk_light:
-		desk_light.visible = is_lit
-	var ambient_light = $Lighting/AmbientLight
-	if ambient_light:
-		ambient_light.visible = is_lit
+	var lighting_root = get_node_or_null("Lighting")
+	if lighting_root:
+		for child in lighting_root.get_children():
+			if child is Light3D:
+				child.visible = is_lit
+	else:
+		if desk_light:
+			desk_light.visible = is_lit
+		if desk_light2:
+			desk_light2.visible = is_lit
+		if ambient_light_node:
+			ambient_light_node.visible = is_lit
 	if ceiling_bulb:
 		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
 		if mat:

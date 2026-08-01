@@ -340,7 +340,7 @@ func _build_progress_bar_string(elapsed: float, total: float) -> String:
 		
 	var cur_sec = int(elapsed)
 	var tot_sec = int(total)
-	var time_str = "%02d:%02d / %02d:%02d" % [cur_sec / 60, cur_sec % 60, tot_sec / 60, tot_sec % 60]
+	var time_str = "%02d:%02d / %02d:%02d" % [int(cur_sec / 60.0), cur_sec % 60, int(tot_sec / 60.0), tot_sec % 60]
 	
 	var pct_str = "%3d" % pct
 	return "SCANNING: [" + filled_str + empty_str + "] " + pct_str + "% [" + time_str + "]"
