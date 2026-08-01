@@ -44,6 +44,7 @@ func activate(_peek_loc: PeekLocation):
 	global_position = get_door_pos()
 		
 	set_monster_visible(true)
+	look_at_closest_camera()
 	wait_at_door_timer = 6.0
 	
 	var ap = get_active_audio_player()

@@ -30,6 +30,7 @@ func activate():
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]
 		
 	set_monster_visible(true)
+	look_at_closest_camera()
 	bang_count = 0
 	state_timer = 1.0 # time until first bang thud
 	set_physics_process(true)

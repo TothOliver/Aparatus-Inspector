@@ -17,11 +17,8 @@ emission_enabled = true
 emission = Color(1, 0.95, 0.85, 1)
 emission_energy_multiplier = 2.0
 
-[node name="Game3D" unique_id=946660494 instance=ExtResource("1_base")]
+[node name="Game3D" unique_id=562749692 instance=ExtResource("1_base")]
 script = ExtResource("2_script")
-
-[node name="Camera3D" parent="Player" parent_id_path=PackedInt32Array(177393882) index="1" unique_id=224191488]
-current = true
 
 [node name="DoorLight" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="0" unique_id=1542004563]
 surface_material_override/0 = SubResource("StandardMaterial3D_c713f")
@@ -29,4 +26,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_c713f")
 [node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="2" unique_id=1047560640]
 surface_material_override/0 = SubResource("StandardMaterial3D_urn1b")
 
+[node name="ChamberFloor" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="0" unique_id=808811918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.49919, -3.5)
 
+[node name="ChamberCeiling" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="1" unique_id=2062247221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8294115, -3.5)
+
+[node name="ChamberBackWall" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="2" unique_id=1316252060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -10.238147)
+
+[node name="ChamberLeftWall" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="3" unique_id=817384724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.918274, 1.25, -3.525)
+
+[node name="ChamberRightWall" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="4" unique_id=1206405157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.545198, 1.25, -3.525)

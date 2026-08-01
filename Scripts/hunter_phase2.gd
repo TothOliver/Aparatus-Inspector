@@ -56,6 +56,7 @@ func activate(is_door_retreat: bool = false):
 	if sprite and GameStats.let_through_bad_sprites.size() > 0:
 		sprite.texture = GameStats.let_through_bad_sprites[0]
 	set_monster_visible(true)
+	look_at_closest_camera()
 	
 	# Play heavy heavy concrete step sound to show it moved closer
 	var ap = get_active_audio_player()

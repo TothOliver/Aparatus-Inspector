@@ -38,17 +38,17 @@ var is_active: bool = false
 func get_start_pos() -> Vector3:
 	if start_marker:
 		return start_marker.global_position
-	return Vector3(start_x, 1.0, target_z)
+	return Vector3(start_x, 0.0, target_z)
 
 func get_door_pos() -> Vector3:
 	if door_marker:
 		return door_marker.global_position
-	return Vector3(door_x, 1.0, target_z)
+	return Vector3(door_x, 0.0, target_z)
 
 func get_window_pos() -> Vector3:
 	if window_marker:
 		return window_marker.global_position
-	return Vector3(0.0, 1.3, -1.54)
+	return Vector3(0.0, 0.0, -1.54)
 
 func get_jumpscare_pos() -> Vector3:
 	if jumpscare_marker:
@@ -79,18 +79,46 @@ func _ready():
 		audio_player.bus = "SFX"
 	
 	set_monster_visible(false)
-	var model = get_node_or_null("TempModel1")
-	if model:
-		model.scale = Vector3(0.1, 0.1, 0.1)
 
 func set_monster_visible(vis: bool) -> void:
 	var sprite = get_node_or_null("Sprite3D")
 	if sprite:
 		sprite.visible = false
+	var monster_char = get_node_or_null("MonsterCharacter")
+	if monster_char:
+		monster_char.visible = vis
 	var model = get_node_or_null("TempModel1")
 	if model:
 		model.visible = vis
-		model.scale = Vector3(0.1, 0.1, 0.1)
+
+func get_closest_camera() -> Camera3D:
+	var root = get_tree().root
+	var cameras = root.find_children("*", "Camera3D", true, false)
+	var closest_cam: Camera3D = null
+	var min_dist_sq: float = INF
+	
+	for cam in cameras:
+		if cam is Camera3D and cam.is_inside_tree():
+			var dist_sq = global_position.distance_squared_to(cam.global_position)
+			if dist_sq < min_dist_sq:
+				min_dist_sq = dist_sq
+				closest_cam = cam as Camera3D
+				
+	return closest_cam
+
+func look_at_closest_camera() -> void:
+	var closest_cam = get_closest_camera()
+	if closest_cam:
+		var target_pos = Vector3(closest_cam.global_position.x, global_position.y, closest_cam.global_position.z)
+		if global_position.distance_squared_to(target_pos) > 0.001:
+			look_at(target_pos)
+		else:
+			var camera_forward = -closest_cam.global_transform.basis.z
+			var flat_forward = Vector3(camera_forward.x, 0, camera_forward.z).normalized()
+			if flat_forward.length_squared() > 0.001:
+				look_at(global_position - flat_forward)
+	else:
+		look_at_player()
 
 func look_at_player() -> void:
 	var player = get_tree().root.find_child("Player", true, false)

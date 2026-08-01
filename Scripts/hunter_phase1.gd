@@ -140,6 +140,7 @@ func spawn_and_stare(specific_marker_idx: int = -1):
 	if sprite and GameStats.let_through_bad_sprites.size() > 0:
 		sprite.texture = GameStats.let_through_bad_sprites[0]
 	set_monster_visible(true)
+	look_at_closest_camera()
 	
 	# Cue Sound: Location-based or random selection
 	var ap = get_active_audio_player()

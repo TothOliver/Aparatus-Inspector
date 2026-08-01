@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="24_wxplm"]
 [ext_resource type="PackedScene" uid="uid://bf217xqhwtfyt" path="res://assets/Military/SM_Sign_02f.glb" id="25_32lqa"]
 [ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="28_r4ocn"]
+[ext_resource type="PackedScene" uid="uid://bqww0w4gyhtuq" path="res://Scenes/MonsterCharacter.tscn" id="28_monster_char"]
 [ext_resource type="PackedScene" uid="uid://dl6tnj1ucmgev" path="res://assets/Military/Vents/SM_Metal_Pipe_02i.glb" id="28_xd3w3"]
 [ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="29_j67j6"]
 [ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
@@ -593,7 +594,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.085, 0, 1.5)
 
 [node name="DoorMarker" type="Marker3D" parent="." unique_id=2015219190]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 1, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 0, 1.5)
 
 [node name="HunterRobot#CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1202728272]
 shape = SubResource("CapsuleShape3D_player")
@@ -747,22 +748,22 @@ offset_right = 438.0
 offset_bottom = 448.0
 
 [node name="Phase1Spawn1" type="Marker3D" parent="." unique_id=1136143014]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, -0.126525, -4.8296156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 0, -4.8296156)
 
 [node name="Phase1Spawn2" type="Marker3D" parent="." unique_id=873404773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, -0.126525, -2.9788694)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, 0, -2.9788694)
 
 [node name="Phase1Spawn3" type="Marker3D" parent="." unique_id=1721085230]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8399444, -0.126525, 1.2411251)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8399444, 0, 1.2411251)
 
 [node name="Phase2Spawn1" type="Marker3D" parent="." unique_id=121111111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.126525, -2.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
 
 [node name="Phase2Spawn2" type="Marker3D" parent="." unique_id=121111112]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425512, -0.126525, -1.974645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425512, 0, -1.974645)
 
 [node name="Phase2Spawn3" type="Marker3D" parent="." unique_id=121111113]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9334297, -0.126525, 2.2253227)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9334297, 0, 2.2253227)
 
 [node name="HunterPhase1" type="CharacterBody3D" parent="." unique_id=500476820]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 1.5)
@@ -781,8 +782,8 @@ billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
-[node name="TempModel1" parent="HunterPhase1" unique_id=13664639 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
+[node name="MonsterCharacter" parent="HunterPhase1" unique_id=13664639 instance=ExtResource("28_monster_char")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 
 [node name="HunterPhase2" type="CharacterBody3D" parent="." unique_id=1703336048]
@@ -802,8 +803,8 @@ billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
-[node name="TempModel1" parent="HunterPhase2" unique_id=1527894940 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
+[node name="MonsterCharacter" parent="HunterPhase2" unique_id=1527894940 instance=ExtResource("28_monster_char")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 
 [node name="HunterPhase3" type="CharacterBody3D" parent="." unique_id=734618851]
@@ -822,8 +823,8 @@ billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
-[node name="TempModel1" parent="HunterPhase3" unique_id=153182440 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
+[node name="MonsterCharacter" parent="HunterPhase3" unique_id=153182440 instance=ExtResource("28_monster_char")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 
 [node name="HunterPhase4" type="CharacterBody3D" parent="." unique_id=74488888]
@@ -842,8 +843,8 @@ billboard = 1
 double_sided = false
 texture = ExtResource("6_hunter_sprite")
 
-[node name="TempModel1" parent="HunterPhase4" unique_id=383103983 instance=ExtResource("28_r4ocn")]
-transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.63, 0)
+[node name="MonsterCharacter" parent="HunterPhase4" unique_id=383103983 instance=ExtResource("28_monster_char")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 
 [node name="Room3" type="Node3D" parent="." unique_id=2071024996]
