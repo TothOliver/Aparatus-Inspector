@@ -198,6 +198,9 @@ shadow_mesh = SubResource("ArrayMesh_ynwqv")
 [sub_resource type="BoxShape3D" id="BoxShape3D_mu3xp"]
 size = Vector3(0.80292284, 1.2961752, 0.5494751)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_powerbox"]
+size = Vector3(0.5, 0.6, 0.4)
+
 [node name="BreakerCloset" type="Node3D" unique_id=1619679942]
 
 [node name="Closet" type="MeshInstance3D" parent="." unique_id=672271106]
@@ -284,3 +287,8 @@ shape = SubResource("BoxShape3D_mu3xp")
 
 [node name="power_box_01_1k" parent="." unique_id=1572422188 instance=ExtResource("18_u7gpx")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.5, 1.3988423)
+
+[node name="PowerBoxCollision" type="StaticBody3D" parent="power_box_01_1k" unique_id=1572422189]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="power_box_01_1k/PowerBoxCollision" unique_id=1572422190]
+shape = SubResource("BoxShape3D_powerbox")

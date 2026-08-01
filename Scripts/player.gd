@@ -216,13 +216,13 @@ func _is_breaker_node(node: Node) -> bool:
 	if not node:
 		return false
 	var n = node
-	for i in range(2):
+	for i in range(3):
 		if n:
 			var lname = n.name.to_lower()
 			if lname == "breakercloset" or lname.contains("closet"):
 				n = n.get_parent()
 				continue
-			if lname.contains("breakerbox") or lname.contains("breakerlever") or lname == "breaker" or lname.contains("fuse"):
+			if lname.contains("power_box") or lname.contains("powerbox") or lname.contains("breakerbox") or lname.contains("breakerlever") or lname == "breaker" or lname.contains("fuse"):
 				return true
 			n = n.get_parent()
 	return false

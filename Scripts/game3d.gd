@@ -51,7 +51,7 @@ var is_blackout: bool = false
 # Outage / Circuit Breaker variables
 var outage_timer: float = 0.0
 var is_breaker_tripped: bool = false
-@onready var breaker_lever = get_node_or_null("Office/BreakerBox/BreakerLever") as MeshInstance3D
+@onready var breaker_lever = get_node_or_null("BreakerCloset/power_box_01_1k")
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -409,8 +409,6 @@ func trigger_breaker_outage():
 	GameStats.power_level = 0.0
 	GameStats.door_locked = false
 	_trigger_power_outage()
-	if breaker_lever:
-		breaker_lever.rotation.z = deg_to_rad(-45.0)
 	var prompt = get_node_or_null("HUD/PromptLabel") as Label
 	if prompt:
 		prompt.text = "WARNING: POWER BREAKER TRIPPED!"
@@ -421,8 +419,6 @@ func reset_breaker():
 		is_breaker_tripped = false
 		GameStats.power_level = 100.0
 		_restore_power()
-		if breaker_lever:
-			breaker_lever.rotation.z = 0.0
 		outage_timer = randf_range(135.0, 270.0)
 		var prompt = get_node_or_null("HUD/PromptLabel") as Label
 		if prompt:
