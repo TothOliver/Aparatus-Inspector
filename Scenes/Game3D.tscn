@@ -64,17 +64,6 @@ glow_enabled = true
 radius = 0.35
 height = 1.8
 
-[sub_resource type="SphereMesh" id="SphereMesh_door_light"]
-radius = 0.04
-height = 0.08
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_light"]
-resource_local_to_scene = true
-albedo_color = Color(0, 1, 0, 1)
-emission_enabled = true
-emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 2.0
-
 [sub_resource type="QuadMesh" id="QuadMesh_glass"]
 size = Vector2(1.6, 1)
 
@@ -126,38 +115,9 @@ emission_enabled = true
 emission = Color(1, 0.95, 0.85, 1)
 emission_energy_multiplier = 2.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_breaker_body"]
-size = Vector3(0.18, 0.25, 0.08)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_breaker_body"]
-albedo_color = Color(0.2, 0.2, 0.2, 1)
-metallic = 0.9
-roughness = 0.3
-
-[sub_resource type="BoxMesh" id="BoxMesh_breaker_lever"]
-size = Vector3(0.02, 0.08, 0.03)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_breaker_lever"]
-albedo_color = Color(0.8, 0.1, 0.1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_breaker_col"]
-size = Vector3(0.18, 0.3036499, 0.08)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_monster"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_glass_window"]
-size = Vector2(1.6, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass_tint"]
-transparency = 1
-albedo_color = Color(0.65, 0.85, 0.95, 0.12)
-metallic = 0.4
-roughness = 0.15
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_blinds_hitbox"]
-size = Vector3(1.7, 1, 0.1)
 
 [node name="Game3D2" type="Node3D" unique_id=1133432829]
 script = ExtResource("1_game3d")
@@ -180,7 +140,7 @@ shadow_enabled = true
 spot_range = 25.0
 
 [node name="CCTVCamera2" type="Camera3D" parent="CCTVViewport" unique_id=98721498]
-transform = Transform3D(0.76604444, -0.111618906, 0.63302225, 0, 0.98480785, 0.1736482, -0.6427876, -0.13302223, 0.75440663, 9, 1.9949504, 0.5)
+transform = Transform3D(0.7660444, -0.111618906, 0.63302225, 0, 0.98480785, 0.1736482, -0.6427875, -0.13302223, 0.75440663, 9, 1.9949504, 0.5)
 fov = 65.0
 
 [node name="CCTVLight2" type="SpotLight3D" parent="CCTVViewport/CCTVCamera2" unique_id=98721497]
@@ -220,12 +180,6 @@ fov = 70.0
 target_position = Vector3(0, 0, -1.8)
 
 [node name="Office" type="Node3D" parent="." unique_id=1729367864]
-
-[node name="DoorLight" type="MeshInstance3D" parent="Office" unique_id=1542004563]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 2.3, 2.5)
-visible = false
-mesh = SubResource("SphereMesh_door_light")
-surface_material_override/0 = SubResource("StandardMaterial3D_door_light")
 
 [node name="BackWall" type="CSGCombiner3D" parent="Office" unique_id=960367456]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.55)
@@ -827,46 +781,5 @@ texture = ExtResource("6_hunter_sprite")
 [node name="MonsterCharacter" parent="HunterPhase4" unique_id=383103983 instance=ExtResource("28_monster_char")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
-
-[node name="Room3" type="Node3D" parent="." unique_id=2071024996]
-
-[node name="FrontWall_Bottom" type="CSGBox3D" parent="Room3" unique_id=644761672]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 10.55)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="FrontWall_Top" type="CSGBox3D" parent="Room3" unique_id=1890438299]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 10.55)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="FrontWall_Left" type="CSGBox3D" parent="Room3" unique_id=1626865520]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.3, 10.55)
-use_collision = true
-size = Vector3(2.2, 1, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="FrontWall_Right" type="CSGBox3D" parent="Room3" unique_id=1239310532]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.3, 10.55)
-use_collision = true
-size = Vector3(2.2, 1, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="GlassWindow3" type="MeshInstance3D" parent="Room3" unique_id=427664318]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 10.54)
-mesh = SubResource("QuadMesh_glass_window")
-surface_material_override/0 = SubResource("StandardMaterial3D_glass_tint")
-
-[node name="Curtain3Interactable" type="StaticBody3D" parent="Room3" unique_id=1357860376]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 10.52)
-script = ExtResource("4_switch")
-target_node_path = NodePath("../..")
-target_method = "toggle_curtain3"
-interact_name = "Window Curtain"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Room3/Curtain3Interactable" unique_id=395686372]
-shape = SubResource("BoxShape3D_blinds_hitbox")
 
 [connection signal="pressed" from="HUD/PauseMenu/PauseWindow/TitleBar/CloseButton" to="Player" method="handle_settings_shortcut"]
