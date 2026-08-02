@@ -350,6 +350,15 @@ func _update_lights_visibility():
 				mat.emission_enabled = false
 				mat.albedo_color = Color(0.2, 0.2, 0.2)
 
+	# Update CameraHallway lights based on power state
+	var camera_hallway = get_node_or_null("CameraHallway")
+	if camera_hallway:
+		var hallway_lights = camera_hallway.find_children("*", "Light3D", true, false)
+		for h_light in hallway_lights:
+			if h_light is Light3D:
+				h_light.visible = not is_blackout
+
+
 func _trigger_power_outage():
 	is_blackout = true
 	
