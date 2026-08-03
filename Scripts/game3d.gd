@@ -339,6 +339,7 @@ func _update_lights_visibility():
 		if ambient_light_node:
 			ambient_light_node.visible = is_lit
 	if ceiling_bulb:
+		ceiling_bulb.visible = is_lit
 		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
 		if mat:
 			if is_lit:

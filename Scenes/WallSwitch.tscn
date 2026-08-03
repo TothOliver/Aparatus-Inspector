@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b876543211a87"]
+
+[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="1_switch"]
+[ext_resource type="PackedScene" uid="uid://culonk30aarko" path="res://assets/metalRack/SwitchP1.glb" id="2_p1"]
+[ext_resource type="PackedScene" uid="uid://c57d58jgvlhil" path="res://assets/metalRack/SwitchP2.glb" id="3_p2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
+size = Vector3(0.25, 0.35, 0.25)
+
+[node name="WallSwitch" type="Node3D" unique_id=1265075306]
+
+[node name="SwitchP1" parent="." unique_id=483728822 instance=ExtResource("2_p1")]
+transform = Transform3D(-3.496911e-09, 3.496911e-09, 0.08, 0.08, -3.496911e-09, 3.496911e-09, 3.496911e-09, 0.08, -3.496911e-09, 0, 0, 0)
+
+[node name="SwitchInteractable" type="StaticBody3D" parent="." unique_id=1851553729]
+script = ExtResource("1_switch")
+target_method = "toggle_ceiling_lights"
+interact_name = "Light Switch"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SwitchInteractable" unique_id=1269190973]
+shape = SubResource("BoxShape3D_switch")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1239173489]
+transform = Transform3D(1, 0, 0, 0, 0.89085597, 0.45428583, 0, -0.45428583, 0.89085597, 0, 0.0010513365, -0.0095236525)
+
+[node name="SwitchP2" parent="Pivot" unique_id=1801509544 instance=ExtResource("3_p2")]
+transform = Transform3D(-3.496911e-09, -2.409873e-18, 0.08, 0.070176385, 0.038409296, 3.0675071e-09, -0.038409296, 0.070176385, -1.678924e-09, 0, 0.0046318267, 0.008537598)

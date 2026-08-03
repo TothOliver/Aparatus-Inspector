@@ -39,9 +39,10 @@
 [ext_resource type="PackedScene" uid="uid://1ii3dpq4uqo5" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher_Box.glb" id="23_jmfu2"]
 [ext_resource type="PackedScene" uid="uid://bbaqsrb72cgha" path="res://assets/Warehouse/SM_WM00225-Fire_Fighting_Fire_extinguisher.glb" id="24_wxplm"]
 [ext_resource type="PackedScene" uid="uid://bf217xqhwtfyt" path="res://assets/Military/SM_Sign_02f.glb" id="25_32lqa"]
-[ext_resource type="PackedScene" uid="uid://bqww0w4gyhtuq" path="res://Scenes/MonsterCharacter.tscn" id="28_monster_char"]
+[ext_resource type="PackedScene" uid="uid://u8jdtklfw614" path="res://Scenes/MonsterCharacter.tscn" id="28_monster_char"]
 [ext_resource type="PackedScene" uid="uid://dl6tnj1ucmgev" path="res://assets/Military/Vents/SM_Metal_Pipe_02i.glb" id="28_xd3w3"]
 [ext_resource type="PackedScene" uid="uid://dmhhr6mv43hak" path="res://assets/Military/Vents/SM_Metal_Pipe_02j.glb" id="29_j67j6"]
+[ext_resource type="PackedScene" uid="uid://b876543211a87" path="res://Scenes/WallSwitch.tscn" id="29_wall_switch"]
 [ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
 [ext_resource type="PackedScene" uid="uid://m6qv3n0uh5b4" path="res://Scenes/cameraRoom1.tscn" id="35_t0n0n"]
 [ext_resource type="PackedScene" uid="uid://cxcqtqpdjilb1" path="res://Scenes/cameraHallway.tscn" id="36_n3yx3"]
@@ -81,21 +82,6 @@ size = Vector3(1.7, 1.1, 0.1)
 albedo_color = Color(0.22, 0.2, 0.18, 1)
 roughness = 0.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_light_switch_glow"]
-albedo_color = Color(0.95, 0.8, 0.25, 1)
-emission_enabled = true
-emission = Color(0.95, 0.8, 0.25, 1)
-emission_energy_multiplier = 0.8
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
-size = Vector3(0.15, 0.15, 0.15)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_switch_glow"]
-albedo_color = Color(0.25, 0.85, 0.95, 1)
-emission_enabled = true
-emission = Color(0.25, 0.85, 0.95, 1)
-emission_energy_multiplier = 0.8
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_casing"]
 top_radius = 0.08
 bottom_radius = 0.08
@@ -125,11 +111,10 @@ script = ExtResource("1_game3d")
 
 [node name="CCTVViewport" type="SubViewport" parent="." unique_id=574545020]
 handle_input_locally = false
-size = Vector2i(1280, 720)
 msaa_3d = 2
 screen_space_aa = 1
 positional_shadow_atlas_size = 4096
-positional_shadow_atlas_16_bits = true
+size = Vector2i(1280, 720)
 render_target_update_mode = 3
 
 [node name="CCTVCamera1" type="Camera3D" parent="CCTVViewport" unique_id=1651515989]
@@ -182,7 +167,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0.20042527)
 fov = 70.0
 
 [node name="InteractionRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1002061143]
-target_position = Vector3(0, 0, -1.8)
+target_position = Vector3(0, 0, -3)
 
 [node name="Office" type="Node3D" parent="." unique_id=1729367864]
 
@@ -354,34 +339,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.69, 2.37, 0.6250215)
 [node name="SM_Air_Vent_01d" parent="Office/vent" unique_id=773189345 instance=ExtResource("20_j67j6")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -0.2)
 
-[node name="LightSwitch" type="CSGBox3D" parent="Office" unique_id=886701734]
-transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.8)
-size = Vector3(0.08, 0.12, 0.02)
-material = SubResource("StandardMaterial3D_light_switch_glow")
+[node name="LightSwitch" parent="Office" unique_id=886701734 instance=ExtResource("29_wall_switch")]
+transform = Transform3D(-7.3216576e-08, 0, 1.675, 0, 1.675, 0, -1.675, 0, -7.3216576e-08, -2.9860008, 1.25, 3.7)
 
-[node name="SwitchInteractable" type="StaticBody3D" parent="Office/LightSwitch" unique_id=41774067]
-script = ExtResource("4_switch")
-target_node_path = NodePath("../../..")
-target_method = "toggle_ceiling_lights"
-interact_name = "Ceiling Lights Switch"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/LightSwitch/SwitchInteractable" unique_id=548412008]
-shape = SubResource("BoxShape3D_switch")
-
-[node name="DoorSwitch" type="CSGBox3D" parent="Office" unique_id=128374912]
+[node name="DoorSwitch" parent="Office" unique_id=128374912 instance=ExtResource("29_wall_switch")]
 transform = Transform3D(-0.023542285, 0, -0.99972284, 0, 1, 0, 0.99972284, 0, -0.023542285, -2.95, 1.25, 3.5)
 visible = false
-size = Vector3(0.08, 0.12, 0.02)
-material = SubResource("StandardMaterial3D_door_switch_glow")
-
-[node name="SwitchInteractable" type="StaticBody3D" parent="Office/DoorSwitch" unique_id=237491283]
-script = ExtResource("4_switch")
-target_node_path = NodePath("../../..")
-target_method = "toggle_door_lock"
-interact_name = "Door Lock Switch"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/DoorSwitch/SwitchInteractable" unique_id=384729104]
-shape = SubResource("BoxShape3D_switch")
 
 [node name="CeilingFixture" type="Node3D" parent="Office" unique_id=80498322]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.1)

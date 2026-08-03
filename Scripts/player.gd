@@ -175,13 +175,12 @@ func _input(event):
 		if is_interact_pressed:
 			if interaction_ray.is_colliding():
 				var collider = interaction_ray.get_collider()
-				if collider and is_interactable(collider):
+				var target_interactable = _get_interactable_node(collider)
+				if target_interactable and target_interactable.has_method("interact"):
+					target_interactable.interact(self)
+				elif collider and is_interactable(collider):
 					if collider.has_method("interact"):
 						collider.interact(self)
-					elif collider.get_node_or_null("SwitchInteractable") and collider.get_node_or_null("SwitchInteractable").has_method("interact"):
-						collider.get_node_or_null("SwitchInteractable").interact(self)
-					elif collider.get_node_or_null("WifiButton/SwitchInteractable") and collider.get_node_or_null("WifiButton/SwitchInteractable").has_method("interact"):
-						collider.get_node_or_null("WifiButton/SwitchInteractable").interact(self)
 					elif _is_computer_node(collider):
 						if not is_power_off():
 							interact_with_computer()
@@ -199,6 +198,23 @@ func is_power_off() -> bool:
 	if game_3d and "is_blackout" in game_3d:
 		return game_3d.is_blackout
 	return false
+
+func _get_interactable_node(collider: Node) -> Node:
+	if not collider:
+		return null
+	if collider.has_method("interact"):
+		return collider
+	var switch_child = collider.get_node_or_null("SwitchInteractable")
+	if switch_child and switch_child.has_method("interact"):
+		return switch_child
+	var wifi_switch = collider.get_node_or_null("WifiButton/SwitchInteractable")
+	if wifi_switch and wifi_switch.has_method("interact"):
+		return wifi_switch
+	if collider.get_parent():
+		var parent_switch = collider.get_parent().get_node_or_null("SwitchInteractable")
+		if parent_switch and parent_switch.has_method("interact"):
+			return parent_switch
+	return null
 
 func _is_computer_node(node: Node) -> bool:
 	if not node:
@@ -254,13 +270,7 @@ func _is_curtain_node(node: Node) -> bool:
 func is_interactable(collider) -> bool:
 	if not collider or not (collider is Node):
 		return false
-	if collider.has_method("interact"):
-		return true
-	var switch_child = collider.get_node_or_null("SwitchInteractable")
-	if switch_child and switch_child.has_method("interact"):
-		return true
-	var wifi_switch = collider.get_node_or_null("WifiButton/SwitchInteractable")
-	if wifi_switch and wifi_switch.has_method("interact"):
+	if _get_interactable_node(collider) != null:
 		return true
 	
 	if _is_computer_node(collider):
@@ -279,12 +289,11 @@ func check_interaction():
 		var collider = interaction_ray.get_collider()
 		if collider and is_interactable(collider):
 			var target_name = ""
-			if collider.has_method("get_interact_name"):
+			var interactable = _get_interactable_node(collider)
+			if interactable and interactable.has_method("get_interact_name"):
+				target_name = interactable.get_interact_name()
+			elif collider.has_method("get_interact_name"):
 				target_name = collider.get_interact_name()
-			elif collider.get_node_or_null("SwitchInteractable") and collider.get_node_or_null("SwitchInteractable").has_method("get_interact_name"):
-				target_name = collider.get_node_or_null("SwitchInteractable").get_interact_name()
-			elif collider.get_node_or_null("WifiButton/SwitchInteractable") and collider.get_node_or_null("WifiButton/SwitchInteractable").has_method("get_interact_name"):
-				target_name = collider.get_node_or_null("WifiButton/SwitchInteractable").get_interact_name()
 			elif _is_wifi_node(collider):
 				target_name = "Wifi Router"
 			elif _is_breaker_node(collider):
