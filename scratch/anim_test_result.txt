@@ -1,0 +1,5 @@
+Skeleton found! Bone count: 125
+Bone 'arm_l0_205_412' index: 44
+Original bone pose rotation: (0.011984, -0.001891, 0.000023, 0.999926)
+New bone pose rotation after playing anim: (-0.0, 0, 0.382683, 0.92388)
+Did rotation change? true

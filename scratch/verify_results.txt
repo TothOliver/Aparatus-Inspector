@@ -1,0 +1,16 @@
+--- VERIFYING MONSTER CHARACTER ---
+Monster root name: MonsterCharacter
+SUCCESS: get_skeleton() returned Skeleton3D with 125 bones
+Available animations: ["A-Pose", "Crouch", "DoorPeek", "JumpscareReach", "RESET", "T-Pose"]
+Played pose 'A-Pose' cleanly!
+Played pose 'Crouch' cleanly!
+Played pose 'DoorPeek' cleanly!
+Played pose 'JumpscareReach' cleanly!
+Played pose 'RESET' cleanly!
+Played pose 'T-Pose' cleanly!
+Applied spawn pose idx 0 cleanly!
+Applied spawn pose idx 1 cleanly!
+Applied spawn pose idx 2 cleanly!
+Applied spawn pose idx 3 cleanly!
+Applied spawn pose idx 4 cleanly!
+--- ALL VERIFICATION TESTS PASSED SUCCESSFULLY! ---

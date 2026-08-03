@@ -1,14 +1,322 @@
-[gd_scene format=3 uid="uid://bqww0w4gyhtuq"]
+[gd_scene format=3 uid="uid://u8jdtklfw614"]
 
-[ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="1_mimic"]
+[ext_resource type="Script" uid="uid://bv4l3nqlyfr4d" path="res://Scripts/monster_character.gd" id="1_0eqlt"]
+[ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="2_g1yf2"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_monster"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_yej7i"]
 
-[node name="MonsterCharacter" type="CharacterBody3D" unique_id=119696980]
+[sub_resource type="Animation" id="Animation_debmu"]
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l0_205_412")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.38268346, 0.9238795)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r0_317_673")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, -0.38268346, 0.9238795)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l1_190_444")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.1305262, 0, 0, 0.9914449)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r1_302_704")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.1305262, 0, 0, 0.9914449)
+
+[sub_resource type="Animation" id="Animation_d8vsl"]
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:Bone_502_12")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.21643962, 0, 0, 0.976296)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_l0_extend_432_918")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.4459655, 0.13668764, 0.15523733, 0.87082297)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_l1_424_931")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.70710677, 0, 0, 0.70710677)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:foot_l0_529_1052")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.21643962, 0, 0, 0.976296)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_r0_extend_462_987")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -0.4459655, -0.13668764, -0.15523733, 0.87082297)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_r1_extend_end_439_1032")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.70710677, 0, 0, 0.70710677)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:foot_r0_560_1111")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -0.21643962, 0, 0, 0.976296)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:spine_2_396_59")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.34202012, 0, 0, 0.9396926)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:head_68_244")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, -0.25881904, 0, 0, 0.9659258)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l0_205_412")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0.3111847, -0.26633167, 0.33697194, 0.8477507)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l1_190_444")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0.6427876, 0, 0, 0.76604444)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r0_317_673")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0.3111847, 0.26633167, -0.33697194, 0.8477507)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r1_302_704")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0.6427876, 0, 0, 0.76604444)
+
+[sub_resource type="Animation" id="Animation_wfre0"]
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:spine_2_396_59")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.121511415, 0.28614914, 0.098027326, 0.94538057)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:head_68_244")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.11397347, 0.32472345, -0.18862806, 0.919774)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:jaw_10_308")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.1305262, 0, 0, 0.9914449)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l0_205_412")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.4655703, -0.39018324, 0.3581292, 0.709045)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l1_190_444")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.67559016, 0, 0, 0.7372773)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:hand_l_178_467")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, -0.17364818, 0, 0, 0.9848077)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r0_317_673")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0.13002951, 0.011376107, -0.08641011, 0.98767215)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_l0_extend_432_918")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, -0.08715574, 0, 0, 0.9961947)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_r0_extend_462_987")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0.08715574, 0, 0, 0.9961947)
+
+[sub_resource type="Animation" id="Animation_2vd6o"]
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:spine_2_396_59")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.17364818, 0, 0, 0.9848077)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:head_68_244")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.21643962, 0, 0, 0.976296)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:jaw_10_308")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.3007058, 0, 0, 0.95371693)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l0_205_412")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.5554844, 0.27230892, 0.26425713, 0.73990065)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_l1_190_444")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.25881904, 0, 0, 0.9659258)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:hand_l_178_467")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.33682406, -0.05939117, 0.16317591, 0.9254165)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r0_317_673")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -0.58922577, -0.26688015, -0.27225652, 0.71236527)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:arm_r1_302_704")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.3007058, 0, 0, 0.95371693)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:hand_r_290_727")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0.33682406, 0.05939117, -0.16317591, 0.9254165)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_l0_extend_432_918")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, -0.1729874, 0.015134435, 0.08583164, 0.98106027)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_l1_424_931")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0.25881904, 0, 0, 0.9659258)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_r0_extend_462_987")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0.13002951, 0.011376107, -0.08641011, 0.98767215)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("themimicv2byspade1/Sketchfab_model/root/GLTF_SceneRootNode/Sketchfab_model_0/root_1/GLTF_SceneRootNode_2/The Mimic_566_5/GLTF_created_0_6/GLTF_created_0/Skeleton3D:leg_r1_extend_end_439_1032")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0.08715574, 0, 0, 0.9961947)
+
+[sub_resource type="Animation" id="Animation_2fa4e"]
+length = 0.1
+
+[sub_resource type="Animation" id="Animation_i5bkj"]
+length = 0.1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aqxms"]
+_data = {
+&"A-Pose": SubResource("Animation_debmu"),
+&"Crouch": SubResource("Animation_d8vsl"),
+&"DoorPeek": SubResource("Animation_wfre0"),
+&"JumpscareReach": SubResource("Animation_2vd6o"),
+&"RESET": SubResource("Animation_2fa4e"),
+&"T-Pose": SubResource("Animation_i5bkj")
+}
+
+[node name="MonsterCharacter" type="CharacterBody3D" unique_id=1252719693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08938873, 0)
+script = ExtResource("1_0eqlt")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1959529780]
-shape = SubResource("SphereShape3D_monster")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=67784852]
+shape = SubResource("SphereShape3D_yej7i")
 
-[node name="themimicv2byspade1" parent="." unique_id=99668532 instance=ExtResource("1_mimic")]
+[node name="themimicv2byspade1" parent="." unique_id=432205124 instance=ExtResource("2_g1yf2")]
 transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.6655425, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=840125766]
+libraries/ = SubResource("AnimationLibrary_aqxms")
+
+[editable path="themimicv2byspade1"]
