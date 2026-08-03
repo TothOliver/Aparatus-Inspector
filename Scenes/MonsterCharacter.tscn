@@ -1,14 +1,311 @@
-[gd_scene format=3 uid="uid://bqww0w4gyhtuq"]
+[gd_scene load_steps=9 format=3 uid="uid://bqww0w4gyhtuq"]
 
-[ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="1_mimic"]
+[ext_resource type="Script" path="res://Scripts/monster_character.gd" id="1_monster_script"]
+[ext_resource type="PackedScene" uid="uid://8kgjlv6gtmcu" path="res://assets/Mimic/themimicv2byspade1.glb" id="2_mimic"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_monster"]
 
+[sub_resource type="Animation" id="Animation_1"]
+resource_name = "T-Pose"
+length = 0.1
+
+[sub_resource type="Animation" id="Animation_2"]
+resource_name = "A-Pose"
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l0_205_412")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.00000, 0.00000, 0.38268, 0.92388)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r0_317_673")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.00000, 0.00000, -0.38268, 0.92388)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l1_190_444")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.08716, 0.00000, 0.00000, 0.99619)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r1_302_704")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.08716, 0.00000, 0.00000, 0.99619)
+
+[sub_resource type="Animation" id="Animation_3"]
+resource_name = "Crouch"
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/GeneralSkeleton:Bone_502_12")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.21644, 0.00000, 0.00000, 0.97630)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_l0_extend_432_918")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.46615, 0.01661, 0.15524, 0.87082)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_l1_424_931")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.70711, 0.00000, 0.00000, 0.70711)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/GeneralSkeleton:foot_l0_529_1052")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.21644, 0.00000, 0.00000, 0.97630)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_r0_extend_462_987")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -0.46615, -0.01661, -0.15524, 0.87082)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_r1_extend_end_439_1032")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.70711, 0.00000, 0.00000, 0.70711)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("themimicv2byspade1/GeneralSkeleton:foot_r0_560_1111")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -0.21644, 0.00000, 0.00000, 0.97630)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("themimicv2byspade1/GeneralSkeleton:spine_2_396_59")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.34202, 0.00000, 0.00000, 0.93969)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("themimicv2byspade1/GeneralSkeleton:head_68_244")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, -0.25882, 0.00000, 0.00000, 0.96593)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l0_205_412")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0.40767, -0.03968, 0.33697, 0.84775)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l1_190_444")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0.64279, 0.00000, 0.00000, 0.76604)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r0_317_673")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0.40767, 0.03968, -0.33697, 0.84775)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r1_302_704")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0.64279, 0.00000, 0.00000, 0.76604)
+
+[sub_resource type="Animation" id="Animation_4"]
+resource_name = "DoorPeek"
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/GeneralSkeleton:spine_2_396_59")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.04331, 0.30785, 0.09803, 0.94538)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/GeneralSkeleton:head_68_244")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.03394, 0.34247, -0.18863, 0.91977)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l0_205_412")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.58685, -0.15687, 0.35813, 0.70904)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l1_190_444")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.67559, 0.00000, 0.00000, 0.73728)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("themimicv2byspade1/GeneralSkeleton:hand_l_178_467")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -0.17365, 0.00000, 0.00000, 0.98481)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r0_317_673")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.13003, -0.01138, -0.08641, 0.98767)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_l0_extend_432_918")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -0.08716, 0.00000, 0.00000, 0.99619)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_r0_extend_462_987")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.08716, 0.00000, 0.00000, 0.99619)
+
+[sub_resource type="Animation" id="Animation_5"]
+resource_name = "JumpscareReach"
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("themimicv2byspade1/GeneralSkeleton:spine_2_396_59")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.17365, 0.00000, 0.00000, 0.98481)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("themimicv2byspade1/GeneralSkeleton:head_68_244")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.21644, 0.00000, 0.00000, 0.97630)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l0_205_412")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.61512, 0.06590, 0.26426, 0.73990)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_l1_190_444")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.25882, 0.00000, 0.00000, 0.96593)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("themimicv2byspade1/GeneralSkeleton:hand_l_178_467")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.33682, 0.05939, 0.16318, 0.92542)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r0_317_673")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, -0.64681, 0.00714, -0.27226, 0.71237)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("themimicv2byspade1/GeneralSkeleton:arm_r1_302_704")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0.30071, 0.00000, 0.00000, 0.95372)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("themimicv2byspade1/GeneralSkeleton:hand_r_290_727")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.33682, -0.05939, -0.16318, 0.92542)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_l0_extend_432_918")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, -0.17299, -0.01513, 0.08583, 0.98106)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_l1_424_931")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0.25882, 0.00000, 0.00000, 0.96593)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_r0_extend_462_987")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0.13003, -0.01138, -0.08641, 0.98767)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("themimicv2byspade1/GeneralSkeleton:leg_r1_extend_end_439_1032")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0.08716, 0.00000, 0.00000, 0.99619)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_poses"]
+_data = {
+"T-Pose": SubResource("Animation_1"),
+"A-Pose": SubResource("Animation_2"),
+"Crouch": SubResource("Animation_3"),
+"DoorPeek": SubResource("Animation_4"),
+"JumpscareReach": SubResource("Animation_5")
+}
+
 [node name="MonsterCharacter" type="CharacterBody3D" unique_id=119696980]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08938873, 0)
+script = ExtResource("1_monster_script")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1959529780]
 shape = SubResource("SphereShape3D_monster")
 
-[node name="themimicv2byspade1" parent="." unique_id=99668532 instance=ExtResource("1_mimic")]
+[node name="themimicv2byspade1" parent="." unique_id=99668532 instance=ExtResource("2_mimic")]
 transform = Transform3D(-0.1, 0, 0, 0, 0.1, 0, 0, 0, -0.1, 0, 1.6655425, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_poses")
+}
+
+[editable path="themimicv2byspade1"]
