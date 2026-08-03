@@ -2285,6 +2285,7 @@ theme_override_styles/panel = ExtResource("StyleBox_Inner_Frame")
 
 [node name="CCTVTexture" type="TextureRect" parent="CCTVWindow/VideoPanel" unique_id=952200199]
 unique_name_in_owner = true
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

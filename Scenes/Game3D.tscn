@@ -125,7 +125,11 @@ script = ExtResource("1_game3d")
 
 [node name="CCTVViewport" type="SubViewport" parent="." unique_id=574545020]
 handle_input_locally = false
-size = Vector2i(320, 240)
+size = Vector2i(1280, 720)
+msaa_3d = 2
+screen_space_aa = 1
+positional_shadow_atlas_size = 4096
+positional_shadow_atlas_16_bits = true
 render_target_update_mode = 3
 
 [node name="CCTVCamera1" type="Camera3D" parent="CCTVViewport" unique_id=1651515989]
