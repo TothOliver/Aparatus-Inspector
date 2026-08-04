@@ -11,9 +11,9 @@ extends Node
 
 var SOUND_CONFIGS = {
 	# --- NEW REQUESTED SOUND EFFECTS ---
-	"power_outage":     { "path": "res://sound/PowerDown.wav",      "volume_db": 2.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"power_outage":     { "path": "res://sound/PowerDown.wav",      "volume_db": 12.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"computer_open":    { "path": "res://sound/computer_open.wav",    "volume_db": -2.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
-	"power_restore":   { "path": "res://sound/BreakerOn.wav",   "volume_db": 2.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"power_restore":   { "path": "res://sound/BreakerOn.wav",   "volume_db": 12.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"monster_footstep": { "path": "res://sound/monster_footstep.wav", "volume_db": +7.0,  "pitch_min": 0.85, "pitch_max": 1.15 },
 	"approval":         { "path": "res://sound/approval.wav",         "volume_db": -3.0,  "pitch_min": 0.98, "pitch_max": 1.02 },
 	"exterminate":      { "path": "res://sound/exterminate.wav",      "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
