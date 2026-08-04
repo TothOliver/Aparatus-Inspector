@@ -18,6 +18,7 @@ var SOUND_CONFIGS = {
 	"approval":         { "path": "res://sound/approval.wav",         "volume_db": -3.0,  "pitch_min": 0.98, "pitch_max": 1.02 },
 	"exterminate":      { "path": "res://sound/exterminate.wav",      "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"dialogue_typing":  { "path": "res://sound/dialogue_typing.wav",  "volume_db": -12.0, "pitch_min": 0.90, "pitch_max": 1.10 },
+	"scribble_typing":  { "path": "res://sound/dialogue_typing.wav",  "volume_db": -10.0, "pitch_min": 1.15, "pitch_max": 1.35 },
 	"scan":             { "path": "res://sound/scan.wav",             "volume_db": -4.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
 	"player_footstep":  { "path": "res://sound/player_footstep.wav",  "volume_db": -8.0,  "pitch_min": 0.90, "pitch_max": 1.10 },
 	"flashlight":       { "path": "res://sound/flashlight.wav",       "volume_db": -5.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
@@ -171,6 +172,9 @@ func play_exterminate():
 func play_dialogue_typing():
 	play_sound("dialogue_typing")
 
+func play_scribble_typing():
+	play_sound("scribble_typing")
+
 func play_scan():
 	play_sound("scan")
 
@@ -214,6 +218,7 @@ func _generate_procedural_fallback(sound_name: String) -> AudioStreamWAV:
 		if sound_name == "power_outage": freq = max(40.0, 300.0 * (1.0 - t*3.0))
 		elif sound_name == "flashlight": freq = 1200.0
 		elif sound_name == "monster_footstep": freq = 80.0
+		elif sound_name == "dialogue_typing" or sound_name == "scribble_typing": freq = 800.0
 		var val = 0.3 if (fmod(t * freq, 1.0) < 0.5) else -0.3
 		data[i] = int(clamp((val * env) * 127.0 + 128.0, 0, 255))
 	stream.data = data
