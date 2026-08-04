@@ -654,7 +654,7 @@ offset_bottom = 448.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 0, -4.8296156)
 
 [node name="Phase1Spawn2" type="Marker3D" parent="." unique_id=873404773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, 0, -2.9788694)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, 0, -2.506028)
 
 [node name="Phase1Spawn3" type="Marker3D" parent="." unique_id=1721085230]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8399444, 0, 1.2411251)
