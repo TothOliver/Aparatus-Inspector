@@ -88,8 +88,6 @@ func _update_visual_state(animate: bool = true):
 
 		var target_deg = 30.0 if is_on else -30.0
 		if animate:
-			if GameStats.has_method("_play_button_click"):
-				GameStats._play_button_click()
 			var tween = create_tween()
 			tween.tween_property(toggle_mesh, "rotation_degrees:x", target_deg, 0.15).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 		else:

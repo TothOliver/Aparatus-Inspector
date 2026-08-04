@@ -11,9 +11,9 @@ extends Node
 
 var SOUND_CONFIGS = {
 	# --- NEW REQUESTED SOUND EFFECTS ---
-	"power_outage":     { "path": "res://sound/PowerDown.wav",      "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"power_outage":     { "path": "res://sound/PowerDown.wav",      "volume_db": 2.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"computer_open":    { "path": "res://sound/computer_open.wav",    "volume_db": -2.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
-	"power_restore":   { "path": "res://sound/power_restore.wav",   "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"power_restore":   { "path": "res://sound/BreakerOn.wav",   "volume_db": 2.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"monster_footstep": { "path": "res://sound/monster_footstep.wav", "volume_db": +7.0,  "pitch_min": 0.85, "pitch_max": 1.15 },
 	"approval":         { "path": "res://sound/approval.wav",         "volume_db": -3.0,  "pitch_min": 0.98, "pitch_max": 1.02 },
 	"exterminate":      { "path": "res://sound/exterminate.wav",      "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
@@ -145,7 +145,7 @@ func play_sound(sound_name: String, extra_volume_db: float = 0.0, override_pitch
 	player.bus = bus_name
 
 	var base_vol = config.get("volume_db", 0.0)
-	player.volume_db = base_vol + extra_volume_db
+	player.volume_db = base_vol + extra_volume_db + 2.0 # Boost by ~25% (+2.0 dB)
 
 	if override_pitch > 0.0:
 		player.pitch_scale = override_pitch
@@ -182,7 +182,7 @@ func play_sound_3d(sound_name: String, global_pos: Vector3, extra_volume_db: flo
 	player.unit_size = 6.0
 
 	var base_vol = config.get("volume_db", 0.0)
-	player.volume_db = base_vol + extra_volume_db
+	player.volume_db = base_vol + extra_volume_db + 2.0 # Boost by ~25% (+2.0 dB)
 
 	var p_min = config.get("pitch_min", 1.0)
 	var p_max = config.get("pitch_max", 1.0)
