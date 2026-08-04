@@ -10,16 +10,17 @@ class_name InteractableSwitch
 
 var is_on: bool = true
 var _initial_rot: Vector3
+var _cached_target: Node = null
 
 func _ready():
+	_cached_target = _find_target()
 	if toggle_mesh:
 		_initial_rot = toggle_mesh.rotation
 	if target_method == "toggle_door_lock":
 		is_on = GameStats.door_locked
 	elif target_method == "toggle_ceiling_lights":
-		var target = _find_target()
-		if target and "is_ceiling_light_on" in target:
-			is_on = target.is_ceiling_light_on
+		if _cached_target and "is_ceiling_light_on" in _cached_target:
+			is_on = _cached_target.is_ceiling_light_on
 	_update_visual_state(false)
 
 func get_interact_name() -> String:
@@ -52,11 +53,17 @@ func _find_target() -> Node:
 
 func interact(_player):
 	if target_method != "":
-		var target: Node = _find_target()
-		if target and target.has_method(target_method):
-			target.call(target_method)
+		if not _cached_target or not is_instance_valid(_cached_target):
+			_cached_target = _find_target()
+		if _cached_target and _cached_target.has_method(target_method):
+			_cached_target.call(target_method)
 
 	is_on = not is_on
+	if SoundManager:
+		if target_method == "reset_power_breaker" or target_method == "_restore_power":
+			SoundManager.play_power_restore()
+		else:
+			SoundManager.play_sound("button_click")
 	_update_visual_state(true)
 
 func _update_visual_state(animate: bool = true):

@@ -35,6 +35,10 @@ signal interact_prompt_changed(text: String)
 # Flashlight variables
 var flashlight: SpotLight3D
 
+# Footstep audio tracking
+var footstep_distance: float = 0.0
+const FOOTSTEP_INTERVAL: float = 1.6
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.position.y = stand_cam_y
@@ -122,13 +126,18 @@ func handle_walking_movement(delta):
 	if dir:
 		velocity.x = dir.x * speed
 		velocity.z = dir.z * speed
+		if is_on_floor():
+			footstep_distance += velocity.length() * delta
+			var interval = FOOTSTEP_INTERVAL * 1.4 if is_crouching else FOOTSTEP_INTERVAL
+			if footstep_distance >= interval:
+				footstep_distance = 0.0
+				if SoundManager:
+					SoundManager.play_player_footstep()
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 		
 	move_and_slide()
-
-
 
 func handle_computer_view(_delta):
 	pass
@@ -146,6 +155,8 @@ func _input(event):
 	if flashlight_pressed:
 		if flashlight:
 			flashlight.visible = not flashlight.visible
+			if SoundManager:
+				SoundManager.play_flashlight()
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
@@ -324,6 +335,8 @@ func interact_with_computer():
 	
 	# Transition directly to computer view
 	current_state = State.COMPUTER_VIEW
+	if SoundManager:
+		SoundManager.play_computer_open()
 	# Tell Game3D to zoom in and release mouse
 	if game_3d and game_3d.has_method("enter_computer_view"):
 		game_3d.enter_computer_view()

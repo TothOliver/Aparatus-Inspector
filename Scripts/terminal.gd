@@ -302,6 +302,8 @@ func grab_input_focus():
 		input_field.caret_column = input_field.text.length()
 
 func print_to_terminal(text: String):
+	if SoundManager and not text.is_empty():
+		SoundManager.play_dialogue_typing()
 	if output_log:
 		output_log.text += text + "\n"
 	# Auto-scroll to bottom
@@ -456,6 +458,8 @@ func _on_command_submitted(new_text: String):
 						GameStats.is_scanning = true
 						scan_elapsed_time = 0.0
 						scan_target_robot = target_robot
+						if SoundManager:
+							SoundManager.play_scan()
 						if input_field:
 							input_field.editable = false
 							input_field.text = "SCANNING IN PROGRESS..."
@@ -470,6 +474,8 @@ func _on_command_submitted(new_text: String):
 			GameStats.door_locked = false
 			print_to_terminal("Door lock disengaged. Grid power recovering.")
 		"purge":
+			if SoundManager:
+				SoundManager.play_hack()
 			if args.size() < 2:
 				print_to_terminal("Error: purge requires a verification code. Usage: purge <code>")
 			elif not GameStats.hack_active:

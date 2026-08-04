@@ -9,6 +9,8 @@ func add_message(text: String, sender_name: String):
 		return
 	if not is_inside_tree() or not dialogue_panel:
 		return
+	if SoundManager:
+		SoundManager.play_dialogue_typing()
 	var bubble = bubble_scene.instantiate()
 	dialogue_panel.add_child(bubble)
 	bubble.set_message(sender_name + ": " + text)

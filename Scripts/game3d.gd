@@ -53,6 +53,13 @@ var outage_timer: float = 0.0
 var is_breaker_tripped: bool = false
 @onready var breaker_lever = get_node_or_null("BreakerCloset/power_box_01_1k")
 
+# Light optimization caches (prevents material duplication lag on light toggles)
+var _cached_office_lights: Array[Light3D] = []
+var _cached_hallway_lights: Array[Light3D] = []
+var _cached_industrial_materials: Array[BaseMaterial3D] = []
+var _cached_hanging_materials: Array[BaseMaterial3D] = []
+var _lights_initialized: bool = false
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if sprite_3d:
@@ -324,34 +331,30 @@ func toggle_monitor_power():
 	if not is_monitor_on and player and player.current_state == player.State.COMPUTER_VIEW:
 		player.exit_computer_view()
 
-func _update_lights_visibility():
-	var is_lit = is_ceiling_light_on and not is_blackout
+func _init_light_cache():
+	if _lights_initialized:
+		return
+	_lights_initialized = true
+	
+	# 1. Cache office lights & ensure visible is true for persistent shadow allocation
 	var lighting_root = get_node_or_null("Lighting")
 	if lighting_root:
 		for child in lighting_root.get_children():
 			if child is Light3D:
-				child.visible = is_lit
+				child.visible = true
+				_cached_office_lights.append(child)
 	else:
 		if desk_light:
-			desk_light.visible = is_lit
+			desk_light.visible = true
+			_cached_office_lights.append(desk_light)
 		if desk_light2:
-			desk_light2.visible = is_lit
+			desk_light2.visible = true
+			_cached_office_lights.append(desk_light2)
 		if ambient_light_node:
-			ambient_light_node.visible = is_lit
-	if ceiling_bulb:
-		ceiling_bulb.visible = is_lit
-		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
-		if mat:
-			if is_lit:
-				mat.emission_enabled = true
-				mat.emission = Color(1, 0.95, 0.85)
-				mat.emission_energy_multiplier = 2.0
-				mat.albedo_color = Color(1, 1, 0.9)
-			else:
-				mat.emission_enabled = false
-				mat.albedo_color = Color(0.2, 0.2, 0.2)
+			ambient_light_node.visible = true
+			_cached_office_lights.append(ambient_light_node)
 
-	# Update Office industrial ceiling light mesh emission
+	# 2. Cache industrial ceiling light materials ONCE and enable emission pipeline
 	var ceiling_fixture = get_node_or_null("Office/CeilingFixture")
 	if ceiling_fixture:
 		var industrial_lights = [
@@ -360,79 +363,106 @@ func _update_lights_visibility():
 		]
 		for ind_light in industrial_lights:
 			if ind_light:
-				var mesh_instances = []
+				var mesh_instances: Array = []
 				if ind_light is MeshInstance3D:
 					mesh_instances.append(ind_light)
 				mesh_instances.append_array(ind_light.find_children("*", "MeshInstance3D", true, false))
 				for mesh_inst in mesh_instances:
 					if mesh_inst is MeshInstance3D:
-						_update_industrial_ceiling_light_emission(mesh_inst, is_lit)
+						var sc = mesh_inst.mesh.get_surface_count() if mesh_inst.mesh else mesh_inst.get_surface_override_material_count()
+						for s in range(sc):
+							var mat = mesh_inst.get_active_material(s)
+							if mat is BaseMaterial3D:
+								if not mesh_inst.get_surface_override_material(s):
+									mat = mat.duplicate()
+									mesh_inst.set_surface_override_material(s, mat)
+								mat.emission_enabled = true
+								_cached_industrial_materials.append(mat)
 
-	# Update CameraHallway lights based on power state and ceiling light switch
+	# 3. Cache hallway lights and mesh materials ONCE and enable emission pipeline
 	var camera_hallway = get_node_or_null("CameraHallway")
 	if camera_hallway:
 		var hallway_lights = camera_hallway.find_children("*", "Light3D", true, false)
 		for h_light in hallway_lights:
 			if h_light is Light3D:
-				if is_blackout:
-					h_light.visible = true
-					h_light.light_color = Color(1.0, 0.0, 0.0)
-					h_light.light_energy = 2.5 / 3.0
-				else:
-					h_light.visible = is_lit
-					h_light.light_color = Color(1.0, 0.95, 0.85)
-					h_light.light_energy = 2.5
+				h_light.visible = true
+				_cached_hallway_lights.append(h_light)
 
 		var lights_container = camera_hallway.get_node_or_null("Lights")
 		if lights_container:
 			var mesh_instances = lights_container.find_children("*", "MeshInstance3D", true, false)
 			for mesh_inst in mesh_instances:
 				if mesh_inst is MeshInstance3D:
-					_update_hanging_light_mesh_emission(mesh_inst, is_blackout, is_lit)
+					var sc = mesh_inst.mesh.get_surface_count() if mesh_inst.mesh else mesh_inst.get_surface_override_material_count()
+					for s in range(sc):
+						var mat = mesh_inst.get_active_material(s)
+						if mat is BaseMaterial3D:
+							if not mesh_inst.get_surface_override_material(s):
+								mat = mat.duplicate()
+								mesh_inst.set_surface_override_material(s, mat)
+							mat.emission_enabled = true
+							_cached_hanging_materials.append(mat)
 
-func _update_industrial_ceiling_light_emission(mesh_inst: MeshInstance3D, is_lit: bool):
-	if not mesh_inst:
-		return
-	var surface_count = mesh_inst.mesh.get_surface_count() if mesh_inst.mesh else mesh_inst.get_surface_override_material_count()
-	for s in range(surface_count):
-		var mat = mesh_inst.get_active_material(s)
-		if mat is BaseMaterial3D:
-			if not mesh_inst.get_surface_override_material(s):
-				mat = mat.duplicate()
-				mesh_inst.set_surface_override_material(s, mat)
+func _update_lights_visibility():
+	if not _lights_initialized:
+		_init_light_cache()
+
+	var is_lit = is_ceiling_light_on and not is_blackout
+
+	# Use light_energy modulation instead of node visibility to prevent shadow atlas re-allocation stalls
+	if desk_light: desk_light.light_energy = 3.5 if is_lit else 0.0
+	if desk_light2: desk_light2.light_energy = 1.855 if is_lit else 0.0
+	if ambient_light_node: ambient_light_node.light_energy = 2.0 if is_lit else 0.0
+
+	for light in _cached_office_lights:
+		if light != desk_light and light != desk_light2 and light != ambient_light_node:
+			light.light_energy = 2.0 if is_lit else 0.0
+
+	if ceiling_bulb:
+		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
+		if mat:
+			mat.emission_enabled = true
 			if is_lit:
-				mat.emission_enabled = true
-				mat.emission = Color(1.0, 1.0, 1.0)
+				mat.emission = Color(1, 0.95, 0.85)
 				mat.emission_energy_multiplier = 2.0
+				mat.albedo_color = Color(1, 1, 0.9)
 			else:
-				mat.emission_enabled = false
+				mat.emission = Color(0, 0, 0)
 				mat.emission_energy_multiplier = 0.0
+				mat.albedo_color = Color(0.2, 0.2, 0.2)
 
-func _update_hanging_light_mesh_emission(mesh_inst: MeshInstance3D, is_red: bool, is_on: bool):
-	if not mesh_inst:
-		return
-	var surface_count = mesh_inst.mesh.get_surface_count() if mesh_inst.mesh else mesh_inst.get_surface_override_material_count()
-	for s in range(surface_count):
-		var mat = mesh_inst.get_active_material(s)
-		if mat is BaseMaterial3D:
-			if not mesh_inst.get_surface_override_material(s):
-				mat = mat.duplicate()
-				mesh_inst.set_surface_override_material(s, mat)
-			if is_red:
-				mat.emission_enabled = true
-				mat.emission = Color(1.0, 0.0, 0.0)
-				mat.emission_energy_multiplier = 2.0 / 3.0
-			elif is_on:
-				mat.emission_enabled = true
-				mat.emission = Color(1.0, 1.0, 1.0)
-				mat.emission_energy_multiplier = 2.0
-			else:
-				mat.emission_enabled = false
-				mat.emission_energy_multiplier = 0.0
+	for mat in _cached_industrial_materials:
+		if is_lit:
+			mat.emission = Color(1.0, 1.0, 1.0)
+			mat.emission_energy_multiplier = 2.0
+		else:
+			mat.emission = Color(0.0, 0.0, 0.0)
+			mat.emission_energy_multiplier = 0.0
+
+	for h_light in _cached_hallway_lights:
+		if is_blackout:
+			h_light.light_color = Color(1.0, 0.0, 0.0)
+			h_light.light_energy = 2.5 / 3.0
+		else:
+			h_light.light_color = Color(1.0, 0.95, 0.85)
+			h_light.light_energy = 2.5 if is_lit else 0.0
+
+	for mat in _cached_hanging_materials:
+		if is_blackout:
+			mat.emission = Color(1.0, 0.0, 0.0)
+			mat.emission_energy_multiplier = 2.0 / 3.0
+		elif is_lit:
+			mat.emission = Color(1.0, 1.0, 1.0)
+			mat.emission_energy_multiplier = 2.0
+		else:
+			mat.emission = Color(0.0, 0.0, 0.0)
+			mat.emission_energy_multiplier = 0.0
 
 
 func _trigger_power_outage():
 	is_blackout = true
+	if SoundManager:
+		SoundManager.play_power_outage()
 	
 	if sub_viewport:
 		sub_viewport.gui_disable_input = true
@@ -457,6 +487,8 @@ func _trigger_power_outage():
 
 func _restore_power():
 	is_blackout = false
+	if SoundManager:
+		SoundManager.play_power_restore()
 	if sub_viewport:
 		sub_viewport.gui_disable_input = false
 	# Restore screen and lights to their previous settings

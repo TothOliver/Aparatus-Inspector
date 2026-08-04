@@ -67,11 +67,11 @@ func get_active_audio_player() -> AudioStreamPlayer3D:
 
 func _ready():
 	# Generate procedural sounds
-	step_stream = _generate_clank_sound()
-	screech_stream = _generate_screech_sound()
-	rattle_stream = _generate_rattle_sound()
-	concrete_step_stream = _generate_concrete_step_sound()
-	bush_rustle_stream = _generate_bush_rustle_sound()
+	step_stream = SoundManager._get_or_load_stream("monster_footstep") if SoundManager else _generate_clank_sound()
+	screech_stream = SoundManager._get_or_load_stream("hunter_screech") if SoundManager else _generate_screech_sound()
+	rattle_stream = SoundManager._get_or_load_stream("hunter_rattle") if SoundManager else _generate_rattle_sound()
+	concrete_step_stream = SoundManager._get_or_load_stream("monster_footstep") if SoundManager else _generate_concrete_step_sound()
+	bush_rustle_stream = SoundManager._get_or_load_stream("hunter_bush_rustle") if SoundManager else _generate_bush_rustle_sound()
 	
 	if audio_player:
 		audio_player.unit_size = 4.0

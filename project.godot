@@ -23,6 +23,7 @@ config/icon="res://Sprites/project_icon.png"
 
 GameStats="*uid://blxe4wyof8jen"
 BGMusic="*res://Scenes/bg_music.tscn"
+SoundManager="*res://Scripts/SoundManager.gd"
 
 [display]
 

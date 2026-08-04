@@ -598,6 +598,8 @@ func _on_good_button_pressed() -> void:
 	if is_processing_choice:
 		return
 	is_processing_choice = true
+	if SoundManager:
+		SoundManager.play_approval()
 	print("Button Pressed: GOOD (Pass)")
 	if current_robot:
 		if (current_robot.name == "Walter" or current_robot.model == "H.U.G.O") and day_manager.current_day == 1:
@@ -614,6 +616,8 @@ func _on_bad_button_pressed() -> void:
 	if is_processing_choice:
 		return
 	is_processing_choice = true
+	if SoundManager:
+		SoundManager.play_exterminate()
 	print("Button Pressed: BAD (Reject)")
 	if current_robot:
 		if (current_robot.name == "Walter" or current_robot.model == "H.U.G.O") and day_manager.current_day == 1:
