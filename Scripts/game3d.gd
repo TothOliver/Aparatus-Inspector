@@ -354,7 +354,17 @@ func _init_light_cache():
 			ambient_light_node.visible = true
 			_cached_office_lights.append(ambient_light_node)
 
-	# 2. Cache industrial ceiling light materials ONCE and enable emission pipeline
+	# 2. Duplicate ceiling bulb material ONCE so it doesn't leak emission to metal fixture
+	if ceiling_bulb:
+		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
+		if mat:
+			if not ceiling_bulb.get_surface_override_material(0):
+				mat = mat.duplicate() as StandardMaterial3D
+				ceiling_bulb.set_surface_override_material(0, mat)
+			mat.emission_enabled = true
+			_cached_industrial_materials.append(mat)
+
+	# 3. Cache industrial ceiling light materials ONLY for actual bulb/emissive surfaces
 	var ceiling_fixture = get_node_or_null("Office/CeilingFixture")
 	if ceiling_fixture:
 		var industrial_lights = [
@@ -373,13 +383,16 @@ func _init_light_cache():
 						for s in range(sc):
 							var mat = mesh_inst.get_active_material(s)
 							if mat is BaseMaterial3D:
-								if not mesh_inst.get_surface_override_material(s):
-									mat = mat.duplicate()
-									mesh_inst.set_surface_override_material(s, mat)
-								mat.emission_enabled = true
-								_cached_industrial_materials.append(mat)
+								var m_name = mat.resource_name.to_lower()
+								var n_name = mesh_inst.name.to_lower()
+								if mat.emission_enabled or m_name.contains("emiss") or m_name.contains("bulb") or m_name.contains("glass") or n_name.contains("bulb"):
+									if not mesh_inst.get_surface_override_material(s):
+										mat = mat.duplicate()
+										mesh_inst.set_surface_override_material(s, mat)
+									mat.emission_enabled = true
+									_cached_industrial_materials.append(mat)
 
-	# 3. Cache hallway lights and mesh materials ONCE and enable emission pipeline
+	# 4. Cache hallway lights and mesh materials ONLY for actual bulb/emissive surfaces
 	var camera_hallway = get_node_or_null("CameraHallway")
 	if camera_hallway:
 		var hallway_lights = camera_hallway.find_children("*", "Light3D", true, false)
@@ -397,11 +410,14 @@ func _init_light_cache():
 					for s in range(sc):
 						var mat = mesh_inst.get_active_material(s)
 						if mat is BaseMaterial3D:
-							if not mesh_inst.get_surface_override_material(s):
-								mat = mat.duplicate()
-								mesh_inst.set_surface_override_material(s, mat)
-							mat.emission_enabled = true
-							_cached_hanging_materials.append(mat)
+							var m_name = mat.resource_name.to_lower()
+							var n_name = mesh_inst.name.to_lower()
+							if mat.emission_enabled or m_name.contains("emiss") or m_name.contains("bulb") or m_name.contains("glass") or n_name.contains("bulb"):
+								if not mesh_inst.get_surface_override_material(s):
+									mat = mat.duplicate()
+									mesh_inst.set_surface_override_material(s, mat)
+								mat.emission_enabled = true
+								_cached_hanging_materials.append(mat)
 
 func _update_lights_visibility():
 	if not _lights_initialized:
@@ -418,26 +434,15 @@ func _update_lights_visibility():
 		if light != desk_light and light != desk_light2 and light != ambient_light_node:
 			light.light_energy = 2.0 if is_lit else 0.0
 
-	if ceiling_bulb:
-		var mat = ceiling_bulb.get_active_material(0) as StandardMaterial3D
-		if mat:
-			mat.emission_enabled = true
-			if is_lit:
-				mat.emission = Color(1, 0.95, 0.85)
-				mat.emission_energy_multiplier = 2.0
-				mat.albedo_color = Color(1, 1, 0.9)
-			else:
-				mat.emission = Color(0, 0, 0)
-				mat.emission_energy_multiplier = 0.0
-				mat.albedo_color = Color(0.2, 0.2, 0.2)
-
 	for mat in _cached_industrial_materials:
 		if is_lit:
-			mat.emission = Color(1.0, 1.0, 1.0)
+			mat.emission = Color(1.0, 0.95, 0.85)
 			mat.emission_energy_multiplier = 2.0
+			mat.albedo_color = Color(1.0, 1.0, 0.9)
 		else:
 			mat.emission = Color(0.0, 0.0, 0.0)
 			mat.emission_energy_multiplier = 0.0
+			mat.albedo_color = Color(0.2, 0.2, 0.2)
 
 	for h_light in _cached_hallway_lights:
 		if is_blackout:
@@ -452,7 +457,7 @@ func _update_lights_visibility():
 			mat.emission = Color(1.0, 0.0, 0.0)
 			mat.emission_energy_multiplier = 2.0 / 3.0
 		elif is_lit:
-			mat.emission = Color(1.0, 1.0, 1.0)
+			mat.emission = Color(1.0, 0.95, 0.85)
 			mat.emission_energy_multiplier = 2.0
 		else:
 			mat.emission = Color(0.0, 0.0, 0.0)
