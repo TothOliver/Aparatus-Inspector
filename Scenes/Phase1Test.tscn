@@ -2,24 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cpompt0m35ptf" path="res://Scenes/JohanTest.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://bbepv7iggyorx" path="res://Scripts/phase1_test.gd" id="2_script"]
-[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="3_wglud"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_light_switch_glow"]
-albedo_color = Color(0.95, 0.8, 0.25, 1)
-emission_enabled = true
-emission = Color(0.95, 0.8, 0.25, 1)
-emission_energy_multiplier = 0.8
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_switch"]
-size = Vector3(0.15, 0.15, 0.15)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_switch_glow"]
-albedo_color = Color(0.25, 0.85, 0.95, 1)
-emission_enabled = true
-emission = Color(0.25, 0.85, 0.95, 1)
-emission_energy_multiplier = 0.8
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1v00g"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c713f"]
 resource_local_to_scene = true
 albedo_color = Color(1, 1, 0.9, 1)
 emission_enabled = true
@@ -29,22 +13,8 @@ emission_energy_multiplier = 2.0
 [node name="Game3D" unique_id=562749692 instance=ExtResource("1_base")]
 script = ExtResource("2_script")
 
-[node name="LightSwitch" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="15" unique_id=886701734]
-
-[node name="SwitchInteractable" parent="Office/LightSwitch" index="2" unique_id=41774067]
-script = ExtResource("3_wglud")
-target_method = "toggle_ceiling_lights"
-interact_name = "Light Switch"
-
-[node name="DoorSwitch" parent="Office" parent_id_path=PackedInt32Array(1729367864) index="16" unique_id=128374912]
-
-[node name="SwitchInteractable" parent="Office/DoorSwitch" index="2" unique_id=237491283]
-script = ExtResource("3_wglud")
-target_method = "toggle_door_lock"
-interact_name = "Door Switch"
-
 [node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="3" unique_id=1047560640]
-surface_material_override/0 = SubResource("StandardMaterial3D_1v00g")
+surface_material_override/0 = SubResource("StandardMaterial3D_c713f")
 
 [node name="ChamberFloor" parent="RobotChamber" parent_id_path=PackedInt32Array(534640245) index="0" unique_id=808811918]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.49919, -3.5)
