@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ggvsk31cn36h"
+path="res://.godot/imported/ESE - Foot Step - Concrete 5.wav-0b78eecf939f4b359957b9c1e7eacd6d.sample"
+
+[deps]
+
+source_file="res://sound/Concrete/ESE - Foot Step - Concrete 5.wav"
+dest_files=["res://.godot/imported/ESE - Foot Step - Concrete 5.wav-0b78eecf939f4b359957b9c1e7eacd6d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

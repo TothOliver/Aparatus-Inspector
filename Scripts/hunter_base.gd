@@ -74,8 +74,8 @@ func _ready():
 	bush_rustle_stream = SoundManager._get_or_load_stream("hunter_bush_rustle") if SoundManager else _generate_bush_rustle_sound()
 	
 	if audio_player:
-		audio_player.unit_size = 4.0
-		audio_player.max_db = 3.0
+		audio_player.unit_size = 6.0
+		audio_player.max_db = 10.0
 		audio_player.bus = "SFX"
 	
 	set_monster_visible(false)

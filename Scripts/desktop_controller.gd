@@ -831,6 +831,11 @@ func _on_cctv_light_pressed():
 		GameStats.cctv_light_on = false
 	else:
 		GameStats.cctv_light_on = not GameStats.cctv_light_on
+		if SoundManager:
+			if GameStats.cctv_light_on:
+				SoundManager.play_switch_on()
+			else:
+				SoundManager.play_switch_off()
 	update_cctv_light_state()
 
 func update_cctv_light_state():

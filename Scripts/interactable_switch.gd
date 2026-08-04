@@ -62,6 +62,8 @@ func interact(_player):
 	if SoundManager:
 		if target_method == "reset_power_breaker" or target_method == "_restore_power":
 			SoundManager.play_power_restore()
+		elif target_method == "toggle_ceiling_lights":
+			pass
 		else:
 			SoundManager.play_sound("button_click")
 	_update_visual_state(true)

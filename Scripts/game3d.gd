@@ -317,6 +317,11 @@ func toggle_ceiling_lights():
 	if is_blackout:
 		return
 	is_ceiling_light_on = not is_ceiling_light_on
+	if SoundManager:
+		if is_ceiling_light_on:
+			SoundManager.play_switch_on()
+		else:
+			SoundManager.play_switch_off()
 	_update_lights_visibility()
 
 func toggle_monitor_power():

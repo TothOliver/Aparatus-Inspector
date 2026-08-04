@@ -11,17 +11,19 @@ extends Node
 
 var SOUND_CONFIGS = {
 	# --- NEW REQUESTED SOUND EFFECTS ---
-	"power_outage":     { "path": "res://sound/power_outage.wav",     "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"power_outage":     { "path": "res://sound/PowerDown.wav",      "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"computer_open":    { "path": "res://sound/computer_open.wav",    "volume_db": -2.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
 	"power_restore":   { "path": "res://sound/power_restore.wav",   "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
-	"monster_footstep": { "path": "res://sound/monster_footstep.wav", "volume_db": +1.0,  "pitch_min": 0.85, "pitch_max": 1.15 },
+	"monster_footstep": { "path": "res://sound/monster_footstep.wav", "volume_db": +7.0,  "pitch_min": 0.85, "pitch_max": 1.15 },
 	"approval":         { "path": "res://sound/approval.wav",         "volume_db": -3.0,  "pitch_min": 0.98, "pitch_max": 1.02 },
 	"exterminate":      { "path": "res://sound/exterminate.wav",      "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"dialogue_typing":  { "path": "res://sound/dialogue_typing.wav",  "volume_db": -12.0, "pitch_min": 0.90, "pitch_max": 1.10 },
 	"scribble_typing":  { "path": "res://sound/dialogue_typing.wav",  "volume_db": -10.0, "pitch_min": 1.15, "pitch_max": 1.35 },
 	"scan":             { "path": "res://sound/scan.wav",             "volume_db": -4.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
-	"player_footstep":  { "path": "res://sound/player_footstep.wav",  "volume_db": -8.0,  "pitch_min": 0.90, "pitch_max": 1.10 },
-	"flashlight":       { "path": "res://sound/flashlight.wav",       "volume_db": -5.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
+	"player_footstep":  { "path": "res://sound/player_footstep.wav",  "volume_db": +4.0,  "pitch_min": 0.90, "pitch_max": 1.10 },
+	"flashlight":       { "path": "res://sound/SwitchOn.wav",         "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"switch_on":        { "path": "res://sound/SwitchOn.wav",         "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
+	"switch_off":       { "path": "res://sound/SwitchOff.wav",        "volume_db": 0.0,   "pitch_min": 0.95, "pitch_max": 1.05 },
 	"hack":             { "path": "res://sound/hack.wav",             "volume_db": -2.0,  "pitch_min": 0.95, "pitch_max": 1.05 },
 
 	# --- PRE-EXISTING PROJECT SOUNDS ---
@@ -43,6 +45,27 @@ var SOUND_CONFIGS = {
 }
 
 var _audio_cache: Dictionary = {}
+var concrete_footstep_streams: Array[AudioStream] = []
+var _last_concrete_index: int = -1
+
+const CONCRETE_FOOTSTEP_PATHS: Array[String] = [
+	"res://sound/Concrete/ESE - Foot Step - Concrete 1.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 2.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 4.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 5.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 6.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 7.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 8.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 9.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 10.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 11.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 12.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 13.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 14.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 15.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 16.wav",
+	"res://sound/Concrete/ESE - Foot Step - Concrete 17.wav"
+]
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -57,17 +80,63 @@ func _preload_audio_files():
 			if stream:
 				_audio_cache[key] = stream
 
+	_load_concrete_footsteps()
+
+func _load_concrete_footsteps():
+	concrete_footstep_streams.clear()
+	var dir_path = "res://sound/Concrete/"
+	var dir = DirAccess.open(dir_path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir():
+				var clean_name = file_name
+				if clean_name.ends_with(".import"):
+					clean_name = clean_name.replace(".import", "")
+				if clean_name.ends_with(".wav") or clean_name.ends_with(".mp3") or clean_name.ends_with(".ogg"):
+					var full_path = dir_path + clean_name
+					if ResourceLoader.exists(full_path):
+						var st = ResourceLoader.load(full_path)
+						if st is AudioStream and not concrete_footstep_streams.has(st):
+							concrete_footstep_streams.append(st)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	
+	for path in CONCRETE_FOOTSTEP_PATHS:
+		if ResourceLoader.exists(path):
+			var st = ResourceLoader.load(path)
+			if st is AudioStream and not concrete_footstep_streams.has(st):
+				concrete_footstep_streams.append(st)
+
+func get_random_concrete_stream() -> AudioStream:
+	if concrete_footstep_streams.is_empty():
+		return _get_or_load_stream("player_footstep")
+	if concrete_footstep_streams.size() == 1:
+		return concrete_footstep_streams[0]
+	
+	var idx = randi() % concrete_footstep_streams.size()
+	if idx == _last_concrete_index:
+		idx = (idx + 1 + (randi() % (concrete_footstep_streams.size() - 1))) % concrete_footstep_streams.size()
+	_last_concrete_index = idx
+	return concrete_footstep_streams[idx]
+
 # ------------------------------------------------------------------------------
 # CORE PLAYBACK METHODS
 # ------------------------------------------------------------------------------
 
 func play_sound(sound_name: String, extra_volume_db: float = 0.0, override_pitch: float = 0.0, bus_name: String = "SFX") -> Node:
-	if not SOUND_CONFIGS.has(sound_name):
+	if not SOUND_CONFIGS.has(sound_name) and sound_name != "concrete_footstep":
 		push_warning("SoundManager: Unknown sound key '%s'" % sound_name)
 		return null
 
-	var config = SOUND_CONFIGS[sound_name]
-	var stream: AudioStream = _get_or_load_stream(sound_name)
+	var config = SOUND_CONFIGS.get(sound_name, { "volume_db": +4.0, "pitch_min": 0.90, "pitch_max": 1.10 })
+	var stream: AudioStream = null
+	if sound_name == "player_footstep" or sound_name == "monster_footstep" or sound_name == "concrete_footstep":
+		stream = get_random_concrete_stream()
+	else:
+		stream = _get_or_load_stream(sound_name)
+
 	if not stream:
 		return null
 
@@ -91,12 +160,17 @@ func play_sound(sound_name: String, extra_volume_db: float = 0.0, override_pitch
 	return player
 
 func play_sound_3d(sound_name: String, global_pos: Vector3, extra_volume_db: float = 0.0, bus_name: String = "SFX") -> AudioStreamPlayer3D:
-	if not SOUND_CONFIGS.has(sound_name):
+	if not SOUND_CONFIGS.has(sound_name) and sound_name != "concrete_footstep":
 		push_warning("SoundManager: Unknown sound key '%s'" % sound_name)
 		return null
 
-	var config = SOUND_CONFIGS[sound_name]
-	var stream: AudioStream = _get_or_load_stream(sound_name)
+	var config = SOUND_CONFIGS.get(sound_name, { "volume_db": +6.0, "pitch_min": 0.85, "pitch_max": 1.15 })
+	var stream: AudioStream = null
+	if sound_name == "player_footstep" or sound_name == "monster_footstep" or sound_name == "concrete_footstep":
+		stream = get_random_concrete_stream()
+	else:
+		stream = _get_or_load_stream(sound_name)
+
 	if not stream:
 		return null
 
@@ -104,8 +178,8 @@ func play_sound_3d(sound_name: String, global_pos: Vector3, extra_volume_db: flo
 	player.stream = stream
 	player.bus = bus_name
 	player.global_position = global_pos
-	player.max_distance = 25.0
-	player.unit_size = 3.0
+	player.max_distance = 40.0
+	player.unit_size = 6.0
 
 	var base_vol = config.get("volume_db", 0.0)
 	player.volume_db = base_vol + extra_volume_db
@@ -125,6 +199,9 @@ func play_sound_3d(sound_name: String, global_pos: Vector3, extra_volume_db: flo
 	return player
 
 func _get_or_load_stream(sound_name: String) -> AudioStream:
+	if sound_name == "player_footstep" or sound_name == "monster_footstep" or sound_name == "concrete_footstep":
+		return get_random_concrete_stream()
+
 	if _audio_cache.has(sound_name) and _audio_cache[sound_name] != null:
 		return _audio_cache[sound_name]
 
@@ -150,6 +227,9 @@ func _get_or_load_stream(sound_name: String) -> AudioStream:
 
 func play_power_outage():
 	play_sound("power_outage")
+
+func play_power_down():
+	play_power_outage()
 
 func play_computer_open():
 	play_sound("computer_open")
@@ -181,8 +261,17 @@ func play_scan():
 func play_player_footstep():
 	play_sound("player_footstep")
 
-func play_flashlight():
-	play_sound("flashlight")
+func play_switch_on():
+	play_sound("switch_on")
+
+func play_switch_off():
+	play_sound("switch_off")
+
+func play_flashlight(is_on: bool = true):
+	if is_on:
+		play_switch_on()
+	else:
+		play_switch_off()
 
 func play_hack():
 	play_sound("hack")

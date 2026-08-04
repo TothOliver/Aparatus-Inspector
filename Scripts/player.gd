@@ -156,7 +156,7 @@ func _input(event):
 		if flashlight:
 			flashlight.visible = not flashlight.visible
 			if SoundManager:
-				SoundManager.play_flashlight()
+				SoundManager.play_flashlight(flashlight.visible)
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
