@@ -360,11 +360,11 @@ func _update_lights_visibility():
 				if is_blackout:
 					h_light.visible = true
 					h_light.light_color = Color(1.0, 0.0, 0.0)
-					h_light.light_energy = 3.5 / 3.0
+					h_light.light_energy = 2.5 / 3.0
 				else:
 					h_light.visible = is_lit
 					h_light.light_color = Color(1.0, 0.95, 0.85)
-					h_light.light_energy = 3.5
+					h_light.light_energy = 2.5
 
 		var lights_container = camera_hallway.get_node_or_null("Lights")
 		if lights_container:
@@ -389,8 +389,8 @@ func _update_hanging_light_mesh_emission(mesh_inst: MeshInstance3D, is_red: bool
 				mat.emission_energy_multiplier = 2.0 / 3.0
 			elif is_on:
 				mat.emission_enabled = true
-				mat.emission = Color(1.0, 0.95, 0.85)
-				mat.emission_energy_multiplier = 1.0
+				mat.emission = Color(1.0, 1.0, 1.0)
+				mat.emission_energy_multiplier = 2.0
 			else:
 				mat.emission_enabled = false
 				mat.emission_energy_multiplier = 0.0

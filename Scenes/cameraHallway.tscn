@@ -158,10 +158,13 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.75
 [node name="SM_Hanging_Light_01b" parent="Lights" unique_id=1719425135 instance=ExtResource("7_q82uq")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 2.8, 1.1951648)
 
+[node name="Mesh" parent="Lights/SM_Hanging_Light_01b" index="0" unique_id=1351958705]
+cast_shadow = 0
+
 [node name="hangingLight" type="SpotLight3D" parent="Lights/SM_Hanging_Light_01b" unique_id=704201080]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.6018131, 0)
+transform = Transform3D(1.3333334, 0, 0, 0, -5.828185e-08, 1.3333334, 0, -1.3333334, -5.828185e-08, 0, -0.3917303, 0)
 light_color = Color(1, 0.95, 0.85, 1)
-light_energy = 3.5
+light_energy = 2.5
 shadow_enabled = true
 shadow_reverse_cull_face = true
 spot_angle = 80.0
@@ -169,10 +172,16 @@ spot_angle = 80.0
 [node name="SM_Hanging_Light_01b2" parent="Lights" unique_id=1873840597 instance=ExtResource("7_q82uq")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 2.8, -2.1751132)
 
+[node name="Mesh" parent="Lights/SM_Hanging_Light_01b2" index="0" unique_id=1351958705]
+cast_shadow = 0
+
 [node name="hangingLight" type="SpotLight3D" parent="Lights/SM_Hanging_Light_01b2" unique_id=1771821545]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.6018131, 0)
+transform = Transform3D(1.3333334, 0, 0, 0, -5.828185e-08, 1.3333334, 0, -1.3333334, -5.828185e-08, 0, -0.39454556, 0)
 light_color = Color(1, 0.95, 0.85, 1)
-light_energy = 3.5
+light_energy = 2.5
 shadow_enabled = true
 shadow_reverse_cull_face = true
 spot_angle = 80.0
+
+[editable path="Lights/SM_Hanging_Light_01b"]
+[editable path="Lights/SM_Hanging_Light_01b2"]
