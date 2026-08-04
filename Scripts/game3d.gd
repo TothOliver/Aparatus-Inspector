@@ -351,6 +351,23 @@ func _update_lights_visibility():
 				mat.emission_enabled = false
 				mat.albedo_color = Color(0.2, 0.2, 0.2)
 
+	# Update Office industrial ceiling light mesh emission
+	var ceiling_fixture = get_node_or_null("Office/CeilingFixture")
+	if ceiling_fixture:
+		var industrial_lights = [
+			ceiling_fixture.get_node_or_null("SM_WM00228-Industrial_Ceiling_light"),
+			ceiling_fixture.get_node_or_null("SM_WM00228-Industrial_Ceiling_light2")
+		]
+		for ind_light in industrial_lights:
+			if ind_light:
+				var mesh_instances = []
+				if ind_light is MeshInstance3D:
+					mesh_instances.append(ind_light)
+				mesh_instances.append_array(ind_light.find_children("*", "MeshInstance3D", true, false))
+				for mesh_inst in mesh_instances:
+					if mesh_inst is MeshInstance3D:
+						_update_industrial_ceiling_light_emission(mesh_inst, is_lit)
+
 	# Update CameraHallway lights based on power state and ceiling light switch
 	var camera_hallway = get_node_or_null("CameraHallway")
 	if camera_hallway:
@@ -372,6 +389,24 @@ func _update_lights_visibility():
 			for mesh_inst in mesh_instances:
 				if mesh_inst is MeshInstance3D:
 					_update_hanging_light_mesh_emission(mesh_inst, is_blackout, is_lit)
+
+func _update_industrial_ceiling_light_emission(mesh_inst: MeshInstance3D, is_lit: bool):
+	if not mesh_inst:
+		return
+	var surface_count = mesh_inst.mesh.get_surface_count() if mesh_inst.mesh else mesh_inst.get_surface_override_material_count()
+	for s in range(surface_count):
+		var mat = mesh_inst.get_active_material(s)
+		if mat is BaseMaterial3D:
+			if not mesh_inst.get_surface_override_material(s):
+				mat = mat.duplicate()
+				mesh_inst.set_surface_override_material(s, mat)
+			if is_lit:
+				mat.emission_enabled = true
+				mat.emission = Color(1.0, 1.0, 1.0)
+				mat.emission_energy_multiplier = 2.0
+			else:
+				mat.emission_enabled = false
+				mat.emission_energy_multiplier = 0.0
 
 func _update_hanging_light_mesh_emission(mesh_inst: MeshInstance3D, is_red: bool, is_on: bool):
 	if not mesh_inst:

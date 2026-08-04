@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://jadxrpu615rl"]
 
 [ext_resource type="PackedScene" uid="uid://b6jy5w4hyitgg" path="res://assets/deskSetup/metal_office_desk_1k.gltf/metal_office_desk_1k.gltf" id="1_2ahxm"]
-[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="1_o0rpj"]
 [ext_resource type="PackedScene" uid="uid://cghv4c7iypiun" path="res://assets/Warehouse/SM_MM142_PC_Monitor.glb" id="1_yty5h"]
 [ext_resource type="PackedScene" uid="uid://b37i5gvvcwv8" path="res://assets/Warehouse/SM_MM42_Keyboard.glb" id="2_8nv07"]
 [ext_resource type="Texture2D" uid="uid://3gy330gscfxm" path="res://assets/deskSetup/office_notepads_1k.gltf/textures/office_notepads_diff_1k.jpg" id="2_c6e7y"]
@@ -30,24 +29,6 @@ texture_filter = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y33b3"]
 size = Vector3(0.47657472, 0.3757019, 0.053387452)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6e7y"]
-albedo_color = Color(0.15, 0.15, 0.15, 1)
-roughness = 0.8
-
-[sub_resource type="SphereMesh" id="SphereMesh_hw8yg"]
-radius = 0.012
-height = 0.024
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00gq5"]
-resource_local_to_scene = true
-albedo_color = Color(0, 1, 0, 1)
-emission_enabled = true
-emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 1.5
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lu60s"]
-size = Vector3(0.15, 0.15, 0.15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hhnmq"]
 resource_name = "office_notepads"
@@ -432,32 +413,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_cxmlp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/ComputerMonitor/Screen/Computer" unique_id=78732863]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0021789586, -0.0053560734, -0.015749991)
 shape = SubResource("BoxShape3D_y33b3")
-
-[node name="WifiRouter" type="CSGBox3D" parent="placeholder" unique_id=1034697675]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.57, 0.963, 0)
-use_collision = true
-size = Vector3(0.16, 0.03, 0.12)
-material = SubResource("StandardMaterial3D_c6e7y")
-
-[node name="Antenna" type="CSGCylinder3D" parent="placeholder/WifiRouter" unique_id=936847960]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.07, -0.04)
-radius = 0.005
-height = 0.12
-material = SubResource("StandardMaterial3D_c6e7y")
-
-[node name="WifiButton" type="MeshInstance3D" parent="placeholder/WifiRouter" unique_id=612195492]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.015, 0.04)
-mesh = SubResource("SphereMesh_hw8yg")
-surface_material_override/0 = SubResource("StandardMaterial3D_00gq5")
-
-[node name="SwitchInteractable" type="StaticBody3D" parent="placeholder/WifiRouter/WifiButton" unique_id=1972470430]
-script = ExtResource("1_o0rpj")
-target_node_path = NodePath("../../../..")
-target_method = "toggle_wifi"
-interact_name = "Wifi Router"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="placeholder/WifiRouter/WifiButton/SwitchInteractable" unique_id=1572952256]
-shape = SubResource("BoxShape3D_lu60s")
 
 [node name="office_notepads_1k" type="Node3D" parent="." unique_id=2000989188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.946, 0.227)
