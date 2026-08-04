@@ -115,7 +115,7 @@ handle_input_locally = false
 msaa_3d = 2
 screen_space_aa = 1
 size = Vector2i(1280, 720)
-render_target_update_mode = 1
+render_target_update_mode = 3
 
 [node name="CCTVCamera1" type="Camera3D" parent="CCTVViewport" unique_id=1651515989]
 transform = Transform3D(0.9988154, 0.008449368, -0.04791882, 0.006471533, 0.95299065, 0.30292976, 0.048225768, -0.30288106, 0.95180726, -0.2921667, 1.6118438, -1.1920537)
