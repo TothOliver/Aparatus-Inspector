@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://c0bqay1ymtugg" path="res://assets/Warehouse/SM_WM00234-Smoke_Detector.glb" id="30_imclu"]
 [ext_resource type="PackedScene" uid="uid://m6qv3n0uh5b4" path="res://Scenes/cameraRoom1.tscn" id="35_t0n0n"]
 [ext_resource type="PackedScene" uid="uid://cxcqtqpdjilb1" path="res://Scenes/cameraHallway.tscn" id="36_n3yx3"]
+[ext_resource type="PackedScene" uid="uid://5otojktgersd" path="res://Scenes/cameraArchiveRoom.tscn" id="38_gg7b0"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="Font_Bold"]
 [ext_resource type="Texture2D" uid="uid://ocdme38bcgux" path="res://RetroWindowsGUI/ExitButton.png" id="Icon_ExitBtn"]
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="Icon_WindowBase"]
@@ -118,7 +119,7 @@ size = Vector2i(1280, 720)
 render_target_update_mode = 3
 
 [node name="CCTVCamera1" type="Camera3D" parent="CCTVViewport" unique_id=1651515989]
-transform = Transform3D(0.9988154, 0.008449368, -0.04791882, 0.006471533, 0.95299065, 0.30292976, 0.048225768, -0.30288106, 0.95180726, -0.2921667, 1.6118438, -1.1920537)
+transform = Transform3D(0.9988155, 0.008449373, -0.047918826, 0.0064715333, 0.9529909, 0.30292985, 0.04822577, -0.30288112, 0.9518074, -7, 1.8, 10.9)
 current = true
 fov = 65.0
 
@@ -493,6 +494,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
 
 [node name="CameraHallway" parent="." unique_id=1325100202 instance=ExtResource("36_n3yx3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.0847974, 2.3841858e-07, 1.4937444)
+
+[node name="CameraArchiveRoom" parent="." unique_id=784491298 instance=ExtResource("38_gg7b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 8)
 
 [node name="DoorMarker" type="Marker3D" parent="." unique_id=2015219190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 0, 1.5)

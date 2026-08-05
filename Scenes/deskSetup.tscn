@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ddi0805nt6t1c" path="res://assets/deskSetup/cardboard_box_01_1k.gltf/cardboard_box_01_1k.gltf" id="8_lu60s"]
 [ext_resource type="PackedScene" uid="uid://cjhwwxnawq7pr" path="res://assets/deskSetup/industrial_pipe_lamp_1k.gltf/industrial_pipe_lamp_1k.gltf" id="9_hw8yg"]
 [ext_resource type="PackedScene" uid="uid://cyiyahfkq5oto" path="res://assets/deskSetup/plastic_monobloc_chair_01_1k.gltf/plastic_monobloc_chair_01_1k.gltf" id="13_an31x"]
+[ext_resource type="PackedScene" uid="uid://bd8stuagxptyp" path="res://assets/computer_wireless_mouse.glb" id="15_8nv07"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_0aqei"]
 size = Vector2(0.44, 0.33)
@@ -512,3 +513,6 @@ transform = Transform3D(0.94215107, 0, -0.33518848, 0, 1, 0, 0.33518848, 0, 0.94
 
 [node name="plastic_monobloc_chair_01_1k" parent="." unique_id=1334574025 instance=ExtResource("13_an31x")]
 transform = Transform3D(-0.9386733, 0, -0.7475911, 0, 1.1999999, 0, 0.7475911, 0, -0.9386733, 0.5085864, -1.1920929e-07, 1.1228027)
+
+[node name="Sketchfab_Scene" parent="." unique_id=1521189172 instance=ExtResource("15_8nv07")]
+transform = Transform3D(-0.028980618, 0, -0.007753952, 0, 0.03, 0, 0.007753952, 0, -0.028980618, 0.39890182, 0.94000024, 0.26265958)
