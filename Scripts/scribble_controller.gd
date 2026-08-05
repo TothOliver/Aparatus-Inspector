@@ -32,6 +32,8 @@ var is_typing: bool = false
 var typing_speed: float = 75.0 # characters per second
 var typing_progress: float = 0.0
 var target_text: String = ""
+var sound_char_interval: int = 2 # Play typing sound every 2 characters
+var _last_sound_char: int = 0
 
 func _ready():
 	_setup_active_pages()
@@ -68,14 +70,26 @@ func _ready():
 			)
 
 func _process(delta):
-	if is_typing and dialog_label and _is_player_on_pc():
+	var parent = get_parent()
+	var is_window_visible = parent.visible if parent else visible
+	if is_typing and dialog_label and is_window_visible and _is_player_on_pc():
 		typing_progress += delta * typing_speed
 		var count = int(typing_progress)
 		if count >= target_text.length():
 			dialog_label.visible_characters = -1
 			is_typing = false
 		else:
-			dialog_label.visible_characters = count
+			if count > dialog_label.visible_characters:
+				dialog_label.visible_characters = count
+				if count >= _last_sound_char + sound_char_interval:
+					_last_sound_char = count
+					var current_char = target_text[count - 1] if count > 0 and count <= target_text.length() else ""
+					if current_char != " " and current_char != "\n":
+						if SoundManager:
+							if SoundManager.has_method("play_scribble_typing"):
+								SoundManager.play_scribble_typing()
+							else:
+								SoundManager.play_dialogue_typing()
 
 func _is_player_on_pc() -> bool:
 	var tree = get_tree()
@@ -150,6 +164,7 @@ func _update_page():
 	dialog_label.visible_characters = 0
 	is_typing = true
 	typing_progress = 0.0
+	_last_sound_char = 0
 	
 	if current_page == active_pages.size() - 1:
 		next_button.text = "Close"

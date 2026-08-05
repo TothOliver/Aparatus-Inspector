@@ -150,7 +150,7 @@ func spawn_and_stare(specific_marker_idx: int = -1):
 			ap.stream = bush_rustle_stream
 		else:
 			# Concrete footsteps (Fence entry)
-			ap.stream = concrete_step_stream
+			ap.stream = SoundManager.get_random_concrete_stream() if SoundManager else concrete_step_stream
 		ap.pitch_scale = randf_range(0.9, 1.1)
 		ap.play()
 	

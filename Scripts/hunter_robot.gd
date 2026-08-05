@@ -423,7 +423,7 @@ func handle_footsteps(delta):
 		if is_moving:
 			var ap = get_active_audio_player()
 			if ap:
-				ap.stream = step_stream
+				ap.stream = SoundManager.get_random_concrete_stream() if SoundManager else step_stream
 				ap.pitch_scale = randf_range(0.85, 1.15)
 				ap.play()
 
