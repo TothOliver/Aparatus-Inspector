@@ -1,0 +1,11 @@
+1. Communaication integrity:
+Spell word wrong
+Miss word in sentence
+(Daily scaling for this)
+
+2. Matching statements
+Primary function matches described assigmnet
+
+3. Model + Factory
+Information given that x models are bad in y facotories
+
