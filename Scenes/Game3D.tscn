@@ -84,8 +84,8 @@ size = Vector3(1.7, 1.1, 0.1)
 albedo_color = Color(0.22, 0.2, 0.18, 1)
 roughness = 0.8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gg7b0"]
-size = Vector3(0.47413558, 0.94696414, 0.18085937)
+[sub_resource type="BoxShape3D" id="BoxShape3D_yygty"]
+size = Vector3(0.8949011, 1.9413309, 0.06315918)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_casing"]
 top_radius = 0.08
@@ -106,6 +106,12 @@ albedo_color = Color(1, 1, 0.9, 1)
 emission_enabled = true
 emission = Color(1, 0.95, 0.85, 1)
 emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_johpi"]
+size = Vector3(0.47413558, 0.94696414, 0.18085937)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gg7b0"]
+size = Vector3(0.8949011, 1.9413309, 0.06315918)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
@@ -340,8 +346,8 @@ transform = Transform3D(-0.89651746, 0, -0.44300863, 0, 1, 0, 0.44300863, 0, -0.
 [node name="DoorCollision" type="StaticBody3D" parent="Office/ClosetDoor/SM_Metal_Door_03a" unique_id=1800483805]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/ClosetDoor/SM_Metal_Door_03a/DoorCollision" unique_id=435417321]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6116229, 1.0454175, -0.059271336)
-shape = SubResource("BoxShape3D_gg7b0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5971592, 1.0404971, -0.05161333)
+shape = SubResource("BoxShape3D_yygty")
 
 [node name="vent" type="Node3D" parent="Office" unique_id=1405086141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.69, 2.37, 0.6250215)
@@ -463,7 +469,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.801, -3)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Office/FireSaftey/FireCollision" unique_id=252624585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0066258907, 0.4573334, 0.060449243)
-shape = SubResource("BoxShape3D_gg7b0")
+shape = SubResource("BoxShape3D_johpi")
 
 [node name="BreakerCloset" parent="." unique_id=1619679942 instance=ExtResource("11_47omi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001512669, 0, 6.000194)
@@ -509,6 +515,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
 
 [node name="CameraHallway" parent="." unique_id=1325100202 instance=ExtResource("36_n3yx3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.0847974, 2.3841858e-07, 1.4937444)
+
+[node name="Remove" type="StaticBody3D" parent="CameraHallway" unique_id=1461584023]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraHallway/Remove" unique_id=1055726635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47, 0)
+shape = SubResource("BoxShape3D_gg7b0")
 
 [node name="CameraArchiveRoom" parent="." unique_id=784491298 instance=ExtResource("38_gg7b0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 8)
