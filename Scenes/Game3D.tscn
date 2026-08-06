@@ -84,6 +84,9 @@ size = Vector3(1.7, 1.1, 0.1)
 albedo_color = Color(0.22, 0.2, 0.18, 1)
 roughness = 0.8
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gg7b0"]
+size = Vector3(0.47413558, 0.94696414, 0.18085937)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_casing"]
 top_radius = 0.08
 bottom_radius = 0.08
@@ -334,6 +337,12 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.67
 [node name="SM_Metal_Door_03a" parent="Office/ClosetDoor" unique_id=1583465240 instance=ExtResource("16_32lqa")]
 transform = Transform3D(-0.89651746, 0, -0.44300863, 0, 1, 0, 0.44300863, 0, -0.89651746, 0.12569743, 0, 0.017951488)
 
+[node name="DoorCollision" type="StaticBody3D" parent="Office/ClosetDoor/SM_Metal_Door_03a" unique_id=1800483805]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/ClosetDoor/SM_Metal_Door_03a/DoorCollision" unique_id=435417321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6116229, 1.0454175, -0.059271336)
+shape = SubResource("BoxShape3D_gg7b0")
+
 [node name="vent" type="Node3D" parent="Office" unique_id=1405086141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.69, 2.37, 0.6250215)
 
@@ -449,6 +458,12 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.0
 
 [node name="SM_WM00234-Smoke_Detector" parent="Office/FireSaftey" unique_id=1225250231 instance=ExtResource("30_imclu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.801, -3)
+
+[node name="FireCollision" type="StaticBody3D" parent="Office/FireSaftey" unique_id=299190977]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/FireSaftey/FireCollision" unique_id=252624585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0066258907, 0.4573334, 0.060449243)
+shape = SubResource("BoxShape3D_gg7b0")
 
 [node name="BreakerCloset" parent="." unique_id=1619679942 instance=ExtResource("11_47omi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001512669, 0, 6.000194)
