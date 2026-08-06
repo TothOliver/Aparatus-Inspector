@@ -10,7 +10,7 @@
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="9_71axn"]
 [ext_resource type="Script" uid="uid://bgf1j7g7pud2b" path="res://Scripts/desktop_window.gd" id="11_window"]
 [ext_resource type="Script" uid="uid://cqahvpj01sjgl" path="res://Scripts/desktop_controller.gd" id="12_desktop"]
-[ext_resource type="PackedScene" uid="uid://bhko7288f6akj" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
+[ext_resource type="PackedScene" path="res://Scenes/SettingsBody.tscn" id="12_settings_body"]
 [ext_resource type="Script" uid="uid://bsgbdadcjiar6" path="res://Scripts/terminal.gd" id="13_terminal"]
 [ext_resource type="Script" uid="uid://7a0yx5pae6vo" path="res://Scripts/minesweeper.gd" id="14_minesweeper"]
 [ext_resource type="Script" uid="uid://b0de4yioj2eoe" path="res://Scripts/snake.gd" id="15_snake"]

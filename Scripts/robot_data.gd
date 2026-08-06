@@ -19,10 +19,18 @@ func get_greeting() -> String:
 	return "..."
 	
 func get_common_response(question_id: String) -> String:
-	if common_responses.has(question_id):
-		return str(common_responses[question_id])
-	return ""
-	
+	if not common_responses.has(question_id):
+		return ""
+
+	var response = common_responses[question_id]
+
+	if response is Array:
+		if response.is_empty():
+			return ""
+		return str(response.pick_random())
+
+	return str(response)
+
 func has_common_response(question_id: String) -> bool:
 	return common_responses.has(question_id)
 
@@ -121,5 +129,3 @@ func _normalize_question_text(text: String) -> String:
 	result = result.replace("\t", " ")
 
 	return result
-	
-	
