@@ -47,7 +47,7 @@ var websites = {
 	},
 	"www.robot-factory.corp": {
 		"title": "Apparatus Robotics - Building the Future",
-		"content": """[center][img=96]res://Sprites/robot4.png[/img]
+		"content": """[center][img=96]res://Sprites/Robot4N.png[/img]
 [font_size=20][color=#002266][b]APPARATUS ROBOTICS CORP[/b][/color][/font_size]
 [color=#005555][i]Safety • Efficiency • Compliance[/i][/color][/center]
 [hr]
@@ -162,7 +162,7 @@ Apparatus Robotics engineers synthetic models for high-risk industrial & adminis
 	"www.larry-shrine.fans": {
 		"title": "LARRY'S WORLD - Larry Fan Page",
 		"content": """[center][color=#cc0000]❤❤❤ WELCOME TO LARRY'S WORLD ❤❤❤[/color]
-[img=96]res://Sprites/robot1.png[/img]
+[img=96]res://Sprites/Robot1N.png[/img]
 [font_size=18][color=#cc0066][b]THE LARRY FAN CLUB[/b][/color][/font_size][/center]
 [hr]
 
@@ -179,7 +179,7 @@ Type: `decrypt classified_01.enc 14` in terminal.
 	"www.walter-files.com": {
 		"title": "The Walter Files - The Truth Out There",
 		"content": """[center][color=#880000][b]⚠️ THE WALTER FILES ⚠️[/b][/color]
-[img=96]res://Sprites/robot2.png[/img]
+[img=96]res://Sprites/Robot4N.png[/img]
 [font_size=18][color=#cc0000][b]UNMASKING THE HUNTER[/b][/color][/font_size][/center]
 [hr]
 
@@ -258,7 +258,7 @@ Stalker prototype specs mirror: [url=www.hunter-origin.spec][color=#0000cc]Hunte
 	},
 	"www.hunter-origin.spec": {
 		"title": "Hunter Chassis Prototype Specs",
-		"content": """[center][img=96]res://Sprites/robot9.png[/img]
+		"content": """[center][img=96]res://Sprites/Robot9N.png[/img]
 [font_size=18][color=#880000][b]HUNTER CHASSIS PROTOTYPE SPECS[/b][/color][/font_size]
 [color=#555555]CLASSIFIED DOCUMENT - MODEL H-198[/color][/center]
 [hr]

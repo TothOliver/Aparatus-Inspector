@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://5iluofeujj8v" path="res://Scripts/hunter_phase2.gd" id="4_hunter_p2"]
 [ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
 [ext_resource type="Script" uid="uid://ccs7up3i88hne" path="res://Scripts/hunter_phase3.gd" id="5_hunter_p3"]
-[ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
+[ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/Robot4N.png" id="6_hunter_sprite"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
 [ext_resource type="PackedScene" uid="uid://jadxrpu615rl" path="res://Scenes/deskSetup.tscn" id="7_upeov"]
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]

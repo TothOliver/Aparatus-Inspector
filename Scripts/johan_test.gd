@@ -15,7 +15,7 @@ func _ready():
 
 	# Ensure the Hunter has a sprite texture to use
 	if GameStats.let_through_bad_sprites.is_empty():
-		var fallback_tex = load("res://Sprites/robot1.png")
+		var fallback_tex = load("res://Sprites/Robot1N.png")
 		if fallback_tex:
 			GameStats.let_through_bad_sprites.append(fallback_tex)
 			

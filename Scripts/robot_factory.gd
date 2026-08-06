@@ -24,7 +24,7 @@ static func create_walter_robot() -> RobotData:
 	r.manufacturer = "G.Tech"
 	r.core_hash = "0x4421"
 	r.status = "Fine"
-	r.sprite = load("res://Sprites/robot4.png")
+	r.sprite = load("res://Sprites/Robot4N.png")
 	_compile_infected_dialogue(r, "Walter")
 	return r
 
@@ -37,10 +37,10 @@ static func create_day2_first_robot() -> RobotData:
 	r.name = first_names.pick_random() + last_names.pick_random()
 	
 	var approved_configs = [
-		{"model": "T1337", "manufacturer": "AgselAB", "core_hash": "0xFA82", "status": "Faulted", "sprite": "res://Sprites/robot1.png"},
-		{"model": "PAAST22", "manufacturer": "BTH", "core_hash": "0xBB99", "status": "Correct", "sprite": "res://Sprites/robot8.png"},
-		{"model": "TT69", "manufacturer": "TT Robotics", "core_hash": "0x77E1", "status": "Faulted", "sprite": "res://Sprites/robot5.png"},
-		{"model": "Last", "manufacturer": "Someone", "core_hash": "0x88CC", "status": "Done", "sprite": "res://Sprites/robot6.png"}
+		{"model": "T1337", "manufacturer": "AgselAB", "core_hash": "0xFA82", "status": "Faulted", "sprite": "res://Sprites/Robot1N.png"},
+		{"model": "PAAST22", "manufacturer": "BTH", "core_hash": "0xBB99", "status": "Correct", "sprite": "res://Sprites/Robot8N.png"},
+		{"model": "TT69", "manufacturer": "TT Robotics", "core_hash": "0x77E1", "status": "Faulted", "sprite": "res://Sprites/Robot5N.png"},
+		{"model": "Last", "manufacturer": "Someone", "core_hash": "0x88CC", "status": "Done", "sprite": "res://Sprites/Robot6N.png"}
 	]
 	var config = approved_configs.pick_random()
 	r.model = config.model
@@ -72,17 +72,17 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 	r.name = first_names.pick_random() + last_names.pick_random()
 	
 	var approved_configs = [
-		{"model": "T1337", "manufacturer": "AgselAB", "core_hash": "0xFA82", "status": "Faulted", "sprite": "res://Sprites/robot1.png"},
-		{"model": "PAAST22", "manufacturer": "BTH", "core_hash": "0xBB99", "status": "Correct", "sprite": "res://Sprites/robot8.png"},
-		{"model": "TT69", "manufacturer": "TT Robotics", "core_hash": "0x77E1", "status": "Faulted", "sprite": "res://Sprites/robot5.png"},
-		{"model": "Last", "manufacturer": "Someone", "core_hash": "0x88CC", "status": "Done", "sprite": "res://Sprites/robot6.png"}
+		{"model": "T1337", "manufacturer": "AgselAB", "core_hash": "0xFA82", "status": "Faulted", "sprite": "res://Sprites/Robot1N.png"},
+		{"model": "PAAST22", "manufacturer": "BTH", "core_hash": "0xBB99", "status": "Correct", "sprite": "res://Sprites/Robot8N.png"},
+		{"model": "TT69", "manufacturer": "TT Robotics", "core_hash": "0x77E1", "status": "Faulted", "sprite": "res://Sprites/Robot5N.png"},
+		{"model": "Last", "manufacturer": "Someone", "core_hash": "0x88CC", "status": "Done", "sprite": "res://Sprites/Robot6N.png"}
 	]
 	
 	var unapproved_configs = [
-		{"model": "H.U.G.O", "manufacturer": "G.Tech", "core_hash": "0x4421", "status": "Fine", "sprite": "res://Sprites/robot4.png", "series": "Walter"},
-		{"model": "S80", "manufacturer": "Neo.Tech", "core_hash": "0xBD42", "status": "Broken", "sprite": "res://Sprites/robot3.png", "series": "Larry"},
-		{"model": "-3", "manufacturer": "Fire&Radio", "core_hash": "0x333F", "status": "Trash", "sprite": "res://Sprites/robot9.png", "series": "Clanker"},
-		{"model": "Square", "manufacturer": "BOB", "core_hash": "0x0000", "status": "Under Water", "sprite": "res://Sprites/robot7.png", "series": "Spongebob"}
+		{"model": "H.U.G.O", "manufacturer": "G.Tech", "core_hash": "0x4421", "status": "Fine", "sprite": "res://Sprites/Robot4N.png", "series": "Walter"},
+		{"model": "S80", "manufacturer": "Neo.Tech", "core_hash": "0xBD42", "status": "Broken", "sprite": "res://Sprites/Robot3N.png", "series": "Larry"},
+		{"model": "-3", "manufacturer": "Fire&Radio", "core_hash": "0x333F", "status": "Trash", "sprite": "res://Sprites/Robot9N.png", "series": "Clanker"},
+		{"model": "Square", "manufacturer": "BOB", "core_hash": "0x0000", "status": "Under Water", "sprite": "res://Sprites/Robot7N.png", "series": "Spongebob"}
 	]
 	
 	var day = GameStats.current_day
