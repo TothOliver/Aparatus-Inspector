@@ -110,9 +110,6 @@ emission_energy_multiplier = 2.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_johpi"]
 size = Vector3(0.47413558, 0.94696414, 0.18085937)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gg7b0"]
-size = Vector3(0.8949011, 1.9413309, 0.06315918)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icon"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_monster"]
@@ -515,12 +512,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
 
 [node name="CameraHallway" parent="." unique_id=1325100202 instance=ExtResource("36_n3yx3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.0847974, 2.3841858e-07, 1.4937444)
-
-[node name="Remove" type="StaticBody3D" parent="CameraHallway" unique_id=1461584023]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraHallway/Remove" unique_id=1055726635]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47, 0)
-shape = SubResource("BoxShape3D_gg7b0")
 
 [node name="CameraArchiveRoom" parent="." unique_id=784491298 instance=ExtResource("38_gg7b0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 8)
