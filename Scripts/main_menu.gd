@@ -1,6 +1,7 @@
 extends Control
 
 @onready var settings_popup = get_node_or_null("SettingsPopup")
+@onready var briefing_popup = get_node_or_null("BriefingPopup")
 
 func _ready() -> void:
 	# Make sure mouse is visible in the main menu
@@ -27,9 +28,14 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	_on_viewport_size_changed()
 	
-	# Connect main menu buttons
-	var continue_btn = get_node_or_null("MenuButtons/ContinueButton")
-	var play_btn = get_node_or_null("MenuButtons/PlayButton")
+	# Connect main menu buttons inside MainWindow
+	var continue_btn = get_node_or_null("MainWindow/MenuButtons/ContinueButton")
+	var play_btn = get_node_or_null("MainWindow/MenuButtons/PlayButton")
+	var briefing_btn = get_node_or_null("MainWindow/MenuButtons/BriefingButton")
+	var settings_btn = get_node_or_null("MainWindow/MenuButtons/SettingsButton")
+	var quit_btn = get_node_or_null("MainWindow/MenuButtons/QuitButton")
+	var main_close_btn = get_node_or_null("MainWindow/TitleBar/CloseButton")
+	
 	var has_save = GameStats.has_save_file()
 	
 	if continue_btn:
@@ -38,20 +44,32 @@ func _ready() -> void:
 			continue_btn.pressed.connect(_on_continue_pressed)
 			
 	if play_btn:
-		play_btn.text = "Start New Game"
+		play_btn.text = "Start New Inspection Shift"
 		play_btn.pressed.connect(_on_new_game_pressed)
 		
-	var settings_btn = get_node_or_null("MenuButtons/SettingsButton")
+	if briefing_btn:
+		briefing_btn.pressed.connect(_on_briefing_pressed)
+		
 	if settings_btn:
 		settings_btn.pressed.connect(_on_settings_pressed)
 		
-	var quit_btn = get_node_or_null("MenuButtons/QuitButton")
 	if quit_btn:
 		quit_btn.pressed.connect(_on_quit_pressed)
 
-	var close_btn = get_node_or_null("SettingsPopup/TitleBar/CloseButton")
-	if close_btn:
-		close_btn.pressed.connect(_on_close_settings_pressed)
+	if main_close_btn:
+		main_close_btn.pressed.connect(_on_quit_pressed)
+
+	var close_settings_btn = get_node_or_null("SettingsPopup/TitleBar/CloseButton")
+	if close_settings_btn:
+		close_settings_btn.pressed.connect(_on_close_settings_pressed)
+
+	var close_briefing_title = get_node_or_null("BriefingPopup/TitleBar/CloseButton")
+	if close_briefing_title:
+		close_briefing_title.pressed.connect(_on_close_briefing_pressed)
+		
+	var close_briefing_memo = get_node_or_null("BriefingPopup/CloseMemoButton")
+	if close_briefing_memo:
+		close_briefing_memo.pressed.connect(_on_close_briefing_pressed)
 		
 	# Register main menu CRT overlay if exists
 	var crt = get_node_or_null("CRTOverlay")
@@ -66,14 +84,16 @@ func _ready() -> void:
 
 func _on_viewport_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
-	var briefing = get_node_or_null("Background")
-	if briefing:
-		briefing.position.x = (viewport_size.x - briefing.size.x) / 2.0
-	var buttons = get_node_or_null("MenuButtons")
-	if buttons:
-		buttons.position.x = (viewport_size.x - buttons.size.x) / 2.0
+	var main_win = get_node_or_null("MainWindow")
+	if main_win:
+		main_win.position.x = (viewport_size.x - main_win.size.x) / 2.0
+		main_win.position.y = (viewport_size.y - main_win.size.y) / 2.0
 	if settings_popup:
 		settings_popup.position.x = (viewport_size.x - settings_popup.size.x) / 2.0
+		settings_popup.position.y = (viewport_size.y - settings_popup.size.y) / 2.0
+	if briefing_popup:
+		briefing_popup.position.x = (viewport_size.x - briefing_popup.size.x) / 2.0
+		briefing_popup.position.y = (viewport_size.y - briefing_popup.size.y) / 2.0
 	var diff_popup = get_node_or_null("DifficultyPopup")
 	if diff_popup:
 		_center_difficulty_popup(diff_popup)
@@ -86,6 +106,29 @@ func _on_continue_pressed() -> void:
 
 func _on_new_game_pressed() -> void:
 	_show_difficulty_popup()
+
+func _on_briefing_pressed() -> void:
+	if briefing_popup:
+		var blocker = get_node_or_null("SettingsBlocker")
+		if blocker:
+			blocker.visible = true
+			var blocker_idx = blocker.get_index()
+			move_child(briefing_popup, blocker_idx + 1)
+		briefing_popup.visible = true
+		var viewport_size = get_viewport_rect().size
+		briefing_popup.position.x = (viewport_size.x - briefing_popup.size.x) / 2.0
+		briefing_popup.position.y = (viewport_size.y - briefing_popup.size.y) / 2.0
+		
+	var crt = get_node_or_null("CRTOverlay")
+	if crt:
+		move_child(crt, get_child_count() - 1)
+
+func _on_close_briefing_pressed() -> void:
+	if briefing_popup:
+		briefing_popup.visible = false
+		var blocker = get_node_or_null("SettingsBlocker")
+		if blocker:
+			blocker.visible = false
 
 func _show_difficulty_popup() -> void:
 	var popup = get_node_or_null("DifficultyPopup")
@@ -277,6 +320,8 @@ func _on_settings_pressed() -> void:
 		var blocker = get_node_or_null("SettingsBlocker")
 		if blocker:
 			blocker.visible = true
+			var blocker_idx = blocker.get_index()
+			move_child(settings_popup, blocker_idx + 1)
 		settings_popup.visible = true
 		# Force synchronization of stats to UI inside SettingsBody
 		var body = settings_popup.get_node_or_null("SettingsBody")
@@ -298,6 +343,12 @@ func _on_quit_pressed() -> void:
 	GameStats.quit_or_menu(get_tree())
 
 func _input(event: InputEvent) -> void:
+	if briefing_popup and briefing_popup.visible:
+		if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE):
+			get_viewport().set_input_as_handled()
+			_on_close_briefing_pressed()
+			return
+
 	var diff_popup = get_node_or_null("DifficultyPopup")
 	if diff_popup and diff_popup.visible:
 		if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE):
