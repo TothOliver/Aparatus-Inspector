@@ -903,9 +903,11 @@ func on_power_outage():
 		start_menu.visible = false
 	
 	# Release focus from any focused control inside this viewport
-	var focus_owner = get_viewport().gui_get_focus_owner()
-	if focus_owner:
-		focus_owner.release_focus()
+	var vp = get_viewport()
+	if vp:
+		var focus_owner = vp.gui_get_focus_owner()
+		if focus_owner:
+			focus_owner.release_focus()
 
 	# Explicitly find and disable editable state on all input fields across open windows
 	var line_edits = find_children("*", "LineEdit", true, false)
@@ -913,6 +915,12 @@ func on_power_outage():
 		if le is LineEdit:
 			le.release_focus()
 			le.editable = false
+
+	var text_edits = find_children("*", "TextEdit", true, false)
+	for te in text_edits:
+		if te is TextEdit:
+			te.release_focus()
+			te.editable = false
 
 func create_envelope_icon(icon_size: Vector2) -> Control:
 	var c = Control.new()

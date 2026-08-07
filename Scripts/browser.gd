@@ -179,7 +179,7 @@ Type: `decrypt classified_01.enc 14` in terminal.
 	"www.walter-files.com": {
 		"title": "The Walter Files - The Truth Out There",
 		"content": """[center][color=#880000][b]⚠️ THE WALTER FILES ⚠️[/b][/color]
-[img=96]res://Sprites/Robot4N.png[/img]
+[img=96]res://Sprites/Robot2N.png[/img]
 [font_size=18][color=#cc0000][b]UNMASKING THE HUNTER[/b][/color][/font_size][/center]
 [hr]
 
@@ -310,7 +310,7 @@ func _ready():
 	title_bar_rect.patch_margin_bottom = 3
 	title_bar_rect.position = Vector2(6, 6)
 	title_bar_rect.size = Vector2(size.x - 12, 30)
-	title_bar_rect.mouse_filter = Control.MOUSE_FILTER_PASS
+	title_bar_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(title_bar_rect)
 	
 	# Manually set DesktopWindow reference to this TitleBar so dragging works

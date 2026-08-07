@@ -14,6 +14,7 @@ extends Node3D
 @onready var door_mesh = get_node_or_null("Office/LeftDoor")
 @onready var reticle = get_node_or_null("HUD/Reticle")
 @onready var ceiling_bulb = get_node_or_null("Office/CeilingFixture/Bulb")
+@onready var ceiling_buzz_player = get_node_or_null("Office/CeilingFixture/AudioStreamPlayer3D")
 @export var wifi_led: MeshInstance3D
 @onready var curtain_node = get_node_or_null("Office/Curtain")
 
@@ -470,6 +471,14 @@ func _update_lights_visibility():
 		else:
 			mat.emission = Color(0.0, 0.0, 0.0)
 			mat.emission_energy_multiplier = 0.0
+
+	if ceiling_buzz_player:
+		if is_lit:
+			if not ceiling_buzz_player.playing:
+				ceiling_buzz_player.play()
+		else:
+			if ceiling_buzz_player.playing:
+				ceiling_buzz_player.stop()
 
 
 func _trigger_power_outage():

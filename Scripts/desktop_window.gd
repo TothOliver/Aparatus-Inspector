@@ -39,15 +39,18 @@ var _margins_registered: bool = false
 @export var is_scalable: bool = false
 
 func _ready():
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	if title_bar:
 		title_bar.gui_input.connect(_on_title_bar_gui_input)
 		_ensure_titlebar_buttons()
 	
 	# Bring to front on clicking anywhere on the window
-	gui_input.connect(_on_window_gui_input)
+	if not gui_input.is_connected(_on_window_gui_input):
+		gui_input.connect(_on_window_gui_input)
 	
 	# Connect gui_input recursively to all child controls so clicking anywhere on the application body focuses it
-	child_entered_tree.connect(_on_child_entered_tree)
+	if not child_entered_tree.is_connected(_on_child_entered_tree):
+		child_entered_tree.connect(_on_child_entered_tree)
 	_connect_children_gui_input(self)
 	
 	if is_scalable:
@@ -55,7 +58,8 @@ func _ready():
 		_setup_resize_handles()
 		
 		# Connect resized signal
-		resized.connect(_on_window_resized)
+		if not resized.is_connected(_on_window_resized):
+			resized.connect(_on_window_resized)
 
 func _ensure_titlebar_buttons():
 	if not title_bar:
@@ -339,6 +343,10 @@ func _connect_children_gui_input(node: Node):
 	if node is Control:
 		if node.name in ["CloseButton", "MinimizeButton"] or (node.get_parent() and node.get_parent().name == "TitleBar" and node.name in ["CloseButton", "MinimizeButton"]):
 			return
+		# Ensure background/container controls inside windows stop mouse clicks from falling through to windows behind
+		if node != self and node.mouse_filter != Control.MOUSE_FILTER_STOP:
+			if not (node is BaseButton) and not (node is LineEdit) and not (node is TextEdit):
+				node.mouse_filter = Control.MOUSE_FILTER_STOP
 		if not node.gui_input.is_connected(_on_child_gui_input):
 			node.gui_input.connect(_on_child_gui_input)
 	if not node.child_entered_tree.is_connected(_on_child_entered_tree):

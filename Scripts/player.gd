@@ -329,6 +329,21 @@ func interact_with_computer():
 func exit_computer_view():
 	current_state = State.WALKING
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	# Release focus from any focused Control in viewport
+	var vp = get_viewport()
+	if vp:
+		var focus_owner = vp.gui_get_focus_owner()
+		if focus_owner:
+			focus_owner.release_focus()
+
+	# Explicitly release focus and disable editable state on all desktop inputs
+	var root = get_tree().root if is_inside_tree() else null
+	if root:
+		var desktop_os = root.find_child("DesktopOS", true, false)
+		if desktop_os and desktop_os.has_method("on_power_outage"):
+			desktop_os.on_power_outage()
+
 	var game_3d = get_tree().current_scene
 	if game_3d and game_3d.has_method("exit_computer_view"):
 		game_3d.exit_computer_view()

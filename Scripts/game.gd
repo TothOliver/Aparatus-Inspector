@@ -773,13 +773,41 @@ func submit_question_text(text: String) -> void:
 	handle_chat_choice(cleaned_text, robot_reply)
 	refocus_question_input()
 
+func can_input_grab_focus() -> bool:
+	if not is_inside_tree() or not get_tree():
+		return false
+	var root = get_tree().root
+	var game_3d = root.find_child("Game3D", true, false) if root else null
+	if not game_3d:
+		game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
+	if game_3d:
+		if "is_blackout" in game_3d and game_3d.is_blackout:
+			return false
+		if "is_monitor_on" in game_3d and not game_3d.is_monitor_on:
+			return false
+		var player = game_3d.get_node_or_null("Player")
+		if not player and root:
+			player = root.find_child("Player", true, false)
+		if player and "current_state" in player and "State" in player:
+			if player.current_state != player.State.COMPUTER_VIEW:
+				return false
+	return true
+
 func refocus_question_input() -> void:
+	if not can_input_grab_focus():
+		if question_input and question_input.has_focus():
+			question_input.release_focus()
+		return
 	if question_input == null or not is_inside_tree() or not question_input.visible:
 		return
 	question_input.grab_focus()
 	question_input.caret_column = question_input.text.length()
 	if is_inside_tree() and get_tree():
 		await get_tree().create_timer(0.12).timeout
+	if not can_input_grab_focus():
+		if question_input and question_input.has_focus():
+			question_input.release_focus()
+		return
 	if question_input and is_inside_tree() and question_input.visible:
 		question_input.grab_focus()
 		question_input.caret_column = question_input.text.length()

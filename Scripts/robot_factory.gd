@@ -24,7 +24,7 @@ static func create_walter_robot() -> RobotData:
 	r.manufacturer = "G.Tech"
 	r.core_hash = "0x4421"
 	r.status = "Fine"
-	r.sprite = load("res://Sprites/Robot4N.png")
+	r.sprite = load("res://Sprites/Robot2N.png")
 	_compile_infected_dialogue(r, "Walter")
 	return r
 
@@ -79,7 +79,7 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 	]
 	
 	var unapproved_configs = [
-		{"model": "H.U.G.O", "manufacturer": "G.Tech", "core_hash": "0x4421", "status": "Fine", "sprite": "res://Sprites/Robot4N.png", "series": "Walter"},
+		{"model": "H.U.G.O", "manufacturer": "G.Tech", "core_hash": "0x4421", "status": "Fine", "sprite": "res://Sprites/Robot2N.png", "series": "Walter"},
 		{"model": "S80", "manufacturer": "Neo.Tech", "core_hash": "0xBD42", "status": "Broken", "sprite": "res://Sprites/Robot3N.png", "series": "Larry"},
 		{"model": "-3", "manufacturer": "Fire&Radio", "core_hash": "0x333F", "status": "Trash", "sprite": "res://Sprites/Robot9N.png", "series": "Clanker"},
 		{"model": "Square", "manufacturer": "BOB", "core_hash": "0x0000", "status": "Under Water", "sprite": "res://Sprites/Robot7N.png", "series": "Spongebob"}

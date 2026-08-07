@@ -114,16 +114,21 @@ func _ready():
 func can_grab_focus() -> bool:
 	if not is_inside_tree() or not get_tree():
 		return false
-	var game_3d = get_tree().current_scene
-	if game_3d and game_3d.name == "Game3D":
-		var player = game_3d.get_node_or_null("Player")
-		if player:
-			if "current_state" in player and "State" in player and player.current_state != player.State.COMPUTER_VIEW:
-				return false
-		if "is_monitor_on" in game_3d and not game_3d.is_monitor_on:
-			return false
+	var root = get_tree().root
+	var game_3d = root.find_child("Game3D", true, false) if root else null
+	if not game_3d:
+		game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
+	if game_3d:
 		if "is_blackout" in game_3d and game_3d.is_blackout:
 			return false
+		if "is_monitor_on" in game_3d and not game_3d.is_monitor_on:
+			return false
+		var player = game_3d.get_node_or_null("Player")
+		if not player and root:
+			player = root.find_child("Player", true, false)
+		if player and "current_state" in player and "State" in player:
+			if player.current_state != player.State.COMPUTER_VIEW:
+				return false
 	return true
 
 func _process(delta):

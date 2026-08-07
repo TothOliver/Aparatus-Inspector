@@ -111,6 +111,24 @@ static var custom_questions: Array[Dictionary] = [
 			"If you are tired, inspector, drink coffee or check the hallway cameras!",
 			"Standby mode is authorized only after the daily inspection quota is complete."
 		]
+	},
+	{
+		"keywords": ["hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening", "howdy", "sup", "yo"],
+		"responses": [
+			"Greetings, Inspector.",
+			"Hello. Please state your query or proceed with the inspection.",
+			"Hi there. Unit operational and ready for evaluation.",
+			"Greetings. Aethelgard OS v4.98 online."
+		]
+	},
+	{
+		"keywords": ["bye", "goodbye", "farewell", "see ya", "see you", "later", "cya"],
+		"responses": [
+			"Farewell, Inspector. Stay vigilant.",
+			"Goodbye. Do not forget to lock the office door.",
+			"Session ending. Good luck on your shift.",
+			"Goodbye. Watch out for EM spikes in the facility."
+		]
 	}
 ]
 

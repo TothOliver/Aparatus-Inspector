@@ -73,6 +73,11 @@ func handle_patrol(delta):
 				ap.stream = screech_stream
 				ap.pitch_scale = 0.75
 				ap.play()
+	else:
+		# Cooldown is complete (<= 0). Count down 20 seconds for AFK auto-spawn
+		next_investigation_time -= delta
+		if next_investigation_time <= -20.0:
+			spawn_and_stare()
 
 func _input(event):
 	# Spawn checks are only run if:
@@ -90,11 +95,40 @@ func _input(event):
 	var is_enter = event is InputEventKey and event.pressed and (event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER)
 	
 	if is_click or is_enter:
+		# Clicks / input inside Minesweeper or Snake do not trigger monster spawns
+		if is_click_in_ignored_game(event):
+			return
+
 		# Run spawn check with 3% base chance, scaled by danger level
 		var danger_level = GameStats.let_through_bad_sprites.size()
 		var spawn_chance = 0.03 + (danger_level * 0.015)
 		if randf() < spawn_chance:
 			spawn_and_stare()
+
+func is_click_in_ignored_game(event: InputEvent) -> bool:
+	var root = get_tree().root if is_inside_tree() else null
+	if not root:
+		return false
+	var desktop_os = root.find_child("DesktopOS", true, false)
+	if not desktop_os:
+		return false
+
+	# 1. Check top active window name
+	if "active_window" in desktop_os:
+		var active = desktop_os.active_window
+		if active and is_instance_valid(active):
+			if active.name == "MinesweeperWindow" or active.name == "SnakeWindow":
+				return true
+
+	# 2. Check if mouse click position falls inside Minesweeper or Snake window bounds
+	if event is InputEventMouseButton:
+		for app_name in ["MinesweeperWindow", "SnakeWindow"]:
+			var win = desktop_os.find_child(app_name, true, false) as Control
+			if win and is_instance_valid(win) and win.visible:
+				if win.get_global_rect().has_point(event.global_position):
+					return true
+
+	return false
 
 func is_player_at_computer() -> bool:
 	var game_3d = get_parent_node_3d()

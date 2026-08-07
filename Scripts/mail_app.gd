@@ -73,7 +73,7 @@ func _ready():
 	title_bar_rect.patch_margin_bottom = 3
 	title_bar_rect.position = Vector2(6, 6)
 	title_bar_rect.size = Vector2(size.x - 12, 30)
-	title_bar_rect.mouse_filter = Control.MOUSE_FILTER_PASS
+	title_bar_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(title_bar_rect)
 	
 	title_bar = title_bar_rect
@@ -129,7 +129,7 @@ func _ready():
 	# Left Inbox Frame Panel
 	var left_panel = Panel.new()
 	left_panel.name = "LeftPanel"
-	left_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	left_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	left_panel.position = Vector2(12, 44)
 	left_panel.size = Vector2(260, size.y - 56)
 	left_panel.add_theme_stylebox_override("panel", inner_frame)
@@ -137,7 +137,7 @@ func _ready():
 	
 	# Left Inbox ScrollContainer
 	var scroll = ScrollContainer.new()
-	scroll.mouse_filter = Control.MOUSE_FILTER_PASS
+	scroll.mouse_filter = Control.MOUSE_FILTER_STOP
 	left_panel.add_child(scroll)
 	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
 	scroll.offset_left = 5
@@ -146,14 +146,14 @@ func _ready():
 	scroll.offset_bottom = -5
 	
 	inbox_list_container = VBoxContainer.new()
-	inbox_list_container.mouse_filter = Control.MOUSE_FILTER_PASS
+	inbox_list_container.mouse_filter = Control.MOUSE_FILTER_STOP
 	inbox_list_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(inbox_list_container)
 	
 	# Right Reading Frame Panel
 	var right_panel = Panel.new()
 	right_panel.name = "RightPanel"
-	right_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	right_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	right_panel.position = Vector2(284, 44)
 	right_panel.size = Vector2(size.x - 296, size.y - 56)
 	right_panel.add_theme_stylebox_override("panel", inner_frame)
@@ -161,7 +161,7 @@ func _ready():
 	
 	# Right Reading RichTextLabel
 	reading_panel = RichTextLabel.new()
-	reading_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	reading_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	right_panel.add_child(reading_panel)
 	reading_panel.bbcode_enabled = true
 	reading_panel.add_theme_font_override("normal_font", font_regular)
