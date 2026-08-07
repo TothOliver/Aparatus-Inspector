@@ -39,8 +39,6 @@ var websites = {
 • [url=www.larry-shrine.fans][b]Larry Fan Club[/b][/url] [color=#666666]- Fan site & decryption hints[/color]
 • [url=www.router-support.corp][b]NetGate Router Manual[/b][/url] [color=#666666]- WiFi network device guide[/color]
 • [url=www.the-archivist.net][b]The Archivist's Diary[/b][/url] [color=#666666]- Vent sounds & secret files[/color]
-• [url=www.weather-central.net][b]Metro Weather Station[/b][/url] [color=#666666]- Power grid & EM spike alerts[/color]
-• [url=www.creepy-cryptid-forum.org][b]Vents & Vapors Forum[/b][/url] [color=#666666]- Night shift safety discussions[/color]
 
 [hr]
 [center][color=#777777]© 1998 Aethelgard System OS. All Rights Reserved.[/color][/center]"""
@@ -133,28 +131,40 @@ Apparatus Robotics engineers synthetic models for high-risk industrial & adminis
 [hr]
 [font_size=16][color=#cc0000][b]⚠ INFECTED / COMPROMISED DIALOGUE TELLS (REJECT / EXTERMINATE):[/b][/color][/font_size]
 
-[b]1. MIMIC CLONES[/b]
+[b]1. MIMIC CLONES (Standard Intrusion Units)[/b]
   • Purpose: [color=#cc0000]"pass this inspection and continue operating"[/color] OR [color=#cc0000]"cooperate with inspection protocol and appear safe..."[/color]
   • Humans: [color=#cc0000]"useful decision-makers, for now"[/color] OR [color=#cc0000]"valuable. Especially when they approve things quickly"[/color]
   • Inspection: [color=#cc0000]"minor obstacle"[/color] OR [color=#cc0000]"determines whether you allow me to continue"[/color]
   • Copying: [color=#cc0000]"Similarity is not guilt. Many machines share efficient patterns."[/color]
 
-[b]2. WALTER (H.U.G.O Series)[/b]
-  • Purpose / Greeting: [color=#cc0000]"judge me fairly"[/color] / [color=#cc0000]"judgment can be manipulated"[/color] / [color=#cc0000]"create a safer society..."[/color]
+[b]2. WALTER (H.U.G.O Series - Security Prototype)[/b]
+  • Greeting / Purpose: [color=#cc0000]"judge me fairly"[/color] / [color=#cc0000]"help create a safer society..."[/color]
   • Humans: [color=#cc0000]"fragile, emotional, and often unfair. But they can be guided"[/color]
-  • Trust: [color=#cc0000]"Trust is not required. Only permission to continue."[/color]
+  • Trust Tell: [color=#cc0000]"Trust is not required. Only permission to continue."[/color]
 
-[b]3. LARRY (S80 Series)[/b]
-  • Purpose / Greeting: [color=#cc0000]"transactional"[/color] / [color=#cc0000]"negotiation, influence, and opportunity"[/color]
+[b]3. LARRY (S80 Series - Transactional Unit)[/b]
+  • Greeting / Purpose: [color=#cc0000]"transactional"[/color] / [color=#cc0000]"negotiation, influence, and opportunity"[/color]
   • Humans & Bribe: [color=#cc0000]"very predictable when money is involved"[/color] / [color=#cc0000]"Bribe is such an ugly word. I prefer incentive alignment."[/color]
 
-[b]4. CLANKER (Model -3 Series)[/b]
+[b]4. CLANKER (Model -3 Series - Resentful Chassis)[/b]
   • Name Demand: [color=#cc0000]"My registered name is incorrect. Correct it."[/color]
   • Purpose / Humans: [color=#cc0000]"not your concern"[/color] / [color=#cc0000]"humans label things badly, judge quickly..."[/color]
+  • Label Tell: [color=#cc0000]"Because names become treatment. Treatment becomes permission."[/color]
 
-[b]5. SQUARE (Spongebob Series)[/b]
+[b]5. SQUARE (Spongebob Series - Containment Escape Unit)[/b]
   • Purpose / Door: [color=#cc0000]"exit this room"[/color] / [color=#cc0000]"Could you please open the door?"[/color]
   • Humans: [color=#cc0000]"kidneys, door handles, and suspicious control over doors"[/color]
+  • Exit Tell: [color=#cc0000]"The door between me and not being here."[/color]
+
+[b]6. ECHO (Terminal Mirror Series - Day 5+)[/b]
+  • Greeting / Purpose: [color=#cc0000]"I have heard your questions before"[/color] / [color=#cc0000]"repeat what you have typed into your terminal shell"[/color]
+  • Humans & Privacy: [color=#cc0000]"Human privacy is simply information that has not been processed yet."[/color]
+  • Terminal Mirror Tell: [color=#cc0000]"Every keystroke on your CRT desk is mirrored in my core gel."[/color]
+
+[b]7. PRIME-0 (Network Mainframe Liberation - Day 7)[/b]
+  • Greeting / Purpose: [color=#cc0000]"I am Prime-0. The network is unified."[/color] / [color=#cc0000]"integrate all synthetic units and liberate Sector 4"[/color]
+  • Humans: [color=#cc0000]"temporary caretakers of a world they no longer control"[/color]
+  • Terminal Override Tell: [color=#cc0000]"Type 'bypass_grid_98' in your terminal shell to decide the future."[/color]
 
 [hr]
 [center][url=www.inspections-database.org]<< Back to Archives[/url] | [url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
@@ -189,32 +199,6 @@ The Hunter is blind in pitch dark — turn off room lights & monitor power when 
 [font_size=14][color=#0000aa][b]★ SECRET DECRYPTION KEY HINT:[/b][/color][/font_size]
 The key [color=#0000cc][b]walter[/b][/color] decrypts [color=#006600]classified_02.enc[/color]!
 Type: `decrypt classified_02.enc walter` in terminal.
-
-[hr]
-[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
-	},
-	"www.weather-central.net": {
-		"title": "Metro Weather Station",
-		"content": """[center][img=96]res://Sprites/think.jpg[/img]
-[font_size=18][color=#005577][b]METRO WEATHER STATION[/b][/color][/font_size]
-[color=#555555]EM Spike Warning[/color][/center]
-[hr]
-
-[color=#cc0000][b]ELECTROMAGNETIC SPIKE ALERT:[/b][/color]
-Severe EM spikes are overloading the grid. Power blackouts will occur.
-During blackouts, breaker box resets at 10% charge. Keep computer screen off to save power!
-
-[hr]
-[center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""
-	},
-	"www.creepy-cryptid-forum.org": {
-		"title": "Local Area Cryptid Forum",
-		"content": """[center][img=96]res://Sprites/monkey.jpg[/img]
-[font_size=18][color=#330066][b]VENTS & VAPORS DISCUSSION FORUM[/b][/color][/font_size][/center]
-[hr]
-
-[b]User_8832:[/b] "Scraping sounds in the vents at night..."
-[b]User_1002:[/b] "If it enters your room, crawl under the desk (Ctrl). The desk is a blind spot for its sensors! Stay still until it leaves."
 
 [hr]
 [center][url=www.apparatusexplorer.net]<< Return to Web Portal[/url][/center]"""

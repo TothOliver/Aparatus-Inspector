@@ -85,6 +85,7 @@ func start_new_day():
 	# Load persisted health
 	health = int(GameStats.player_health)
 	bad_ai_let_in_count = GameStats.total_security_breaches
+	GameStats.day_start_security_breaches = GameStats.total_security_breaches
 	if health_bar:
 		if "breaches" in health_bar:
 			health_bar.breaches = bad_ai_let_in_count
@@ -158,6 +159,8 @@ func end_day():
 	print("Day ", current_day, " finished!")
 	if current_day < max_days:
 		GameStats.current_day = current_day + 1
+		GameStats.total_security_breaches = bad_ai_let_in_count
+		GameStats.day_start_security_breaches = bad_ai_let_in_count
 		for d in range(1, GameStats.current_day):
 			GameStats.read_emails[d] = true
 		GameStats.save_game()

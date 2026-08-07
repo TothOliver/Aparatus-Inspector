@@ -2,6 +2,7 @@ extends Node
 
 var final_missed_score: int = 0
 var total_security_breaches: int = 0
+var day_start_security_breaches: int = 0
 var innocent_robots_killed: int = 0
 var good_robots_through: int = 0
 var bad_robots_terminated: int = 0
@@ -469,6 +470,7 @@ func save_game():
 	config.set_value("Game", "difficulty_mode", int(difficulty_mode))
 	config.set_value("Game", "player_health", player_health)
 	config.set_value("Game", "total_security_breaches", total_security_breaches)
+	config.set_value("Game", "day_start_security_breaches", day_start_security_breaches)
 	config.set_value("Game", "innocent_robots_killed", innocent_robots_killed)
 	config.set_value("Game", "good_robots_through", good_robots_through)
 	config.set_value("Game", "bad_robots_terminated", bad_robots_terminated)
@@ -499,6 +501,7 @@ func load_game() -> bool:
 	current_day = config.get_value("Game", "current_day", 1)
 	player_health = config.get_value("Game", "player_health", 100.0)
 	total_security_breaches = config.get_value("Game", "total_security_breaches", 0)
+	day_start_security_breaches = config.get_value("Game", "day_start_security_breaches", total_security_breaches)
 	innocent_robots_killed = config.get_value("Game", "innocent_robots_killed", 0)
 	good_robots_through = config.get_value("Game", "good_robots_through", 0)
 	bad_robots_terminated = config.get_value("Game", "bad_robots_terminated", 0)
@@ -528,7 +531,7 @@ func delete_save_game():
 			print("Save game deleted.")
 
 func reset_current_day_state() -> void:
-	total_security_breaches = 0
+	total_security_breaches = day_start_security_breaches
 	player_health = 100.0
 	power_level = 100.0
 	door_locked = false
@@ -543,6 +546,7 @@ func reset_fail_quota() -> void:
 func reset_game_state():
 	final_missed_score = 0
 	total_security_breaches = 0
+	day_start_security_breaches = 0
 	innocent_robots_killed = 0
 	good_robots_through = 0
 	bad_robots_terminated = 0
