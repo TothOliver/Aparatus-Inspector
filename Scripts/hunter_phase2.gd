@@ -45,6 +45,13 @@ func activate(is_door_retreat: bool = false):
 	is_flashed = false
 	flash_retreat_timer = 0.0
 	
+	# Duration to stare before advancing (longer if retreating from door to prevent instant respawn)
+	# Done first to prevent immediate transition to Phase 3 due to async footprint awaits
+	if is_door_retreat:
+		stare_duration_timer = randf_range(30.0, 50.0)
+	else:
+		stare_duration_timer = 20.0
+	
 	# Pick random closer spawn location
 	var markers = get_all_spawn_markers()
 	var spawn_pos = get_start_pos()
@@ -60,18 +67,19 @@ func activate(is_door_retreat: bool = false):
 	set_monster_visible(true)
 	look_at_closest_camera()
 	
-	# Play heavy heavy concrete step sound to show it moved closer
-	var ap = get_active_audio_player()
-	if ap:
-		ap.stream = SoundManager.get_random_concrete_stream() if SoundManager else concrete_step_stream
-		ap.pitch_scale = randf_range(0.7, 0.9)
-		ap.play()
-	
-	# Duration to stare before advancing (longer if retreating from door to prevent instant respawn)
-	if is_door_retreat:
-		stare_duration_timer = randf_range(30.0, 50.0)
-	else:
-		stare_duration_timer = 20.0
+	# Play heavy heavy concrete step sound to show it moved closer (4 steps in sequence)
+	for i in range(4):
+		if is_inside_tree() and current_state == State.SPAWNED:
+			if SoundManager:
+				SoundManager.play_sound_3d("monster_footstep", global_position, +4.0)
+				SoundManager.play_sound("monster_footstep", -2.0) # 2D helper
+			else:
+				var ap = get_active_audio_player()
+				if ap:
+					ap.stream = concrete_step_stream
+					ap.pitch_scale = randf_range(0.7, 0.9)
+					ap.play()
+			await get_tree().create_timer(0.5).timeout
 	
 	set_physics_process(true)
 

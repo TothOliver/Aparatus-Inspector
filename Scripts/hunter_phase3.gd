@@ -37,6 +37,17 @@ func activate(_peek_loc: PeekLocation):
 	current_state = State.DOOR_RATTLE
 	active_peek_location = PeekLocation.DOOR
 	
+	# Turn off the computer monitor and force player out of computer view immediately
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_monitor_on" in game_3d:
+		if game_3d.is_monitor_on:
+			game_3d.toggle_monitor_power()
+			
+	var player = get_tree().root.find_child("Player", true, false) if is_inside_tree() else null
+	if player:
+		if player.current_state == player.State.COMPUTER_VIEW:
+			player.exit_computer_view()
+	
 	# Ensure texture is loaded
 	if GameStats.let_through_bad_sprites.size() > 0:
 		$Sprite3D.texture = GameStats.let_through_bad_sprites[0]

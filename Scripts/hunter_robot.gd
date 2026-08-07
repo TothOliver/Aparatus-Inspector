@@ -376,6 +376,26 @@ func start_chase():
 	look_at_closest_camera()
 
 func kill_player():
+	# Turn off the computer monitor and force player out of computer view
+	var game_3d = get_tree().current_scene
+	if game_3d and "is_monitor_on" in game_3d:
+		if game_3d.is_monitor_on:
+			game_3d.toggle_monitor_power()
+			
+	var player = get_tree().root.find_child("Player", true, false) if is_inside_tree() else null
+	if player:
+		if player.current_state == player.State.COMPUTER_VIEW:
+			player.exit_computer_view()
+			
+		# Rotate player to face the jumpscare position directly
+		var target_pos = get_jumpscare_pos()
+		player.look_at(Vector3(target_pos.x, player.global_position.y, target_pos.z))
+		
+		# Reset camera pitch
+		var cam = player.get_node_or_null("Camera3D")
+		if cam:
+			cam.rotation.x = 0.0
+
 	# Make sure sprite is visible
 	var sprite = get_node_or_null("Sprite3D")
 	if sprite:
@@ -385,7 +405,6 @@ func kill_player():
 	global_position = get_jumpscare_pos()
 	
 	# Rotate to face player directly during jumpscare
-	var player = get_tree().root.find_child("Player", true, false)
 	if player:
 		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z))
 	

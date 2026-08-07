@@ -157,6 +157,12 @@ func spawn_and_stare(specific_marker_idx: int = -1):
 	current_state = State.SPAWNED
 	warning_played = false
 	next_investigation_time = 0.0
+	
+	# Set duration to stare before advancing to Phase 2 (exactly 30 seconds)
+	# Done first to prevent immediate transition to Phase 2 due to async footprint awaits
+	stare_duration_timer = 30.0
+	is_flashed = false
+	flash_retreat_timer = 0.0
 			
 	# Pick spawn location
 	var markers = get_all_spawn_markers()
@@ -178,21 +184,32 @@ func spawn_and_stare(specific_marker_idx: int = -1):
 	look_at_closest_camera()
 	
 	# Cue Sound: Location-based or random selection
-	var ap = get_active_audio_player()
-	if ap:
-		if spawn_idx == 2:
-			# Rustling bushes (Garden entry)
-			ap.stream = bush_rustle_stream
-		else:
-			# Concrete footsteps (Fence entry)
-			ap.stream = SoundManager.get_random_concrete_stream() if SoundManager else concrete_step_stream
-		ap.pitch_scale = randf_range(0.9, 1.1)
-		ap.play()
-	
-	# Set duration to stare before advancing to Phase 2 (exactly 30 seconds)
-	stare_duration_timer = 30.0
-	is_flashed = false
-	flash_retreat_timer = 0.0
+	if spawn_idx == 2:
+		# Rustling bushes (Garden entry) - Play 3 rustles in sequence
+		for i in range(3):
+			if is_inside_tree() and current_state == State.SPAWNED:
+				var ap = get_active_audio_player()
+				if ap:
+					ap.stream = bush_rustle_stream
+					ap.pitch_scale = randf_range(0.9, 1.1)
+					ap.play()
+				if SoundManager:
+					SoundManager.play_sound("monster_footstep", -8.0) # 2D helper
+				await get_tree().create_timer(0.5).timeout
+	else:
+		# Concrete footsteps (Fence entry) - Play 4 footsteps in sequence
+		for i in range(4):
+			if is_inside_tree() and current_state == State.SPAWNED:
+				if SoundManager:
+					SoundManager.play_sound_3d("monster_footstep", global_position, +2.0)
+					SoundManager.play_sound("monster_footstep", -4.0) # 2D helper
+				else:
+					var ap = get_active_audio_player()
+					if ap:
+						ap.stream = concrete_step_stream
+						ap.pitch_scale = randf_range(0.9, 1.1)
+						ap.play()
+				await get_tree().create_timer(0.6).timeout
 
 func handle_spawned(delta):
 	# Once flashed (spotted via CCTV light or 3D flashlight), start 1-second retreat countdown

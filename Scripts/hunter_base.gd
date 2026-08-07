@@ -73,6 +73,9 @@ func _ready():
 	concrete_step_stream = SoundManager._get_or_load_stream("monster_footstep") if SoundManager else _generate_concrete_step_sound()
 	bush_rustle_stream = SoundManager._get_or_load_stream("hunter_bush_rustle") if SoundManager else _generate_bush_rustle_sound()
 	
+	if not door_marker:
+		door_marker = get_node_or_null("../DoorMarker")
+		
 	if audio_player:
 		audio_player.unit_size = 6.0
 		audio_player.max_db = 10.0
