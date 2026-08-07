@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ds5hwkme5t06u"
+uid="uid://b4wwi2cavoyhj"
 path.s3tc="res://.godot/imported/Walter_Metal056C_4K-JPG_Color.jpg-cdc6ff37d3c6afbf8988447d27911fae.s3tc.ctex"
 path.etc2="res://.godot/imported/Walter_Metal056C_4K-JPG_Color.jpg-cdc6ff37d3c6afbf8988447d27911fae.etc2.ctex"
 metadata={
@@ -10,7 +10,7 @@ metadata={
 "vram_texture": true
 }
 generator_parameters={
-"md5": "4427de36faece3126b29258023d1993a"
+"md5": "63375b19bdfd7e43780491708fa8ed1e"
 }
 
 [deps]

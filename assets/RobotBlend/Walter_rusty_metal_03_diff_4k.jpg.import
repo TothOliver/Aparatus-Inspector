@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8solyyujjitu"
+uid="uid://cc367fkqpbla0"
 path.s3tc="res://.godot/imported/Walter_rusty_metal_03_diff_4k.jpg-3fe2a77778171ebd86d092879c862fc2.s3tc.ctex"
 path.etc2="res://.godot/imported/Walter_rusty_metal_03_diff_4k.jpg-3fe2a77778171ebd86d092879c862fc2.etc2.ctex"
 metadata={
@@ -10,7 +10,7 @@ metadata={
 "vram_texture": true
 }
 generator_parameters={
-"md5": "33729c707df02632a1b897037d2b36a6"
+"md5": "e94e3ee9883d40f697d44ce77c1b3d35"
 }
 
 [deps]
