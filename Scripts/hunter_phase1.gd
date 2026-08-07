@@ -17,7 +17,8 @@ var warning_played: bool = false
 
 # Timers for spawn/look mechanics
 var stare_duration_timer: float = 0.0
-var look_duration: float = 0.0
+var is_flashed: bool = false
+var flash_retreat_timer: float = 0.0
 
 func _ready():
 	super._ready()
@@ -156,18 +157,20 @@ func spawn_and_stare(specific_marker_idx: int = -1):
 	
 	# Set duration to stare before advancing to Phase 2 (exactly 30 seconds)
 	stare_duration_timer = 30.0
-	look_duration = 0.0
+	is_flashed = false
+	flash_retreat_timer = 0.0
 
 func handle_spawned(delta):
-	# Check if player sees the hunter (CCTV or 3D + flashlight)
-	if check_if_player_sees_hunter():
-		look_duration += delta
-		if look_duration >= 1.0:
+	# Once flashed (spotted via CCTV light or 3D flashlight), start 1-second retreat countdown
+	if not is_flashed:
+		if check_if_player_sees_hunter():
+			is_flashed = true
+			flash_retreat_timer = 1.0
+	else:
+		flash_retreat_timer -= delta
+		if flash_retreat_timer <= 0:
 			disappear_and_reset()
 			return
-	else:
-		# Reset continuous look requirement
-		look_duration = 0.0
 
 	var game_3d = get_parent_node_3d()
 	var speed_mult = 1.0
@@ -229,19 +232,17 @@ func check_if_player_looks_at_cctv() -> bool:
 	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
-			var cam1 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera1")
-			var cam2 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera2")
-			var cam3 = game_3d.get_node_or_null("CCTVViewport/CCTVCamera3")
-			if global_position.x < 3.0:
-				if global_position.z < 0.0:
-					return cam1 and cam1.current
-				else:
-					return cam3 and cam3.current
-			else:
-				return cam2 and cam2.current
+			var vp = game_3d.get_node_or_null("CCTVViewport")
+			if vp:
+				for cam in vp.get_children():
+					if cam is Camera3D and cam.current:
+						if global_position.distance_to(cam.global_position) < 12.0:
+							return true
 	return false
 
 func disappear_and_reset():
+	is_flashed = false
+	flash_retreat_timer = 0.0
 	set_monster_visible(false)
 	current_state = State.PATROLLING
 	global_position = get_start_pos()

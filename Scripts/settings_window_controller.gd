@@ -126,7 +126,6 @@ const ACTION_LABELS = {
 	"move_backward": "Move Backward",
 	"move_left": "Move Left",
 	"move_right": "Move Right",
-	"crouch": "Crouch",
 	"interact": "Interact",
 	"toggle_flashlight": "Flashlight"
 }

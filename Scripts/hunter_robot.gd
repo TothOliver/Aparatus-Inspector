@@ -61,6 +61,8 @@ var next_investigation_time: float = 20.0 # Starts first patrol
 var is_active: bool = false
 var patrol_laps: int = 0
 var warning_played: bool = false
+var is_flashed: bool = false
+var flash_retreat_timer: float = 0.0
 
 # --- POSITION & REFERENCE GETTERS (Resolves overrides vs fallbacks) ---
 func get_start_pos() -> Vector3:
@@ -263,10 +265,16 @@ func handle_approaching(delta):
 			ap.play()
 
 func handle_door_rattle(delta):
-	# If player spots the Hunter on CCTV or through the window, it retreats!
-	if check_if_player_sees_hunter():
-		retreat_and_reset()
-		return
+	# Once flashed (spotted via CCTV light or through window), start 1-second retreat countdown
+	if not is_flashed:
+		if check_if_player_sees_hunter():
+			is_flashed = true
+			flash_retreat_timer = 1.0
+	else:
+		flash_retreat_timer -= delta
+		if flash_retreat_timer <= 0:
+			retreat_and_reset()
+			return
 
 	wait_at_door_timer -= delta
 	if wait_at_door_timer <= 0:
@@ -323,30 +331,20 @@ func check_if_player_sees_hunter() -> bool:
 	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on and GameStats.cctv_light_on:
 		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
 		if cctv_win and cctv_win.visible:
-			seen_on_cctv = true
+			var vp = game_3d.get_node_or_null("CCTVViewport")
+			if vp:
+				for cam in vp.get_children():
+					if cam is Camera3D and cam.current:
+						if global_position.distance_to(cam.global_position) < 12.0:
+							seen_on_cctv = true
+			else:
+				seen_on_cctv = true
 			
-	# 2. Check if player is looking directly at the glass window in 3D
-	var seen_through_window = false
-	if player.current_state != player.State.COMPUTER_VIEW:
-		if not game_3d.is_curtain_closed:
-			var camera = player.get_node_or_null("Camera3D")
-			if camera:
-				var window_pos = get_window_pos()
-				var dir_to_window = (window_pos - camera.global_position).normalized()
-				var camera_forward = -camera.global_transform.basis.z.normalized()
-				var dot = camera_forward.dot(dir_to_window)
-				if dot > 0.7:
-					seen_through_window = true
-					
-	# Match based on chosen peek location
-	if active_peek_location == PeekLocation.WINDOW:
-		return seen_through_window or seen_on_cctv
-	elif active_peek_location == PeekLocation.CAMERA:
-		return seen_on_cctv
-	else:
-		return seen_on_cctv or seen_through_window
+	return seen_on_cctv
 
 func retreat_and_reset():
+	is_flashed = false
+	flash_retreat_timer = 0.0
 	current_state = State.PATROLLING
 	global_position = get_start_pos()
 	

@@ -13,7 +13,8 @@ enum State {
 
 var current_state = State.INACTIVE
 var stare_duration_timer: float = 0.0
-var look_duration: float = 0.0
+var is_flashed: bool = false
+var flash_retreat_timer: float = 0.0
 
 func _ready():
 	super._ready()
@@ -41,7 +42,8 @@ func get_all_spawn_markers() -> Array[Marker3D]:
 
 func activate(is_door_retreat: bool = false):
 	current_state = State.SPAWNED
-	look_duration = 0.0
+	is_flashed = false
+	flash_retreat_timer = 0.0
 	
 	# Pick random closer spawn location
 	var markers = get_all_spawn_markers()
@@ -77,14 +79,16 @@ func _physics_process(delta):
 	if current_state != State.SPAWNED:
 		return
 
-	# Check if player looks directly at the hunter
-	if check_if_player_sees_hunter():
-		look_duration += delta
-		if look_duration >= 1.0:
+	# Once flashed (spotted via 3D flashlight), start 1-second retreat countdown
+	if not is_flashed:
+		if check_if_player_sees_hunter():
+			is_flashed = true
+			flash_retreat_timer = 1.0
+	else:
+		flash_retreat_timer -= delta
+		if flash_retreat_timer <= 0:
 			retreat_and_reset()
 			return
-	else:
-		look_duration = 0.0
 
 	var game_3d = get_parent_node_3d()
 	var speed_mult = 1.0
@@ -96,6 +100,11 @@ func _physics_process(delta):
 		advance_to_phase3()
 
 func check_if_player_sees_hunter() -> bool:
+	# 1. Check if player looks at it on CCTV with camera flashlight ON
+	if check_if_player_looks_at_cctv():
+		return true
+
+	# 2. Check if player is looking directly at it in 3D and has flashlight on
 	var game_3d = get_parent_node_3d()
 	if not game_3d:
 		return false
@@ -104,7 +113,6 @@ func check_if_player_sees_hunter() -> bool:
 	if not player:
 		return false
 		
-	# Check if player is looking directly at the hunter in 3D and has flashlight on
 	var seen_in_3d = false
 	if player.current_state != player.State.COMPUTER_VIEW:
 		var camera = player.get_node_or_null("Camera3D")
@@ -113,9 +121,8 @@ func check_if_player_sees_hunter() -> bool:
 			var camera_forward = -camera.global_transform.basis.z.normalized()
 			var dot = camera_forward.dot(dir_to_hunter)
 			if dot > 0.7:
-				# If monster is outside the window, curtain must be open
 				var blocks_sight = false
-				if global_position.z < -1.0 and game_3d.is_curtain_closed:
+				if global_position.z < -1.0:
 					blocks_sight = true
 					
 				if not blocks_sight:
@@ -125,7 +132,32 @@ func check_if_player_sees_hunter() -> bool:
 				
 	return seen_in_3d
 
+func check_if_player_looks_at_cctv() -> bool:
+	var game_3d = get_parent_node_3d()
+	if not game_3d:
+		return false
+		
+	var player = game_3d.get_node_or_null("Player")
+	if not player:
+		return false
+		
+	if not GameStats.cctv_light_on:
+		return false
+		
+	if player.current_state == player.State.COMPUTER_VIEW and game_3d.is_monitor_on:
+		var cctv_win = get_tree().root.find_child("CCTVWindow", true, false)
+		if cctv_win and cctv_win.visible:
+			var vp = game_3d.get_node_or_null("CCTVViewport")
+			if vp:
+				for cam in vp.get_children():
+					if cam is Camera3D and cam.current:
+						if global_position.distance_to(cam.global_position) < 12.0:
+							return true
+	return false
+
 func retreat_and_reset():
+	is_flashed = false
+	flash_retreat_timer = 0.0
 	set_monster_visible(false)
 	current_state = State.INACTIVE
 	set_physics_process(false)

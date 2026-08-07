@@ -63,7 +63,6 @@ const DEFAULT_BINDS = {
 	"move_backward": KEY_S,
 	"move_left": KEY_A,
 	"move_right": KEY_D,
-	"crouch": KEY_CTRL,
 	"interact": KEY_E,
 	"toggle_flashlight": KEY_F
 }
@@ -319,10 +318,44 @@ func _ready():
 	# Recursively connect to all buttons currently in the tree
 	_connect_buttons_recursive(get_tree().root)
 	
-	# Connect Steam overlay signals
+	# Connect Steam overlay signals and request current stats
 	if Engine.has_singleton("Steam"):
 		var steam = Engine.get_singleton("Steam")
-		steam.overlay_toggled.connect(_on_overlay_toggled)
+		if steam.has_signal("overlay_toggled"):
+			if not steam.overlay_toggled.is_connected(_on_overlay_toggled):
+				steam.overlay_toggled.connect(_on_overlay_toggled)
+		if steam.has_method("request_current_stats"):
+			steam.request_current_stats()
+		elif steam.has_method("requestCurrentStats"):
+			steam.requestCurrentStats()
+
+func unlock_achievement(api_name: String) -> void:
+	if not Engine.has_singleton("Steam"):
+		print("[Steam] Singleton not active. Skipped achievement: ", api_name)
+		return
+		
+	var steam = Engine.get_singleton("Steam")
+	var ach_status = {}
+	if steam.has_method("get_achievement"):
+		ach_status = steam.get_achievement(api_name)
+	elif steam.has_method("getAchievement"):
+		ach_status = steam.getAchievement(api_name)
+		
+	if ach_status is Dictionary and ach_status.get("achieved", false):
+		return # Already unlocked
+		
+	var success = false
+	if steam.has_method("set_achievement"):
+		success = steam.set_achievement(api_name)
+	elif steam.has_method("setAchievement"):
+		success = steam.setAchievement(api_name)
+		
+	if success:
+		if steam.has_method("store_stats"):
+			steam.store_stats()
+		elif steam.has_method("storeStats"):
+			steam.storeStats()
+		print("[Steam] Achievement Unlocked: ", api_name)
 
 func _on_node_added(node: Node):
 	if node is Button:
@@ -564,11 +597,23 @@ func has_unread_mail() -> bool:
 
 func _process(_delta: float) -> void:
 	if Engine.has_singleton("Steam"):
-		Engine.get_singleton("Steam").run_callbacks()
+		var steam = Engine.get_singleton("Steam")
+		if steam.has_method("run_callbacks"):
+			steam.run_callbacks()
+		elif steam.has_method("runCallbacks"):
+			steam.runCallbacks()
 
 func _on_overlay_toggled(active: bool) -> void:
 	if active:
 		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+		# Show in-game pause menu if in 3D game scene
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			var pause_menu = current_scene.get_node_or_null("HUD/PauseMenu")
+			if pause_menu:
+				pause_menu.visible = true
 	else:
 		# Only unpause if the in-game pause menu isn't open
 		var current_scene = get_tree().current_scene

@@ -15,6 +15,3 @@ script = ExtResource("2_script")
 
 [node name="Bulb" parent="Office/CeilingFixture" parent_id_path=PackedInt32Array(80498322) index="3" unique_id=1047560640]
 surface_material_override/0 = SubResource("StandardMaterial3D_c713f")
-
-[node name="Phase1Spawn2" parent="." index="15" unique_id=873404773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, 0, -2.5569081)

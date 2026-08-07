@@ -15,15 +15,13 @@ enum State {
 }
 
 var current_state = State.WALKING
-var is_crouching: bool = false
 
 # Movement variables
 var rotation_x: float = 0.0
 var rotation_y: float = 0.0
 
-# Camera heights
+# Camera height
 var stand_cam_y: float = 1.55
-var crouch_cam_y: float = 0.75
 
 # Sit positions
 var sit_pos: Vector3 = Vector3(0, 0, 0.48)
@@ -68,7 +66,6 @@ func _physics_process(delta):
 	if current_state == State.WALKING:
 		handle_walking_movement(delta)
 	elif current_state == State.COMPUTER_VIEW:
-		is_crouching = false
 		handle_computer_view(delta)
 
 func _process(_delta):
@@ -84,26 +81,8 @@ func handle_walking_movement(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-	# Handle Crouch
-	var target_cam_y = stand_cam_y
-	var collider_shape = $CollisionShape3D.shape as CapsuleShape3D
-	
-	var is_crouch_pressed = false
-	if InputMap.has_action("crouch"):
-		is_crouch_pressed = Input.is_action_pressed("crouch")
-	else:
-		is_crouch_pressed = Input.is_key_pressed(KEY_CTRL)
-		
-	if is_crouch_pressed:
-		target_cam_y = crouch_cam_y
-		collider_shape.height = 1.0
-		is_crouching = true
-	else:
-		collider_shape.height = 1.8
-		is_crouching = false
-	
-	# Smoothly interpolate camera height and zoom out
-	camera.position.y = lerp(camera.position.y, target_cam_y, lerp_speed * delta)
+	# Smoothly interpolate camera height and position
+	camera.position.y = lerp(camera.position.y, stand_cam_y, lerp_speed * delta)
 	camera.position.x = lerp(camera.position.x, 0.0, lerp_speed * delta)
 	camera.position.z = lerp(camera.position.z, 0.0, lerp_speed * delta)
 	
@@ -128,8 +107,7 @@ func handle_walking_movement(delta):
 		velocity.z = dir.z * speed
 		if is_on_floor():
 			footstep_distance += velocity.length() * delta
-			var interval = FOOTSTEP_INTERVAL * 1.4 if is_crouching else FOOTSTEP_INTERVAL
-			if footstep_distance >= interval:
+			if footstep_distance >= FOOTSTEP_INTERVAL:
 				footstep_distance = 0.0
 				if SoundManager:
 					SoundManager.play_player_footstep()
@@ -153,10 +131,17 @@ func _input(event):
 			flashlight_pressed = true
 			
 	if flashlight_pressed:
-		if flashlight:
-			flashlight.visible = not flashlight.visible
-			if SoundManager:
-				SoundManager.play_flashlight(flashlight.visible)
+		if current_state == State.COMPUTER_VIEW:
+			var desktop_os = get_tree().root.find_child("DesktopOS", true, false)
+			if desktop_os and desktop_os.has_method("_on_cctv_light_pressed"):
+				desktop_os._on_cctv_light_pressed()
+			else:
+				GameStats.cctv_light_on = not GameStats.cctv_light_on
+		else:
+			if flashlight:
+				flashlight.visible = not flashlight.visible
+				if SoundManager:
+					SoundManager.play_flashlight(flashlight.visible)
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var active_sens = GameStats.mouse_sensitivity if "mouse_sensitivity" in GameStats else mouse_sensitivity
