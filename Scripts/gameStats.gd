@@ -318,10 +318,26 @@ func _ready():
 	# Recursively connect to all buttons currently in the tree
 	_connect_buttons_recursive(get_tree().root)
 	
-	# Connect Steam overlay signals
+	# Connect Steam overlay signals and request current stats
 	if Engine.has_singleton("Steam"):
 		var steam = Engine.get_singleton("Steam")
 		steam.overlay_toggled.connect(_on_overlay_toggled)
+		steam.requestCurrentStats()
+
+func unlock_achievement(api_name: String) -> void:
+	if not Engine.has_singleton("Steam"):
+		print("[Steam] Singleton not active. Skipped achievement: ", api_name)
+		return
+		
+	var steam = Engine.get_singleton("Steam")
+	var ach_status = steam.getAchievement(api_name)
+	if ach_status is Dictionary and ach_status.get("achieved", false):
+		return # Already unlocked
+		
+	var success = steam.setAchievement(api_name)
+	if success:
+		steam.storeStats()
+		print("[Steam] Achievement Unlocked: ", api_name)
 
 func _on_node_added(node: Node):
 	if node is Button:

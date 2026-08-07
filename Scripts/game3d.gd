@@ -88,6 +88,9 @@ func _ready():
 	
 	# Initialize first outage timer randomly between 135.0 and 270.0 seconds (3x the original 45.0 - 90.0 range)
 	outage_timer = randf_range(135.0, 270.0)
+	
+	# Unlock Steam Achievement for starting shift
+	GameStats.unlock_achievement("ACH_START_FIRST_SHIFT")
 			
 	# Connect to the 2D game's robot spawning signal
 	if game_2d:
