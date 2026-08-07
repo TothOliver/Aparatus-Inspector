@@ -63,7 +63,6 @@ const DEFAULT_BINDS = {
 	"move_backward": KEY_S,
 	"move_left": KEY_A,
 	"move_right": KEY_D,
-	"crouch": KEY_CTRL,
 	"interact": KEY_E,
 	"toggle_flashlight": KEY_F
 }

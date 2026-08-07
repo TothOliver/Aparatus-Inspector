@@ -82,6 +82,41 @@ func _ready() -> void:
 		if bg_music is AudioStreamPlayer and not bg_music.playing:
 			bg_music.play()
 
+	# Dynamically adjust MenuButtonsPanel frame size to fit all visible buttons
+	_update_menu_panel_size()
+
+func _update_menu_panel_size() -> void:
+	var panel = get_node_or_null("MainWindow/MenuButtonsPanel") as Control
+	var menu_buttons = get_node_or_null("MainWindow/MenuButtons") as VBoxContainer
+	if not panel or not menu_buttons:
+		return
+		
+	var visible_height: float = 0.0
+	var visible_count: int = 0
+	var button_width: float = menu_buttons.size.x if menu_buttons.size.x > 0 else 440.0
+	var separation = menu_buttons.get_theme_constant("separation")
+	if separation <= 0:
+		separation = 10
+		
+	for child in menu_buttons.get_children():
+		if child is Control and child.visible:
+			visible_count += 1
+			var child_h = child.custom_minimum_size.y if child.custom_minimum_size.y > 0 else child.size.y
+			if child_h <= 0:
+				child_h = 48.0
+			visible_height += child_h
+			
+	if visible_count > 1:
+		visible_height += (visible_count - 1) * separation
+		
+	var padding_x: float = 14.0
+	var padding_y: float = 12.0
+	
+	panel.position.x = menu_buttons.position.x - padding_x
+	panel.position.y = menu_buttons.position.y - padding_y
+	panel.size.x = button_width + (padding_x * 2.0)
+	panel.size.y = visible_height + (padding_y * 2.0)
+
 func _on_viewport_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
 	var main_win = get_node_or_null("MainWindow")
@@ -97,6 +132,7 @@ func _on_viewport_size_changed() -> void:
 	var diff_popup = get_node_or_null("DifficultyPopup")
 	if diff_popup:
 		_center_difficulty_popup(diff_popup)
+	_update_menu_panel_size()
 
 func _on_continue_pressed() -> void:
 	if GameStats.load_game():

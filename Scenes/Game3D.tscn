@@ -7,9 +7,8 @@
 [ext_resource type="Script" uid="uid://bwioa3l565go3" path="res://Scripts/player.gd" id="3_player"]
 [ext_resource type="Material" uid="uid://bghp0mv66hvu3" path="res://materials/office_ceiling.tres" id="4_ds5qe"]
 [ext_resource type="Script" uid="uid://5iluofeujj8v" path="res://Scripts/hunter_phase2.gd" id="4_hunter_p2"]
-[ext_resource type="Script" uid="uid://du8ijcubylv2i" path="res://Scripts/interactable_switch.gd" id="4_switch"]
 [ext_resource type="Script" uid="uid://ccs7up3i88hne" path="res://Scripts/hunter_phase3.gd" id="5_hunter_p3"]
-[ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/Robot4N.png" id="6_hunter_sprite"]
+[ext_resource type="Texture2D" uid="uid://dqnrhjyqpdert" path="res://Sprites/robot2.png" id="6_hunter_sprite"]
 [ext_resource type="FontFile" uid="uid://c6o5ffwbjbf4n" path="res://RetroWindowsGUI/M 8pt.ttf" id="7_font"]
 [ext_resource type="PackedScene" uid="uid://jadxrpu615rl" path="res://Scenes/deskSetup.tscn" id="7_upeov"]
 [ext_resource type="AudioStream" uid="uid://u8tmoe5lf411" path="res://sound/freesound_community-factory-fluorescent-light-buzz-6871.mp3" id="7_ynh6o"]
@@ -67,18 +66,6 @@ glow_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.35
 height = 1.8
-
-[sub_resource type="QuadMesh" id="QuadMesh_glass"]
-size = Vector2(1.6, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass"]
-transparency = 1
-albedo_color = Color(0.65, 0.85, 0.95, 0.12)
-metallic = 0.4
-roughness = 0.15
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_curtain"]
-size = Vector3(1.7, 1.1, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
 albedo_color = Color(0.22, 0.2, 0.18, 1)
@@ -162,7 +149,7 @@ spot_range = 25.0
 environment = SubResource("Environment_game")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=177393882]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.4778067)
 script = ExtResource("3_player")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1155043992]
@@ -178,32 +165,10 @@ target_position = Vector3(0, 0, -3)
 
 [node name="Office" type="Node3D" parent="." unique_id=1729367864]
 
-[node name="BackWall" type="CSGCombiner3D" parent="Office" unique_id=960367456]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.55)
+[node name="BackWall" type="CSGBox3D" parent="Office" unique_id=960367456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -1.55)
 use_collision = true
-
-[node name="BackWall_Bottom" type="CSGBox3D" parent="Office/BackWall" unique_id=240901395]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="BackWall_Top" type="CSGBox3D" parent="Office/BackWall" unique_id=161302676]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
-use_collision = true
-size = Vector3(6, 0.8, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="BackWall_Left" type="CSGBox3D" parent="Office/BackWall" unique_id=144380768]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, 1.275, 0)
-use_collision = true
-size = Vector3(2.2, 0.95, 0.1)
-material = ExtResource("10_r4ocn")
-
-[node name="BackWall_Right" type="CSGBox3D" parent="Office/BackWall" unique_id=465403718]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.275, 0)
-use_collision = true
-size = Vector3(2.2, 0.95, 0.1)
+size = Vector3(6, 2.6, 0.1)
 material = ExtResource("10_r4ocn")
 
 [node name="RightWall" type="CSGBox3D" parent="Office" unique_id=108075282]
@@ -274,23 +239,8 @@ use_collision = true
 size = Vector3(1.3, 0.33, 0.1)
 material = ExtResource("10_r4ocn")
 
-[node name="GlassWindow" type="MeshInstance3D" parent="Office" unique_id=1439252855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1.54)
-mesh = SubResource("QuadMesh_glass")
-surface_material_override/0 = SubResource("StandardMaterial3D_glass")
-
-[node name="CurtainInteractable" type="StaticBody3D" parent="Office" unique_id=581943821]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1.52)
-script = ExtResource("4_switch")
-target_node_path = NodePath("../..")
-target_method = "toggle_curtain"
-interact_name = "Window Curtain"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Office/CurtainInteractable" unique_id=629384712]
-shape = SubResource("BoxShape3D_curtain")
-
 [node name="DeskSetup" parent="Office" unique_id=907504952 instance=ExtResource("7_upeov")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7635991)
 
 [node name="MetalRack" parent="Office" unique_id=744250992 instance=ExtResource("8_bdicf")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.651, 0, 2.3)
@@ -673,7 +623,7 @@ offset_right = 438.0
 offset_bottom = 448.0
 
 [node name="Phase1Spawn1" type="Marker3D" parent="." unique_id=1136143014]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40884876, 0, -4.8296156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.332884, 0, 6.439436)
 
 [node name="Phase1Spawn2" type="Marker3D" parent="." unique_id=873404773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, 0, -2.506028)
@@ -682,7 +632,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.987604, 0, -2.506028)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8399444, 0, 1.2411251)
 
 [node name="Phase2Spawn1" type="Marker3D" parent="." unique_id=121111111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.924035, 0, 9.169051)
 
 [node name="Phase2Spawn2" type="Marker3D" parent="." unique_id=121111112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.425512, 0, -1.974645)
