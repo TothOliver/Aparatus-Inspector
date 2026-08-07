@@ -749,3 +749,7 @@ func toggle_curtain3():
 	else:
 		target_curtain3_scale_x = 0.1
 		target_curtain3_pos_x = -0.75
+
+func _on_pause_quit_pressed() -> void:
+	get_tree().paused = false
+	GameStats.quit_or_menu(get_tree())

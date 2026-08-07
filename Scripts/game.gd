@@ -463,22 +463,12 @@ func trigger_walter_escape(player_choice_pass: bool = false):
 	
 	# Update stats for Walter decision
 	if current_robot:
-		var is_good_robot = current_robot.is_good
-		if player_choice_pass:
-			if not is_good_robot:
-				day_manager.bad_ai_let_in_count += 1
-			else:
-				GameStats.good_robots_through += 1
-		else:
-			if is_good_robot:
-				day_manager.bad_ai_let_in_count += 1
-				GameStats.innocent_robots_killed += 1
-			else:
-				day_manager.bad_ai_killed += 1
-				GameStats.bad_robots_terminated = day_manager.bad_ai_killed
+		var robot_to_process = current_robot
 		current_robot = null
+		day_manager.process_robot(robot_to_process, player_choice_pass)
 	
-	spawn_next_robot()
+	if is_inside_tree() and get_tree():
+		spawn_next_robot()
 		
 func handle_chat_choice(player_text: String, robot_reply: String):
 	if is_waiting_for_replay == true:

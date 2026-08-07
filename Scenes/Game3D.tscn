@@ -566,9 +566,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -225.0
-offset_top = -230.0
+offset_top = -250.0
 offset_right = 225.0
-offset_bottom = 230.0
+offset_bottom = 190.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("Icon_WindowBase")
@@ -576,6 +576,32 @@ patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
+
+[node name="PauseQuitButton" type="Button" parent="HUD/PauseMenu" unique_id=987654321]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 215.0
+offset_right = 110.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.5, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("StyleBox_ButtonNormal")
+theme_override_styles/pressed = ExtResource("StyleBox_ButtonPressed")
+theme_override_styles/hover = ExtResource("StyleBox_ButtonHover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Quit to Main Menu"
 
 [node name="TitleBar" type="NinePatchRect" parent="HUD/PauseMenu/PauseWindow" unique_id=776547387]
 layout_mode = 0
@@ -723,3 +749,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 
 [connection signal="pressed" from="HUD/PauseMenu/PauseWindow/TitleBar/CloseButton" to="Player" method="handle_settings_shortcut"]
+[connection signal="pressed" from="HUD/PauseMenu/PauseQuitButton" to="." method="_on_pause_quit_pressed"]

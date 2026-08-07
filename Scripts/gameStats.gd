@@ -532,7 +532,7 @@ func delete_save_game():
 
 func reset_current_day_state() -> void:
 	total_security_breaches = day_start_security_breaches
-	player_health = 100.0
+	player_health = max(0.0, 100.0 - (day_start_security_breaches * 50.0))
 	power_level = 100.0
 	door_locked = false
 	hack_active = false

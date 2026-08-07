@@ -573,23 +573,6 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_GroupLabel")
 text = "Keyboard Controls"
 
-[node name="QuitButton" type="Button" parent="." unique_id=172740624]
-layout_mode = 0
-offset_left = 153.0
-offset_top = 785.0
-offset_right = 273.0
-offset_bottom = 815.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_font_bold")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("9_btn_normal")
-theme_override_styles/pressed = ExtResource("11_btn_pressed")
-theme_override_styles/hover = ExtResource("10_btn_hover")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
-text = "Quit Game"
 
 [node name="GeneralTabBtn" type="Button" parent="." unique_id=578886810]
 layout_mode = 0

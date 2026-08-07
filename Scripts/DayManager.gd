@@ -91,6 +91,11 @@ func start_new_day():
 			health_bar.breaches = bad_ai_let_in_count
 		health_bar.value = health
 		
+	var max_allowed = GameStats.get_max_allowed_breaches()
+	if health <= 0 or bad_ai_let_in_count >= max_allowed:
+		game_over_death()
+		return
+		
 	var config = day_configs[current_day]
 	print("--- DAY ", current_day, " START ---")
 	print("Quota: ", config.quota, " | Difficulty Level: ", config.difficulty)

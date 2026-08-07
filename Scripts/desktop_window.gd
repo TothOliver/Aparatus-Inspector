@@ -359,7 +359,7 @@ func _connect_children_gui_input(node: Node):
 			return
 
 		# Ensure background/container controls inside windows stop mouse clicks from falling through to windows behind
-		if node != self and node.mouse_filter != Control.MOUSE_FILTER_STOP:
+		if node != self and node.mouse_filter == Control.MOUSE_FILTER_PASS:
 			if not (node is BaseButton) and not (node is LineEdit) and not (node is TextEdit):
 				node.mouse_filter = Control.MOUSE_FILTER_STOP
 		if not node.gui_input.is_connected(_on_child_gui_input):

@@ -373,7 +373,7 @@ patch_margin_bottom = 3
 layout_mode = 0
 offset_left = 10.0
 offset_top = 6.0
-offset_right = 500.0
+offset_right = 700.0
 offset_bottom = 26.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_if7li")
@@ -414,17 +414,23 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BriefingLabel" type="Label" parent="BriefingPopup/BriefingPanel" unique_id=690023277]
+[node name="ScrollContainer" type="ScrollContainer" parent="BriefingPopup/BriefingPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = -16.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BriefingLabel" type="Label" parent="BriefingPopup/BriefingPanel/ScrollContainer" unique_id=690023277]
+custom_minimum_size = Vector2(690, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_cmrfp")
 theme_override_font_sizes/font_size = 14
