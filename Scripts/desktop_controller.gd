@@ -41,9 +41,11 @@ func _ready():
 	call_deferred("_update_cctv_button_styles", 1)
 	if start_menu:
 		start_menu.z_index = 10
+		start_menu.set_as_top_level(true)
 	var taskbar = get_node_or_null("Taskbar")
 	if taskbar:
 		taskbar.z_index = 9
+		taskbar.set_as_top_level(true)
 
 	# Initially hide Notepad, Terminal, Minesweeper, Snake, CCTV, Inspector
 	inspector_window.visible = false
@@ -589,8 +591,13 @@ func _get_window_by_name(window_name: String) -> Control:
 func shutdown_computer():
 	if start_menu:
 		start_menu.visible = false
-	var game_3d = get_node_or_null("/root/Game3D")
-	if game_3d and game_3d.is_monitor_on:
+	var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
+	if not game_3d and is_inside_tree():
+		game_3d = get_tree().root.find_child("Game3D", true, false)
+	if not game_3d:
+		game_3d = get_node_or_null("/root/Game3D")
+		
+	if game_3d and game_3d.has_method("toggle_monitor_power"):
 		game_3d.toggle_monitor_power()
 
 # Triggered by double-clicking or clicking desktop icons

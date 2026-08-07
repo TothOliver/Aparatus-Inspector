@@ -343,6 +343,21 @@ func _connect_children_gui_input(node: Node):
 	if node is Control:
 		if node.name in ["CloseButton", "MinimizeButton"] or (node.get_parent() and node.get_parent().name == "TitleBar" and node.name in ["CloseButton", "MinimizeButton"]):
 			return
+			
+		# If the node is a child of the TitleBar and not a button, make it ignore mouse events
+		# so that clicking it propagates to the TitleBar for window dragging.
+		var is_title_bar_child = false
+		var p = node.get_parent()
+		while p:
+			if p == title_bar:
+				is_title_bar_child = true
+				break
+			p = p.get_parent()
+			
+		if is_title_bar_child:
+			node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			return
+
 		# Ensure background/container controls inside windows stop mouse clicks from falling through to windows behind
 		if node != self and node.mouse_filter != Control.MOUSE_FILTER_STOP:
 			if not (node is BaseButton) and not (node is LineEdit) and not (node is TextEdit):
