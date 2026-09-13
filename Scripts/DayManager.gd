@@ -7,7 +7,7 @@ var missed_robots_score: int = 0
 var processed_today: int = 0
 # Day Progression
 var current_day: int = 1
-var max_days: int = 7
+var max_days: int = 2 if GameStats.IS_DEMO else 7
 
 # BAD AI let in
 var bad_ai_let_in_count: int = 0
@@ -162,6 +162,19 @@ func check_quota_progress():
 
 func end_day():
 	print("Day ", current_day, " finished!")
+	if GameStats.IS_DEMO and current_day >= 2:
+		print("Demo Completed at end of Shift 2!")
+		GameStats.current_day = 3
+		GameStats.total_security_breaches = bad_ai_let_in_count
+		GameStats.day_start_security_breaches = bad_ai_let_in_count
+		GameStats.bad_robots_terminated = bad_ai_killed
+		GameStats.is_victory = true
+		GameStats.demo_completed = true
+		for d in range(1, 3):
+			GameStats.read_emails[d] = true
+		GameStats.delete_save_game()
+		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/StoryScreen.tscn")
+		return
 	if current_day < max_days:
 		GameStats.current_day = current_day + 1
 		GameStats.total_security_breaches = bad_ai_let_in_count

@@ -9,7 +9,10 @@ func _ready():
 		$CRTOverlay.visible = GameStats.crt_effect_enabled
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if GameStats.is_victory:
-		title_label.text = "SHIFT COMPLETED / VICTORY!"
+		if GameStats.IS_DEMO:
+			title_label.text = "DEMO COMPLETED / EVALUATION"
+		else:
+			title_label.text = "SHIFT COMPLETED / VICTORY!"
 	else:
 		title_label.text = "GAME OVER"
 	display_stats()
@@ -20,6 +23,7 @@ func _ready():
 
 	if GameStats.is_victory:
 		GameStats.play_victory_sound()
+		_setup_demo_wishlist_button()
 	else:
 		gameOverSFX.play()
 	
@@ -76,3 +80,19 @@ func _on_main_menu_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+func _setup_demo_wishlist_button() -> void:
+	if not GameStats.IS_DEMO:
+		return
+	var window = get_node_or_null("Window")
+	if not window:
+		return
+	var restart_btn = window.get_node_or_null("Restart") as Button
+	if restart_btn:
+		restart_btn.text = "★ Wishlist ★"
+		if restart_btn.pressed.is_connected(_on_restart_pressed):
+			restart_btn.pressed.disconnect(_on_restart_pressed)
+		restart_btn.pressed.connect(func():
+			GameStats.open_steam_store()
+			restart_btn.text = "Opened ✓"
+		)

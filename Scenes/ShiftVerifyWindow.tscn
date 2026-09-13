@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bf5p4v1v8841a"]
 
 [ext_resource type="Texture2D" uid="uid://iajmwylrfdxv" path="res://RetroWindowsGUI/Window_Base.png" id="1_base"]
-[ext_resource type="Script" uid="uid://desktop_window_script" path="res://Scripts/desktop_window.gd" id="2_script"]
+[ext_resource type="Script" path="res://Scripts/desktop_window.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://b6ousc5vgvsd8" path="res://RetroWindowsGUI/Window_Header.png" id="3_header"]
 [ext_resource type="FontFile" uid="uid://b8qj364lmpfu8" path="res://RetroWindowsGUI/windows-bold[1].ttf" id="4_font_bold"]
 [ext_resource type="StyleBox" path="res://RetroWindowsGUI/StyleBox_Button_Normal.tres" id="5_style_norm"]

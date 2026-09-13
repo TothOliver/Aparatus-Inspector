@@ -53,6 +53,37 @@ func _ready() -> void:
 	if settings_btn:
 		settings_btn.pressed.connect(_on_settings_pressed)
 		
+	if GameStats.IS_DEMO:
+		var main_title = get_node_or_null("MainWindow/TitleBar/Title") as Label
+		if main_title:
+			main_title.text = "Aethelgard OS v4.98 [DEMO VERSION — 2 SHIFTS]"
+		var menu_buttons = get_node_or_null("MainWindow/MenuButtons") as VBoxContainer
+		if menu_buttons:
+			var wishlist_btn = Button.new()
+			wishlist_btn.name = "WishlistButton"
+			wishlist_btn.text = "★ Wishlist on Steam"
+			wishlist_btn.custom_minimum_size = Vector2(0, 48)
+			wishlist_btn.add_theme_font_override("font", preload("res://RetroWindowsGUI/windows-bold[1].ttf"))
+			wishlist_btn.add_theme_font_size_override("font_size", 18)
+			wishlist_btn.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+			wishlist_btn.add_theme_color_override("font_focus_color", Color(0, 0, 0.5, 1))
+			wishlist_btn.add_theme_color_override("font_hover_color", Color(0, 0, 0.5, 1))
+			wishlist_btn.add_theme_color_override("font_pressed_color", Color(0, 0, 0, 1))
+			wishlist_btn.add_theme_stylebox_override("normal", preload("res://RetroWindowsGUI/StyleBox_Button_Normal.tres"))
+			wishlist_btn.add_theme_stylebox_override("pressed", preload("res://RetroWindowsGUI/StyleBox_Button_Pressed.tres"))
+			wishlist_btn.add_theme_stylebox_override("hover", preload("res://RetroWindowsGUI/StyleBox_Button_Hover.tres"))
+			wishlist_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+			wishlist_btn.pressed.connect(func():
+				GameStats.open_steam_store()
+				wishlist_btn.text = "Opened in Browser ✓"
+			)
+			var quit_idx = quit_btn.get_index() if quit_btn else -1
+			if quit_idx >= 0:
+				menu_buttons.add_child(wishlist_btn)
+				menu_buttons.move_child(wishlist_btn, quit_idx)
+			else:
+				menu_buttons.add_child(wishlist_btn)
+
 	if quit_btn:
 		quit_btn.pressed.connect(_on_quit_pressed)
 

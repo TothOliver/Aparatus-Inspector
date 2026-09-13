@@ -12,6 +12,16 @@ var let_through_bad_sprites: Array = []
 enum DifficultyMode { NORMAL, HARD, NIGHTMARE }
 var difficulty_mode: DifficultyMode = DifficultyMode.NORMAL
 
+# Demo Mode Configuration
+const IS_DEMO: bool = true
+const DEMO_MAX_SHIFTS: int = 2
+const STEAM_STORE_URL: String = "https://store.steampowered.com/app/4986300/Apparatus_Inspector/?utm_source=itch&utm_medium=social&utm_campaign=playtest"
+var demo_completed: bool = false
+
+func open_steam_store() -> void:
+	print("[Steam] Opening store page: ", STEAM_STORE_URL)
+	OS.shell_open(STEAM_STORE_URL)
+
 func get_max_allowed_breaches() -> int:
 	if difficulty_mode == DifficultyMode.NIGHTMARE:
 		return 1
@@ -334,8 +344,11 @@ func unlock_achievement(api_name: String) -> void:
 	if not Engine.has_singleton("Steam"):
 		print("[Steam] Singleton not active. Skipped achievement: ", api_name)
 		return
-		
 	var steam = Engine.get_singleton("Steam")
+	if steam.has_method("isSteamRunning") and not steam.isSteamRunning():
+		return
+	if steam.has_method("loggedOn") and not steam.loggedOn():
+		return
 	var ach_status = {}
 	if steam.has_method("get_achievement"):
 		ach_status = steam.get_achievement(api_name)
@@ -465,6 +478,9 @@ func play_victory_sound():
 	player.finished.connect(player.queue_free)
 
 func save_game():
+	if IS_DEMO and current_day > DEMO_MAX_SHIFTS:
+		# Do not save progress beyond shift 2 in demo
+		return
 	var config = ConfigFile.new()
 	config.set_value("Game", "current_day", current_day)
 	config.set_value("Game", "difficulty_mode", int(difficulty_mode))
@@ -499,6 +515,8 @@ func load_game() -> bool:
 		
 	difficulty_mode = config.get_value("Game", "difficulty_mode", DifficultyMode.NORMAL) as DifficultyMode
 	current_day = config.get_value("Game", "current_day", 1)
+	if IS_DEMO and current_day > DEMO_MAX_SHIFTS:
+		current_day = DEMO_MAX_SHIFTS
 	player_health = config.get_value("Game", "player_health", 100.0)
 	total_security_breaches = config.get_value("Game", "total_security_breaches", 0)
 	day_start_security_breaches = config.get_value("Game", "day_start_security_breaches", total_security_breaches)

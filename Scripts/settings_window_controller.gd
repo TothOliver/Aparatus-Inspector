@@ -70,7 +70,7 @@ func _setup_scroll_containers():
 		general_scroll = ScrollContainer.new()
 		general_scroll.name = "GeneralScroll"
 		general_scroll.position = Vector2(0, 40)
-		general_scroll.size = Vector2(426, 335)
+		general_scroll.size = Vector2(426, 328)
 		general_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		general_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 		general_scroll.clip_contents = true
@@ -92,7 +92,7 @@ func _setup_scroll_containers():
 		controls_scroll = ScrollContainer.new()
 		controls_scroll.name = "ControlsScroll"
 		controls_scroll.position = Vector2(0, 40)
-		controls_scroll.size = Vector2(426, 335)
+		controls_scroll.size = Vector2(426, 328)
 		controls_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 		controls_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 		controls_scroll.clip_contents = true
@@ -185,11 +185,11 @@ func _ready():
 	# Dynamic resize and positioning of parent settings window
 	var parent = get_parent()
 	if parent and parent is Control:
-		parent.custom_minimum_size = Vector2(450, 460)
-		parent.size = Vector2(450, 460)
+		parent.custom_minimum_size = Vector2(450, 470)
+		parent.size = Vector2(450, 470)
 		var viewport_size = get_viewport_rect().size
 		parent.position.x = (float(viewport_size.x) - 450.0) / 2.0
-		parent.position.y = clamp((float(viewport_size.y) - 460.0) / 2.0, 10.0, max(10.0, float(viewport_size.y) - 470.0))
+		parent.position.y = clamp((float(viewport_size.y) - 470.0) / 2.0, 10.0, max(10.0, float(viewport_size.y) - 480.0))
 		
 		# Update TitleBar
 		var title_bar = parent.get_node_or_null("TitleBar")
@@ -200,14 +200,33 @@ func _ready():
 			if close_button:
 				close_button.position.x = 414
 
-	# Resize self (SettingsBody) to fill parent
-	self.size = Vector2(426, 400)
+		# Position PauseQuitButton neatly inside the window at the bottom
+		var pause_quit = parent.get_node_or_null("PauseQuitButton")
+		if not pause_quit:
+			var pause_menu = parent.get_parent()
+			if pause_menu:
+				pause_quit = pause_menu.get_node_or_null("PauseQuitButton")
+		if pause_quit:
+			pause_quit.custom_minimum_size = Vector2(220, 32)
+			pause_quit.size = Vector2(220, 32)
+			if pause_quit.get_parent() == parent:
+				pause_quit.position.x = (parent.size.x - 220.0) / 2.0
+				pause_quit.position.y = parent.size.y - 32.0 - 14.0
+			else:
+				pause_quit.position.x = parent.position.x + (parent.size.x - 220.0) / 2.0
+				pause_quit.position.y = parent.position.y + parent.size.y - 32.0 - 14.0
+
+	# Resize self (SettingsBody) to fill parent above quit button
+	self.size = Vector2(426, 375)
 	if "offset_right" in self:
 		self.offset_right = 438
 	if "offset_bottom" in self:
-		self.offset_bottom = 445
+		self.offset_bottom = 415
 
 	_setup_scroll_containers()
+
+	if not get_viewport().size_changed.is_connected(_on_viewport_size_changed):
+		get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 	# Position QuitButton down if it exists
 	if quit_button:
@@ -517,6 +536,25 @@ func _process(_delta):
 		if pause_menu.visible and not was_visible:
 			opened_frame = Engine.get_process_frames()
 		was_visible = pause_menu.visible
+
+func _on_viewport_size_changed() -> void:
+	var parent = get_parent()
+	if parent and parent is Control:
+		var viewport_size = get_viewport_rect().size
+		parent.position.x = (float(viewport_size.x) - parent.size.x) / 2.0
+		parent.position.y = clamp((float(viewport_size.y) - parent.size.y) / 2.0, 10.0, max(10.0, float(viewport_size.y) - parent.size.y - 10.0))
+		var pause_quit = parent.get_node_or_null("PauseQuitButton")
+		if not pause_quit:
+			var pause_menu = parent.get_parent()
+			if pause_menu:
+				pause_quit = pause_menu.get_node_or_null("PauseQuitButton")
+		if pause_quit:
+			if pause_quit.get_parent() == parent:
+				pause_quit.position.x = (parent.size.x - pause_quit.size.x) / 2.0
+				pause_quit.position.y = parent.size.y - pause_quit.size.y - 14.0
+			else:
+				pause_quit.position.x = parent.position.x + (parent.size.x - pause_quit.size.x) / 2.0
+				pause_quit.position.y = parent.position.y + parent.size.y - pause_quit.size.y - 14.0
 
 func _on_resume_pressed():
 	if not is_pause_menu:

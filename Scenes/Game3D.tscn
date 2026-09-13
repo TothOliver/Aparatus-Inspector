@@ -577,32 +577,6 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="PauseQuitButton" type="Button" parent="HUD/PauseMenu" unique_id=987654321]
-process_mode = 3
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = 215.0
-offset_right = 110.0
-offset_bottom = 253.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0.5, 1)
-theme_override_fonts/font = ExtResource("Font_Bold")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = ExtResource("StyleBox_ButtonNormal")
-theme_override_styles/pressed = ExtResource("StyleBox_ButtonPressed")
-theme_override_styles/hover = ExtResource("StyleBox_ButtonHover")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
-text = "Quit to Main Menu"
-
 [node name="TitleBar" type="NinePatchRect" parent="HUD/PauseMenu/PauseWindow" unique_id=776547387]
 layout_mode = 0
 offset_left = 6.0
@@ -647,6 +621,32 @@ offset_left = 12.0
 offset_top = 42.0
 offset_right = 438.0
 offset_bottom = 448.0
+
+[node name="PauseQuitButton" type="Button" parent="HUD/PauseMenu" unique_id=987654321]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 215.0
+offset_right = 110.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.5, 1)
+theme_override_fonts/font = ExtResource("Font_Bold")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("StyleBox_ButtonNormal")
+theme_override_styles/pressed = ExtResource("StyleBox_ButtonPressed")
+theme_override_styles/hover = ExtResource("StyleBox_ButtonHover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_icon")
+text = "Quit to Main Menu"
 
 [node name="Phase1Spawn1" type="Marker3D" parent="." unique_id=1136143014]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.332884, 0, 6.439436)

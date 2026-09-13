@@ -255,8 +255,8 @@ func _process(delta):
 		curtain3.position.x = lerp(curtain3.position.x, target_curtain3_pos_x, 8.0 * delta)
 
 func _input(event):
-	# Debug hotkeys: F1 through F7 to jump to any day instantly
-	if event is InputEventKey and event.pressed and not event.echo:
+	# Debug hotkeys: F1 through F7 to jump to any day instantly (disabled in demo version)
+	if not GameStats.IS_DEMO and event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode >= KEY_F1 and event.keycode <= KEY_F7:
 			var target_day = event.keycode - KEY_F1 + 1
 			GameStats.current_day = target_day

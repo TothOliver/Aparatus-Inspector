@@ -508,7 +508,9 @@ func _on_command_submitted(new_text: String):
 				else:
 					print_to_terminal("Error: File '" + args[1] + "' is not a decryptable classified file.")
 		"setday", "day":
-			if args.size() < 2 or not args[1].is_valid_int():
+			if GameStats.IS_DEMO:
+				print_to_terminal("Error: Shift selection is restricted in the demo version.")
+			elif args.size() < 2 or not args[1].is_valid_int():
 				print_to_terminal("Usage: setday <1-7> (e.g. setday 4)")
 			else:
 				var target_day = args[1].to_int()
