@@ -87,8 +87,13 @@ func _ready():
 	# Configure mouse mode initially
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	# Initialize first outage timer randomly between 135.0 and 270.0 seconds (3x the original 45.0 - 90.0 range)
-	outage_timer = randf_range(135.0, 270.0)
+	# Initialize first outage timer based on active shift hazard level
+	var outage_range = _get_outage_range()
+	if GameStats.current_day == 4:
+		# Rapid initial trip on Day 4 to establish power grid sabotage early
+		outage_timer = randf_range(25.0, 38.0)
+	else:
+		outage_timer = randf_range(outage_range.x, outage_range.y)
 	
 	# Unlock Steam Achievement for starting shift
 	GameStats.unlock_achievement("ACH_START_FIRST_SHIFT")
@@ -255,9 +260,9 @@ func _process(delta):
 		curtain3.position.x = lerp(curtain3.position.x, target_curtain3_pos_x, 8.0 * delta)
 
 func _input(event):
-	# Debug hotkeys: F1 through F7 to jump to any day instantly (disabled in demo version)
+	# Debug hotkeys: F1 through F5 to jump to any day instantly (disabled in demo version)
 	if not GameStats.IS_DEMO and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode >= KEY_F1 and event.keycode <= KEY_F7:
+		if event.keycode >= KEY_F1 and event.keycode <= KEY_F5:
 			var target_day = event.keycode - KEY_F1 + 1
 			GameStats.current_day = target_day
 			GameStats.player_health = 100.0
@@ -547,6 +552,15 @@ func toggle_wifi():
 	if GameStats.has_method("_play_button_click"):
 		GameStats._play_button_click()
 
+func _get_outage_range() -> Vector2:
+	if GameStats.current_day == 4:
+		# Day 4: Sabotaged Power Grid - rapid breaker trips every 40-65 seconds
+		return Vector2(40.0, 65.0)
+	elif GameStats.current_day >= 5:
+		return Vector2(50.0, 90.0)
+	else:
+		return Vector2(135.0, 270.0)
+
 func trigger_breaker_outage():
 	is_breaker_tripped = true
 	GameStats.power_level = 0.0
@@ -562,11 +576,12 @@ func reset_breaker():
 		is_breaker_tripped = false
 		GameStats.power_level = 100.0
 		_restore_power()
-		outage_timer = randf_range(135.0, 270.0)
+		var outage_range = _get_outage_range()
+		outage_timer = randf_range(outage_range.x, outage_range.y)
 		var prompt = get_node_or_null("HUD/PromptLabel") as Label
 		if prompt:
 			prompt.text = "SYSTEM POWER RESTORED."
-		print("Power breaker reset. System online.")
+		print("Power breaker reset. System online. Next outage in ~", int(outage_timer), "s")
 
 func toggle_door_lock():
 	if is_blackout:

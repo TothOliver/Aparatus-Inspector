@@ -7,7 +7,7 @@ var missed_robots_score: int = 0
 var processed_today: int = 0
 # Day Progression
 var current_day: int = 1
-var max_days: int = 2 if GameStats.IS_DEMO else 7
+var max_days: int = 2 if GameStats.IS_DEMO else 5
 
 # BAD AI let in
 var bad_ai_let_in_count: int = 0
@@ -29,9 +29,7 @@ var day_configs = {
 	2: {"quota": 4, "difficulty": 2},
 	3: {"quota": 5, "difficulty": 3},
 	4: {"quota": 5, "difficulty": 4},
-	5: {"quota": 6, "difficulty": 5},
-	6: {"quota": 7, "difficulty": 6},
-	7: {"quota": 1, "difficulty": 7}
+	5: {"quota": 6, "difficulty": 5}
 }
 
 var hack_timer: float = 0.0
@@ -60,7 +58,7 @@ func _process(delta):
 	# Keep day stats synced
 	GameStats.current_day = current_day
 	
-	# Hacking events: Day 2 or 3 only, and only if WiFi is enabled!
+	# Hacking events: Day 2+ when WiFi is enabled!
 	if current_day >= 2:
 		if not GameStats.wifi_on:
 			if GameStats.hack_active:
@@ -74,9 +72,14 @@ func _process(delta):
 					# Trigger system breach!
 					GameStats.hack_active = true
 					GameStats.hack_progress = 0.0
-					# Day 2 hacks: ~52.5-82.5s, Day 3 hacks: ~27-52.5s (50% longer than original)
-					var min_time = 52.5 if current_day == 2 else 27.0
-					var max_time = 82.5 if current_day == 2 else 52.5
+					var min_time = 52.5
+					var max_time = 82.5
+					if current_day == 3:
+						min_time = 27.0
+						max_time = 52.5
+					elif current_day >= 4:
+						min_time = 25.0
+						max_time = 45.0
 					hack_timer = randf_range(min_time, max_time)
 
 func start_new_day():
@@ -106,9 +109,11 @@ func start_new_day():
 	print("--- DAY ", current_day, " START ---")
 	print("Quota: ", config.quota, " | Difficulty Level: ", config.difficulty)
 	
-	# Start hack timer shortly after day start on Day 2/3 (50% longer initial delay)
+	# Start hack timer shortly after day start on Day 2+
 	if current_day >= 2:
-		hack_timer = randf_range(22.5, 45.0)
+		var init_min = 22.5 if current_day <= 3 else 18.0
+		var init_max = 45.0 if current_day <= 3 else 32.0
+		hack_timer = randf_range(init_min, init_max)
 
 func process_robot(robot: RobotData, player_choice_pass: bool):
 	var is_good_robot = robot.is_good
@@ -155,6 +160,7 @@ func game_over_death():
 	GameStats.total_security_breaches = bad_ai_let_in_count 
 	GameStats.bad_robots_terminated = bad_ai_killed
 	GameStats.is_victory = false
+	GameStats.ending_type = GameStats.EndingType.DECOMMISSIONED
 	print("YOU DIE")
 	if GameStats.is_permadeath():
 		GameStats.delete_save_game()
@@ -175,6 +181,7 @@ func end_day():
 		GameStats.day_start_security_breaches = bad_ai_let_in_count
 		GameStats.bad_robots_terminated = bad_ai_killed
 		GameStats.is_victory = true
+		GameStats.ending_type = GameStats.EndingType.COMPLIANT_INSPECTOR
 		GameStats.demo_completed = true
 		for d in range(1, 3):
 			GameStats.read_emails[d] = true
@@ -190,9 +197,14 @@ func end_day():
 		GameStats.save_game()
 		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/StoryScreen.tscn")
 	else:
-		print("Game Over. Victory achieved!")
+		print("Campaign Completed at end of Shift 5! Victory achieved!")
+		GameStats.current_day = max_days + 1
 		GameStats.total_security_breaches = bad_ai_let_in_count
+		GameStats.day_start_security_breaches = bad_ai_let_in_count
 		GameStats.bad_robots_terminated = bad_ai_killed
 		GameStats.is_victory = true
+		GameStats.ending_type = GameStats.EndingType.COMPLIANT_INSPECTOR
+		for d in range(1, max_days + 1):
+			GameStats.read_emails[d] = true
 		GameStats.delete_save_game()
-		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
+		GameStats.change_scene_with_loading(get_tree(), "res://Scenes/StoryScreen.tscn")

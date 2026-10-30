@@ -20,10 +20,10 @@ const Day2Pages = [
 ]
 
 const Day3Pages = [
-	"Shift 3 is under way! I'm still here to help you navigate your desktop tools.",
-	"Security intrusions and fake robot specs are at peak levels today. Check your Mail carefully.",
-	"Remember to organize your open windows so you can quickly monitor all active tools.",
-	"Stay focused and stay safe tonight!"
+	"Welcome to Shift 3, Inspector! A new feature is now online in the Apparatus Inspector window.",
+	"Custom Interrogation is unlocked! You can now type direct questions into the prompt below the chat options.",
+	"Try probing units with keywords like 'mimic', 'bribe', 'trust', or 'door' to uncover hidden anomalies.",
+	"Stay alert and good luck on Shift 3!"
 ]
 
 var active_pages: Array = []
@@ -106,6 +106,10 @@ func _is_player_on_pc() -> bool:
 		
 	return true
 
+static func has_new_features_for_day(day: int) -> bool:
+	# Only shifts that introduce new OS desktop tools/mechanics display Scribble at start of day
+	return day in [1, 2, 3]
+
 func _setup_active_pages():
 	var day = GameStats.current_day
 	match day:
@@ -116,7 +120,7 @@ func _setup_active_pages():
 		3:
 			active_pages = Day3Pages
 		_:
-			active_pages = Day1Pages
+			active_pages = ["No new workstation updates for Shift " + str(day) + "!\nRefer to your Mail client for shift directives, Inspector."]
 
 func _prewrap_text(raw_text: String) -> String:
 	if not dialog_label:

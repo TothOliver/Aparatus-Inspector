@@ -30,6 +30,15 @@ func get_max_allowed_breaches() -> int:
 func is_permadeath() -> bool:
 	return difficulty_mode == DifficultyMode.HARD or difficulty_mode == DifficultyMode.NIGHTMARE
 
+enum EndingType {
+	NONE,
+	DECOMMISSIONED,
+	HUNTER_KILLED,
+	COMPLIANT_INSPECTOR,
+	GRID_OVERRIDE_ESCAPE
+}
+var ending_type: EndingType = EndingType.NONE
+
 var current_day: int = 1
 var power_level: float = 100.0
 var cctv_light_on: bool = false
@@ -481,6 +490,9 @@ func save_game():
 	if IS_DEMO and current_day > DEMO_MAX_SHIFTS:
 		# Do not save progress beyond shift 2 in demo
 		return
+	if not IS_DEMO and current_day > 5:
+		# Campaign is complete on Day 5
+		return
 	var config = ConfigFile.new()
 	config.set_value("Game", "current_day", current_day)
 	config.set_value("Game", "difficulty_mode", int(difficulty_mode))
@@ -517,6 +529,8 @@ func load_game() -> bool:
 	current_day = config.get_value("Game", "current_day", 1)
 	if IS_DEMO and current_day > DEMO_MAX_SHIFTS:
 		current_day = DEMO_MAX_SHIFTS
+	elif not IS_DEMO and current_day > 5:
+		current_day = 5
 	player_health = config.get_value("Game", "player_health", 100.0)
 	total_security_breaches = config.get_value("Game", "total_security_breaches", 0)
 	day_start_security_breaches = config.get_value("Game", "day_start_security_breaches", total_security_breaches)
@@ -577,6 +591,7 @@ func reset_game_state():
 	hack_active = false
 	hack_progress = 0.0
 	is_victory = false
+	ending_type = EndingType.NONE
 	wifi_on = true
 	player_health = 100.0
 	read_emails = {1: false, 2: false, 3: false}

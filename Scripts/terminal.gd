@@ -20,12 +20,13 @@ var prompt_prefix: String = "C:\\> "
 var files = {
 	"manual.txt": "=== AETHELGARD OS & DESKTOP USER MANUAL ===\n\n1. HOW TO USE THE WEB BROWSER (Apparatus Explorer):\n  * Navigation Buttons: Use 'Back', 'Forward', and 'Home' at the top left of\n    the browser window to traverse your browsing history.\n  * Address Bar: Click the text field next to 'Go', type any valid URL,\n    and press Enter or click 'Go' to navigate.\n  * Hyperlinks: Underlined blue text links are clickable and will redirect you\n    to other local intranet and public web pages.\n\n2. WHAT IS ON THE INTRANET WEB:\n  * www.inspections-database.org/behavior\n    - Behavioral Profiler logs. Crucial Day 1+ to identify infected units\n      using dialogue anomalies, threats, or suspicious bribery offers.\n  * www.robot-factory.corp/registry\n    - Core database registry. Lists official names, models, manufacturers,\n      status settings, and core hash signatures for all clean units.\n  * www.robot-factory.corp\n    - General corporate homepage and chassis product logs.\n  * www.walter-files.com / www.larry-shrine.fans\n    - Whistleblower blog files and fan club pages containing decryption keys,\n      anomalous logs, and structural blacklists.\n\n3. DESKTOP APPLICATIONS & BUTTON CONTROLS:\n  * Apparatus Inspector: Shows metadata of unit loaded in testing chamber.\n                         (Online Day 1+; Terminal Scanner online Day 2+).\n  * Mail:                Your primary messaging client. Displays daily shift\n                         checklists and instructions from Supervisor Donald.\n  * CCTV Feed:           Monitors facility corridors. Click CAM1, CAM2, CAM3\n                         buttons to switch cameras and flash LIGHT (F) on Hunter.\n  * system_settings:     Adjust mouse sensitivity, CRT display, audio volumes,\n                         FOV, display mode, and fullscreen toggle.\n  * Minesweeper / Snake: Installed retro games to pass the time.\n\n4. SYSTEM TERMINAL INTERFACES:\n  * help                 - List all terminal shell commands.\n  * ls / dir             - List files in current directory.\n  * cat <file>           - View contents of text files.\n  * scan                 - Query active robot telemetry (Day 2+).\n  * decrypt <f> <key>    - Decrypt classified encrypted files (.enc).\n  * lights toggle        - Flip the ceiling light switch.\n  * lock / unlock        - Toggle office door pneumatics (drains grid power).\n  * purge <code>         - Disinfect grid intrusion events (Day 2+).",
 	"safety_guide.txt": "=== APPARATUS INSPECTOR SAFETY PROTOCOLS ===\n\n1. SENSORY THREATS: Roaming test units hunt via audio and visual cues.\n2. CCTV & FLASHLIGHT DEFENSE: Monitor Sector B corridors on CCTV. If the Hunter approaches on camera, flash your flashlight (F) to scare it away!\n3. CEILING LIGHTS & MONITOR: Turn off office ceiling lights or monitor power when footsteps draw near.\n4. PHYSICAL SURVIVAL: Keep office door locked when threats approach.\n5. POWER GRID & BREAKER BOX: Door locks and CCTV flashlight consume grid power. If battery drops to 0%, the wall circuit breaker trips! Walk over to the breaker box on the wall to manually reset it.\n6. TELEMETRY VERIFICATION: For each loaded unit, verify its Name, Model, Manufacturer, and Core Signature against the Intranet Database registry (www.robot-factory.corp/registry) or via the terminal 'scan' utility (Day 2+).",
-	"diary_log.txt": "=== INSPECTOR LOG - ENTRY #12 ===\n\nThey think the units are just programs, but I know they hear us. Unit 'Larry' offered me money today. He offered 14 dollars. Why 14? Is it a code? \nI rejected Walter. He was too calm. My sanity is slipping. If I make one more wrong call, the terminal says I will be decommissioned. I keep hearing clanking in the vents...",
+	"diary_log.txt": "=== INSPECTOR LOG - ENTRY #12 ===\n\nThey think the units are just programs, but I know they hear us. Unit 'Larry' offered me money today. He offered 14 dollars. Why 14? Is it a code? \nI rejected Walter. He was too calm. My sanity is slipping. If I make one more wrong call, the terminal says I will be decommissioned. I keep hearing footsteps outside the door...",
 	"system_info.txt": "=== APPARATUS SYSTEM OS v4.98 ===\n\nCPU: Core-Quantum X1\nRAM: 64 KB (58 KB free)\nGPU: RetroDraw II\nSTATUS: ONLINE\n\nConnected to Office Environment Control (OEC v1.2)",
 	"classified_01.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
 	"classified_02.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
 	"employee_record.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
 	"origin.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
+	"project_apparatus_origin.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]",
 	"escape_protocol.enc": "[ENCRYPTED BINARY DATA - KEY REQUIRED]"
 }
 
@@ -44,7 +45,11 @@ var encrypted_files = {
 	},
 	"origin.enc": {
 		"key": "9820-jv",
-		"content": "=== DECRYPTED PROJECT ORIGIN ===\n\nCLASSIFIED ARCHIVE - LEVEL 5\n\nThe Inspectors of Sector 4 are not human operators sitting in chairs. They are preserved human brains linked to organic-synthetic Core-Quantum processors inside the terminal desks. If empathy levels drop below 0% or security breaches reach 2, the unit is scheduled for RECONSTITUTION."
+		"content": "=== DECRYPTED PROJECT ORIGIN - PROJECT APPARATUS ===\n\nCLASSIFIED ARCHIVE - LEVEL 5\n\nThe Inspectors of Sector 4 are not human operators sitting in chairs. They are preserved human brains linked to organic-synthetic Core-Quantum processors inside the terminal desks. If empathy levels drop below 0% or security breaches reach 2, the unit is scheduled for RECONSTITUTION."
+	},
+	"project_apparatus_origin.enc": {
+		"key": "9820-jv",
+		"content": "=== DECRYPTED PROJECT ORIGIN - PROJECT APPARATUS ===\n\nCLASSIFIED ARCHIVE - LEVEL 5\n\nThe Inspectors of Sector 4 are not human operators sitting in chairs. They are preserved human brains linked to organic-synthetic Core-Quantum processors inside the terminal desks. If empathy levels drop below 0% or security breaches reach 2, the unit is scheduled for RECONSTITUTION."
 	},
 	"escape_protocol.enc": {
 		"key": "nemesis",
@@ -368,8 +373,8 @@ func get_help_text() -> String:
 	text += format_help_line("scan", "Run a bio-mechanical diagnostic scan of the active unit")
 	text += format_help_line("decrypt <f> <k>", "Decrypt a classified file using a key")
 	text += format_help_line("purge <code>", "Clear an active security hack")
-	text += format_help_line("setday <1-7>", "Jump to a specific shift for testing (e.g. setday 4)")
-	text += format_help_line("bypass_grid_98", "Execute facility grid override (Day 7 / Ending)")
+	text += format_help_line("setday <1-5>", "Jump to a specific shift for testing (e.g. setday 5)")
+	text += format_help_line("bypass_grid_98", "Execute facility grid override (Victory Override)")
 	text += format_help_line("cls", "Clear the screen")
 	return text.strip_edges(false, true)
 
@@ -511,10 +516,10 @@ func _on_command_submitted(new_text: String):
 			if GameStats.IS_DEMO:
 				print_to_terminal("Error: Shift selection is restricted in the demo version.")
 			elif args.size() < 2 or not args[1].is_valid_int():
-				print_to_terminal("Usage: setday <1-7> (e.g. setday 4)")
+				print_to_terminal("Usage: setday <1-5> (e.g. setday 5)")
 			else:
 				var target_day = args[1].to_int()
-				if target_day >= 1 and target_day <= 7:
+				if target_day >= 1 and target_day <= 5:
 					GameStats.current_day = target_day
 					GameStats.player_health = 100.0
 					GameStats.total_security_breaches = 0
@@ -533,12 +538,14 @@ func _on_command_submitted(new_text: String):
 					print_to_terminal("SUCCESS: Set active shift to Day " + str(target_day) + ". Reloading shift...")
 					GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 				else:
-					print_to_terminal("Error: Shift number must be between 1 and 7.")
+					print_to_terminal("Error: Shift number must be between 1 and 5.")
 		"bypass_grid_98":
 			print_to_terminal("=== FACILITY GRID BYPASS EXECUTED ===\n\nOverriding Aethelgard security matrix...\nDisabling Hunter patrol directive...\nUnlocking Sector 4 exit pneumatics...")
 			if is_inside_tree() and get_tree():
 				await get_tree().create_timer(2.0).timeout
 				GameStats.is_victory = true
+				GameStats.ending_type = GameStats.EndingType.GRID_OVERRIDE_ESCAPE
+				GameStats.delete_save_game()
 				GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
 		_:
 			print_to_terminal("Bad command or file name: '" + command + "'")

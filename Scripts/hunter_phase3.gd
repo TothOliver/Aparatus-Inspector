@@ -56,7 +56,7 @@ func activate(_peek_loc: PeekLocation):
 		
 	set_monster_visible(true)
 	look_at_closest_camera()
-	wait_at_door_timer = 6.0
+	wait_at_door_timer = 5.0 if GameStats.current_day >= 5 else 6.0
 	
 	var ap = get_active_audio_player()
 	if ap:

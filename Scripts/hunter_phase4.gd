@@ -74,6 +74,8 @@ func retreat_to_phase2():
 	set_monster_visible(false)
 	current_state = State.INACTIVE
 	set_physics_process(false)
+	GameStats.is_victory = false
+	GameStats.ending_type = GameStats.EndingType.HUNTER_KILLED
 	
 	if phase2_robot:
 		phase2_robot.activate(true)
@@ -82,6 +84,8 @@ func kill_player():
 	print("[Phase 4 Debug] kill_player() called!")
 	current_state = State.INACTIVE
 	set_physics_process(false)
+	GameStats.is_victory = false
+	GameStats.ending_type = GameStats.EndingType.HUNTER_KILLED
 	
 	# Turn off the computer monitor and force player out of computer view
 	var game_3d = get_tree().current_scene

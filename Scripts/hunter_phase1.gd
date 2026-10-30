@@ -47,8 +47,10 @@ func _physics_process(delta):
 		var day_multiplier = 1.0
 		if GameStats.current_day == 2:
 			day_multiplier = 0.75
-		elif GameStats.current_day >= 3:
+		elif GameStats.current_day == 3 or GameStats.current_day == 4:
 			day_multiplier = 0.5
+		elif GameStats.current_day >= 5:
+			day_multiplier = 0.4
 		next_investigation_time = 15.0 + (randf_range(30.0, 60.0) * day_multiplier)
 		warning_played = false
 		if GameStats.let_through_bad_sprites.size() > 0:
@@ -304,8 +306,10 @@ func disappear_and_reset():
 	var day_multiplier = 1.0
 	if GameStats.current_day == 2:
 		day_multiplier = 0.75
-	elif GameStats.current_day >= 3:
+	elif GameStats.current_day == 3 or GameStats.current_day == 4:
 		day_multiplier = 0.5
+	elif GameStats.current_day >= 5:
+		day_multiplier = 0.4
 	next_investigation_time = randf_range(40.0, 70.0) * freq_multiplier * day_multiplier
 	warning_played = false
 	

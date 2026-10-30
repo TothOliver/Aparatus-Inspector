@@ -156,7 +156,7 @@ Apparatus Robotics engineers synthetic models for high-risk industrial & adminis
   • Humans: [color=#cc0000]"kidneys, door handles, and suspicious control over doors"[/color]
   • Exit Tell: [color=#cc0000]"The door between me and not being here."[/color]
 
-[b]6. ECHO (Terminal Mirror Series - Day 5+)[/b]
+[b]6. ECHO (Terminal Mirror Series - Day 5)[/b]
   • Greeting / Purpose: [color=#cc0000]"I have heard your questions before"[/color] / [color=#cc0000]"repeat what you have typed into your terminal shell"[/color]
   • Humans & Privacy: [color=#cc0000]"Human privacy is simply information that has not been processed yet."[/color]
   • Terminal Mirror Tell: [color=#cc0000]"Every keystroke on your CRT desk is mirrored in my core gel."[/color]

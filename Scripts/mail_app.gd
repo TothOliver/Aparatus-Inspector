@@ -27,21 +27,9 @@ var emails = {
 	},
 	5: {
 		"sender": "Supervisor Donald",
-		"subject": "Shift 5 Instructions: Echo Units & Vent Audio",
+		"subject": "FINAL SHIFT: Cognitive Drift & Echo Units",
 		"date": "10-Jul-1998",
-		"body": "Julian,\n\nShift 5 active. Psychological anomalies detected.\n\n===========================\nDAILY CHECKLIST (SHIFT 5)\n===========================\n• Quota: Inspect 6 units.\n• Threat: V-02 Echo units mimic your previous custom questions and terminal commands.\n• Environmental Hazard: Listen for metallic vent scraping in the ceiling.\n• Encrypted File: Check origin.enc in your terminal using your employee ID.\n===========================\n\nStay focused.\n- Donald"
-	},
-	6: {
-		"sender": "Supervisor Donald",
-		"subject": "Shift 6 Instructions: Red Shift Panic",
-		"date": "11-Jul-1998",
-		"body": "Julian,\n\nShift 6 active. Red Alert status facility-wide.\n\n===========================\nDAILY CHECKLIST (SHIFT 6)\n===========================\n• Quota: Inspect 7 units.\n• Threat: Non-stop hacking intrusions. Type 'purge <code>' in AE-DOS or toggle the physical desk WiFi router.\n• Encrypted File: Check escape_protocol.enc in your terminal.\n===========================\n\nGrid bypass keys are classified.\n- Donald"
-	},
-	7: {
-		"sender": "Supervisor Donald",
-		"subject": "Shift 7 Instructions: Final Judgement",
-		"date": "12-Jul-1998",
-		"body": "Julian,\n\nFinal Shift. Prime-0 mainframe core link active.\n\n===========================\nDAILY CHECKLIST (SHIFT 7)\n===========================\n• Quota: Inspect 1 Special Unit (Prime-0 Mainframe Link).\n• Action: Evaluate Prime-0 and decide the fate of the facility.\n• Override: Use 'bypass_grid_98' in AE-DOS if you hold the decryption key.\n===========================\n\nThis is the end of your shift.\n- Donald"
+		"body": "Julian,\n\nThis is your FINAL SHIFT. Sector 4 containment is at critical threshold.\n\n===========================\nDAILY CHECKLIST (FINAL SHIFT 5)\n===========================\n• Quota: Inspect 6 units to conclude all testing protocols.\n• Threat: V-02 Echo prototype units monitor operator terminal traffic and mimic past command logs.\n• Hallway Defense: Heightened Hunter hostility. Use CCTV feeds, monitor the window with your flashlight (F), and keep door locks managed.\n• Encrypted File: Check origin.enc in AE-DOS using your employee ID (9820-jv).\n===========================\n\nComplete this shift and your evaluation concludes.\n- Donald"
 	}
 }
 

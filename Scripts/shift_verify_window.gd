@@ -73,14 +73,28 @@ func _update_ui():
 			prompt_label.text = "Complete your quota to authorize exit."
 			passcode_input.editable = false
 			verify_button.disabled = true
-	elif day == 3:
-		status_label.text = "STATUS: SHIFT 3 - QUOTA (%d/%d)" % [processed, quota]
+	elif day >= 3 and day < 5:
+		status_label.text = "STATUS: SHIFT %d - QUOTA (%d/%d)" % [day, processed, quota]
 		if quota_met:
 			status_label.add_theme_color_override("font_color", Color(0, 0.5, 0)) # Green
-			prompt_label.text = "No passcode required. Final shift ready."
+			prompt_label.text = "No passcode required. Shift exit ready."
 			passcode_input.editable = false
 			passcode_input.placeholder_text = "N/A"
-			verify_button.text = "Evacuate & Submit Archives"
+			verify_button.text = "Authorize Shift Exit"
+			verify_button.disabled = false
+		else:
+			status_label.add_theme_color_override("font_color", Color(0.8, 0, 0)) # Red
+			prompt_label.text = "Complete your quota to authorize exit."
+			passcode_input.editable = false
+			verify_button.disabled = true
+	elif day >= 5:
+		status_label.text = "STATUS: FINAL SHIFT 5 - QUOTA (%d/%d)" % [processed, quota]
+		if quota_met:
+			status_label.add_theme_color_override("font_color", Color(0, 0.5, 0)) # Green
+			prompt_label.text = "All shifts complete. Final archive ready."
+			passcode_input.editable = false
+			passcode_input.placeholder_text = "N/A"
+			verify_button.text = "Conclude Campaign"
 			verify_button.disabled = false
 		else:
 			status_label.add_theme_color_override("font_color", Color(0.8, 0, 0)) # Red
@@ -107,8 +121,8 @@ func _on_verify_pressed():
 		correct = (entered_code == "2984")
 	elif day == 2:
 		correct = (entered_code == "8841")
-	elif day == 3:
-		correct = true # No passcode required for final day
+	elif day >= 3:
+		correct = true # No passcode required for subsequent shifts and final day
 		
 	if correct:
 		is_processing_verification = true

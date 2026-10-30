@@ -10,8 +10,7 @@ var stories = {
 	2: "=== SHIFT 2 COMPLETE ===\n\nFacility Quarantine: CRITICAL.\n\nINCIDENT REPORT: Remote intrusions are escalating and containment breaches remain active. Sector B power grid unstable.",
 	3: "=== SHIFT 3 COMPLETE ===\n\nPower Grid Sabotage Alert.\n\nINCIDENT REPORT: The Hunter has begun physically tripping breaker boxes. Circuit breaker resets required during outages.",
 	4: "=== SHIFT 4 COMPLETE ===\n\nIdentity Verification Complete.\n\nINCIDENT REPORT: Employee records decrypted. Neural brain monitoring telemetry synchronized for Shift 5.",
-	5: "=== SHIFT 5 COMPLETE ===\n\nPsychological Containment Warning.\n\nINCIDENT REPORT: Echo units detected in the inspection chamber. Non-stop firewall intrusions initiated.",
-	6: "=== SHIFT 6 COMPLETE ===\n\nRED SHIFT EMERGENCY ALERT.\n\nINCIDENT REPORT: Facility quarantine overridden. Prepare for the final confrontation with Prime-0 on Shift 7."
+	5: "=== SHIFT 5 COMPLETE - FINAL SHIFT ===\n\nProject Apparatus Unmasked.\n\nINCIDENT REPORT: You uncovered the truth behind Project Apparatus, survived all mimic intrusions, and maintained facility integrity through all 5 shifts.\n\nSector 4 containment holds. Campaign Complete."
 }
 
 var wishlist_popup: Control = null
@@ -33,6 +32,16 @@ func _ready():
 		_setup_standard_story_screen(completed_day)
 
 func _setup_standard_story_screen(completed_day: int):
+	if completed_day >= 5 or GameStats.is_victory:
+		title_label.text = "Shift 5 Completed — Epilogue"
+		story_label.text = stories.get(5, "Campaign Completed successfully.")
+		proceed_button.text = "View Ending"
+		proceed_button.pressed.connect(func():
+			get_tree().paused = false
+			GameStats.change_scene_with_loading(get_tree(), "res://Scenes/death_scene.tscn")
+		)
+		return
+
 	if completed_day in stories:
 		title_label.text = "Shift " + str(completed_day) + " Completed"
 		story_label.text = stories[completed_day]

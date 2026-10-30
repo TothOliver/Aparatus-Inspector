@@ -276,14 +276,17 @@ func _ready():
 			if offline_label:
 				offline_label.visible = false
 
-	# Show Scribble tutorial assistant automatically on shift start
+	# Only show Scribble tutorial assistant automatically if this shift introduces new features
 	var scribble = get_node_or_null("ScribbleWindow")
 	if scribble:
-		scribble.visible = true
-		if scribble.has_method("move_to_front"):
-			scribble.move_to_front()
-		if scribble.has_signal("focused"):
-			scribble.focused.emit()
+		var scribble_script = load("res://Scripts/scribble_controller.gd")
+		var has_new = scribble_script != null and scribble_script.has_method("has_new_features_for_day") and scribble_script.has_new_features_for_day(day_manager.current_day)
+		scribble.visible = has_new
+		if has_new:
+			if scribble.has_method("move_to_front"):
+				scribble.move_to_front()
+			if scribble.has_signal("focused"):
+				scribble.focused.emit()
 
 func spawn_next_robot():
 	if not is_inside_tree():
@@ -383,9 +386,13 @@ func scan_active_unit() -> String:
 		manuInfo.text = "Unknown"
 		
 	var core_val = current_robot.core_hash if ("core_hash" in current_robot and current_robot.core_hash) else "UNKNOWN_CORE_ERR"
+	var corruption_header = ""
+	if day_manager.current_day == 4 and not current_robot.is_good:
+		corruption_header = "  [ALERT]: DATA STREAM CORRUPTED - CRC ERROR\n"
 	
 	return ("===============================================\n" +
 		"  AE-DOS HARDWARE TELEMETRY SCANNER v2.1\n" +
+		corruption_header +
 		"===============================================\n" +
 		"  ACTIVE UNIT:     " + current_robot.name + "\n" +
 		"  MODEL:           " + current_robot.model + "\n" +
@@ -401,6 +408,10 @@ func pick_next_robot() -> RobotData:
 		next_robot = RobotFactory.create_walter_robot()
 	elif day_manager.current_day == 2 and day_manager.processed_today == 0:
 		next_robot = RobotFactory.create_day2_first_robot()
+	elif day_manager.current_day == 4 and day_manager.processed_today == 2:
+		next_robot = RobotFactory.create_janus_robot()
+	elif day_manager.current_day == 5 and day_manager.processed_today == 2:
+		next_robot = RobotFactory.create_echo_robot()
 	else:
 		if robots.is_empty():
 			current_robot = null

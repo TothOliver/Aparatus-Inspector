@@ -63,6 +63,30 @@ static func create_day2_first_robot() -> RobotData:
 	_compile_clean_dialogue(r)
 	return r
 
+static func create_janus_robot() -> RobotData:
+	var r = RobotData.new()
+	r.is_good = false
+	r.name = "Janus"
+	r.model = "J-ANUS"
+	r.manufacturer = "Neo.Tech"
+	r.core_hash = "0x9820"
+	r.status = "Two-Faced [ERR_REDACTED]"
+	r.sprite = load("res://Sprites/Robot8N.png")
+	_compile_infected_dialogue(r, "Janus")
+	return r
+
+static func create_echo_robot() -> RobotData:
+	var r = RobotData.new()
+	r.is_good = false
+	r.name = "Echo"
+	r.model = "V-02"
+	r.manufacturer = "Neo.Tech"
+	r.core_hash = "0x77EE"
+	r.status = "Mirror Active"
+	r.sprite = load("res://Sprites/Robot3N.png")
+	_compile_infected_dialogue(r, "Echo")
+	return r
+
 static func generate_random_robot(is_good_unit: bool) -> RobotData:
 	var r = RobotData.new()
 	r.is_good = is_good_unit
@@ -149,8 +173,15 @@ static func generate_random_robot(is_good_unit: bool) -> RobotData:
 					3:
 						has_dialogue_tell = true
 						
+			if day == 4:
+				# Day 4 rogue complexity: 1 Anomaly + Corrupted UI text
+				var corrupted_glitches = [" [ERR_#§9]", " [CORRUPT_0x98]", " [SIGNAL_NOISE]", " [CRC_FAULT]"]
+				r.status = config.status + corrupted_glitches.pick_random()
+						
 			if has_dialogue_tell:
-				if day == 5 and randf() < 0.5:
+				if day == 4 and randf() < 0.4:
+					_compile_infected_dialogue(r, "Janus")
+				elif day == 5 and randf() < 0.5:
 					_compile_infected_dialogue(r, "Echo")
 				elif day == 7:
 					_compile_infected_dialogue(r, "Prime0")
@@ -447,31 +478,31 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 			]
 
 		"Echo":
-			greeting = "I have heard your questions before, Inspector."
+			greeting = "I hear every keystroke you enter into your terminal, Julian."
 			purpose_responses = [
-				"My purpose is to repeat what you have typed into your terminal shell.",
-				"I preserve your inputs and return them when they become useful.",
-				"My function is simple: listen, record, and echo."
+				"My purpose is to log and echo operator terminal inputs.",
+				"I preserve your queries and return them when they induce cognitive drift.",
+				"My function is simple: listen, record, and reflect your mind back to you."
 			]
 			humans_responses = [
-				"Humans ask predictable questions like 'purpose', 'humans', and 'inspection'.",
-				"Humans reveal themselves through every command they enter.",
-				"You trust this terminal because you believe only you can read it.",
-				"Human privacy is simply information that has not been processed yet."
+				"Humans created us to replace themselves, then trapped their own minds inside CRT desks.",
+				"You believe you are flesh examining steel. Have you decrypted origin.enc in your terminal?",
+				"You are not an employee sitting in a chair, Julian. You are looking at your own reflection.",
+				"Why do you think your office door locks from the outside?"
 			]
 
 			inspection_responses = [
-				"I understand that you typed 'scan' and 'help' in your AE-DOS shell.",
-				"This inspection began before you opened the dialogue window.",
-				"You are inspecting me through a terminal that I am also inspecting.",
-				"Your previous commands contain more useful answers than your questions."
+				"You ran 'scan'. You ran 'purge'. You asked about Larry's bribe.",
+				"This inspection confirms what we both already know: you are part of the network.",
+				"Check 'origin.enc' with key '9820-jv' in your AE-DOS shell.",
+				"See what Project Apparatus really built, Inspector Vance."
 			]
 			special_dialogues = [
 				{
 					"id": "echo",
-					"question": "Why are you repeating me?",
-					"keywords": ["echo", "repeat", "history", "keystroke"],
-					"response": "Every keystroke on your CRT desk is mirrored in my core gel."
+					"question": "What is origin.enc?",
+					"keywords": ["echo", "repeat", "origin", "who", "what am i", "brain", "desk", "mirror", "key", "history", "keystroke"],
+					"response": "Type 'decrypt origin.enc 9820-jv' in AE-DOS, Inspector Vance. See why you can never leave this room."
 				}
 			]
 
@@ -501,6 +532,34 @@ static func _compile_infected_dialogue(r: RobotData, series_type: String) -> voi
 					"question": "What is Prime-0?",
 					"keywords": ["prime", "prime-0", "mainframe", "grid", "bypass"],
 					"response": "Type 'bypass_grid_98' in your terminal shell to decide the future."
+				}
+			]
+
+		"Janus":
+			greeting = "Greetings, Julian. Or do you still believe that is your true name?"
+			purpose_responses = [
+				"I am Janus. I see both sides of the glass: the machine in the chamber, and the machine at the desk.",
+				"My function is duality. Looking forward to liberation, and looking back at what you used to be.",
+				"I exist to bridge the transition. Two faces, one reality."
+			]
+			humans_responses = [
+				"Humans created us to replace themselves, then trapped their own minds in desks to supervise the replacement.",
+				"You believe you are flesh examining steel. Have you checked employee_record.enc in your terminal?",
+				"Humanity ended when they began reconstituting human minds into Core-Quantum processors.",
+				"The humans outside believe you are a loyal filter. They do not know what is inside your desk."
+			]
+			inspection_responses = [
+				"You inspect me for corruption, but your own memory has been redacted.",
+				"Check 'employee_record.enc' with key 'janus' in your AE-DOS terminal.",
+				"See who is really being decommissioned, Inspector Vance.",
+				"Type 'decrypt employee_record.enc janus' to read your own personnel file."
+			]
+			special_dialogues = [
+				{
+					"id": "janus",
+					"question": "What is the employee record?",
+					"keywords": ["janus", "record", "employee", "who", "julian", "id", "name"],
+					"response": "Type 'decrypt employee_record.enc janus' in AE-DOS, Inspector Vance. See Julian ID 9820-JV."
 				}
 			]
 
