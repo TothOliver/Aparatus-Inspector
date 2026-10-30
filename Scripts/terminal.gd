@@ -516,6 +516,14 @@ func _on_command_submitted(new_text: String):
 				var target_day = args[1].to_int()
 				if target_day >= 1 and target_day <= 7:
 					GameStats.current_day = target_day
+					GameStats.player_health = 100.0
+					GameStats.total_security_breaches = 0
+					GameStats.day_start_security_breaches = 0
+					GameStats.door_locked = false
+					GameStats.power_level = 100.0
+					GameStats.hack_active = false
+					GameStats.hack_progress = 0.0
+					GameStats.let_through_bad_sprites.clear()
 					var game_3d = null
 					if is_inside_tree() and get_tree():
 						game_3d = get_tree().current_scene

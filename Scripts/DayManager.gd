@@ -39,6 +39,16 @@ var hack_timer: float = 0.0
 func jump_to_day(target_day: int) -> void:
 	current_day = clamp(target_day, 1, max_days)
 	GameStats.current_day = current_day
+	bad_ai_let_in_count = 0
+	health = 100
+	GameStats.player_health = 100.0
+	GameStats.total_security_breaches = 0
+	GameStats.day_start_security_breaches = 0
+	GameStats.let_through_bad_sprites.clear()
+	GameStats.door_locked = false
+	GameStats.power_level = 100.0
+	GameStats.hack_active = false
+	GameStats.hack_progress = 0.0
 	start_new_day()
 	print("Jumped to Day ", current_day)
 
@@ -82,19 +92,15 @@ func start_new_day():
 	if door:
 		door.rotation.y = 0.0
 		
-	# Load persisted health
-	health = int(GameStats.player_health)
-	bad_ai_let_in_count = GameStats.total_security_breaches
-	GameStats.day_start_security_breaches = GameStats.total_security_breaches
+	# Reset shift-specific fail quota and health for the day
+	bad_ai_let_in_count = 0
+	health = 100
+	GameStats.player_health = 100.0
+	GameStats.day_start_security_breaches = 0
 	if health_bar:
 		if "breaches" in health_bar:
-			health_bar.breaches = bad_ai_let_in_count
-		health_bar.value = health
-		
-	var max_allowed = GameStats.get_max_allowed_breaches()
-	if health <= 0 or bad_ai_let_in_count >= max_allowed:
-		game_over_death()
-		return
+			health_bar.breaches = 0
+		health_bar.value = 100
 		
 	var config = day_configs[current_day]
 	print("--- DAY ", current_day, " START ---")

@@ -103,10 +103,10 @@ offset_bottom = 283.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("Font_Bold")
 theme_override_font_sizes/font_size = 14
-text = "Bad robots EXTERMINATED: 0
-TOTAL BREACHES: 0
-INNOCENTS TERMINATED: 0
-PERFORMANCE GRADE: F"
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Restart" type="Button" parent="Window" unique_id=1857837205]
 unique_name_in_owner = true

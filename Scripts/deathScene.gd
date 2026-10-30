@@ -10,12 +10,12 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if GameStats.is_victory:
 		if GameStats.IS_DEMO:
-			title_label.text = "DEMO COMPLETED / EVALUATION"
+			title_label.text = "DEMO COMPLETED"
 		else:
-			title_label.text = "SHIFT COMPLETED / VICTORY!"
+			title_label.text = "SHIFT COMPLETED"
 	else:
 		title_label.text = "GAME OVER"
-	display_stats()
+	display_message()
 	if has_node("/root/BGMusic"):
 		var bg_music = get_node("/root/BGMusic")
 		if bg_music is AudioStreamPlayer:
@@ -31,40 +31,14 @@ func _ready():
 	if menu_btn:
 		menu_btn.pressed.connect(_on_main_menu_pressed)
 
-func display_stats():
-	var calculated_score = GameStats.bad_robots_terminated + GameStats.good_robots_through - GameStats.innocent_robots_killed
-	
-	var terminated = GameStats.bad_robots_terminated 
-	var breaches = GameStats.total_security_breaches
-	var innocents = GameStats.innocent_robots_killed
-	
-	var mode_name = "NORMAL"
-	if GameStats.difficulty_mode == GameStats.DifficultyMode.HARD:
-		mode_name = "HARD (PERMADEATH)"
-	elif GameStats.difficulty_mode == GameStats.DifficultyMode.NIGHTMARE:
-		mode_name = "NIGHTMARE (PERMADEATH)"
-		
-	var grade = calculate_grade(calculated_score)
-	
-	stats_label.text = "DIFFICULTY MODE: " + mode_name
-	stats_label.text += "\nBad robots EXTERMINATED: " + str(terminated) 
-	stats_label.text += "\nTOTAL BREACHES: " + str(breaches)
-	stats_label.text += "\nINNOCENTS TERMINATED: " + str(innocents)
-	stats_label.text += "\nPERFORMANCE GRADE: " + grade
-
-func calculate_grade(score: int) -> String:
-	if score >= 20:
-		return "A+"
-	elif score >= 15:
-		return "A"
-	elif score >= 10:
-		return "B"
-	elif score >= 5:
-		return "C"
-	elif score >= 1:
-		return "D"
+func display_message():
+	if GameStats.is_victory:
+		if GameStats.IS_DEMO:
+			stats_label.text = "DEMO COMPLETE\n\nThank you for playing the Apparatus Inspector demo!\nWishlist on Steam to support further development."
+		else:
+			stats_label.text = "SHIFT COMPLETE\n\nAll inspection directives concluded successfully.\nFacility integrity maintained."
 	else:
-		return "F"
+		stats_label.text = "INSPECTOR DECOMMISSIONED\n\nSecurity breach threshold reached.\nFacility protocols compromised."
 
 func _on_restart_pressed() -> void:
 	if GameStats.difficulty_mode == GameStats.DifficultyMode.NORMAL:

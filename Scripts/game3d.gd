@@ -260,6 +260,14 @@ func _input(event):
 		if event.keycode >= KEY_F1 and event.keycode <= KEY_F7:
 			var target_day = event.keycode - KEY_F1 + 1
 			GameStats.current_day = target_day
+			GameStats.player_health = 100.0
+			GameStats.total_security_breaches = 0
+			GameStats.day_start_security_breaches = 0
+			GameStats.door_locked = false
+			GameStats.power_level = 100.0
+			GameStats.hack_active = false
+			GameStats.hack_progress = 0.0
+			GameStats.let_through_bad_sprites.clear()
 			print("Debug Hotkey Pressed: Switching to Day ", target_day)
 			GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 			get_viewport().set_input_as_handled()

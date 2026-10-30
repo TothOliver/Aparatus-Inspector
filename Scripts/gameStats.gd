@@ -13,7 +13,7 @@ enum DifficultyMode { NORMAL, HARD, NIGHTMARE }
 var difficulty_mode: DifficultyMode = DifficultyMode.NORMAL
 
 # Demo Mode Configuration
-const IS_DEMO: bool = true
+const IS_DEMO: bool = false
 const DEMO_MAX_SHIFTS: int = 2
 const STEAM_STORE_URL: String = "https://store.steampowered.com/app/4986300/Apparatus_Inspector/?utm_source=itch&utm_medium=social&utm_campaign=playtest"
 var demo_completed: bool = false
@@ -549,8 +549,9 @@ func delete_save_game():
 			print("Save game deleted.")
 
 func reset_current_day_state() -> void:
-	total_security_breaches = day_start_security_breaches
-	player_health = max(0.0, 100.0 - (day_start_security_breaches * 50.0))
+	total_security_breaches = 0
+	day_start_security_breaches = 0
+	player_health = 100.0
 	power_level = 100.0
 	door_locked = false
 	hack_active = false
