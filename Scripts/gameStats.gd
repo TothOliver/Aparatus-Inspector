@@ -338,9 +338,16 @@ func _ready():
 	# Recursively connect to all buttons currently in the tree
 	_connect_buttons_recursive(get_tree().root)
 	
-	# Connect Steam overlay signals and request current stats
+	# Initialize Steam API and connect Steam overlay signals
 	if Engine.has_singleton("Steam"):
 		var steam = Engine.get_singleton("Steam")
+		var init_status = {}
+		if steam.has_method("steamInitEx"):
+			init_status = steam.steamInitEx()
+		elif steam.has_method("steamInit"):
+			init_status = steam.steamInit()
+		print("[Steam] Init status: ", init_status)
+
 		if steam.has_signal("overlay_toggled"):
 			if not steam.overlay_toggled.is_connected(_on_overlay_toggled):
 				steam.overlay_toggled.connect(_on_overlay_toggled)

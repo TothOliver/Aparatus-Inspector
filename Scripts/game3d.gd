@@ -95,8 +95,12 @@ func _ready():
 	else:
 		outage_timer = randf_range(outage_range.x, outage_range.y)
 	
-	# Unlock Steam Achievement for starting shift
-	GameStats.unlock_achievement("ACH_START_FIRST_SHIFT")
+	# Unlock Steam Achievement for shift progression
+	if GameStats.current_day == 1:
+		GameStats.unlock_achievement("ACH_FIRST_SHIFT")
+		GameStats.unlock_achievement("ACH_START_FIRST_SHIFT")
+	elif GameStats.current_day == 3:
+		GameStats.unlock_achievement("ACH_MIDWAY")
 			
 	# Connect to the 2D game's robot spawning signal
 	if game_2d:
@@ -260,8 +264,8 @@ func _process(delta):
 		curtain3.position.x = lerp(curtain3.position.x, target_curtain3_pos_x, 8.0 * delta)
 
 func _input(event):
-	# Debug hotkeys: F1 through F5 to jump to any day instantly (disabled in demo version)
-	if not GameStats.IS_DEMO and event is InputEventKey and event.pressed and not event.echo:
+	# Debug hotkeys: F1 through F5 to jump to any day instantly (only enabled in debug builds)
+	if OS.is_debug_build() and not GameStats.IS_DEMO and event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode >= KEY_F1 and event.keycode <= KEY_F5:
 			var target_day = event.keycode - KEY_F1 + 1
 			GameStats.current_day = target_day

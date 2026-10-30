@@ -373,8 +373,8 @@ func get_help_text() -> String:
 	text += format_help_line("scan", "Run a bio-mechanical diagnostic scan of the active unit")
 	text += format_help_line("decrypt <f> <k>", "Decrypt a classified file using a key")
 	text += format_help_line("purge <code>", "Clear an active security hack")
-	text += format_help_line("setday <1-5>", "Jump to a specific shift for testing (e.g. setday 5)")
-	text += format_help_line("bypass_grid_98", "Execute facility grid override (Victory Override)")
+	if OS.is_debug_build():
+		text += format_help_line("setday <1-5>", "[DEBUG] Jump to a specific shift for testing")
 	text += format_help_line("cls", "Clear the screen")
 	return text.strip_edges(false, true)
 
@@ -513,7 +513,9 @@ func _on_command_submitted(new_text: String):
 				else:
 					print_to_terminal("Error: File '" + args[1] + "' is not a decryptable classified file.")
 		"setday", "day":
-			if GameStats.IS_DEMO:
+			if not OS.is_debug_build():
+				print_to_terminal("Bad command or file name: '" + command + "'")
+			elif GameStats.IS_DEMO:
 				print_to_terminal("Error: Shift selection is restricted in the demo version.")
 			elif args.size() < 2 or not args[1].is_valid_int():
 				print_to_terminal("Usage: setday <1-5> (e.g. setday 5)")
@@ -540,15 +542,19 @@ func _on_command_submitted(new_text: String):
 				else:
 					print_to_terminal("Error: Shift number must be between 1 and 5.")
 		"endday", "skipshift":
-			var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
-			var day_mgr = game_3d.find_child("DayManager", true, false) if game_3d else null
-			if day_mgr and day_mgr.has_method("end_day"):
-				print_to_terminal("DEBUG: Forcing quota completion and concluding shift...")
-				day_mgr.end_day()
+			if not OS.is_debug_build():
+				print_to_terminal("Bad command or file name: '" + command + "'")
 			else:
-				print_to_terminal("Error: DayManager not found.")
+				var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
+				var day_mgr = game_3d.find_child("DayManager", true, false) if game_3d else null
+				if day_mgr and day_mgr.has_method("end_day"):
+					print_to_terminal("DEBUG: Forcing quota completion and concluding shift...")
+					day_mgr.end_day()
+				else:
+					print_to_terminal("Error: DayManager not found.")
 		"bypass_grid_98":
 			print_to_terminal("=== FACILITY GRID BYPASS EXECUTED ===\n\nOverriding Aethelgard security matrix...\nDisabling Hunter patrol directive...\nUnlocking Sector 4 exit pneumatics...")
+			GameStats.unlock_achievement("ACH_ENDING_ESCAPE")
 			if is_inside_tree() and get_tree():
 				await get_tree().create_timer(2.0).timeout
 				GameStats.is_victory = true

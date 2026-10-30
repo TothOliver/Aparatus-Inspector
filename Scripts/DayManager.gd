@@ -174,6 +174,8 @@ func check_quota_progress():
 
 func end_day():
 	print("Day ", current_day, " finished!")
+	if current_day == 1:
+		GameStats.unlock_achievement("ACH_SURVIVE_NIGHT_1")
 	if GameStats.IS_DEMO and current_day >= 2:
 		print("Demo Completed at end of Shift 2!")
 		GameStats.current_day = 3
@@ -182,6 +184,7 @@ func end_day():
 		GameStats.bad_robots_terminated = bad_ai_killed
 		GameStats.is_victory = true
 		GameStats.ending_type = GameStats.EndingType.COMPLIANT_INSPECTOR
+		GameStats.unlock_achievement("ACH_ENDING_COMPLIANT")
 		GameStats.demo_completed = true
 		for d in range(1, 3):
 			GameStats.read_emails[d] = true
@@ -204,6 +207,7 @@ func end_day():
 		GameStats.bad_robots_terminated = bad_ai_killed
 		GameStats.is_victory = true
 		GameStats.ending_type = GameStats.EndingType.COMPLIANT_INSPECTOR
+		GameStats.unlock_achievement("ACH_ENDING_COMPLIANT")
 		for d in range(1, max_days + 1):
 			GameStats.read_emails[d] = true
 		GameStats.delete_save_game()

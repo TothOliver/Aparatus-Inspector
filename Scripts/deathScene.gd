@@ -27,6 +27,10 @@ func _ready():
 			bg_music.stop()
 
 	if GameStats.is_victory:
+		if GameStats.ending_type == GameStats.EndingType.GRID_OVERRIDE_ESCAPE:
+			GameStats.unlock_achievement("ACH_ENDING_ESCAPE")
+		elif not GameStats.IS_DEMO:
+			GameStats.unlock_achievement("ACH_ENDING_COMPLIANT")
 		GameStats.play_victory_sound()
 		_setup_demo_wishlist_button()
 	else:
