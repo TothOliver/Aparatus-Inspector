@@ -7,6 +7,13 @@
 export.cfg
 export_credentials.cfg
 
+.build/
+Build/
+build/
+*.pck
+*.exe
+steam_appid.txt
+
 # Imported translations (automatically generated from CSV files)
 *.translation
 
