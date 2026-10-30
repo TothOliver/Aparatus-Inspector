@@ -539,6 +539,14 @@ func _on_command_submitted(new_text: String):
 					GameStats.change_scene_with_loading(get_tree(), "res://Scenes/Game3D.tscn")
 				else:
 					print_to_terminal("Error: Shift number must be between 1 and 5.")
+		"endday", "skipshift":
+			var game_3d = get_tree().current_scene if (is_inside_tree() and get_tree()) else null
+			var day_mgr = game_3d.find_child("DayManager", true, false) if game_3d else null
+			if day_mgr and day_mgr.has_method("end_day"):
+				print_to_terminal("DEBUG: Forcing quota completion and concluding shift...")
+				day_mgr.end_day()
+			else:
+				print_to_terminal("Error: DayManager not found.")
 		"bypass_grid_98":
 			print_to_terminal("=== FACILITY GRID BYPASS EXECUTED ===\n\nOverriding Aethelgard security matrix...\nDisabling Hunter patrol directive...\nUnlocking Sector 4 exit pneumatics...")
 			if is_inside_tree() and get_tree():
